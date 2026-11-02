@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>2026 공주교대부설초 찾아가는 과학축제 | 교원 안내 및 이동 동선 시스템</title>
+  <style>
+    :root {
+      --primary: #1e40af;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --secondary: #0284c7;
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --success: #059669;
+      --success-light: #ecfdf5;
+      --danger: #dc2626;
+      --danger-light: #fef2f2;
+      --purple: #7c3aed;
+      --purple-light: #f5f3ff;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --radius: 14px;
+      --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07);
+      --g1: #ef4444; --g1-bg: #fef2f2;
+      --g2: #f97316; --g2-bg: #fff7ed;
+      --g3: #eab308; --g3-bg: #fefce8;
+      --g4: #10b981; --g4-bg: #ecfdf5;
+      --g5: #3b82f6; --g5-bg: #eff6ff;
+      --g6: #8b5cf6; --g6-bg: #f5f3ff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .top-header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0284c7 100%);
+      color: #fff;
+      padding: 24px 24px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
+    }
+
+    .header-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .title-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .badge-year {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+      backdrop-filter: blur(4px);
+    }
+
+    .title-text h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .title-text p {
+      font-size: 0.9rem;
+      color: #cbd5e1;
+      margin-top: 2px;
+    }
+
+    .header-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-mobile-link {
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    .btn-mobile-link:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-print-class {
+      background: #f59e0b;
+      color: #0f172a;
+    }
+    .btn-print-class:hover {
+      background: #fbbf24;
+    }
+
+    .btn-print-all {
+      background: #ffffff;
+      color: #1e3a8a;
+    }
+    .btn-print-all:hover {
+      background: #eff6ff;
+    }
+
+    /* Quick Selector Bar */
+    .quick-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      position: sticky;
+      top: 84px;
+      z-index: 95;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .quick-bar-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .class-picker-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .class-picker-label {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-right: 4px;
+    }
+
+    .grade-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    .grade-btn {
+      padding: 6px 11px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-weight: 700;
+      font-size: 0.84rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+
+    .grade-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .class-pills {
+      display: flex;
+      gap: 4px;
+      padding-left: 6px;
+      border-left: 2px solid var(--border);
+    }
+
+    .class-btn {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--primary-border);
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .class-btn.active {
+      background: #1e40af;
+      color: #fff;
+      border-color: #1e40af;
+      box-shadow: 0 2px 6px rgba(30, 64, 175, 0.3);
+    }
+
+    /* Main Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 8px 14px;
+      border-radius: 9px;
+      border: 1px solid transparent;
+      background: transparent;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: var(--text);
+    }
+
+    .tab-btn.active {
+      background: #0f172a;
+      color: #fff;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1360px;
+      margin: 24px auto 60px;
+      padding: 0 24px;
+    }
+
+    /* Mobile Preview Mode inside index.html */
+    body.mobile-frame-mode .container {
+      max-width: 460px;
+      background: #fff;
+      padding: 16px;
+      border-radius: 28px;
+      border: 8px solid #1e293b;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+      animation: fadeIn 0.22s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Summary Cards */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .stat-card .value {
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .stat-card .sub {
+      font-size: 0.82rem;
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* Section Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Alert Banners */
+    .alert-box {
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+    }
+
+    .alert-important {
+      background: #fffbeb;
+      border: 1.5px solid #f59e0b;
+      color: #92400e;
+    }
+
+    .alert-info {
+      background: #eff6ff;
+      border: 1.5px solid #93c5fd;
+      color: #1e3a8a;
+    }
+
+    .alert-success {
+      background: #ecfdf5;
+      border: 1.5px solid #6ee7b7;
+      color: #065f46;
+    }
+
+    /* Two-column layout */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .quick-bar {
+        top: 0;
+        position: relative;
+      }
+      .top-header {
+        position: relative;
+      }
+    }
+
+    /* Class Hero Banner */
+    .class-hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 10px 25px -5px rgba(29, 78, 216, 0.35);
+    }
+
+    .class-hero-left h2 {
+      font-size: 1.65rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .class-hero-left p {
+      color: #dbeafe;
+      font-size: 0.95rem;
+      margin-top: 4px;
+    }
+
+    .class-hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-Point-card {
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 12px;
+      padding: 10px 16px;
+      min-width: 170px;
+    }
+
+    .hero-Point-card .p-label {
+      font-size: 0.76rem;
+      color: #bfdbfe;
+      font-weight: 700;
+    }
+
+    .hero-Point-card .p-val {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 2px;
+    }
+
+    .hero-Point-card.highlight {
+      background: #f59e0b;
+      color: #0f172a;
+      border-color: #fbbf24;
+    }
+    .hero-Point-card.highlight .p-label {
+      color: #451a03;
+    }
+    .hero-Point-card.highlight .p-val {
+      color: #0f172a;
+    }
+
+    /* Timeline List */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 14px;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      align-items: center;
+      transition: transform 0.15s;
+    }
+
+    .timeline-item.type-show {
+      border-left: 5px solid var(--purple);
+      background: #faf5ff;
+    }
+    .timeline-item.type-booth {
+      border-left: 5px solid var(--primary);
+      background: #f0f9ff;
+    }
+    .timeline-item.type-lunch {
+      border-left: 5px solid var(--accent);
+      background: #fffbeb;
+    }
+    .timeline-item.type-class {
+      border-left: 5px solid #64748b;
+      background: #f8fafc;
+    }
+    .timeline-item.type-prep {
+      border-left: 5px solid var(--success);
+      background: #ecfdf5;
+    }
+
+    .tl-time {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .tl-content .tl-title {
+      font-weight: 800;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tl-content .tl-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* Playground ㄷ-shape Booth Map */
+    .playground-map-wrap {
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
+      border-radius: 16px;
+      padding: 18px;
+      position: relative;
+    }
+
+    .map-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      background: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .round-stepper {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .step-btn {
+      padding: 5px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .step-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .u-shape-grid {
+      display: grid;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(5, auto);
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .guryeongdae {
+      grid-column: 5 / 6;
+      grid-row: 1 / 2;
+      background: #0284c7;
+      color: #fff;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 6px;
+      font-weight: 900;
+      font-size: 0.9rem;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
+      border: 2px solid #0369a1;
+    }
+
+    .booth-node {
+      background: #ffffff;
+      border: 2px solid #94a3b8;
+      border-radius: 10px;
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      transition: all 0.2s ease;
+      min-height: 86px;
+      cursor: pointer;
+    }
+
+    .booth-node:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .booth-node.is-craft {
+      background: #fffbeb;
+      border-color: #f59e0b;
+    }
+
+    .booth-node.active-current {
+      background: #1e40af !important;
+      color: #fff !important;
+      border-color: #1e3a8a !important;
+      transform: scale(1.05);
+      z-index: 5;
+      box-shadow: 0 8px 20px rgba(30, 64, 175, 0.4);
+    }
+
+    .booth-node.active-next {
+      border: 2.5px dashed #ef4444 !important;
+      background: #fef2f2 !important;
+    }
+
+    .booth-node .b-num {
+      font-size: 0.75rem;
+      font-weight: 800;
+      background: #e2e8f0;
+      color: #0f172a;
+      padding: 1px 7px;
+      border-radius: 99px;
+      margin-bottom: 4px;
+    }
+
+    .booth-node.active-current .b-num {
+      background: #f59e0b;
+      color: #0f172a;
+    }
+
+    .booth-node .b-name {
+      font-size: 0.78rem;
+      font-weight: 800;
+      line-height: 1.25;
+      word-break: keep-all;
+    }
+
+    .booth-node .b-class-tag {
+      margin-top: 5px;
+      font-size: 0.74rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .booth-node.active-current .b-class-tag {
+      background: #fff;
+      color: #1e40af;
+    }
+
+    .center-field-guide {
+      grid-column: 2 / 9;
+      grid-row: 2 / 5;
+      background: rgba(255, 255, 255, 0.75);
+      border: 2px dashed #94a3b8;
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .clockwise-arrow-banner {
+      font-weight: 800;
+      color: #0f172a;
+      font-size: 0.95rem;
+      background: #e0f2fe;
+      border: 1px solid #7dd3fc;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    @media (max-width: 768px) {
+      .u-shape-grid {
+        display: flex;
+        flex-direction: column;
+      }
+      .booth-node {
+        flex-direction: row;
+        min-height: auto;
+        padding: 10px 12px;
+      }
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 9px 8px;
+      border: 1px solid #cbd5e1;
+      text-align: center;
+    }
+
+    th {
+      background: #1e293b;
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    /* Class Cell Colors */
+    .cell-class {
+      font-weight: 700;
+      border-radius: 4px;
+      transition: all 0.12s;
+    }
+    .cell-g1 { background: #fef2f2 !important; color: #991b1b; }
+    .cell-g2 { background: #fff7ed !important; color: #9a3412; }
+    .cell-g3 { background: #fefce8 !important; color: #854d0e; }
+    .cell-g4 { background: #ecfdf5 !important; color: #065f46; }
+    .cell-g5 { background: #eff6ff !important; color: #1e40af; }
+    .cell-g6 { background: #f5f3ff !important; color: #5b21b6; }
+
+    .cell-highlight {
+      background: #1e40af !important;
+      color: #ffffff !important;
+      font-weight: 900 !important;
+      box-shadow: inset 0 0 0 2px #fbbf24;
+      transform: scale(1.03);
+    }
+
+    .lunch-divider-row td {
+      background: #fffbeb !important;
+      color: #92400e !important;
+      font-weight: 800;
+      padding: 10px;
+      border-top: 2px solid #f59e0b;
+      border-bottom: 2px solid #f59e0b;
+    }
+
+    /* Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-exp {
+      background: #dcfce7;
+      color: #166534;
+    }
+    .badge-craft {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    /* Auditorium Seating Chart */
+    .stage-box {
+      background: linear-gradient(90deg, #334155, #1e293b, #334155);
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      border-radius: 10px;
+      font-weight: 900;
+      font-size: 1.05rem;
+      margin-bottom: 18px;
+      letter-spacing: 0.08em;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .seating-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .seat-block {
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+
+    .seat-block:hover {
+      border-color: var(--primary);
+      background: #f8fafc;
+    }
+
+    .seat-block.selected-swap {
+      border-color: #f59e0b;
+      background: #fffbeb;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
+    }
+
+    .seat-block.my-class-seat {
+      border-color: #1e40af;
+      background: #eff6ff;
+      box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
+    }
+
+    .seat-row-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .seat-class-name {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text);
+    }
+
+    .seat-student-count {
+      font-size: 0.8rem;
+      color: var(--secondary);
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Program Cards Grid */
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .prog-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .prog-card.is-craft {
+      border-color: #fcd34d;
+      background: #fffdf5;
+    }
+
+    .prog-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prog-booth-num {
+      background: #0f172a;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    .prog-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .prog-principle {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .prog-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Checklist */
+    .check-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 3px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Dedicated Print Views */
+    .print-only-sheet {
+      display: none;
+    }
+
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+      body {
+        background: #fff !important;
+        color: #000 !important;
+        font-size: 11px !important;
+      }
+      .top-header, .quick-bar, .no-print {
+        display: none !important;
+      }
+      .container {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      /* Mode 1: Print Single Class Sheet */
+      body.print-mode-class .tab-panel {
+        display: none !important;
+      }
+      body.print-mode-class #print-class-sheet {
+        display: block !important;
+      }
+      /* Mode 2: Print Full School Guide */
+      body.print-mode-all .tab-panel {
+        display: none !important;
+      }
+      body.print-mode-all #print-all-sheet {
+        display: block !important;
+      }
+
+      .print-page-break {
+        page-break-before: always;
+      }
+      table {
+        font-size: 9.5px !important;
+      }
+      th, td {
+        padding: 4px 3px !important;
+        border: 1px solid #334155 !important;
+      }
+      th {
+        background: #e2e8f0 !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .cell-highlight, .badge-craft, .badge-exp {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body class="print-mode-all">
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="title-area">
+        <span class="badge-year">2026. 11. 12.(목) 1~6교시</span>
+        <div class="title-text">
+          <h1>공주교대부설초 찾아가는 과학축제 안내 시스템</h1>
+          <p>교원 및 학생 이동 동선 · 반별 부스 시간표 · 강당 공연 좌석 안내 (주관: 공주교대부설초 / ㈜유스페이스)</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <a href="mobile.html" class="btn btn-mobile-link" title="스마트폰 한손 조작에 최적화된 모바일 전용 페이지 열기">
+          📱 모바일 전용 버전 열기
+        </a>
+        <button type="button" class="btn btn-print-class" onclick="printClassSheet()">
+          🖨️ 선택 학급(우리 반) A4 1장 인쇄
+        </button>
+        <button type="button" class="btn btn-print-all" onclick="printAllSheet()">
+          📄 전체 교원 배포용 A4 요약본 인쇄
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- STICKY QUICK BAR: CLASS SELECTOR + VIEW TABS -->
+  <div class="quick-bar">
+    <div class="quick-bar-inner">
+      <div class="class-picker-group">
+        <span class="class-picker-label">🎯 학급 선택:</span>
+        <div class="grade-pills" id="gradePills">
+          <button class="grade-btn active" onclick="selectGrade(1)">1학년</button>
+          <button class="grade-btn" onclick="selectGrade(2)">2학년</button>
+          <button class="grade-btn" onclick="selectGrade(3)">3학년</button>
+          <button class="grade-btn" onclick="selectGrade(4)">4학년</button>
+          <button class="grade-btn" onclick="selectGrade(5)">5학년</button>
+          <button class="grade-btn" onclick="selectGrade(6)">6학년</button>
+        </div>
+        <div class="class-pills" id="classPills">
+          <button class="class-btn active" onclick="selectClassNum(1)">1반</button>
+          <button class="class-btn" onclick="selectClassNum(2)">2반</button>
+          <button class="class-btn" onclick="selectClassNum(3)">3반</button>
+          <button class="class-btn" onclick="selectClassNum(4)">4반</button>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" id="mainTabs">
+        <button class="tab-btn active" data-tab="tab-myclass" onclick="switchTab('tab-myclass')">
+          🏫 우리 반 맞춤 동선
+        </button>
+        <button class="tab-btn" data-tab="tab-all-overview" onclick="switchTab('tab-all-overview')">
+          🗺️ 전체 시간표·이동동선 한눈에 보기
+        </button>
+        <button class="tab-btn" data-tab="tab-auditorium" onclick="switchTab('tab-auditorium')">
+          🎭 강당 과학공연 좌석배치
+        </button>
+        <button class="tab-btn" data-tab="tab-programs" onclick="switchTab('tab-programs')">
+          🔬 1~12번 부스 실험 안내
+        </button>
+        <button class="tab-btn" data-tab="tab-checklist" onclick="switchTab('tab-checklist')">
+          ✅ 교원 인솔수칙·행정 체크리스트
+        </button>
+      </nav>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="container">
+
+    <!-- ==================== TAB 1: 우리 반 맞춤 동선 ==================== -->
+    <section id="tab-myclass" class="tab-panel active">
+      <!-- Dynamic Class Hero -->
+      <div class="class-hero" id="myClassHero"></div>
+
+      <!-- Critical Notice for Selected Grade Group -->
+      <div id="myClassAlert"></div>
+
+      <div class="two-col">
+        <!-- Left: Daily Schedule & Booth Rotation Map -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title" id="myTimelineTitle">🕒 우리 반 시간대별 전체 일과표</h3>
+                <p class="card-subtitle">공연·부스 체험·수업·중식 및 집결 시각 안내</p>
+              </div>
+            </div>
+            <div class="timeline" id="myClassTimeline"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title">🧭 운동장 부스 배치도 및 우리 반 이동 경로</h3>
+                <p class="card-subtitle">구령대를 중심으로 <strong>시계 방향(1번→12번→1번)</strong>으로 진행자 안내에 따라 이동합니다.</p>
+              </div>
+            </div>
+
+            <div class="playground-map-wrap">
+              <div class="map-controls">
+                <div style="font-weight:800; font-size:0.88rem; color:#1e40af;" id="mapRoundInfo">
+                  회차를 선택하면 우리 반 위치가 표시됩니다
+                </div>
+                <div class="round-stepper" id="myMapStepper"></div>
+              </div>
+
+              <div class="u-shape-grid" id="myPlaygroundGrid"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: 12-Round Detailed Booth Schedule for Selected Class -->
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <h3 class="card-title" id="myBoothTableTitle">📋 우리 반 회차별 부스 이동 시간표 (총 12개 부스)</h3>
+                <p class="card-subtitle">🎁 표시된 4개 부스(3·6·9·12번)는 결과물을 만들어 가져가는 부스입니다.</p>
+              </div>
+              <button class="btn btn-print-class" style="padding:6px 12px; font-size:0.8rem;" onclick="printClassSheet()">
+                🖨️ 이 학급 시트 인쇄
+              </button>
+            </div>
+            <div class="table-wrap">
+              <table id="myClassBoothTable">
+                <thead>
+                  <tr>
+                    <th style="width:62px;">회차</th>
+                    <th style="width:110px;">시간</th>
+                    <th style="width:72px;">부스 번호</th>
+                    <th>프로그램명</th>
+                    <th style="width:90px;">구분</th>
+                    <th style="width:70px;">다음 이동</th>
+                  </tr>
+                </thead>
+                <tbody id="myClassBoothTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">🎒 우리 반 학생 사전 준비물 및 인솔 핵심 체크</h3>
+            </div>
+            <div class="check-list" id="myClassQuickChecks"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: 전체 시간표·이동동선 한눈에 보기 ==================== -->
+    <section id="tab-all-overview" class="tab-panel">
+      <!-- Top Summary Stats -->
+      <div class="summary-grid">
+        <div class="stat-card">
+          <span class="label">행사 일시</span>
+          <span class="value">2026. 11. 12.(목) 1~6교시</span>
+          <span class="sub">09:00 ~ 14:30 (08:00 세팅 완료)</span>
+        </div>
+        <div class="stat-card">
+          <span class="label">행사 장소 (이원화 운영)</span>
+          <span class="value">강당(공연) + 운동장(12부스)</span>
+          <span class="sub">저학년·고학년 교차 진행</span>
+        </div>
+        <div class="stat-card">
+          <span class="label">참여 대상</span>
+          <span class="value">1~6학년 전 학급 (24학급)</span>
+          <span class="sub">1학년 64명, 2~6학년 각 80명 (총 464명)</span>
+        </div>
+        <div class="stat-card">
+          <span class="label">부스 구성 및 이동 방식</span>
+          <span class="value">체험 8종 + 결과물 4종 (12부스)</span>
+          <span class="sub">구령대 기준 시계방향(1→12번) 동시 이동</span>
+        </div>
+      </div>
+
+      <!-- Integrated Master Timetable -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">⏰ 전교생 통합 행사 진행 일정표 (저학년 vs 고학년 한눈에 보기)</h3>
+            <p class="card-subtitle">선생님들께서 학년군별 이동 시점과 중식·수업 시간을 한눈에 비교하실 수 있는 통합 표입니다.</p>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="width:130px;">시간</th>
+                <th style="width:28%;">저학년 (1~3학년, 12학급 / 224명)</th>
+                <th style="width:28%;">고학년 (4~6학년, 12학급 / 240명)</th>
+                <th>장소별 운영 및 교원 협조 사항</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>08:00 ~ 08:50</strong></td>
+                <td>교실 등교 및 개인 에코백(결과물 가방) 확인</td>
+                <td>교실 등교 및 강당 이동 준비</td>
+                <td>강당(과학공연) 및 운동장(12부스) 사전 세팅 완료</td>
+              </tr>
+              <tr>
+                <td><strong>08:50 ~ 09:00</strong></td>
+                <td style="background:#eff6ff; font-weight:700; color:#1e40af;">운동장 1회차 배정 부스(1~12번) 앞 집결</td>
+                <td style="background:#f5f3ff; font-weight:700; color:#5b21b6;">강당 이동 및 학년·반 지정 좌석 착석</td>
+                <td><strong>시작 5~10분 전 집결 완료</strong> (담임교사 인솔)</td>
+              </tr>
+              <tr>
+                <td><strong>09:00 ~ 09:50</strong></td>
+                <td rowspan="2" style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
+                  🔬 <strong>운동장 과학축제 부스 체험</strong><br/>
+                  (09:00 ~ 11:10, 총 12개 부스 완주)<br/>
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~10회차: 각 11분 / 11~12회차: 각 10분<br/>• 구령대 중심 시계방향(1→12번) 로테이션</span>
+                </td>
+                <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
+                  🎭 <strong>강당 과학공연 1차 관람 (4·5·6학년)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (50분)</span>
+                </td>
+                <td>• 강당: 고학년 공연 진행<br/>• 운동장: 저학년 부스 1~5회차 진행</td>
+              </tr>
+              <tr>
+                <td><strong>09:50 ~ 11:10</strong></td>
+                <td rowspan="2" style="background:#f8fafc; font-weight:800; color:#334155;">
+                  📚 <strong>고학년 학급별 수업 (09:50 ~ 11:30)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 후 교실 이동하여 정상 수업 진행<br/>• <strong>11:20~11:30</strong> 운동장 1차 첫 부스 앞 이동·대기</span>
+                </td>
+                <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br/>• 운동장: 저학년 부스 6~12회차 진행 (~11:10)</td>
+              </tr>
+              <tr>
+                <td><strong>11:10 ~ 11:30</strong></td>
+                <td style="background:#ecfdf5; font-weight:700; color:#065f46;">
+                  부스 체험 종료 → 결과물(4종) 확인 후 교실 이동·손 씻기<br/>
+                  <strong>11:20부터 저학년 점심식사 시작</strong>
+                </td>
+                <td>• 운동장: 고학년 프로그램 실험도구 전환 및 재세팅 (11:10~11:30)</td>
+              </tr>
+              <tr>
+                <td><strong>11:30 ~ 12:10</strong></td>
+                <td style="background:#fffbeb; font-weight:800; color:#92400e;">
+                  🍱 <strong>저학년 점심시간 (11:20 ~ 12:10)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600;">• 식사 후 <strong>12:05까지 강당 이동 및 착석</strong></span>
+                </td>
+                <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
+                  🔬 <strong>운동장 고학년 1차 부스 체험 (4개 부스)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~4회차 (10분씩 총 40분 로테이션)</span>
+                </td>
+                <td>• 고학년은 오전에 <strong>4개 부스</strong>만 먼저 체험 후 중식 이동</td>
+              </tr>
+              <tr>
+                <td><strong>12:10 ~ 13:00</strong></td>
+                <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
+                  🎭 <strong>강당 과학공연 2차 관람 (1·2·3학년)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (13:00 공연 종료 후 하교/교실 이동)</span>
+                </td>
+                <td style="background:#fffbeb; font-weight:800; color:#92400e;">
+                  🍱 <strong>고학년 점심시간 (12:10 ~ 13:00)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 12:55까지 운동장 '5회차 부스' 앞으로 재집결!</span>
+                </td>
+                <td>• 운동장 강사·스텝 중식 시간 (학교 지정 식사 장소)<br/>• 강당은 13:00 공연 종료 후 정리</td>
+              </tr>
+              <tr>
+                <td><strong>13:00 ~ 14:30</strong></td>
+                <td style="background:#f8fafc; color:#475569; font-weight:600;">
+                  저학년 과학 체험 일정 완료 (교실 정리 및 학년별 일과)
+                </td>
+                <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
+                  🔬 <strong>운동장 고학년 2차 부스 체험 (나머지 8개 부스)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 5~11회차(각 10분) + 12회차(14:10~14:30 마무리)<br/>• 14:28~14:30 전체 과학축제 종료</span>
+                </td>
+                <td>• <strong>고학년 13:00 집결지 주의</strong>: 오전 마지막(4회차) 부스의 <strong>다음 번호 부스(5회차)</strong>에서 시작!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Interactive All-Class Simulator on Playground Map -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">🏟️ 운동장 전체 학급 배치 시뮬레이터 (회차별 1~12번 부스 배정 학급 확인)</h3>
+            <p class="card-subtitle">저학년/고학년 및 회차(시간대)를 클릭하면 운동장 1~12번 부스에 각각 어느 반이 위치하는지 한눈에 표시됩니다.</p>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <button class="btn" id="simBtnLow" style="background:#1e40af; color:#fff; padding:7px 14px;" onclick="setSimGroup('low')">
+              저학년 (09:00~11:10)
+            </button>
+            <button class="btn" id="simBtnHigh" style="background:#e2e8f0; color:#0f172a; padding:7px 14px;" onclick="setSimGroup('high')">
+              고학년 (11:30~14:30)
+            </button>
+          </div>
+        </div>
+
+        <div class="playground-map-wrap">
+          <div class="map-controls">
+            <div style="font-weight:800; font-size:0.9rem; color:#0f172a;" id="simRoundLabel">
+              저학년 1회차 (09:00 ~ 09:11) 전체 학급 배치
+            </div>
+            <div class="round-stepper" id="simRoundStepper"></div>
+          </div>
+          <div class="u-shape-grid" id="simPlaygroundGrid"></div>
+        </div>
+      </div>
+
+      <!-- Full Rotation Table: Low Grades (1~3) -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">📊 [저학년 1~3학년] 반별 프로그램 이동시간 전체 조편성표 (09:00 ~ 11:10)</h3>
+            <p class="card-subtitle">상단에서 선택한 학급이 파란색으로 강조 표시됩니다. 표의 학급 셀을 클릭하면 해당 학급으로 바로 전환됩니다.</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="lowGradeMasterTable"></table>
+        </div>
+      </div>
+
+      <!-- Full Rotation Table: High Grades (4~6) -->
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">📊 [고학년 4~6학년] 반별 프로그램 이동시간 전체 조편성표 (1차 11:30~12:10 / 2차 13:00~14:30)</h3>
+            <p class="card-subtitle">⚠️ <strong>12:10~13:00 점심식사 후 13:00(5회차) 재집결 부스 위치</strong>를 꼭 확인해 주세요!</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="highGradeMasterTable"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: 강당 과학공연 좌석배치 ==================== -->
+    <section id="tab-auditorium" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">🎭 강당 과학공연 "서프라이즈 과학대탐험" 학급별 좌석 배치도</h3>
+            <p class="card-subtitle">무대 앞줄부터 저학년순(4→5→6학년 / 1→2→3학년), 왼쪽(1반)~오른쪽(4반) 기본 배치입니다. <strong>두 학급을 차례로 클릭하면 자리를 서로 맞바꿀 수 있습니다.</strong></p>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn" id="audBtn1" style="background:#5b21b6; color:#fff;" onclick="setAudSession(1)">
+              1차 공연: 고학년 4·5·6학년 (09:00~09:50)
+            </button>
+            <button class="btn" id="audBtn2" style="background:#e2e8f0; color:#0f172a;" onclick="setAudSession(2)">
+              2차 공연: 저학년 1·2·3학년 (12:10~13:00)
+            </button>
+            <button class="btn" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;" onclick="resetAudSeats()">
+              ↺ 기본 배치로 초기화
+            </button>
+          </div>
+        </div>
+
+        <div class="alert-box alert-info">
+          <div>💡</div>
+          <div>
+            <strong>강당 입장 및 관람 지도 안내:</strong>
+            공연 시작 <strong>5~10분 전까지(고학년 08:50, 저학년 12:05)</strong> 강당 입장을 완료해 주세요. 공연 중 현장 상황에 따라 학생 참가자를 무대 위로 호명하여 함께 실험하는 코너가 있으니 안전한 이동을 지도해 주시기 바랍니다. (자리 변경 시 인쇄물에도 즉시 반영됩니다.)
+          </div>
+        </div>
+
+        <div class="stage-box">
+          🎤 강 당 무 대 (STAGE) — 기초과학 실험공연 "서프라이즈 과학대탐험" (테이블 2~3개 / 음향·마이크)
+        </div>
+
+        <div id="audSeatingContainer"></div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:10px 14px; background:#f8fafc; border-radius:10px; font-size:0.85rem; color:#475569;">
+          <span>⬅️ 강당 무대 바라보는 기준 좌측 (1반 라인)</span>
+          <strong>복도 및 통로 확보 (담임교사 임장 지도)</strong>
+          <span>강당 무대 바라보는 기준 우측 (4반 라인) ➡️</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 4: 1~12번 부스 실험 안내 ==================== -->
+    <section id="tab-programs" class="tab-panel">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h3 class="card-title">🔬 운동장 1~12번 부스 과학 프로그램 상세 안내</h3>
+            <p class="card-subtitle">체험활동 8종 + 결과물 활동 4종(3·6·9·12번 부스)의 과학 원리 및 활동 내용입니다.</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn" id="progFilterLow" style="background:#1e40af; color:#fff;" onclick="renderProgramCards('low')">
+              저학년 (1~3학년) 12종 보기
+            </button>
+            <button class="btn" id="progFilterHigh" style="background:#e2e8f0; color:#0f172a;" onclick="renderProgramCards('high')">
+              고학년 (4~6학년) 12종 보기
+            </button>
+          </div>
+        </div>
+
+        <div class="program-grid" id="programCardsGrid"></div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 5: 교원 인솔수칙·행정 체크리스트 ==================== -->
+    <section id="tab-checklist" class="tab-panel">
+      <div class="two-col">
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">👩‍🏫 학급 담임교사 인솔 수칙 및 학생 사전 지도사항</h3>
+            </div>
+            <div class="check-list">
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[학생 준비물] 개인 결과물 보관 가방(에코백/비닐백) 및 이름표 준비</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    모든 학생이 <strong>총 4종의 결과물</strong>(3·6·9·12번 부스)을 직접 만들어 가져갑니다. 이동 중 분실하거나 파손되지 않도록 개인 보조가방(또는 에코백)을 지참하고 가방에 학년·반·이름을 적도록 사전 지도해 주세요.
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[집결 시간 엄수] 행사 시작 5~10분 전까지 지정 장소 도착</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    • <strong>1~3학년</strong>: 08:50까지 운동장 첫 부스 집결 / 중식 후 12:05까지 강당 착석<br/>
+                    • <strong>4~6학년</strong>: 08:50까지 강당 착석 / 11:25까지 운동장 1차 첫 부스 집결 / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스 재집결</strong>
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[시계방향 동시 로테이션] 진행자 방송 신호에 맞춘 학급 이동</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    운동장 부스는 <strong>구령대를 중심으로 시계 방향(1번→2번→…→12번→1번)</strong>으로 회전합니다. 개별 학급이 먼저 이동하지 않고 <strong>행사 진행자의 부스 종료 및 이동 안내 방송</strong>에 맞춰 전 학급이 동시에 다음 번호 부스로 이동합니다.
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[안전 지도] 액화질소·드라이아이스·전기분해 등 실험 안전 유의</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    1번(극저온의 세계-액화질소), 7번(슬러시 만들기-드라이아이스) 등 시약 및 실험 기구를 다루는 부스에서는 강사의 안전 지시에 따라 실험 도구를 임의로 만지지 않도록 임장 지도 부탁드립니다.
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">🛠️ 행사 담당교사 · 행정실 협조 및 우천 대비 체크리스트</h3>
+            </div>
+            <div class="check-list">
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[학교 출입 및 사전 설치 협조] 전일 15시 이후 또는 당일 06시부터</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    운동장 천막·테이블 및 강당 공연 장비 설치를 위해 <strong>전일 오후 3시 이후 또는 당일 오전 6시부터</strong> 업체 차량 출입 및 강당·운동장 개방 협조가 필요합니다. (08:00 세팅 완료)
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[강사 및 스텝 식사 장소 마련] 12:10 ~ 13:00 (총 20명 내외)</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    4교시 이상 행사가 진행되므로 점심시간(12:10~13:00) 동안 강사 및 운영 스텝(축제 17명 + 공연 3명)이 식사할 수 있는 장소를 행사장과 가까운 근거리에 마련해 주세요.
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[종량제 쓰레기봉투 준비 및 분리수거장 안내]</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    행사 당일 <strong>학교용 종량제 쓰레기봉투</strong>를 준비하여 (주)유스페이스 행사 담당자에게 전달해 주시고, 행사 종료 후(14:30~) 분리수거장 위치를 안내해 주세요.
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[강당 과학공연 시설 점검] 테이블 2~3개(길이 1800) 및 마이크</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    강당 무대 위 실험용 테이블 2~3개(길이 1800mm)와 음향 시설(가능한 핀마이크 또는 무선마이크, 없을 시 유선마이크) 사용 여부를 사전 확인해 주세요.
+                  </p>
+                </div>
+              </label>
+              <label class="check-item">
+                <input type="checkbox" />
+                <div>
+                  <strong>[우천·강풍·미세먼지 시 대체 운영 방안]</strong>
+                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
+                    기상 악화 시 사전 협의를 통해 강당(체육관) 내 무대 중심 좌·우 부스 배치 또는 지정 실내 공간으로 장소를 변경하여 동일 로테이션 방식으로 운영합니다. (업체 담당자: 010-5077-7894 / 070-7006-1060~2)
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PRINT SHEET 1: 선택 학급(우리 반) A4 1장 요약 시트 ==================== -->
+    <section id="print-class-sheet" class="print-only-sheet"></section>
+
+    <!-- ==================== PRINT SHEET 2: 전체 교원용 A4 요약본 ==================== -->
+    <section id="print-all-sheet" class="print-only-sheet"></section>
+
+  </main>
+
+  <script>
+    // ==================== DATA DEFINITIONS ====================
+    const LOW_PROGRAMS = [
+      { booth: 1, name: "극저온의 세계", common: true, type: "체험활동", lv: "LV.3", principle: "기화의 원리", desc: "극저온 상태인 액화질소를 이용하여 액체에서 기체로 변하는 기화작용 실험" },
+      { booth: 2, name: "밀크트릭", common: false, type: "체험활동", lv: "LV.2", principle: "계면활성제의 원리", desc: "계면활성제의 활용을 알아보고 우유와 색소로 마블링 만들기" },
+      { booth: 3, name: "크리스탈 방향제", common: false, type: "결과물", lv: "LV.2", principle: "확산의 원리", desc: "크리스탈 볼을 이용하여 향기가 퍼지는 확산 원리를 배우고 방향제 만들기" },
+      { booth: 4, name: "사라지는 물", common: false, type: "체험활동", lv: "LV.2", principle: "고흡수성 수지의 원리", desc: "스펀지처럼 물을 끌어당겨 내부에 가두는 고흡수성 수지 실험" },
+      { booth: 5, name: "토네이도 램프", common: false, type: "체험활동", lv: "LV.2", principle: "토네이도의 원리", desc: "토네이도가 어떻게 발생하고 생겨나는지 실험으로 관찰하기" },
+      { booth: 6, name: "자외선 야광 팔찌", common: true, type: "결과물", lv: "LV.2", principle: "자외선의 원리", desc: "자외선을 받으면 색이 변하는 비즈로 나만의 자외선 체크 팔찌 만들기" },
+      { booth: 7, name: "슬러시 만들기", common: true, type: "체험활동", lv: "LV.2", principle: "흡열반응의 원리", desc: "드라이아이스의 낮은 온도와 기체 방출로 열이 흡수되는 흡열반응 실험" },
+      { booth: 8, name: "대기압과 진공", common: false, type: "체험활동", lv: "LV.2", principle: "보일의 법칙", desc: "공기의 압력에 따라 부피가 달라지는 현상을 직접 관찰하기" },
+      { booth: 9, name: "관성 라바", common: false, type: "결과물", lv: "LV.1", principle: "관성의 원리", desc: "관성을 이용해 오뚝이처럼 무게 중심에 따라 이동하는 관성 라바 만들기" },
+      { booth: 10, name: "보이는색 숨겨진색", common: false, type: "체험활동", lv: "LV.2", principle: "혼합물 분리의 원리", desc: "캔디나 초콜릿의 색소를 분리하며 음식물 속 혼합물 분리법 배우기" },
+      { booth: 11, name: "페르마의 점", common: false, type: "체험활동", lv: "LV.1", principle: "표면장력의 원리", desc: "입체도형에 비누막을 씌워 표면에 맺히는 모양과 표면장력 이해하기" },
+      { booth: 12, name: "테라리움", common: true, type: "결과물", lv: "LV.2", principle: "식물의 성장 원리", desc: "식물의 성장과정을 알아보고 흙과 정원을 담은 나만의 테라리움 만들기" }
+    ];
+
+    const HIGH_PROGRAMS = [
+      { booth: 1, name: "극저온의 세계", common: true, type: "체험활동", lv: "LV.3", principle: "기화의 원리", desc: "극저온 상태인 액화질소를 이용하여 액체에서 기체로 변하는 기화작용 실험" },
+      { booth: 2, name: "겔리젤리", common: false, type: "체험활동", lv: "LV.2", principle: "겔화(Gel)의 원리", desc: "알긴산을 이용하여 젤리를 만들어보고 고체도 액체도 아닌 겔(gel) 이해하기" },
+      { booth: 3, name: "매직 보틀", common: false, type: "결과물", lv: "LV.2", principle: "빛의 성질과 굴절", desc: "빛의 굴절을 알아보고 물을 부으면 갑자기 나타나는 신기한 매직 보틀 만들기" },
+      { booth: 4, name: "레인보우 워터타워", common: false, type: "체험활동", lv: "LV.3", principle: "밀도의 원리", desc: "용액의 밀도 차이를 이용한 무지개 물탑을 쌓아보고 원리 탐구하기" },
+      { booth: 5, name: "구름만들기", common: false, type: "체험활동", lv: "LV.2", principle: "기압과 구름발생 원리", desc: "기압 변화와 단열팽창을 통한 구름 발생 원리를 배우고 페트병 속 구름 만들기" },
+      { booth: 6, name: "자외선 야광 팔찌", common: true, type: "결과물", lv: "LV.2", principle: "자외선의 원리", desc: "자외선을 받으면 색이 변하는 비즈로 나만의 자외선 체크 팔찌 만들기" },
+      { booth: 7, name: "슬러시 만들기", common: true, type: "체험활동", lv: "LV.2", principle: "흡열반응의 원리", desc: "드라이아이스의 낮은 온도와 기체 방출로 열이 흡수되는 흡열반응 실험" },
+      { booth: 8, name: "핸드보일러", common: false, type: "체험활동", lv: "LV.2", principle: "열팽창과 샤를의 법칙", desc: "온도가 높아지면 입자들이 멀어져 팽창하는 현상을 핸드보일러로 체험하기" },
+      { booth: 9, name: "간이 분광기", common: false, type: "결과물", lv: "LV.2", principle: "빛의 분산과 스펙트럼", desc: "빛의 분산·회절 및 스펙트럼을 알아보고 간이 분광기를 만들어 관찰하기" },
+      { booth: 10, name: "색으로 보는 전기분해", common: false, type: "체험활동", lv: "LV.3", principle: "산·염기 변화와 전기분해", desc: "물의 전기분해로 수소와 산소가 생성되는 모습을 지시약 색 변화로 관찰하기" },
+      { booth: 11, name: "14대1", common: false, type: "체험활동", lv: "LV.2", principle: "운동에너지와 진자 운동", desc: "회전에너지와 진자 운동을 알아보고 14:1 법칙으로 떨어지지 않는 진자 실험" },
+      { booth: 12, name: "테라리움", common: true, type: "결과물", lv: "LV.2", principle: "식물의 성장 원리", desc: "식물의 성장과정을 알아보고 흙과 정원을 담은 나만의 테라리움 만들기" }
+    ];
+
+    const LOW_CLASSES = ["1-1","1-2","1-3","1-4","2-1","2-2","2-3","2-4","3-1","3-2","3-3","3-4"];
+    const HIGH_CLASSES = ["4-1","4-2","4-3","4-4","5-1","5-2","5-3","5-4","6-1","6-2","6-3","6-4"];
+
+    const LOW_TIMES = [
+      "09:00 ~ 09:11", "09:11 ~ 09:22", "09:22 ~ 09:33", "09:33 ~ 09:44",
+      "09:44 ~ 09:55", "09:55 ~ 10:06", "10:06 ~ 10:17", "10:17 ~ 10:28",
+      "10:28 ~ 10:39", "10:39 ~ 10:50", "10:50 ~ 11:00", "11:00 ~ 11:10"
+    ];
+
+    const HIGH_TIMES = [
+      "11:30 ~ 11:40", "11:40 ~ 11:50", "11:50 ~ 12:00", "12:00 ~ 12:10",
+      "13:00 ~ 13:10", "13:10 ~ 13:20", "13:20 ~ 13:30", "13:30 ~ 13:40",
+      "13:40 ~ 13:50", "13:50 ~ 14:00", "14:00 ~ 14:10", "14:10 ~ 14:30"
+    ];
+
+    // Grid coordinates for 1~12 booths around Guryeongdae (9 cols x 5 rows)
+    // Left col (bottom to top): 1 (row 4, col 1), 2 (row 3, col 1), 3 (row 2, col 1)
+    // Top row left: 4 (row 1, col 2), 5 (row 1, col 3), 6 (row 1, col 4)
+    // Guryeongdae: (row 1, col 5)
+    // Top row right: 7 (row 1, col 6), 8 (row 1, col 7), 9 (row 1, col 8)
+    // Right col (top to bottom): 10 (row 2, col 9), 11 (row 3, col 9), 12 (row 4, col 9)
+    const BOOTH_GRID_POS = {
+      1: { col: 1, row: 4 },
+      2: { col: 1, row: 3 },
+      3: { col: 1, row: 2 },
+      4: { col: 2, row: 1 },
+      5: { col: 3, row: 1 },
+      6: { col: 4, row: 1 },
+      7: { col: 6, row: 1 },
+      8: { col: 7, row: 1 },
+      9: { col: 8, row: 1 },
+      10: { col: 9, row: 2 },
+      11: { col: 9, row: 3 },
+      12: { col: 9, row: 4 }
+    };
+
+    // State
+    let currentGrade = 1;
+    let currentClassNum = 1;
+    let mySelectedRound = 1; // 1..12
+    let simGroup = "low"; // 'low' | 'high'
+    let simRound = 1; // 1..12
+    let audSession = 1; // 1 (high 4~6) | 2 (low 1~3)
+    let swapSourceIndex = null;
+
+    // Default Auditorium Seating
+    const defaultAudSeats = {
+      1: ["4-1","4-2","4-3","4-4","5-1","5-2","5-3","5-4","6-1","6-2","6-3","6-4"],
+      2: ["1-1","1-2","1-3","1-4","2-1","2-2","2-3","2-4","3-1","3-2","3-3","3-4"]
+    };
+    let audSeats = JSON.parse(localStorage.getItem("scifest_aud_seats_2026")) || JSON.parse(JSON.stringify(defaultAudSeats));
+
+    function getSelectedClassName() {
+      return `${currentGrade}-${currentClassNum}`;
+    }
+
+    function isLowGrade(grade) {
+      return grade <= 3;
+    }
+
+    // For a given class (e.g. "1-1") and round (1..12), return booth number (1..12)
+    function getBoothForClassAtRound(className, round) {
+      const g = parseInt(className.split("-")[0], 10);
+      const list = g <= 3 ? LOW_CLASSES : HIGH_CLASSES;
+      const startIdx = list.indexOf(className); // 0..11 (which corresponds to initial booth startIdx + 1)
+      return ((startIdx + (round - 1)) % 12) + 1;
+    }
+
+    // For a given group ('low'|'high'), booth (1..12), and round (1..12), return className
+    function getClassAtBoothAndRound(group, boothNum, round) {
+      const list = group === "low" ? LOW_CLASSES : HIGH_CLASSES;
+      // Since class at index i starts at booth i+1, at round R it is at ((i + R - 1) % 12) + 1 = boothNum
+      // Therefore i = (boothNum - 1 - (round - 1) + 120) % 12
+      const idx = (boothNum - 1 - (round - 1) + 120) % 12;
+      return list[idx];
+    }
+
+    function selectGrade(g) {
+      currentGrade = g;
+      mySelectedRound = 1;
+      updateSelectorUI();
+      renderAll();
+    }
+
+    function selectClassNum(c) {
+      currentClassNum = c;
+      mySelectedRound = 1;
+      updateSelectorUI();
+      renderAll();
+    }
+
+    function selectClassDirect(className) {
+      const parts = className.split("-");
+      currentGrade = parseInt(parts[0], 10);
+      currentClassNum = parseInt(parts[1], 10);
+      mySelectedRound = 1;
+      updateSelectorUI();
+      renderAll();
+    }
+
+    function updateSelectorUI() {
+      document.querySelectorAll("#gradePills .grade-btn").forEach((btn, idx) => {
+        btn.classList.toggle("active", idx + 1 === currentGrade);
+      });
+      document.querySelectorAll("#classPills .class-btn").forEach((btn, idx) => {
+        btn.classList.toggle("active", idx + 1 === currentClassNum);
+      });
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll("#mainTabs .tab-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.tab === tabId);
+      });
+      document.querySelectorAll(".tab-panel").forEach(panel => {
+        panel.classList.toggle("active", panel.id === tabId);
+      });
+    }
+
+    // ==================== RENDER MY CLASS VIEW ====================
+    function renderMyClassView() {
+      const cls = getSelectedClassName();
+      const low = isLowGrade(currentGrade);
+      const programs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      const times = low ? LOW_TIMES : HIGH_TIMES;
+
+      const firstBooth = getBoothForClassAtRound(cls, 1);
+      const firstProg = programs[firstBooth - 1];
+      const round5Booth = getBoothForClassAtRound(cls, 5);
+      const round5Prog = programs[round5Booth - 1];
+      const studentCount = currentGrade === 1 ? "약 16명 (학년 64명)" : "약 20명 (학년 80명)";
+
+      // 1. Hero Banner
+      const heroEl = document.getElementById("myClassHero");
+      if (low) {
+        heroEl.innerHTML = `
+          <div class="class-hero-left">
+            <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 이동 안내</h2>
+            <p>저학년군 (1~3학년) · 학급 인원 ${studentCount} · 담임교사 인솔 로테이션</p>
+          </div>
+          <div class="class-hero-badges">
+            <div class="hero-Point-card highlight">
+              <div class="p-label">★ 08:50 운동장 첫 집결 부스</div>
+              <div class="p-val">${firstBooth}번 부스 (${firstProg.name})</div>
+            </div>
+            <div class="hero-Point-card">
+              <div class="p-label">🍱 점심시간 (중식)</div>
+              <div class="p-val">11:20 ~ 12:10</div>
+            </div>
+            <div class="hero-Point-card">
+              <div class="p-label">🎭 강당 과학공연 관람 (2차)</div>
+              <div class="p-val">12:10 ~ 13:00 (12:05 착석)</div>
+            </div>
+          </div>
+        `;
+      } else {
+        heroEl.innerHTML = `
+          <div class="class-hero-left">
+            <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 이동 안내</h2>
+            <p>고학년군 (4~6학년) · 학급 인원 ${studentCount} · 1차(오전 4부스) + 2차(오후 8부스) 분할 운영</p>
+          </div>
+          <div class="class-hero-badges">
+            <div class="hero-Point-card">
+              <div class="p-label">🎭 08:50 강당 공연 착석 (1차)</div>
+              <div class="p-val">09:00 ~ 09:50 관람</div>
+            </div>
+            <div class="hero-Point-card highlight">
+              <div class="p-label">★ 11:25 운동장 1차 시작 부스</div>
+              <div class="p-val">${firstBooth}번 부스 (${firstProg.name})</div>
+            </div>
+            <div class="hero-Point-card highlight" style="background:#fef08a;">
+              <div class="p-label">🔔 12:55 점심 후 2차 재집결 부스</div>
+              <div class="p-val">${round5Booth}번 부스 (${round5Prog.name})</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 2. Alert Box
+      const alertEl = document.getElementById("myClassAlert");
+      if (low) {
+        alertEl.innerHTML = `
+          <div class="alert-box alert-info">
+            <div style="font-size:1.3rem;">📢</div>
+            <div>
+              <strong>[${cls} 담임선생님 핵심 안내]</strong><br/>
+              • <strong>08:50까지</strong> 학생들에게 개인 가방(결과물 4종 보관용)을 지참시켜 <strong>운동장 ${firstBooth}번 부스(${firstProg.name})</strong> 앞으로 인솔해 주세요.<br/>
+              • 09:00~11:10 동안 시계 방향으로 12개 부스를 모두 체험한 뒤, <strong>11:20~12:10 점심식사</strong> 후 <strong>12:05까지 강당</strong>으로 이동하여 과학공연을 관람합니다.
+            </div>
+          </div>
+        `;
+      } else {
+        const round4Booth = getBoothForClassAtRound(cls, 4);
+        alertEl.innerHTML = `
+          <div class="alert-box alert-important">
+            <div style="font-size:1.3rem;">⚠️</div>
+            <div>
+              <strong>[${cls} 담임선생님 핵심 안내 — 점심시간 전후 부스 위치 주의!]</strong><br/>
+              • <strong>08:50까지 강당</strong>에 착석하여 1차 과학공연(09:00~09:50)을 관람한 뒤, <strong>09:50~11:30에는 교실에서 학급 수업</strong>을 진행합니다.<br/>
+              • <strong>11:25까지 운동장 ${firstBooth}번 부스(${firstProg.name})</strong>로 이동하여 1차 체험(4개 부스: ${firstBooth}번→${round4Booth}번)을 진행합니다.<br/>
+              • <strong>12:10~13:00 점심식사 후 12:55까지</strong> 오전 첫 부스가 아닌 <strong>5회차 배정 부스인 [${round5Booth}번 부스: ${round5Prog.name}]</strong> 앞으로 재집결해 주세요!
+            </div>
+          </div>
+        `;
+      }
+
+      // 3. Timeline
+      const tlEl = document.getElementById("myClassTimeline");
+      if (low) {
+        tlEl.innerHTML = `
+          <div class="timeline-item type-prep">
+            <div class="tl-time">08:50 ~ 09:00</div>
+            <div class="tl-content">
+              <div class="tl-title">운동장 집결 완료 — <span style="color:#1e40af;">${firstBooth}번 부스 (${firstProg.name})</span> 앞 대기</div>
+              <div class="tl-desc">결과물(4종) 담을 개인 에코백/비닐백 지참 확인</div>
+            </div>
+          </div>
+          <div class="timeline-item type-booth">
+            <div class="tl-time">09:00 ~ 11:10</div>
+            <div class="tl-content">
+              <div class="tl-title">🔬 운동장 과학축제 부스 체험 (1~12회차 전 부스 완주)</div>
+              <div class="tl-desc">${firstBooth}번 부스에서 시작하여 시계방향으로 11분씩(11·12회차는 10분) 총 12개 부스 이동</div>
+            </div>
+          </div>
+          <div class="timeline-item type-prep">
+            <div class="tl-time">11:10 ~ 11:20</div>
+            <div class="tl-content">
+              <div class="tl-title">체험 마무리 · 결과물 4종 확인 및 급식실/교실 이동</div>
+              <div class="tl-desc">크리스탈방향제, 자외선야광팔찌, 관성라바, 테라리움 분실 여부 확인 및 손 씻기</div>
+            </div>
+          </div>
+          <div class="timeline-item type-lunch">
+            <div class="tl-time">11:20 ~ 12:10</div>
+            <div class="tl-content">
+              <div class="tl-title">🍱 저학년 점심시간 (중식) 및 강당 이동</div>
+              <div class="tl-desc">식사 후 <strong>12:05까지 강당 지정 좌석</strong>으로 이동 및 착석 완료</div>
+            </div>
+          </div>
+          <div class="timeline-item type-show">
+            <div class="tl-time">12:10 ~ 13:00</div>
+            <div class="tl-content">
+              <div class="tl-title">🎭 강당 과학공연 2차 관람 ("서프라이즈 과학대탐험")</div>
+              <div class="tl-desc">1~3학년 전체 관람 (50분) · 공연 종료 후 학급별 정리</div>
+            </div>
+          </div>
+        `;
+      } else {
+        const round4Booth = getBoothForClassAtRound(cls, 4);
+        const round12Booth = getBoothForClassAtRound(cls, 12);
+        tlEl.innerHTML = `
+          <div class="timeline-item type-prep">
+            <div class="tl-time">08:50 ~ 09:00</div>
+            <div class="tl-content">
+              <div class="tl-title">강당 이동 및 ${cls} 지정 좌석 착석 완료</div>
+              <div class="tl-desc">무대 앞 4학년 → 5학년 → 6학년 순 착석</div>
+            </div>
+          </div>
+          <div class="timeline-item type-show">
+            <div class="tl-time">09:00 ~ 09:50</div>
+            <div class="tl-content">
+              <div class="tl-title">🎭 강당 과학공연 1차 관람 ("서프라이즈 과학대탐험")</div>
+              <div class="tl-desc">4~6학년 전체 관람 (50분) · 관람 후 교실로 이동</div>
+            </div>
+          </div>
+          <div class="timeline-item type-class">
+            <div class="tl-time">09:50 ~ 11:30</div>
+            <div class="tl-content">
+              <div class="tl-title">📚 학급별 수업 진행 (교실)</div>
+              <div class="tl-desc">수업 후 개인 결과물 가방 지참하여 <strong>11:25까지 운동장 ${firstBooth}번 부스 앞</strong> 집결</div>
+            </div>
+          </div>
+          <div class="timeline-item type-booth">
+            <div class="tl-time">11:30 ~ 12:10</div>
+            <div class="tl-content">
+              <div class="tl-title">🔬 운동장 과학축제 1차 부스 체험 (1~4회차, 4개 부스)</div>
+              <div class="tl-desc"><strong>${firstBooth}번 부스(${firstProg.name})</strong> 시작 → ${round4Booth}번 부스까지 10분씩 4회 로테이션</div>
+            </div>
+          </div>
+          <div class="timeline-item type-lunch">
+            <div class="tl-time">12:10 ~ 13:00</div>
+            <div class="tl-content">
+              <div class="tl-title">🍱 고학년 점심시간 (식사 시간)</div>
+              <div class="tl-desc" style="color:#dc2626; font-weight:700;">식사 후 12:55까지 운동장 [${round5Booth}번 부스: ${round5Prog.name}] 앞으로 재집결!</div>
+            </div>
+          </div>
+          <div class="timeline-item type-booth">
+            <div class="tl-time">13:00 ~ 14:30</div>
+            <div class="tl-content">
+              <div class="tl-title">🔬 운동장 과학축제 2차 부스 체험 (5~12회차, 나머지 8개 부스)</div>
+              <div class="tl-desc"><strong>${round5Booth}번 부스(${round5Prog.name})</strong>에서 재개 → ${round12Booth}번 부스까지 체험 후 14:30 종료</div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 4. Booth Schedule Table (1..12)
+      const tbody = document.getElementById("myClassBoothTbody");
+      let rowsHtml = "";
+      for (let r = 1; r <= 12; r++) {
+        if (!low && r === 5) {
+          rowsHtml += `
+            <tr class="lunch-divider-row">
+              <td colspan="6">🍱 12:10 ~ 13:00 점심시간 (식사 후 12:55까지 아래 5회차 배정 부스 [${round5Booth}번 ${round5Prog.name}] 앞으로 집결!)</td>
+            </tr>
+          `;
+        }
+        const bNum = getBoothForClassAtRound(cls, r);
+        const nextBNum = (bNum % 12) + 1;
+        const prog = programs[bNum - 1];
+        const isSelected = r === mySelectedRound;
+        const badgeHtml = prog.type === "결과물"
+          ? `<span class="badge badge-craft">🎁 결과물</span>`
+          : `<span class="badge badge-exp">🧪 체험활동</span>`;
+
+        rowsHtml += `
+          <tr style="${isSelected ? 'background:#dbeafe; font-weight:800;' : 'cursor:pointer;'}" onclick="setMyRound(${r})">
+            <td><strong>${r}회차</strong> ${(!low && r === 1) ? '<span style="color:#1d4ed8;font-size:0.72rem;display:block;">(1차시작)</span>' : ''}${(!low && r === 5) ? '<span style="color:#dc2626;font-size:0.72rem;display:block;">(점심후집결)</span>' : ''}</td>
+            <td>${times[r - 1]}</td>
+            <td><span style="display:inline-block; background:#0f172a; color:#fff; font-weight:800; padding:2px 8px; border-radius:6px;">${bNum}번</span></td>
+            <td style="text-align:left; padding-left:12px;">
+              <strong>${prog.name}</strong>
+              <span style="display:block; font-size:0.76rem; color:#475569;">${prog.principle} · ${prog.lv}</span>
+            </td>
+            <td>${badgeHtml}</td>
+            <td>${r < 12 ? `→ ${nextBNum}번` : '체험완료'}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = rowsHtml;
+
+      // 5. Render My Class Playground Map & Stepper
+      renderMyPlaygroundMap();
+
+      // 6. Quick checks for my class
+      const craftList = programs.filter(p => p.type === "결과물").map(p => `${p.booth}번 ${p.name}`).join(", ");
+      document.getElementById("myClassQuickChecks").innerHTML = `
+        <label class="check-item">
+          <input type="checkbox" />
+          <div>
+            <strong>우리 반(${cls}) 결과물 4종 수령 확인</strong>
+            <p style="font-size:0.82rem; color:#475569;">${craftList} (총 4종을 개인 가방에 보관)</p>
+          </div>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" />
+          <div>
+            <strong>12번 부스(테라리움) → 1번 부스(극저온의 세계) 이동 구간 숙지</strong>
+            <p style="font-size:0.82rem; color:#475569;">우측 하단 12번 부스 체험 후에는 운동장 하단을 가로질러 좌측 하단 1번 부스로 이동합니다.</p>
+          </div>
+        </label>
+      `;
+    }
+
+    function setMyRound(r) {
+      mySelectedRound = r;
+      renderMyClassView();
+    }
+
+    function renderMyPlaygroundMap() {
+      const cls = getSelectedClassName();
+      const low = isLowGrade(currentGrade);
+      const programs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      const times = low ? LOW_TIMES : HIGH_TIMES;
+
+      const curBooth = getBoothForClassAtRound(cls, mySelectedRound);
+      const nextBooth = mySelectedRound < 12 ? getBoothForClassAtRound(cls, mySelectedRound + 1) : null;
+      const curProg = programs[curBooth - 1];
+
+      document.getElementById("mapRoundInfo").innerHTML = `
+        [${cls}] <strong>${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> 위치:
+        <span style="background:#1e40af; color:#fff; padding:2px 8px; border-radius:6px;">${curBooth}번 ${curProg.name}</span>
+        ${nextBooth ? ` → 다음 이동: <strong>${nextBooth}번</strong>` : ' (마지막 회차)'}
+      `;
+
+      // Stepper buttons 1..12
+      let stepHtml = "";
+      for (let r = 1; r <= 12; r++) {
+        stepHtml += `<button class="step-btn ${r === mySelectedRound ? 'active' : ''}" onclick="setMyRound(${r})">${r}회</button>`;
+      }
+      document.getElementById("myMapStepper").innerHTML = stepHtml;
+
+      // Grid
+      const gridEl = document.getElementById("myPlaygroundGrid");
+      let html = `
+        <div class="guryeongdae">
+          📢 구령대<br/><span style="font-size:0.72rem; font-weight:600;">(진행 본부)</span>
+        </div>
+        <div class="center-field-guide">
+          <div class="clockwise-arrow-banner">↻ 진행 방향: 구령대 중심 시계 방향 (1번 → 2번 → … → 12번 → 1번)</div>
+          <div style="font-size:0.86rem; color:#334155; margin-top:4px;">
+            현재 선택: <strong>${cls} · ${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> — <strong>${curBooth}번 부스 (${curProg.name})</strong> 체험 중
+          </div>
+          <div style="font-size:0.78rem; color:#64748b;">
+            (부스 카드를 클릭하거나 상단 1~12회 버튼을 눌러 회차별 위치를 확인하세요 · 12번 종료 후 1번으로 이동)
+          </div>
+        </div>
+      `;
+
+      for (let b = 1; b <= 12; b++) {
+        const pos = BOOTH_GRID_POS[b];
+        const prog = programs[b - 1];
+        // Find which round our class visits booth b
+        let visitRound = 1;
+        for (let r = 1; r <= 12; r++) {
+          if (getBoothForClassAtRound(cls, r) === b) {
+            visitRound = r;
+            break;
+          }
+        }
+        const isCurrent = b === curBooth;
+        const isNext = b === nextBooth;
+        const isFirst = visitRound === 1;
+        const isAfterLunch = !low && visitRound === 5;
+
+        let tagLabel = `${visitRound}회차 (${times[visitRound - 1].split("~")[0].trim()})`;
+        if (isFirst) tagLabel = `★1회차 시작 (${times[0].split("~")[0].trim()})`;
+        if (isAfterLunch) tagLabel = `🔔5회차 점심후집결 (13:00)`;
+
+        html += `
+          <div class="booth-node ${prog.type === '결과물' ? 'is-craft' : ''} ${isCurrent ? 'active-current' : ''} ${isNext ? 'active-next' : ''}"
+               style="grid-column:${pos.col}; grid-row:${pos.row};"
+               onclick="setMyRound(${visitRound})">
+            <span class="b-num">${b}번 ${prog.type === '결과물' ? '🎁' : ''}</span>
+            <div class="b-name">${prog.name}</div>
+            <div class="b-class-tag">${tagLabel}</div>
+          </div>
+        `;
+      }
+
+      gridEl.innerHTML = html;
+    }
+
+    // ==================== RENDER ALL-CLASS SIMULATOR & MASTER TABLES ====================
+    function setSimGroup(grp) {
+      simGroup = grp;
+      document.getElementById("simBtnLow").style.background = grp === "low" ? "#1e40af" : "#e2e8f0";
+      document.getElementById("simBtnLow").style.color = grp === "low" ? "#fff" : "#0f172a";
+      document.getElementById("simBtnHigh").style.background = grp === "high" ? "#1e40af" : "#e2e8f0";
+      document.getElementById("simBtnHigh").style.color = grp === "high" ? "#fff" : "#0f172a";
+      renderSimMap();
+    }
+
+    function setSimRound(r) {
+      simRound = r;
+      renderSimMap();
+    }
+
+    function renderSimMap() {
+      const programs = simGroup === "low" ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      const times = simGroup === "low" ? LOW_TIMES : HIGH_TIMES;
+      const groupTitle = simGroup === "low" ? "저학년(1~3학년)" : "고학년(4~6학년)";
+
+      document.getElementById("simRoundLabel").innerHTML = `
+        <strong>${groupTitle} · ${simRound}회차 (${times[simRound - 1]})</strong> 부스별 배정 학급 현황
+        ${(simGroup === 'high' && simRound === 5) ? '<span style="color:#dc2626; margin-left:8px;">(※ 점심식사 직후 13:00 재집결 위치)</span>' : ''}
+      `;
+
+      let stepHtml = "";
+      for (let r = 1; r <= 12; r++) {
+        stepHtml += `<button class="step-btn ${r === simRound ? 'active' : ''}" onclick="setSimRound(${r})">${r}회</button>`;
+      }
+      document.getElementById("simRoundStepper").innerHTML = stepHtml;
+
+      const selectedCls = getSelectedClassName();
+      let html = `
+        <div class="guryeongdae">
+          📢 구령대<br/><span style="font-size:0.72rem; font-weight:600;">(진행 본부)</span>
+        </div>
+        <div class="center-field-guide">
+          <div class="clockwise-arrow-banner">↻ 시계 방향 동시 이동 (1번 → 2번 → … → 12번 → 1번)</div>
+          <div style="font-size:0.88rem; color:#1e293b; margin-top:4px;">
+            <strong>${groupTitle} ${simRound}회차 (${times[simRound - 1]})</strong> — 각 부스에 위치한 학급이 표시되어 있습니다.
+          </div>
+          <div style="font-size:0.78rem; color:#64748b;">
+            (부스를 클릭하면 해당 학급의 맞춤 동선 화면으로 이동할 수 있습니다)
+          </div>
+        </div>
+      `;
+
+      for (let b = 1; b <= 12; b++) {
+        const pos = BOOTH_GRID_POS[b];
+        const prog = programs[b - 1];
+        const clsAtBooth = getClassAtBoothAndRound(simGroup, b, simRound);
+        const isMySelectedClass = clsAtBooth === selectedCls;
+
+        html += `
+          <div class="booth-node ${prog.type === '결과물' ? 'is-craft' : ''} ${isMySelectedClass ? 'active-current' : ''}"
+               style="grid-column:${pos.col}; grid-row:${pos.row};"
+               onclick="selectClassDirect('${clsAtBooth}')">
+            <span class="b-num">${b}번 ${prog.type === '결과물' ? '🎁' : ''}</span>
+            <div class="b-name">${prog.name}</div>
+            <div class="b-class-tag" style="font-size:0.85rem; padding:3px 10px;">${clsAtBooth}반</div>
+          </div>
+        `;
+      }
+
+      document.getElementById("simPlaygroundGrid").innerHTML = html;
+    }
+
+    function renderMasterTables() {
+      const selectedCls = getSelectedClassName();
+
+      // 1. Low Grade Table
+      let lowHtml = `
+        <thead>
+          <tr>
+            <th style="width:52px;">회차</th>
+            <th style="width:105px;">시간</th>
+            ${LOW_PROGRAMS.map(p => `<th>${p.booth}번 ${p.type === '결과물' ? '🎁' : ''}<br/>${p.name}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+      `;
+      for (let r = 1; r <= 12; r++) {
+        lowHtml += `<tr><td><strong>${r}회</strong></td><td><strong>${LOW_TIMES[r - 1]}</strong></td>`;
+        for (let b = 1; b <= 12; b++) {
+          const c = getClassAtBoothAndRound("low", b, r);
+          const g = c.split("-")[0];
+          const isHi = c === selectedCls;
+          lowHtml += `<td class="cell-class cell-g${g} ${isHi ? 'cell-highlight' : ''}" style="cursor:pointer;" onclick="selectClassDirect('${c}')">${c}</td>`;
+        }
+        lowHtml += `</tr>`;
+      }
+      lowHtml += `</tbody>`;
+      document.getElementById("lowGradeMasterTable").innerHTML = lowHtml;
+
+      // 2. High Grade Table
+      let highHtml = `
+        <thead>
+          <tr>
+            <th style="width:52px;">회차</th>
+            <th style="width:105px;">시간</th>
+            ${HIGH_PROGRAMS.map(p => `<th>${p.booth}번 ${p.type === '결과물' ? '🎁' : ''}<br/>${p.name}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody>
+      `;
+      for (let r = 1; r <= 12; r++) {
+        if (r === 5) {
+          highHtml += `
+            <tr class="lunch-divider-row">
+              <td colspan="14">🍱 12:10 ~ 13:00 점심시간 (강사 및 스텝 식사) — 식사 후 12:55까지 아래 5회차 배정 부스로 각 반 재집결!</td>
+            </tr>
+          `;
+        }
+        highHtml += `<tr><td><strong>${r}회</strong></td><td><strong>${HIGH_TIMES[r - 1]}</strong></td>`;
+        for (let b = 1; b <= 12; b++) {
+          const c = getClassAtBoothAndRound("high", b, r);
+          const g = c.split("-")[0];
+          const isHi = c === selectedCls;
+          highHtml += `<td class="cell-class cell-g${g} ${isHi ? 'cell-highlight' : ''}" style="cursor:pointer;" onclick="selectClassDirect('${c}')">${c}</td>`;
+        }
+        highHtml += `</tr>`;
+      }
+      highHtml += `</tbody>`;
+      document.getElementById("highGradeMasterTable").innerHTML = highHtml;
+    }
+
+    // ==================== AUDITORIUM SEATING CHART ====================
+    function setAudSession(s) {
+      audSession = s;
+      swapSourceIndex = null;
+      document.getElementById("audBtn1").style.background = s === 1 ? "#5b21b6" : "#e2e8f0";
+      document.getElementById("audBtn1").style.color = s === 1 ? "#fff" : "#0f172a";
+      document.getElementById("audBtn2").style.background = s === 2 ? "#5b21b6" : "#e2e8f0";
+      document.getElementById("audBtn2").style.color = s === 2 ? "#fff" : "#0f172a";
+      renderAudSeats();
+    }
+
+    function handleSeatClick(idx) {
+      if (swapSourceIndex === null) {
+        swapSourceIndex = idx;
+      } else if (swapSourceIndex === idx) {
+        swapSourceIndex = null;
+      } else {
+        const arr = audSeats[audSession];
+        const tmp = arr[swapSourceIndex];
+        arr[swapSourceIndex] = arr[idx];
+        arr[idx] = tmp;
+        swapSourceIndex = null;
+        localStorage.setItem("scifest_aud_seats_2026", JSON.stringify(audSeats));
+      }
+      renderAudSeats();
+      renderPrintSheets();
+    }
+
+    function resetAudSeats() {
+      audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
+      swapSourceIndex = null;
+      localStorage.removeItem("scifest_aud_seats_2026");
+      renderAudSeats();
+      renderPrintSheets();
+    }
+
+    function renderAudSeats() {
+      const seats = audSeats[audSession];
+      const selectedCls = getSelectedClassName();
+      const rowLabels = audSession === 1
+        ? ["앞줄 (1열 구역)", "중간줄 (2열 구역)", "뒷줄 (3열 구역)"]
+        : ["앞줄 (1열 구역)", "중간줄 (2열 구역)", "뒷줄 (3열 구역)"];
+
+      let html = `<div class="seating-grid">`;
+      seats.forEach((clsName, idx) => {
+        const rowIdx = Math.floor(idx / 4);
+        const colIdx = (idx % 4) + 1;
+        const g = parseInt(clsName.split("-")[0], 10);
+        const count = g === 1 ? "약 16명" : "약 20명";
+        const isSwapSel = swapSourceIndex === idx;
+        const isMyCls = clsName === selectedCls;
+
+        html += `
+          <div class="seat-block ${isSwapSel ? 'selected-swap' : ''} ${isMyCls ? 'my-class-seat' : ''}"
+               onclick="handleSeatClick(${idx})">
+            <div class="seat-row-label">${rowLabels[rowIdx]} · 좌측 ${colIdx}번째</div>
+            <div class="seat-class-name">${clsName.replace("-", "학년 ")}반</div>
+            <div class="seat-student-count">학생 ${count} + 담임교사</div>
+            <div style="font-size:0.72rem; color:#64748b; margin-top:4px;">
+              ${isSwapSel ? '🔄 바꿀 다른 학급을 클릭하세요' : '클릭하여 자리 변경'}
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+      document.getElementById("audSeatingContainer").innerHTML = html;
+    }
+
+    // ==================== PROGRAM CARDS ====================
+    function renderProgramCards(group) {
+      document.getElementById("progFilterLow").style.background = group === "low" ? "#1e40af" : "#e2e8f0";
+      document.getElementById("progFilterLow").style.color = group === "low" ? "#fff" : "#0f172a";
+      document.getElementById("progFilterHigh").style.background = group === "high" ? "#1e40af" : "#e2e8f0";
+      document.getElementById("progFilterHigh").style.color = group === "high" ? "#fff" : "#0f172a";
+
+      const list = group === "low" ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      let html = "";
+      list.forEach(p => {
+        const badge = p.type === "결과물"
+          ? `<span class="badge badge-craft">🎁 결과물 (가방 보관)</span>`
+          : `<span class="badge badge-exp">🧪 체험활동</span>`;
+
+        html += `
+          <div class="prog-card ${p.type === '결과물' ? 'is-craft' : ''}">
+            <div class="prog-header">
+              <span class="prog-booth-num">${p.booth}번 부스 (${p.lv})</span>
+              ${badge}
+            </div>
+            <div class="prog-title">${p.name} ${p.common ? '<span style="font-size:0.75rem; color:#64748b; font-weight:600;">(저·고 공통)</span>' : ''}</div>
+            <div class="prog-principle">핵심 원리: ${p.principle}</div>
+            <div class="prog-desc">${p.desc}</div>
+          </div>
+        `;
+      });
+      document.getElementById("programCardsGrid").innerHTML = html;
+    }
+
+    // ==================== PRINT SHEETS GENERATION ====================
+    function renderPrintSheets() {
+      const cls = getSelectedClassName();
+      const low = isLowGrade(currentGrade);
+      const programs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      const times = low ? LOW_TIMES : HIGH_TIMES;
+      const firstBooth = getBoothForClassAtRound(cls, 1);
+      const firstProg = programs[firstBooth - 1];
+      const round5Booth = getBoothForClassAtRound(cls, 5);
+      const round5Prog = programs[round5Booth - 1];
+
+      // 1. Single Class A4 Sheet
+      let classRows = "";
+      for (let r = 1; r <= 12; r++) {
+        if (!low && r === 5) {
+          classRows += `
+            <tr class="lunch-divider-row">
+              <td colspan="6">🍱 12:10 ~ 13:00 점심시간 — 식사 후 12:55까지 [${round5Booth}번 부스: ${round5Prog.name}] 앞으로 재집결!</td>
+            </tr>
+          `;
+        }
+        const b = getBoothForClassAtRound(cls, r);
+        const nextB = (b % 12) + 1;
+        const p = programs[b - 1];
+        classRows += `
+          <tr>
+            <td><strong>${r}회차</strong></td>
+            <td><strong>${times[r - 1]}</strong></td>
+            <td><strong>${b}번 부스</strong></td>
+            <td style="text-align:left; padding-left:8px;"><strong>${p.name}</strong> (${p.principle})</td>
+            <td>${p.type === '결과물' ? '🎁 결과물(보관)' : '체험활동'}</td>
+            <td>${r < 12 ? `→ ${nextB}번 부스` : '종료'}</td>
+          </tr>
+        `;
+      }
+
+      document.getElementById("print-class-sheet").innerHTML = `
+        <div style="border-bottom:2px solid #0f172a; padding-bottom:8px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <div style="font-size:10px; font-weight:700; color:#475569;">2026 공주교육대학교 부설초등학교 찾아가는 과학축제 (2026. 11. 12. 목)</div>
+            <h1 style="font-size:18px; font-weight:900;">[${currentGrade}학년 ${currentClassNum}반 (${cls})] 과학 체험의 날 이동 동선 및 시간표</h1>
+          </div>
+          <div style="text-align:right; font-size:11px; font-weight:800;">
+            첫 집결: 운동장 ${firstBooth}번 부스 (${firstProg.name})
+            ${!low ? `<br/>점심 후 13:00 재집결: ${round5Booth}번 부스 (${round5Prog.name})` : ''}
+          </div>
+        </div>
+
+        <div style="margin-bottom:10px; padding:8px 10px; border:1px solid #0f172a; border-radius:6px; background:#f8fafc;">
+          <strong>■ ${cls}반 전체 일과 요약:</strong>
+          ${low
+            ? `08:50 운동장 <strong>${firstBooth}번 부스</strong> 집결 → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간</strong> (12:05 강당 착석) → <strong>12:10~13:00 강당 과학공연 관람</strong>`
+            : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:30 학급별 수업</strong> (11:25 운동장 <strong>${firstBooth}번 부스</strong> 집결) → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
+          }
+        </div>
+
+        <div style="margin-bottom:10px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; text-align:center; font-size:10.5px;">
+          <strong>[운동장 구령대 기준 ㄷ자 부스 배치 및 시계방향 이동 순서]</strong><br/>
+          좌측 아래→위: <strong>1번 → 2번 → 3번(🎁)</strong> | 상단 좌측: <strong>4번 → 5번 → 6번(🎁)</strong> | <strong>[구령대]</strong> | 상단 우측: <strong>7번 → 8번 → 9번(🎁)</strong> | 우측 위→아래: <strong>10번 → 11번 → 12번(🎁) → (1번으로 이동)</strong>
+        </div>
+
+        <h3 style="font-size:12px; margin-bottom:4px;">■ ${cls}반 운동장 회차별 부스 이동 시간표 (진행자 방송 신호에 맞춰 시계방향 동시 이동)</h3>
+        <table style="margin-bottom:10px;">
+          <thead>
+            <tr>
+              <th style="width:55px;">회차</th>
+              <th style="width:95px;">시간</th>
+              <th style="width:70px;">부스 번호</th>
+              <th>프로그램명 (과학 원리)</th>
+              <th style="width:85px;">활동 구분</th>
+              <th style="width:75px;">다음 이동</th>
+            </tr>
+          </thead>
+          <tbody>${classRows}</tbody>
+        </table>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:10px;">
+          <div style="border:1px solid #64748b; padding:8px; border-radius:6px;">
+            <strong>■ 결과물 4종 챙기기 체크란 (개인 가방/에코백 지참 필수)</strong><br/>
+            □ 3번 부스: ${programs[2].name}<br/>
+            □ 6번 부스: ${programs[5].name}<br/>
+            □ 9번 부스: ${programs[8].name}<br/>
+            □ 12번 부스: ${programs[11].name}
+          </div>
+          <div style="border:1px solid #64748b; padding:8px; border-radius:6px;">
+            <strong>■ 담임교사 인솔 유의사항</strong><br/>
+            • 시작 5~10분 전까지 지정 부스 및 강당 착석 완료<br/>
+            • 진행자의 종료/이동 마이크 신호에 맞춰 시계방향 이동<br/>
+            • 12번 부스 체험 후에는 좌측 하단 1번 부스로 이동
+          </div>
+        </div>
+      `;
+
+      // 2. Full School A4 Summary Sheet (2 pages)
+      document.getElementById("print-all-sheet").innerHTML = `
+        <div style="border-bottom:2px solid #0f172a; padding-bottom:6px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <h1 style="font-size:16px; font-weight:900;">2026 공주교대부설초 찾아가는 과학축제 교원 안내 자료 (전체 요약본)</h1>
+            <div style="font-size:10px;">일시: 2026. 11. 12.(목) 09:00~14:30 | 장소: 강당(과학공연) 및 운동장(과학축제 12부스) | 대상: 1~6학년 24학급</div>
+          </div>
+        </div>
+
+        <h3 style="font-size:11px; margin-bottom:3px;">1. 학년군별 전체 운영 일정표 (강당 과학공연 + 운동장 부스 + 중식/수업)</h3>
+        <table style="margin-bottom:8px;">
+          <thead>
+            <tr>
+              <th style="width:95px;">시간</th>
+              <th>저학년 (1~3학년, 12학급)</th>
+              <th>고학년 (4~6학년, 12학급)</th>
+              <th>비고 및 협조사항</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>09:00 ~ 09:50</strong></td>
+              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (각 11분/10분)</td>
+              <td><strong>강당 과학공연 1차 관람 (09:00~09:50)</strong></td>
+              <td>08:50까지 각 장소 집결 완료</td>
+            </tr>
+            <tr>
+              <td><strong>09:50 ~ 11:10</strong></td>
+              <td rowspan="2"><strong>고학년 학급별 수업 (09:50~11:30)</strong><br/>※ 11:25까지 운동장 1차 첫 부스 앞 집결</td>
+              <td>강당 2차 공연 준비 (09:50~12:10)</td>
+            </tr>
+            <tr>
+              <td><strong>11:10 ~ 11:30</strong></td>
+              <td>결과물 정리 후 이동 · <strong>11:20부터 저학년 점심시간</strong></td>
+              <td>운동장 고학년 실험도구 전환 세팅</td>
+            </tr>
+            <tr>
+              <td><strong>11:30 ~ 12:10</strong></td>
+              <td><strong>저학년 점심시간 (11:20~12:10)</strong> → 12:05 강당 착석</td>
+              <td><strong>운동장 고학년 1차 부스 체험 (1~4회차, 4개 부스)</strong></td>
+              <td>고학년 오전 4개 부스 우선 체험</td>
+            </tr>
+            <tr>
+              <td><strong>12:10 ~ 13:00</strong></td>
+              <td><strong>강당 과학공연 2차 관람 (12:10~13:00)</strong></td>
+              <td><strong>고학년 점심시간 (12:10~13:00)</strong> → 12:55 5회차 부스 집결</td>
+              <td>강사·스텝 식사(학교 지정 장소)</td>
+            </tr>
+            <tr>
+              <td><strong>13:00 ~ 14:30</strong></td>
+              <td>저학년 행사 종료 (학급별 일과)</td>
+              <td><strong>운동장 고학년 2차 부스 체험 (5~12회차, 8개 부스)</strong></td>
+              <td>14:28~14:30 전체 행사 종료 및 정리</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 style="font-size:11px; margin-bottom:3px;">2. [저학년 1~3학년] 반별 부스 이동시간 조편성표 (09:00~11:10, 구령대 중심 시계방향 1→12번 이동)</h3>
+        <div style="margin-bottom:8px;">${document.getElementById("lowGradeMasterTable").outerHTML}</div>
+
+        <div class="print-page-break"></div>
+
+        <h3 style="font-size:11px; margin-bottom:3px; margin-top:4px;">3. [고학년 4~6학년] 반별 부스 이동시간 조편성표 (1차 11:30~12:10 / 중식 12:10~13:00 / 2차 13:00~14:30)</h3>
+        <div style="margin-bottom:8px;">${document.getElementById("highGradeMasterTable").outerHTML}</div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:10px;">
+          <div style="border:1px solid #334155; padding:6px; border-radius:4px;">
+            <strong>4. 강당 과학공연 학급별 좌석 배치 (무대 앞줄부터 저학년순, 좌→우 1~4반)</strong><br/>
+            • <strong>1차 (09:00~09:50, 고학년)</strong>:<br/>
+              - 앞줄(1열): ${audSeats[1].slice(0,4).join(" / ")}<br/>
+              - 중간(2열): ${audSeats[1].slice(4,8).join(" / ")}<br/>
+              - 뒷줄(3열): ${audSeats[1].slice(8,12).join(" / ")}<br/>
+            • <strong>2차 (12:10~13:00, 저학년)</strong>:<br/>
+              - 앞줄(1열): ${audSeats[2].slice(0,4).join(" / ")}<br/>
+              - 중간(2열): ${audSeats[2].slice(4,8).join(" / ")}<br/>
+              - 뒷줄(3열): ${audSeats[2].slice(8,12).join(" / ")}
+          </div>
+          <div style="border:1px solid #334155; padding:6px; border-radius:4px;">
+            <strong>5. 교원 인솔 수칙 및 행정 협조사항</strong><br/>
+            • <strong>결과물 4종(3·6·9·12번 부스)</strong> 보관을 위해 학생 개인 에코백/비닐백(이름 표기) 지참 지도<br/>
+            • 모든 부스 이동은 진행자 마이크 안내에 따라 <strong>구령대 기준 시계방향(1→12번)</strong> 동시 이동<br/>
+            • <strong>고학년 중식 후 12:55 재집결</strong> 시 11:30 첫 부스가 아닌 <strong>5회차(13:00) 배정 부스</strong>로 집결<br/>
+            • 행정 협조: 사전 설치 출입(전일 15시/당일 06시), 종량제 봉투 지급, 강사·스텝 식사 장소 마련(12:10~13:00)
+          </div>
+        </div>
+      `;
+    }
+
+    function printClassSheet() {
+      renderPrintSheets();
+      document.body.classList.remove("print-mode-all");
+      document.body.classList.add("print-mode-class");
+      window.print();
+    }
+
+    function printAllSheet() {
+      renderPrintSheets();
+      document.body.classList.remove("print-mode-class");
+      document.body.classList.add("print-mode-all");
+      window.print();
+    }
+
+    function renderAll() {
+      renderMyClassView();
+      renderSimMap();
+      renderMasterTables();
+      renderAudSeats();
+      renderProgramCards(isLowGrade(currentGrade) ? "low" : "high");
+      renderPrintSheets();
+    }
+
+    // Initialize on load
+    window.addEventListener("DOMContentLoaded", () => {
+      renderAll();
+    });
+  </script>
+</body>
+</html>

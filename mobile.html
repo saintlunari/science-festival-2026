@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#0f172a" />
   <title>[모바일] 2026 공주교대부설초 과학축제 교원 인솔 가이드</title>
@@ -29,26 +29,38 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
       background: var(--bg);
       color: var(--text);
       padding-bottom: 84px; /* Space for bottom nav */
       line-height: 1.45;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .app-shell {
+      width: 100%;
       max-width: 520px;
       margin: 0 auto;
       min-height: 100vh;
       background: var(--bg);
+      overflow-x: hidden;
     }
 
     /* Sticky Top Header + Class Selector */
     .m-header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       color: #fff;
-      padding: 14px 16px 12px;
+      padding: 12px 12px 10px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -57,39 +69,46 @@
 
     .m-header-top {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
     .m-title {
-      font-size: 1.05rem;
+      font-size: clamp(0.92rem, 4vw, 1.05rem);
       font-weight: 800;
       letter-spacing: -0.02em;
     }
 
     .m-sub {
-      font-size: 0.74rem;
+      font-size: clamp(0.68rem, 3vw, 0.74rem);
       color: #93c5fd;
       font-weight: 600;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
     }
 
     .pc-link-btn {
       background: rgba(255, 255, 255, 0.16);
       color: #fff;
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 6px 10px;
+      padding: 5px 9px;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.25);
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* Compact Grade/Class Selector */
     .m-selector-row {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 4px;
       margin-bottom: 6px;
     }
@@ -101,8 +120,10 @@
       background: rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: clamp(0.72rem, 3.2vw, 0.8rem);
       cursor: pointer;
+      min-width: 0;
+      white-space: nowrap;
     }
 
     .m-grade-btn.active {
@@ -114,7 +135,7 @@
 
     .m-class-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 6px;
     }
 
@@ -125,8 +146,9 @@
       background: rgba(15, 23, 42, 0.4);
       color: #fde68a;
       font-weight: 800;
-      font-size: 0.82rem;
+      font-size: clamp(0.76rem, 3.4vw, 0.82rem);
       cursor: pointer;
+      min-width: 0;
     }
 
     .m-class-btn.active {
@@ -138,11 +160,14 @@
 
     /* Main Content Padding */
     .m-content {
-      padding: 12px;
+      padding: 10px;
+      width: 100%;
     }
 
     .m-panel {
       display: none;
+      width: 100%;
+      min-width: 0;
     }
     .m-panel.active {
       display: block;
@@ -152,19 +177,24 @@
     .m-card {
       background: var(--card);
       border-radius: 14px;
-      padding: 15px;
+      padding: 13px 12px;
       margin-bottom: 12px;
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
       border: 1px solid var(--border);
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .m-card-title {
-      font-size: 0.96rem;
+      font-size: clamp(0.86rem, 3.8vw, 0.96rem);
       font-weight: 800;
       margin-bottom: 10px;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       color: var(--text);
     }
 
@@ -173,15 +203,19 @@
       background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%);
       color: #fff;
       border-radius: 16px;
-      padding: 16px;
+      padding: 14px 12px;
       margin-bottom: 12px;
       box-shadow: 0 8px 20px -4px rgba(29, 78, 216, 0.4);
+      width: 100%;
+      min-width: 0;
     }
 
     .now-top {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
       margin-bottom: 10px;
     }
 
@@ -195,7 +229,7 @@
     }
 
     .now-time {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: #e0f2fe;
     }
@@ -209,13 +243,13 @@
     }
 
     .now-booth-num {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #fde68a;
       font-weight: 800;
     }
 
     .now-booth-name {
-      font-size: 1.3rem;
+      font-size: clamp(1.08rem, 4.8vw, 1.3rem);
       font-weight: 900;
       margin: 2px 0 4px;
     }
@@ -227,51 +261,58 @@
 
     .now-next-bar {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 4px;
       background: rgba(15, 23, 42, 0.35);
-      padding: 8px 12px;
+      padding: 8px 10px;
       border-radius: 10px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       margin-bottom: 12px;
     }
 
     .stepper-controls {
       display: grid;
-      grid-template-columns: 1fr 1.2fr 1fr;
-      gap: 8px;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) minmax(0, 0.9fr);
+      gap: 6px;
       align-items: center;
     }
 
     .step-nav-btn {
-      padding: 10px;
+      padding: 9px 4px;
       border-radius: 10px;
       border: none;
       background: #ffffff;
       color: #0f172a;
       font-weight: 900;
-      font-size: 0.86rem;
+      font-size: clamp(0.74rem, 3.2vw, 0.84rem);
       cursor: pointer;
+      min-width: 0;
+      white-space: nowrap;
     }
     .step-nav-btn:active {
       transform: scale(0.97);
     }
 
     .step-select {
-      padding: 10px 6px;
+      width: 100%;
+      min-width: 0;
+      padding: 9px 4px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.4);
       background: rgba(15,23,42,0.5);
       color: #fff;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: clamp(0.74rem, 3.2vw, 0.84rem);
       text-align: center;
+      text-overflow: ellipsis;
     }
 
     /* Key Gathering Points Box */
     .gather-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
       margin-bottom: 12px;
     }
@@ -280,7 +321,8 @@
       background: #fff;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 10px;
+      min-width: 0;
     }
 
     .gather-box.warn {
@@ -289,13 +331,13 @@
     }
 
     .gather-label {
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       font-weight: 800;
       color: #475569;
     }
 
     .gather-val {
-      font-size: 0.92rem;
+      font-size: clamp(0.82rem, 3.6vw, 0.92rem);
       font-weight: 900;
       color: #0f172a;
       margin-top: 2px;
@@ -306,11 +348,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
+      gap: 8px;
+      padding: 10px;
       border-radius: 10px;
       border: 1px solid var(--border);
       margin-bottom: 6px;
       background: #fff;
+      min-width: 0;
     }
 
     .m-round-item.active-row {
@@ -321,34 +365,43 @@
     .m-round-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
     }
 
     .m-r-num {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 900;
       color: var(--primary);
-      min-width: 38px;
+      min-width: 34px;
+      flex-shrink: 0;
     }
 
     .m-b-badge {
       background: #0f172a;
       color: #fff;
       font-weight: 800;
-      font-size: 0.78rem;
-      padding: 4px 8px;
+      font-size: 0.75rem;
+      padding: 4px 6px;
       border-radius: 7px;
-      min-width: 44px;
+      min-width: 40px;
       text-align: center;
+      flex-shrink: 0;
+    }
+
+    .m-prog-info {
+      min-width: 0;
+      flex: 1;
     }
 
     .m-prog-info .p-name {
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: clamp(0.82rem, 3.6vw, 0.9rem);
     }
 
     .m-prog-info .p-time {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--muted);
     }
 
@@ -358,17 +411,19 @@
       color: #92400e;
       padding: 10px 12px;
       border-radius: 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       margin: 8px 0;
       text-align: center;
     }
 
-    /* Mobile U-Shape Map (Compact 3-Col Layout) */
+    /* Mobile U-Shape Map (Compact Fluid Layout) */
     .m-map-visual {
       background: #e2e8f0;
       border-radius: 12px;
-      padding: 10px;
+      padding: 8px;
+      width: 100%;
+      min-width: 0;
     }
 
     .m-guryeongdae {
@@ -378,15 +433,21 @@
       padding: 8px;
       border-radius: 8px;
       font-weight: 900;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       margin-bottom: 8px;
     }
 
     .m-top-row-booths {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
       margin-bottom: 8px;
+    }
+
+    @media (max-width: 420px) {
+      .m-top-row-booths {
+        grid-template-columns: 1fr;
+      }
     }
 
     .m-top-half {
@@ -394,6 +455,7 @@
       border-radius: 8px;
       padding: 6px;
       border: 1px solid #cbd5e1;
+      min-width: 0;
     }
 
     .m-top-half-label {
@@ -406,46 +468,50 @@
 
     .m-top-half-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 4px;
     }
 
     .m-side-booths-wrap {
       display: grid;
-      grid-template-columns: 1fr 1.3fr 1fr;
-      gap: 6px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 5px;
       align-items: stretch;
     }
 
     .m-side-col {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
+      min-width: 0;
     }
 
     .m-center-field {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       border: 1.5px dashed #64748b;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 8px;
+      padding: 6px 4px;
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #334155;
+      min-width: 0;
     }
 
     .m-node {
       background: #fff;
       border: 1.5px solid #94a3b8;
       border-radius: 8px;
-      padding: 6px 4px;
+      padding: 6px 3px;
       text-align: center;
-      font-size: 0.72rem;
+      font-size: clamp(0.66rem, 2.8vw, 0.72rem);
       cursor: pointer;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .m-node.craft {
@@ -507,23 +573,37 @@
 
     /* Tables in mobile */
     .m-table-scroll {
+      width: 100%;
+      max-width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border-radius: 8px;
       border: 1px solid var(--border);
     }
 
     table {
       width: 100%;
+      max-width: 100%;
       border-collapse: collapse;
-      font-size: 0.76rem;
+      font-size: clamp(0.68rem, 3vw, 0.76rem);
       background: #fff;
+      table-layout: auto;
     }
 
     th, td {
-      padding: 6px 5px;
+      padding: 6px 4px;
       border: 1px solid #cbd5e1;
       text-align: center;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+      line-height: 1.3;
+    }
+
+    .m-table-scroll th,
+    .m-table-scroll td {
       white-space: nowrap;
+      padding: 6px 6px;
     }
 
     th {
@@ -536,6 +616,33 @@
       color: #fff !important;
       font-weight: 900;
     }
+
+    .m-dday-badge {
+      display: inline-block;
+      background: #f59e0b;
+      color: #0f172a;
+      font-weight: 900;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 5px;
+    }
+    .m-dday-badge.is-today {
+      background: #ef4444;
+      color: #ffffff;
+    }
+    .m-sync-card {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    }
+    .m-sync-card.active-sync {
+      border-color: #2563eb;
+      background: linear-gradient(135deg, #eff6ff 0%, #ffffff 70%);
+    }
   </style>
 </head>
 <body>
@@ -544,7 +651,7 @@
     <header class="m-header">
       <div class="m-header-top">
         <div>
-          <div class="m-sub">2026. 11. 12.(목) 공주교대부설초</div>
+          <div class="m-sub">2026. 11. 12.(목) 공주교대부설초 <span class="m-dday-badge" id="mDdayBadge">D-Day</span></div>
           <div class="m-title">찾아가는 과학축제 모바일 가이드</div>
         </div>
         <a href="index.html" class="pc-link-btn">💻 PC/인쇄 화면</a>
@@ -572,6 +679,9 @@
     <!-- MAIN CONTENT -->
     <main class="m-content">
 
+      <!-- LIVE D-DAY & AUTO-ROUND SYNC CARD -->
+      <div class="m-sync-card" id="mLiveSyncCard"></div>
+
       <!-- PANEL 1: 우리 반 동선 (HOME) -->
       <section id="mp-home" class="m-panel active">
         <!-- Live Stepper Card -->
@@ -579,6 +689,9 @@
 
         <!-- Gathering Points Summary -->
         <div class="gather-grid" id="mGatherGrid"></div>
+
+        <!-- U-Space Playground Initial Gathering & 2-Row Lineup Card -->
+        <div class="m-card" id="mLineupCard" style="background:linear-gradient(135deg,#eff6ff 0%,#f0fdf4 100%); border:2px solid #0284c7;"></div>
 
         <!-- Regular vs Festival Timetable Diff Alert Card -->
         <div class="m-card" id="mDiffAlertCard" style="background:#fff1f2; border:2px solid #f43f5e;"></div>
@@ -628,10 +741,10 @@
         <div class="m-card" style="background:#fff1f2; border:2px solid #f43f5e;">
           <div class="m-card-title" style="color:#9f1239;">
             <span>🚨 기존 수업 시간표 vs 당일 변경 시정</span>
-            <span style="font-size:0.68rem; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:99px; border:1px solid #f87171;">종소리·점심 주의</span>
+            <span style="font-size:0.68rem; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:99px; border:1px solid #f87171;">시정·점심 주의</span>
           </div>
           <div style="font-size:0.76rem; color:#881337; margin-bottom:8px; font-weight:700;">
-            평소 학교 종소리 및 점심 종료 시각과 다른 구간을 꼭 확인하세요!
+            평소 정규 시정표 및 점심 종료 시각과 다른 구간을 꼭 확인하세요!
           </div>
 
           <div style="font-weight:900; font-size:0.8rem; color:#1e40af; margin-bottom:4px;">👦 저학년 (1~3학년) 변경 시간</div>
@@ -692,8 +805,8 @@
               <tr>
                 <td><strong>2~3교시</strong></td>
                 <td>09:50~10:30<br/>10:40~11:20</td>
-                <td><strong>09:50~11:20</strong><br/>(11:25 집결)</td>
-                <td style="color:#92400e; font-weight:800; font-size:0.7rem;">1교시 직후 시작<br/>3교시 후 이동</td>
+                <td><strong>09:50~11:20</strong><br/>(11:25 전체집결)</td>
+                <td style="color:#92400e; font-weight:800; font-size:0.7rem;">11:25 운동장 2줄정렬<br/>안내 후 부스이동</td>
               </tr>
               <tr>
                 <td><strong>4교시</strong></td>
@@ -717,6 +830,19 @@
           </table>
         </div>
 
+        <div class="m-card" style="background:#f0f9ff; border:2px solid #0284c7;">
+          <div class="m-card-title" style="color:#0369a1;">
+            <span>📢 운동장 최초 집결 및 2줄 정렬 방법</span>
+            <span style="font-size:0.68rem; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:99px; border:1px solid #38bdf8;">유스페이스 안내</span>
+          </div>
+          <div style="font-size:0.76rem; color:#0f172a; line-height:1.45;">
+            • 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달받은 후</strong> 각 부스로 이동합니다.<br/>
+            • <strong>시작 5분 전 미리 도착</strong>: 저학년 <strong>08:55까지</strong> / 고학년 1차 <strong>11:25까지</strong><br/>
+            • <strong>저학년 정렬</strong>: 운동장 기준 <strong>왼쪽 1-1반 ~ 오른쪽 끝 3-4반</strong> 순서로 <strong>각 반별 2줄씩 정렬</strong><br/>
+            • <strong>고학년 정렬</strong>: 운동장 기준 <strong>왼쪽 4-1반 ~ 오른쪽 끝 6-4반</strong> 순서로 <strong>각 반별 2줄씩 정렬</strong>
+          </div>
+        </div>
+
         <div class="m-card">
           <div class="m-card-title">⏰ 전교생 통합 행사 일정 요약</div>
           <table>
@@ -729,13 +855,13 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>09:00~09:50</strong></td>
-                <td rowspan="2" style="background:#eff6ff; font-weight:700;">운동장 부스<br/>(09:00~11:10)<br/>12개 부스 완주</td>
+                <td><strong>08:55 집결</strong><br/><strong>09:00~09:50</strong></td>
+                <td rowspan="2" style="background:#eff6ff; font-weight:700;"><strong>08:55 전체집결(2줄)</strong><br/>안내 후 운동장 부스<br/>(09:00~11:10 완주)</td>
                 <td style="background:#f5f3ff; font-weight:700;">강당 공연 1차<br/>(09:00~09:50)</td>
               </tr>
               <tr>
                 <td><strong>09:50~11:10</strong></td>
-                <td rowspan="2">교실 수업<br/>(09:50~11:30)<br/>11:20~11:25 집결</td>
+                <td rowspan="2">교실 수업(09:50~11:20)<br/><strong>11:25 전체집결(2줄)</strong><br/>안내 후 1차 부스 이동</td>
               </tr>
               <tr>
                 <td><strong>11:10~11:30</strong></td>
@@ -781,7 +907,7 @@
       <section id="mp-aud" class="m-panel">
         <div class="m-card">
           <div class="m-card-title">
-            <span>🎭 강당 과학공연 학급 좌석배치</span>
+            <span>🎭 강당 과학공연 학급 좌석배치 (1행 12열)</span>
             <button type="button" onclick="resetMAudSeats()" style="padding:4px 8px; border-radius:6px; border:1px solid #cbd5e1; background:#f8fafc; font-size:0.72rem; font-weight:700; color:#475569; cursor:pointer;">↺ 기본 배치 초기화</button>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px;">
@@ -793,12 +919,15 @@
             </button>
           </div>
           <div style="background:#1e293b; color:#fff; text-align:center; padding:10px; border-radius:8px; font-weight:800; font-size:0.85rem; margin-bottom:10px;">
-            🎤 강 당 무 대 (앞줄부터 저학년순 · 좌→우 1~4반)
+            🎤 강 당 무 대 (1행 12열 · 좌측 1열 → 우측 12열 순)
           </div>
-          <div id="mAudGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px;"></div>
+          <div style="overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch;">
+            <div id="mAudGrid" style="display:grid; grid-template-columns:repeat(12, minmax(68px, 1fr)); gap:6px; min-width:860px;"></div>
+          </div>
           <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#475569; background:#f8fafc; padding:6px 10px; border-radius:8px; margin-top:8px;">
-            <span>⬅️ 무대 좌측 (1반 라인)</span>
-            <span>무대 우측 (4반 라인) ➡️</span>
+            <span>⬅️ 무대 좌측 끝 (1열)</span>
+            <span>좌우로 스크롤하여 1~12열 확인</span>
+            <span>무대 우측 끝 (12열) ➡️</span>
           </div>
           <p style="font-size:0.74rem; color:#64748b; margin-top:6px; text-align:center;">
             ※ 두 학급을 차례로 터치하면 자리를 맞바꿀 수 있습니다.
@@ -816,10 +945,10 @@
         <div class="m-card">
           <div class="m-card-title">👩‍🏫 교원 인솔 핵심 유의사항</div>
           <ul style="padding-left:18px; font-size:0.82rem; color:#334155; display:flex; flex-direction:column; gap:6px;">
+            <li><strong>[필독] 운동장 최초 집결(5분 전) 및 2줄 정렬:</strong> 운동장 도착 시 바로 첫 부스로 가지 않고, <strong>먼저 운동장에 전체 집결(저학년 08:55 좌측 1-1~우측 3-4 / 고학년 11:25 좌측 4-1~우측 6-4 순서로 각 반 2줄씩 정렬)</strong>하여 전체 안내사항을 전달받은 후 각 부스로 이동합니다.</li>
             <li><strong>개인 가방 지참:</strong> 결과물 4종(3·6·9·12번 부스) 보관을 위한 에코백/비닐백(이름 표기) 지참</li>
-            <li><strong>집결 시각 엄수:</strong> 시작 5~10분 전까지 지정 부스 및 강당 착석 완료</li>
             <li><strong>동시 로테이션:</strong> 진행자 방송 안내에 따라 구령대 기준 시계방향(1→12번) 이동</li>
-            <li><strong>고학년 13:00 재집결:</strong> 중식 후 오전 첫 부스가 아닌 <strong>5회차 배정 부스</strong> 앞에서 시작</li>
+            <li><strong>고학년 12:55 재집결:</strong> 중식 후 오전 첫 부스가 아닌 <strong>5회차 배정 부스</strong> 앞에서 시작</li>
             <li><strong>비상 연락처:</strong> (주)유스페이스 담당자 010-5077-7894</li>
           </ul>
         </div>
@@ -913,6 +1042,198 @@
     let mAudSession = mGrade <= 3 ? 2 : 1;
     let mSwapIdx = null;
 
+    // D-Day & Auto-Round Sync State
+    const LOW_ROUND_RANGES = [
+      [540, 551], [551, 562], [562, 573], [573, 584],
+      [584, 595], [595, 606], [606, 617], [617, 628],
+      [628, 639], [639, 650], [650, 660], [660, 670]
+    ];
+    const HIGH_ROUND_RANGES = [
+      [690, 700], [700, 710], [710, 720], [720, 730],
+      [780, 790], [790, 800], [800, 810], [810, 820],
+      [820, 830], [830, 840], [840, 850], [850, 870]
+    ];
+
+    function computeMDdayInfo() {
+      const now = new Date();
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const eventMidnight = new Date(2026, 10, 12);
+      const diffDays = Math.round((eventMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
+      if (diffDays > 0) {
+        return { diffDays, isDday: false, badgeText: `D-${diffDays}`, detailText: `행사까지 ${diffDays}일 남음` };
+      } else if (diffDays === 0) {
+        return { diffDays: 0, isDday: true, badgeText: `🎉 D-DAY`, detailText: `오늘 행사 진행일!` };
+      } else {
+        return { diffDays, isDday: false, badgeText: `D+${Math.abs(diffDays)}`, detailText: `행사 완료` };
+      }
+    }
+
+    const mInitialDday = computeMDdayInfo();
+    let mAutoSync = mInitialDday.isDday;
+    let mManualOverride = false;
+    let mPreviewMins = "real";
+
+    function getMActiveMins() {
+      if (mPreviewMins !== "real") return parseInt(mPreviewMins, 10);
+      const now = new Date();
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    function formatMHHMM(mins) {
+      return `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(mins % 60).padStart(2, "0")}`;
+    }
+
+    function computeMAutoSchedule(grade, clsName, totalMins) {
+      const low = grade <= 3;
+      const b1 = getBooth(clsName, 1);
+      const ord = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
+      if (low) {
+        if (totalMins < 530) return { round: 1, badge: "집결 준비", text: `08:55까지 운동장 전체 집결(좌측 ${ord}번째·2줄 정렬) → 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 이동 예정` };
+        if (totalMins < 540) return { round: 1, badge: "🔔 전체집결(2줄)", text: `08:55까지 운동장 왼쪽에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 이동` };
+        if (totalMins >= 540 && totalMins < 670) {
+          let r = 1;
+          for (let i = 0; i < 12; i++) {
+            if (totalMins >= LOW_ROUND_RANGES[i][0] && totalMins < LOW_ROUND_RANGES[i][1]) { r = i + 1; break; }
+          }
+          const b = getBooth(clsName, r);
+          const rem = LOW_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, badge: `🔬 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${LOW_PROGRAMS[b-1].name} 체험 중 (약 ${rem}분 남음)` };
+        }
+        if (totalMins < 680) return { round: 12, badge: "결과물 정리", text: `부스 체험 완료 · 결과물 4종 확인 및 11:20 점심 이동` };
+        if (totalMins < 725) return { round: 12, badge: "🍱 점심(단축)", text: `저학년 점심식사 중 · 12:05까지 강당 지정석 착석!` };
+        if (totalMins < 730) return { round: 12, badge: "🎭 강당 착석", text: `12:05 강당 착석 완료 · 12:10 2차 공연 시작` };
+        if (totalMins < 780) return { round: 12, badge: "🎭 2차 공연 중", text: `강당 과학공연 2차 관람 중 (12:10~13:00)` };
+        if (totalMins < 830) return { round: 12, badge: "📚 5교시 수업", text: `과학축제 완료 · 13:10~13:50 5교시 정상 수업` };
+        return { round: 1, badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 일과가 종료되었습니다.` };
+      } else {
+        const b5 = getBooth(clsName, 5);
+        if (totalMins < 530) return { round: 1, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
+        if (totalMins < 540) return { round: 1, badge: "🎭 강당 착석", text: `08:50까지 강당 지정석 착석을 완료해 주세요!` };
+        if (totalMins < 590) return { round: 1, badge: "🎭 1차 공연 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 즉시 2교시)` };
+        if (totalMins < 680) return { round: 1, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:25까지 운동장 전체 집결(좌측 ${ord}번째·2줄 정렬)` };
+        if (totalMins < 690) return { round: 1, badge: "🔔 전체집결(2줄)!", text: `11:25까지 운동장 왼쪽에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 [${b1}번 ${HIGH_PROGRAMS[b1-1].name}] 이동` };
+        if (totalMins >= 690 && totalMins < 730) {
+          let r = 1;
+          for (let i = 0; i < 4; i++) {
+            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) { r = i + 1; break; }
+          }
+          const b = getBooth(clsName, r);
+          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, badge: `🔬 1차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b-1].name} 체험 중 (약 ${rem}분 남음)` };
+        }
+        if (totalMins < 775) return { round: 5, badge: "🍱 점심·5회차 전환", text: `점심식사 중 · 12:55까지 오후 시작 부스인 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5-1].name}] 앞 재집결!` };
+        if (totalMins < 780) return { round: 5, badge: "🔔 2차 재집결!", text: `지금 오후 2차 시작 부스 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5-1].name}] 앞 집결!` };
+        if (totalMins >= 780 && totalMins < 870) {
+          let r = 5;
+          for (let i = 4; i < 12; i++) {
+            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) { r = i + 1; break; }
+          }
+          const b = getBooth(clsName, r);
+          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, badge: `🔬 2차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b-1].name} 체험 중 (약 ${rem}분 남음)` };
+        }
+        return { round: 1, badge: "✅ 일과 종료", text: `금일 고학년 과학축제 전 일정(14:30)이 완료되었습니다.` };
+      }
+    }
+
+    function applyMAutoSyncIfActive() {
+      if (!mAutoSync) return;
+      const autoState = computeMAutoSchedule(mGrade, getClsStr(), getMActiveMins());
+      if (!mManualOverride) {
+        mRound = autoState.round;
+      }
+    }
+
+    function toggleMAutoSync() {
+      mAutoSync = !mAutoSync;
+      mManualOverride = false;
+      if (mAutoSync) {
+        const nowMins = new Date().getHours() * 60 + new Date().getMinutes();
+        const dday = computeMDdayInfo();
+        if (!dday.isDday && mPreviewMins === "real" && (nowMins < 530 || nowMins >= 870)) {
+          mPreviewMins = mGrade <= 3 ? "565" : "750";
+        }
+        applyMAutoSyncIfActive();
+      } else {
+        mPreviewMins = "real";
+      }
+      renderMAll();
+    }
+
+    function setMPreviewTime(val) {
+      mPreviewMins = val;
+      mManualOverride = false;
+      applyMAutoSyncIfActive();
+      renderMAll();
+    }
+
+    function resumeMAutoSync() {
+      mManualOverride = false;
+      applyMAutoSyncIfActive();
+      renderMAll();
+    }
+
+    function renderMLiveSync() {
+      const dday = computeMDdayInfo();
+      const badgeEl = document.getElementById("mDdayBadge");
+      if (badgeEl) {
+        badgeEl.textContent = dday.badgeText;
+        badgeEl.classList.toggle("is-today", dday.isDday);
+      }
+      const cardEl = document.getElementById("mLiveSyncCard");
+      if (!cardEl) return;
+      cardEl.classList.toggle("active-sync", mAutoSync);
+
+      const cls = getClsStr();
+      const mins = getMActiveMins();
+      const tStr = formatMHHMM(mins);
+      const autoState = computeMAutoSchedule(mGrade, cls, mins);
+
+      const presets = [
+        { val: "real", label: `🕒 실제 현재 시각 (${formatMHHMM(new Date().getHours()*60 + new Date().getMinutes())})` },
+        { val: "535", label: "🧪 [미리보기] 08:55 — 오전 첫 집결/강당 착석" },
+        { val: "545", label: "🧪 [미리보기] 09:05 — 저학년 1회차 / 고학년 공연" },
+        { val: "565", label: "🧪 [미리보기] 09:25 — 저학년 3회차 체험 중" },
+        { val: "610", label: "🧪 [미리보기] 10:10 — 저학년 7회차 체험 중" },
+        { val: "695", label: "🧪 [미리보기] 11:35 — 고학년 1차 1회차 / 저학년 점심" },
+        { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(5회차 전환) / 저학년 공연" },
+        { val: "785", label: "🧪 [미리보기] 13:05 — 고학년 2차 5회차 재개" },
+        { val: "825", label: "🧪 [미리보기] 13:45 — 고학년 2차 9회차 체험 중" }
+      ];
+
+      cardEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:6px;">
+          <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap;">
+            <span style="background:${dday.isDday ? '#dc2626' : '#0f172a'}; color:#fff; font-size:0.7rem; font-weight:900; padding:2px 7px; border-radius:99px;">
+              📅 ${dday.badgeText}
+            </span>
+            <span style="background:${mAutoSync ? '#1d4ed8' : '#64748b'}; color:#fff; font-size:0.7rem; font-weight:800; padding:2px 7px; border-radius:99px;">
+              ${mPreviewMins === 'real' ? `🕒 ${tStr}` : `⚡ ${tStr}`} · ${autoState.badge}
+            </span>
+          </div>
+          <button type="button" onclick="toggleMAutoSync()" style="padding:4px 9px; border-radius:99px; border:1px solid ${mAutoSync ? '#1d4ed8' : '#cbd5e1'}; background:${mAutoSync ? '#1d4ed8' : '#f8fafc'}; color:${mAutoSync ? '#fff' : '#334155'}; font-size:0.72rem; font-weight:800; cursor:pointer; white-space:nowrap;">
+            ${mAutoSync ? '⚡ 자동이동 ON' : '⚡ 자동이동 켜기'}
+          </button>
+        </div>
+        <div style="font-size:0.78rem; font-weight:700; color:#0f172a; line-height:1.35;">
+          [${cls}반] ${autoState.text}
+          ${(mAutoSync && mManualOverride) ? `<span style="color:#d97706; display:block; font-size:0.72rem; margin-top:2px;">※ 현재 ${mRound}회차 수동 확인 중</span>` : ''}
+        </div>
+        ${mAutoSync ? `
+          <div style="display:flex; gap:6px; margin-top:7px; align-items:center;">
+            <select onchange="setMPreviewTime(this.value)" style="flex:1; padding:5px 7px; border-radius:6px; border:1px solid #93c5fd; font-size:0.74rem; font-weight:700; color:#1e3a8a; background:#fff;">
+              ${presets.map(p => `<option value="${p.val}" ${String(mPreviewMins) === p.val ? 'selected' : ''}>${p.label}</option>`).join("")}
+            </select>
+            ${mManualOverride ? `
+              <button type="button" onclick="resumeMAutoSync()" style="padding:5px 9px; border-radius:6px; border:1px solid #f59e0b; background:#fef3c7; color:#92400e; font-size:0.72rem; font-weight:900; white-space:nowrap; cursor:pointer;">
+                🔄 ${autoState.round}회차 복귀
+              </button>
+            ` : ''}
+          </div>
+        ` : ''}
+      `;
+    }
+
     let savedChecks = {};
     try {
       savedChecks = JSON.parse(localStorage.getItem("scifest_checks_2026")) || {};
@@ -950,14 +1271,18 @@
 
     function setGrade(g) {
       mGrade = g;
+      mManualOverride = false;
       mRound = 1;
+      applyMAutoSyncIfActive();
       mAudSession = g <= 3 ? 2 : 1;
       saveAndRender();
     }
 
     function setCls(c) {
       mCls = c;
+      mManualOverride = false;
       mRound = 1;
+      applyMAutoSyncIfActive();
       saveAndRender();
     }
 
@@ -965,7 +1290,14 @@
       const parts = clsStr.split("-");
       mGrade = parseInt(parts[0], 10);
       mCls = parseInt(parts[1], 10);
-      mRound = roundNum || 1;
+      if (roundNum) {
+        mManualOverride = true;
+        mRound = roundNum;
+      } else {
+        mManualOverride = false;
+        mRound = 1;
+        applyMAutoSyncIfActive();
+      }
       mAudSession = mGrade <= 3 ? 2 : 1;
       saveAndRender();
     }
@@ -975,11 +1307,19 @@
       if (next < 1) next = 1;
       if (next > 12) next = 12;
       mRound = next;
+      if (mAutoSync) {
+        const autoInfo = computeMAutoSchedule(mGrade, getClsStr(), getMActiveMins());
+        mManualOverride = (mRound !== autoInfo.round);
+      }
       renderMAll();
     }
 
     function setRoundDirect(r) {
       mRound = parseInt(r, 10);
+      if (mAutoSync) {
+        const autoInfo = computeMAutoSchedule(mGrade, getClsStr(), getMActiveMins());
+        mManualOverride = (mRound !== autoInfo.round);
+      }
       renderMAll();
     }
 
@@ -1000,6 +1340,9 @@
     }
 
     function renderMAll() {
+      applyMAutoSyncIfActive();
+      renderMLiveSync();
+
       // Update top buttons & PC link
       document.querySelectorAll("#mGradeRow .m-grade-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === mGrade));
       document.querySelectorAll("#mClassRow .m-class-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === mCls));
@@ -1055,14 +1398,19 @@
         </div>
       `;
 
-      // 2. Gathering Points
+      // 2. Gathering Points & 2-Line Lineup Card
       const b1 = getBooth(cls, 1);
       const b5 = getBooth(cls, 5);
+      const grpClasses = low ? LOW_CLASSES : HIGH_CLASSES;
+      const lineupOrd = grpClasses.indexOf(cls) + 1;
+      const leftNeighbor = lineupOrd > 1 ? `${grpClasses[lineupOrd - 2]}반` : "운동장 왼쪽 끝";
+      const rightNeighbor = lineupOrd < 12 ? `${grpClasses[lineupOrd]}반` : "운동장 오른쪽 끝";
+
       if (low) {
         document.getElementById("mGatherGrid").innerHTML = `
           <div class="gather-box warn">
-            <div class="gather-label">★ 08:50 운동장 첫 집결</div>
-            <div class="gather-val">${b1}번 ${progs[b1-1].name}</div>
+            <div class="gather-label">① 08:55 전체집결(2줄 정렬)</div>
+            <div class="gather-val">좌측 ${lineupOrd}번째 → ${b1}번 부스</div>
           </div>
           <div class="gather-box">
             <div class="gather-label">🎭 12:05 강당 공연 착석</div>
@@ -1072,8 +1420,8 @@
       } else {
         document.getElementById("mGatherGrid").innerHTML = `
           <div class="gather-box">
-            <div class="gather-label">★ 11:25 오전 1차 시작</div>
-            <div class="gather-val">${b1}번 ${progs[b1-1].name}</div>
+            <div class="gather-label">① 11:25 전체집결(2줄 정렬)</div>
+            <div class="gather-val">좌측 ${lineupOrd}번째 → ${b1}번 부스</div>
           </div>
           <div class="gather-box warn">
             <div class="gather-label">🔔 12:55 점심 후 재집결</div>
@@ -1081,6 +1429,32 @@
           </div>
         `;
       }
+
+      const lineupStripHtml = grpClasses.map((cName, idx) => {
+        const isMe = cName === cls;
+        return `
+          <div onclick="selectMClassFromTable('${cName}', 1)" style="cursor:pointer; min-width:54px; padding:6px 3px; border-radius:8px; text-align:center; border:${isMe ? '2px solid #0284c7' : '1px solid #cbd5e1'}; background:${isMe ? '#fef08a' : '#fff'}; flex-shrink:0;">
+            <div style="font-size:0.6rem; font-weight:800; color:${isMe ? '#0369a1' : '#64748b'};">${idx === 0 ? '⬅️좌측끝' : (idx === 11 ? '우측끝➡️' : `좌${idx+1}`)}</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">${cName}반</div>
+            <div style="font-size:0.62rem; font-weight:800; color:#1d4ed8;">|| 2줄</div>
+          </div>
+        `;
+      }).join("");
+
+      document.getElementById("mLineupCard").innerHTML = `
+        <div style="font-weight:900; font-size:0.86rem; color:#0369a1; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
+          <span>🚩 [${cls}반] 운동장 최초 집결 & 2줄 정렬 안내</span>
+          <span style="font-size:0.68rem; background:#0284c7; color:#fff; padding:2px 7px; border-radius:99px;">${low ? '08:55까지(5분전)' : '11:25까지(5분전)'}</span>
+        </div>
+        <div style="font-size:0.77rem; color:#0f172a; line-height:1.45; margin-bottom:8px;">
+          • 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 부스(${b1}번)로 가지 않고</strong>, 먼저 운동장 전체 집결 후 안내사항을 듣고 이동합니다.<br/>
+          • <strong>${cls}반 정렬 위치</strong>: 운동장 기준 <strong style="color:#0369a1; background:#e0f2fe; padding:1px 5px; border-radius:4px;">왼쪽에서 ${lineupOrd}번째 (${leftNeighbor}·${rightNeighbor} 사이) · 2줄씩 정렬</strong><br/>
+          • <strong>전체 안내 후 이동</strong>: <strong>${b1}번 ${progs[b1-1].name}</strong> 부스로 이동!
+        </div>
+        <div style="display:flex; gap:5px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch;">
+          ${lineupStripHtml}
+        </div>
+      `;
 
       // 2.5 Regular vs Festival Diff Alert Card
       if (low) {
@@ -1091,7 +1465,7 @@
           </div>
           <div style="display:flex; flex-direction:column; gap:5px; font-size:0.78rem; color:#0f172a;">
             <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1px solid #fda4af;">
-              • <strong>1~3교시 부스(09:00~11:10)</strong>: 종소리(쉬는시간) 무관 연속 진행 · <strong>기존 3교시(11:20)보다 10분 일찍 종료!</strong>
+              • <strong>1~3교시 부스(09:00~11:10)</strong>: 쉬는시간 없이 연속 진행 · <strong>기존 3교시(11:20)보다 10분 일찍 종료!</strong>
             </div>
             <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1.5px solid #dc2626;">
               • <strong style="color:#dc2626;">점심 10분 단축</strong>: <del style="color:#94a3b8;">기존 11:20~12:20</del> → <strong>당일 11:20~12:10 (12:05 강당 착석 완료!)</strong>
@@ -1124,8 +1498,10 @@
       // 3. Timeline
       if (low) {
         document.getElementById("mTimelineList").innerHTML = `
-          <div>• <strong>08:50~09:00</strong> : 운동장 <strong>${b1}번 부스</strong> 앞 집결</div>
-          <div>• <strong>09:00~11:10</strong> : 운동장 1~12회차 부스 <span style="color:#b45309; font-weight:800;">(종소리 무관 · 기존 3교시보다 10분 조기 종료)</span></div>
+          <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
+            • <strong>08:55 집결 완료(5분 전)</strong> : 🚩 <strong>운동장 전체 집결(좌측 1-1~우측 3-4, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내사항 전달 후 <strong>${b1}번 부스</strong>로 이동!
+          </div>
+          <div>• <strong>09:00~11:10</strong> : 운동장 1~12회차 부스 <span style="color:#b45309; font-weight:800;">(쉬는시간 없이 연속 진행 · 기존 3교시보다 10분 조기 종료)</span></div>
           <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
             • <strong>11:20~12:10</strong> : 🍱 <strong>저학년 점심식사</strong> <span style="color:#dc2626; font-weight:900;">[🚨기존 ~12:20 대비 10분 단축! 12:05 강당 착석]</span>
           </div>
@@ -1139,7 +1515,9 @@
           <div style="background:#f5f3ff; padding:5px 7px; border-radius:6px; border-left:3px solid #7c3aed;">
             • <strong>09:00~09:50</strong> : 🎭 <strong>강당 과학공연 1차</strong> <span style="color:#5b21b6; font-weight:900;">[🚨기존 1교시 ~09:40보다 10분 연장·쉬는시간 없음]</span>
           </div>
-          <div>• <strong>09:50~11:20</strong> : 📚 <strong>2·3교시 교실 수업</strong> <span style="color:#b45309; font-weight:800;">(3교시 직후 11:25까지 운동장 집결)</span></div>
+          <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
+            • <strong>09:50~11:20 수업 후 11:25 집결</strong> : 🚩 <strong>운동장 전체 집결(좌측 4-1~우측 6-4, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내 후 <strong>${b1}번 부스</strong>로 이동!
+          </div>
           <div>• <strong>11:30~12:10</strong> : 🔬 <strong>운동장 1차 체험</strong> (1~4회차, ${b1}번 시작 · 기존 4교시 시각 동일)</div>
           <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
             • <strong>12:10~13:00</strong> : 🍱 <strong>고학년 점심식사</strong> <span style="color:#dc2626; font-weight:900;">[🚨기존 ~13:10 대비 10분 단축! 12:55 ${b5}번 부스 재집결]</span>
@@ -1260,6 +1638,10 @@
       for (let r = 1; r <= 12; r++) {
         if (getBooth(cls, r) === boothNum) {
           mRound = r;
+          if (mAutoSync) {
+            const autoInfo = computeMAutoSchedule(mGrade, cls, getMActiveMins());
+            mManualOverride = (mRound !== autoInfo.round);
+          }
           renderMAll();
           break;
         }
@@ -1340,9 +1722,10 @@
         const g = parseInt(c.split("-")[0], 10);
         const cnt = g === 1 ? "약 16명" : "약 20명";
         html += `
-          <div onclick="tapMAudSeat(${idx})" style="cursor:pointer; padding:10px 4px; border-radius:8px; text-align:center; border:2px solid ${isSwap ? '#f59e0b' : (isMe ? '#1d4ed8' : '#cbd5e1')}; background:${isSwap ? '#fffbeb' : (isMe ? '#dbeafe' : '#fff')}; font-weight:900; font-size:0.86rem;">
-            ${c}반
-            <div style="font-size:0.65rem; color:#64748b; font-weight:600; margin-top:2px;">${Math.floor(idx/4)+1}열 · ${cnt}</div>
+          <div onclick="tapMAudSeat(${idx})" style="cursor:pointer; padding:14px 4px; min-height:115px; display:flex; flex-direction:column; justify-content:space-between; align-items:center; border-radius:8px; text-align:center; border:2px solid ${isSwap ? '#f59e0b' : (isMe ? '#1d4ed8' : '#cbd5e1')}; background:${isSwap ? '#fffbeb' : (isMe ? '#dbeafe' : '#fff')}; font-weight:900; font-size:0.86rem;">
+            <div style="font-size:0.68rem; color:#475569; background:#f1f5f9; padding:2px 6px; border-radius:99px; font-weight:700;">좌측 ${idx + 1}열</div>
+            <div style="font-size:0.9rem; margin:6px 0;">${c}반</div>
+            <div style="font-size:0.65rem; color:#64748b; font-weight:600;">${cnt}</div>
           </div>
         `;
       });
@@ -1371,7 +1754,19 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      applyMAutoSyncIfActive();
       saveAndRender();
+      setInterval(() => {
+        if (mPreviewMins === null) {
+          const prevRound = mRound;
+          applyMAutoSyncIfActive();
+          if (mRound !== prevRound) {
+            renderMAll();
+          } else {
+            renderMLiveSync();
+          }
+        }
+      }, 15000);
     });
   </script>
 </body>

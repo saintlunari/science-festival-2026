@@ -896,20 +896,27 @@
 
     .seating-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(12, minmax(76px, 1fr));
+      gap: 8px;
       margin-bottom: 14px;
+      overflow-x: auto;
+      padding-bottom: 6px;
     }
 
     .seat-block {
       border: 2px solid #cbd5e1;
       border-radius: 12px;
-      padding: 16px 12px;
+      padding: 16px 6px;
       text-align: center;
       background: #fff;
       cursor: pointer;
       transition: all 0.15s;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 165px;
     }
 
     .seat-block:hover {
@@ -930,23 +937,29 @@
     }
 
     .seat-row-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-muted);
       font-weight: 700;
       margin-bottom: 4px;
+      background: #f1f5f9;
+      padding: 2px 7px;
+      border-radius: 99px;
     }
 
     .seat-class-name {
-      font-size: 1.15rem;
+      font-size: 1.02rem;
       font-weight: 900;
       color: var(--text);
+      line-height: 1.25;
+      word-break: keep-all;
     }
 
     .seat-student-count {
-      font-size: 0.8rem;
+      font-size: 0.74rem;
       color: var(--secondary);
       font-weight: 600;
       margin-top: 2px;
+      line-height: 1.25;
     }
 
     /* Program Cards Grid */
@@ -1277,7 +1290,7 @@
           <div class="diff-box-title">
             🚨 [필독] 기존 정규 수업 시간표 vs 과학축제 당일 시간표 변경점 비교
           </div>
-          <span class="diff-badge">학교 정규 타종(종소리) 및 평소 점심시간과 다름 주의!</span>
+          <span class="diff-badge">평소 정규 시정표 및 점심시간과 다름 주의!</span>
         </div>
         <p style="font-size:0.88rem; color:#881337; margin-bottom:14px; font-weight:600;">
           행사 당일에는 강당 공연(50분) 및 운동장 12부스 연속 로테이션 운영으로 인해 <strong>기존 수업 시간표(쉬는시간·점심시간·교시 시작 시각)와 다른 구간</strong>이 있습니다. 담임선생님 및 전담·비교과 선생님께서는 아래 강조 표시된 시간을 꼭 확인해 주세요.
@@ -1306,8 +1319,8 @@
                     <td>1교시 09:00~09:40<br/>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
                     <td><strong style="color:#1e40af;">09:00 ~ 11:10</strong><br/>(운동장 12부스)</td>
                     <td style="text-align:left;">
-                      <span class="diff-badge warn">🔔 종소리 무관 연속 진행</span><br/>
-                      쉬는시간 타종 없이 11분/10분 단위 회전, <strong>기존 3교시보다 10분 일찍(11:10) 체험 종료</strong> (11:10~11:20 교실 이동·손 씻기)
+                      <span class="diff-badge warn">⚠️ 쉬는시간 없이 연속 진행</span><br/>
+                      교시별 쉬는시간 없이 11분/10분 단위 회전, <strong>기존 3교시보다 10분 일찍(11:10) 체험 종료</strong> (11:10~11:20 교실 이동·손 씻기)
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
@@ -1364,7 +1377,7 @@
                     <td><strong style="color:#5b21b6; font-size:0.92rem;">09:00 ~ 09:50</strong><br/><strong>(50분 · 공연 관람)</strong></td>
                     <td style="text-align:left;">
                       <span class="diff-badge">🚨 기존 1교시보다 10분 늦게 종료!</span><br/>
-                      09:40 종료 종이 울려도 <strong>09:50까지 공연 진행 후 쉬는시간 없이 바로 2교시 수업</strong>으로 이동
+                      기존 1교시(09:40 종료)보다 10분 연장되어 <strong>09:50까지 공연 진행 후 쉬는시간 없이 바로 2교시 수업</strong>으로 이동
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
@@ -1446,7 +1459,7 @@
                 <td rowspan="2" style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
                   🔬 <strong>운동장 과학축제 부스 체험</strong><br/>
                   (09:00 ~ 11:10, 총 12개 부스 완주)<br/>
-                  <span class="diff-badge warn" style="margin:3px 0;">🔔 1~3교시 종소리 무관 연속 진행 · 3교시보다 10분 조기 종료</span><br/>
+                  <span class="diff-badge warn" style="margin:3px 0;">⚠️ 1~3교시 쉬는시간 없이 연속 진행 · 3교시보다 10분 조기 종료</span><br/>
                   <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~10회차: 각 11분 / 11~12회차: 각 10분<br/>• 구령대 중심 시계방향(1→12번) 로테이션</span>
                 </td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
@@ -1577,8 +1590,8 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">🎭 강당 과학공연 "서프라이즈 과학대탐험" 학급별 좌석 배치도</h3>
-            <p class="card-subtitle">무대 앞줄부터 저학년순(4→5→6학년 / 1→2→3학년), 왼쪽(1반)~오른쪽(4반) 기본 배치입니다. <strong>두 학급을 차례로 클릭하면 자리를 서로 맞바꿀 수 있습니다.</strong></p>
+            <h3 class="card-title">🎭 강당 과학공연 "서프라이즈 과학대탐험" 학급별 좌석 배치도 (1행 12열)</h3>
+            <p class="card-subtitle">무대를 바라보는 기준 좌측(1열)부터 우측(12열)까지 학년·반 오름차순(고학년 4-1~6-4 / 저학년 1-1~3-4)으로 나란히 앉는 <strong>1행 12열</strong> 기본 배치입니다. <strong>두 학급을 차례로 클릭하면 자리를 서로 맞바꿀 수 있습니다.</strong></p>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button class="btn" id="audBtn1" style="background:#5b21b6; color:#fff;" onclick="setAudSession(1)">
@@ -1608,9 +1621,9 @@
         <div id="audSeatingContainer"></div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:10px 14px; background:#f8fafc; border-radius:10px; font-size:0.85rem; color:#475569;">
-          <span>⬅️ 강당 무대 바라보는 기준 좌측 (1반 라인)</span>
-          <strong>복도 및 통로 확보 (담임교사 임장 지도)</strong>
-          <span>강당 무대 바라보는 기준 우측 (4반 라인) ➡️</span>
+          <span>⬅️ 강당 무대 바라보는 기준 좌측 끝 (1열)</span>
+          <strong>1행 12열 종대 배치 · 복도 및 통로 확보 (담임교사 임장 지도)</strong>
+          <span>강당 무대 바라보는 기준 우측 끝 (12열) ➡️</span>
         </div>
       </div>
     </section>
@@ -2064,7 +2077,7 @@
               <div class="diff-box-title">
                 🚨 [${cls}반 필독] 기존 저학년 수업 시간표와 다른 시간 확인!
               </div>
-              <span class="diff-badge">평소 타종(종소리) 및 점심 종료 시각과 다릅니다</span>
+              <span class="diff-badge">평소 정규 시정표 및 점심 종료 시각과 다릅니다</span>
             </div>
             <div class="table-wrap">
               <table>
@@ -2082,7 +2095,7 @@
                     <td>1교시 09:00~09:40<br/>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
                     <td><strong style="color:#1e40af; font-size:0.95rem;">09:00 ~ 11:10</strong><br/>(운동장 12부스 연속)</td>
                     <td style="text-align:left;">
-                      <span class="diff-badge warn">🔔 쉬는시간 종소리 무시 · 3교시보다 10분 조기 종료</span><br/>
+                      <span class="diff-badge warn">⚠️ 쉬는시간 없이 연속 진행 · 3교시보다 10분 조기 종료</span><br/>
                       교시별 쉬는시간 없이 진행자 방송에 맞춰 11분/10분 간격 회전하며, <strong>11:10에 부스 체험이 끝나 교실로 이동(손 씻기·결과물 보관)</strong>합니다.
                     </td>
                   </tr>
@@ -2143,7 +2156,7 @@
                     <td><strong style="color:#5b21b6; font-size:0.95rem;">09:00 ~ 09:50</strong><br/><strong>(50분 · 강당 과학공연)</strong></td>
                     <td style="text-align:left;">
                       <span class="diff-badge">🚨 기존 1교시(09:40 종료)보다 10분 연장 · 쉬는시간 없음!</span><br/>
-                      09:40 종이 울려도 <strong>09:50까지 공연 관람 후 곧바로 2교시(09:50~) 수업으로 이어집니다.</strong> (2교시 전담 수업 시 사전 공유 필수)
+                      기존 1교시(09:40 종료)보다 10분 연장되어 <strong>09:50까지 공연 관람 후 곧바로 2교시(09:50~) 수업으로 이어집니다.</strong> (2교시 전담 수업 시 사전 공유 필수)
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
@@ -2178,7 +2191,7 @@
                     <td><strong style="color:#1e40af; font-size:0.95rem;">13:00 ~ 14:30</strong><br/><strong>(운동장 5~12회차 연속)</strong></td>
                     <td style="text-align:left;">
                       <span class="diff-badge">🚨 기존 5교시보다 10분 조기 시작 · 6교시보다 10분 조기 종료!</span><br/>
-                      <strong>13:00 정각</strong>에 2차 부스 체험을 시작하며, 5·6교시 사이 쉬는시간 타종 없이 연속 회전 후 <strong>14:30에 종료</strong>됩니다.
+                      <strong>13:00 정각</strong>에 2차 부스 체험을 시작하며, 5·6교시 사이 쉬는시간 없이 연속 회전 후 <strong>14:30에 종료</strong>됩니다.
                     </td>
                   </tr>
                 </tbody>
@@ -2204,7 +2217,7 @@
             <div class="tl-content">
               <div class="tl-title">
                 🔬 운동장 과학축제 부스 체험 (1~12회차 전 부스 완주)
-                <span class="diff-badge warn">🔔 1~3교시 종소리 무관 연속 · 3교시(11:20)보다 10분 조기 종료</span>
+                <span class="diff-badge warn">⚠️ 1~3교시 쉬는시간 없이 연속 진행 · 3교시(11:20)보다 10분 조기 종료</span>
               </div>
               <div class="tl-desc">${firstBooth}번 부스에서 시작하여 시계방향으로 11분씩(11·12회차는 10분) 총 12개 부스 이동</div>
             </div>
@@ -2255,7 +2268,7 @@
             <div class="tl-time">08:50 ~ 09:00</div>
             <div class="tl-content">
               <div class="tl-title">강당 이동 및 ${cls} 지정 좌석 착석 완료</div>
-              <div class="tl-desc">무대 앞 4학년 → 5학년 → 6학년 순 착석</div>
+              <div class="tl-desc">무대 바라보는 기준 좌측(1열: 4-1)부터 우측(12열: 6-4)까지 1행 12열 착석</div>
             </div>
           </div>
           <div class="timeline-item type-show" style="border:2px solid #8b5cf6;">
@@ -2615,12 +2628,10 @@
     function renderAudSeats() {
       const seats = audSeats[audSession];
       const selectedCls = getSelectedClassName();
-      const rowLabels = ["앞줄 (1열 구역)", "중간줄 (2열 구역)", "뒷줄 (3열 구역)"];
 
       let html = `<div class="seating-grid">`;
       seats.forEach((clsName, idx) => {
-        const rowIdx = Math.floor(idx / 4);
-        const colIdx = (idx % 4) + 1;
+        const colNum = idx + 1;
         const g = parseInt(clsName.split("-")[0], 10);
         const count = g === 1 ? "약 16명" : "약 20명";
         const isSwapSel = swapSourceIndex === idx;
@@ -2629,11 +2640,11 @@
         html += `
           <div class="seat-block ${isSwapSel ? 'selected-swap' : ''} ${isMyCls ? 'my-class-seat' : ''}"
                onclick="handleSeatClick(${idx})">
-            <div class="seat-row-label">${rowLabels[rowIdx]} · 좌측 ${colIdx}번째</div>
-            <div class="seat-class-name">${clsName.replace("-", "학년 ")}반</div>
-            <div class="seat-student-count">학생 ${count} + 담임교사</div>
-            <div style="font-size:0.72rem; color:#64748b; margin-top:4px;">
-              ${isSwapSel ? '🔄 바꿀 다른 학급을 클릭하세요' : '클릭하여 자리 변경'}
+            <div class="seat-row-label">좌측 ${colNum}열</div>
+            <div class="seat-class-name">${clsName.replace("-", "학년<br/>")}반</div>
+            <div class="seat-student-count">학생 ${count}<br/>+ 담임교사</div>
+            <div style="font-size:0.68rem; color:#64748b; margin-top:4px;">
+              ${isSwapSel ? '🔄 바꿀 반 클릭' : '클릭하여 변경'}
             </div>
           </div>
         `;
@@ -2728,11 +2739,11 @@
         </div>
 
         <div style="margin-bottom:8px; padding:7px 10px; border:2px solid #dc2626; border-radius:6px; background:#fff1f2; font-size:10px;">
-          <strong style="color:#b91c1c;">🚨 [필독] 기존 정규 수업 시간표와 다른 시간 주의사항 (평소 타종·중식 시각과 다름):</strong><br/>
+          <strong style="color:#b91c1c;">🚨 [필독] 기존 정규 수업 시간표와 다른 시간 주의사항 (평소 시정표·중식 시각과 다름):</strong><br/>
           ${low
-            ? `• <strong>1~3교시 부스 체험(09:00~11:10)</strong>: 정규 쉬는시간 종소리와 무관하게 연속 진행되며, <strong>기존 3교시(11:20)보다 10분 일찍(11:10) 종료</strong>됩니다.<br/>
+            ? `• <strong>1~3교시 부스 체험(09:00~11:10)</strong>: 교시별 쉬는시간 없이 연속 진행되며, <strong>기존 3교시(11:20)보다 10분 일찍(11:10) 종료</strong>됩니다.<br/>
                • <strong>점심시간 10분 단축(기존 11:20~12:20 → 당일 11:20~12:10)</strong> 및 <strong>4교시 10분 조기 시작(기존 12:20 → 당일 12:10 공연 시작)</strong>: <strong>반드시 12:05까지 강당에 착석</strong>해 주세요! (5교시 13:10~13:50은 기존과 동일)`
-            : `• <strong>1교시 10분 연장(기존 09:00~09:40 → 당일 09:00~09:50 공연)</strong>: 09:40 종이 울려도 09:50까지 관람 후 <strong>쉬는시간 없이 바로 2교시(09:50~10:30) 수업</strong>으로 연결됩니다.<br/>
+            : `• <strong>1교시 10분 연장(기존 09:00~09:40 → 당일 09:00~09:50 공연)</strong>: 기존 1교시보다 10분 연장되어 09:50까지 관람 후 <strong>쉬는시간 없이 바로 2교시(09:50~10:30) 수업</strong>으로 연결됩니다.<br/>
                • <strong>점심시간 10분 단축(기존 12:10~13:10 → 당일 12:10~13:00)</strong> 및 <strong>5교시 10분 조기 시작(기존 13:10 → 당일 13:00 부스 시작)</strong>: <strong>12:55까지 운동장 [${round5Booth}번 부스] 앞 재집결 필수!</strong> (종료도 기존 6교시 14:40보다 10분 빠른 14:30 종료)`
           }
         </div>
@@ -2799,7 +2810,7 @@
           <tbody>
             <tr>
               <td><strong>09:00 ~ 09:50</strong></td>
-              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (종소리 무관 · 기존 3교시보다 10분 조기 종료)</td>
+              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (쉬는시간 없이 연속 진행 · 기존 3교시보다 10분 조기 종료)</td>
               <td><strong>강당 과학공연 1차 관람 (09:00~09:50)</strong><br/><strong>※ 기존 1교시(~09:40)보다 10분 연장·쉬는시간 없음</strong></td>
               <td>08:50까지 각 장소 집결 완료</td>
             </tr>
@@ -2844,15 +2855,11 @@
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:10px;">
           <div style="border:1px solid #334155; padding:6px; border-radius:4px;">
-            <strong>4. 강당 과학공연 학급별 좌석 배치 (무대 앞줄부터 저학년순, 좌→우 1~4반)</strong><br/>
-            • <strong>1차 (09:00~09:50, 고학년)</strong>:<br/>
-              - 앞줄(1열): ${audSeats[1].slice(0,4).join(" / ")}<br/>
-              - 중간(2열): ${audSeats[1].slice(4,8).join(" / ")}<br/>
-              - 뒷줄(3열): ${audSeats[1].slice(8,12).join(" / ")}<br/>
-            • <strong>2차 (12:10~13:00, 저학년)</strong>:<br/>
-              - 앞줄(1열): ${audSeats[2].slice(0,4).join(" / ")}<br/>
-              - 중간(2열): ${audSeats[2].slice(4,8).join(" / ")}<br/>
-              - 뒷줄(3열): ${audSeats[2].slice(8,12).join(" / ")}
+            <strong>4. 강당 과학공연 학급별 좌석 배치 (1행 12열: 무대 바라보는 기준 좌측 1열 → 우측 12열)</strong><br/>
+            • <strong>1차 (09:00~09:50, 고학년 1~12열)</strong>:<br/>
+              ${audSeats[1].map((c, i) => `${i + 1}열(${c})`).join(" → ")}<br/>
+            • <strong>2차 (12:10~13:00, 저학년 1~12열)</strong>:<br/>
+              ${audSeats[2].map((c, i) => `${i + 1}열(${c})`).join(" → ")}
           </div>
           <div style="border:1px solid #334155; padding:6px; border-radius:4px;">
             <strong>5. 교원 인솔 수칙 및 행정 협조사항</strong><br/>

@@ -546,6 +546,74 @@
       margin-top: 3px;
     }
 
+    /* Schedule Difference Emphasis Badges & Cards */
+    .diff-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1.5px solid #f87171;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      line-height: 1.3;
+    }
+
+    .diff-badge.warn {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #f59e0b;
+    }
+
+    .diff-badge.same {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+      font-weight: 700;
+    }
+
+    .strike-old {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-weight: 600;
+      margin-right: 4px;
+    }
+
+    .diff-box-card {
+      background: #fff1f2;
+      border: 2px solid #f43f5e;
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(244, 63, 94, 0.1);
+    }
+
+    .diff-box-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1.5px dashed #fda4af;
+    }
+
+    .diff-box-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #9f1239;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .diff-row-highlight td {
+      background: #fff1f2 !important;
+    }
+
     /* Playground ㄷ-shape Booth Map */
     .playground-map-wrap {
       background: #f1f5f9;
@@ -1101,6 +1169,9 @@
       <!-- Critical Notice for Selected Grade Group -->
       <div id="myClassAlert"></div>
 
+      <!-- Regular vs Festival Schedule Diff Box for Selected Class -->
+      <div id="myClassScheduleDiff"></div>
+
       <div class="two-col">
         <!-- Left: Daily Schedule & Booth Rotation Map -->
         <div>
@@ -1200,12 +1271,150 @@
         </div>
       </div>
 
+      <!-- Regular vs Festival Timetable Comparison Card -->
+      <div class="diff-box-card">
+        <div class="diff-box-header">
+          <div class="diff-box-title">
+            🚨 [필독] 기존 정규 수업 시간표 vs 과학축제 당일 시간표 변경점 비교
+          </div>
+          <span class="diff-badge">학교 정규 타종(종소리) 및 평소 점심시간과 다름 주의!</span>
+        </div>
+        <p style="font-size:0.88rem; color:#881337; margin-bottom:14px; font-weight:600;">
+          행사 당일에는 강당 공연(50분) 및 운동장 12부스 연속 로테이션 운영으로 인해 <strong>기존 수업 시간표(쉬는시간·점심시간·교시 시작 시각)와 다른 구간</strong>이 있습니다. 담임선생님 및 전담·비교과 선생님께서는 아래 강조 표시된 시간을 꼭 확인해 주세요.
+        </p>
+
+        <div class="two-col">
+          <!-- Low Grade Comparison -->
+          <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:14px;">
+            <div style="font-weight:900; font-size:0.98rem; color:#1e40af; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span>👦 저학년 (1~3학년) 시정 비교</span>
+              <span class="diff-badge">점심 10분 단축 · 4교시 10분 조기 시작</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:76px;">구분</th>
+                    <th style="width:115px;">기존 수업 시간표</th>
+                    <th style="width:125px;">과학축제 당일</th>
+                    <th>변경 내용 및 핵심 주의사항</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="diff-row-highlight">
+                    <td><strong>1~3교시</strong></td>
+                    <td>1교시 09:00~09:40<br/>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
+                    <td><strong style="color:#1e40af;">09:00 ~ 11:10</strong><br/>(운동장 12부스)</td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge warn">🔔 종소리 무관 연속 진행</span><br/>
+                      쉬는시간 타종 없이 11분/10분 단위 회전, <strong>기존 3교시보다 10분 일찍(11:10) 체험 종료</strong> (11:10~11:20 교실 이동·손 씻기)
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>점심시간</strong></td>
+                    <td><span class="strike-old">11:20 ~ 12:20</span><br/>(60분)</td>
+                    <td><strong style="color:#dc2626; font-size:0.92rem;">11:20 ~ 12:10</strong><br/><strong>(50분 · 10분 단축!)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 종료 10분 앞당김 (12:05 강당 착석!)</span><br/>
+                      기존 점심 종료(12:20)보다 <strong>15분 빠른 12:05까지 강당 착석</strong>을 완료해야 합니다.
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>4교시</strong></td>
+                    <td><span class="strike-old">12:20 ~ 13:00</span><br/>(40분)</td>
+                    <td><strong style="color:#5b21b6; font-size:0.92rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 공연 관람)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 4교시보다 10분 일찍 시작!</span><br/>
+                      강당 과학공연 2차 관람 (50분간 진행)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>5교시</strong></td>
+                    <td>13:10 ~ 13:50</td>
+                    <td><strong>13:10 ~ 13:50</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge same">✓ 기존 시간표와 동일</span> (13:00 공연 종료 후 교실 이동)
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- High Grade Comparison -->
+          <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:14px;">
+            <div style="font-weight:900; font-size:0.98rem; color:#5b21b6; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span>🧑 고학년 (4~6학년) 시정 비교</span>
+              <span class="diff-badge">1교시 연장 · 점심 10분 단축 · 5교시 조기 시작</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:76px;">구분</th>
+                    <th style="width:115px;">기존 수업 시간표</th>
+                    <th style="width:125px;">과학축제 당일</th>
+                    <th>변경 내용 및 핵심 주의사항</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="diff-row-highlight">
+                    <td><strong>1교시</strong></td>
+                    <td><span class="strike-old">09:00 ~ 09:40</span><br/>(40분)</td>
+                    <td><strong style="color:#5b21b6; font-size:0.92rem;">09:00 ~ 09:50</strong><br/><strong>(50분 · 공연 관람)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 1교시보다 10분 늦게 종료!</span><br/>
+                      09:40 종료 종이 울려도 <strong>09:50까지 공연 진행 후 쉬는시간 없이 바로 2교시 수업</strong>으로 이동
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>2~3교시</strong></td>
+                    <td>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
+                    <td><strong>09:50 ~ 11:20</strong><br/>(11:25 운동장 집결)</td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge warn">⚠️ 1교시 직후 2교시 시작 · 3교시 후 즉시 이동</span><br/>
+                      교실 정상 수업 후 쉬는시간(11:20~11:30) 중 <strong>11:25까지 운동장 1차 부스 앞 집결</strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>4교시</strong></td>
+                    <td>11:30 ~ 12:10<br/>(40분)</td>
+                    <td><strong style="color:#1e40af;">11:30 ~ 12:10</strong><br/>(운동장 1~4회차)</td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge same">✓ 시작·종료 시각 동일</span> (운동장 1차 4개 부스 각 10분 체험)
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>점심시간</strong></td>
+                    <td><span class="strike-old">12:10 ~ 13:10</span><br/>(60분)</td>
+                    <td><strong style="color:#dc2626; font-size:0.92rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 10분 단축!)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 종료 10분 앞당김 (12:55 운동장 재집결!)</span><br/>
+                      기존 점심 종료(13:10)보다 <strong>15분 빠른 12:55까지 운동장 5회차 부스 앞 재집결</strong> 필수!
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>5~6교시</strong></td>
+                    <td><span class="strike-old">5교시 13:10~13:50</span><br/><span class="strike-old">6교시 14:00~14:40</span></td>
+                    <td><strong style="color:#1e40af; font-size:0.92rem;">13:00 ~ 14:30</strong><br/><strong>(운동장 5~12회차)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 5교시보다 10분 일찍 시작 · 10분 일찍 종료!</span><br/>
+                      <strong>13:00 정각</strong>에 5회차 부스가 시작되며 쉬는시간 없이 연속 진행 후 <strong>14:30 종료(기존 6교시보다 10분 단축)</strong>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Integrated Master Timetable -->
       <div class="card">
         <div class="card-header">
           <div>
             <h3 class="card-title">⏰ 전교생 통합 행사 진행 일정표 (저학년 vs 고학년 한눈에 보기)</h3>
-            <p class="card-subtitle">선생님들께서 학년군별 이동 시점과 중식·수업 시간을 한눈에 비교하실 수 있는 통합 표입니다.</p>
+            <p class="card-subtitle">선생님들께서 학년군별 이동 시점과 중식·수업 시간을 한눈에 비교하실 수 있는 통합 표입니다. <span style="color:#dc2626; font-weight:700;">(🚨 표시는 기존 수업 시간표와 다른 시간대입니다)</span></p>
           </div>
         </div>
 
@@ -1216,7 +1425,7 @@
                 <th style="width:130px;">시간</th>
                 <th style="width:28%;">저학년 (1~3학년, 12학급 / 224명)</th>
                 <th style="width:28%;">고학년 (4~6학년, 12학급 / 240명)</th>
-                <th>장소별 운영 및 교원 협조 사항</th>
+                <th>장소별 운영 및 교원 협조 사항 (기존 시정 대비 변경점)</th>
               </tr>
             </thead>
             <tbody>
@@ -1237,62 +1446,69 @@
                 <td rowspan="2" style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
                   🔬 <strong>운동장 과학축제 부스 체험</strong><br/>
                   (09:00 ~ 11:10, 총 12개 부스 완주)<br/>
+                  <span class="diff-badge warn" style="margin:3px 0;">🔔 1~3교시 종소리 무관 연속 진행 · 3교시보다 10분 조기 종료</span><br/>
                   <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~10회차: 각 11분 / 11~12회차: 각 10분<br/>• 구령대 중심 시계방향(1→12번) 로테이션</span>
                 </td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
                   🎭 <strong>강당 과학공연 1차 관람 (4·5·6학년)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (50분)</span>
+                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (50분)</span><br/>
+                  <span class="diff-badge" style="margin-top:3px;">🚨 기존 1교시(09:40 종료)보다 10분 연장 (쉬는시간 없음)</span>
                 </td>
-                <td>• 강당: 고학년 공연 진행<br/>• 운동장: 저학년 부스 1~5회차 진행</td>
+                <td>• 강당: 고학년 공연 (09:50 종료 후 즉시 2교시 이동)<br/>• 운동장: 저학년 부스 1~5회차 진행</td>
               </tr>
               <tr>
                 <td><strong>09:50 ~ 11:10</strong></td>
                 <td rowspan="2" style="background:#f8fafc; font-weight:800; color:#334155;">
-                  📚 <strong>고학년 학급별 수업 (09:50 ~ 11:30)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 후 교실 이동하여 정상 수업 진행<br/>• <strong>11:20~11:25까지</strong> 운동장 1차 첫 부스 앞 이동·대기</span>
+                  📚 <strong>고학년 학급별 수업 (2교시 09:50~10:30 / 3교시 10:40~11:20)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 직후 교실 이동하여 2·3교시 정상 수업 진행<br/>• <strong>11:20~11:25까지</strong> 운동장 1차 첫 부스 앞 이동·대기</span>
                 </td>
                 <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br/>• 운동장: 저학년 부스 6~12회차 진행 (~11:10)</td>
               </tr>
               <tr>
                 <td><strong>11:10 ~ 11:30</strong></td>
                 <td style="background:#ecfdf5; font-weight:700; color:#065f46;">
-                  부스 체험 종료 → 결과물(4종) 확인 후 교실 이동·손 씻기<br/>
-                  <strong>11:20부터 저학년 점심식사 시작</strong>
+                  부스 체험 종료(기존 3교시보다 10분 일찍 종료) → 교실 이동·손 씻기<br/>
+                  <strong>11:20부터 저학년 점심식사 시작 (기존과 시작 시각 동일)</strong>
                 </td>
                 <td>• 운동장: 고학년 프로그램 실험도구 전환 및 재세팅 (11:10~11:30)</td>
               </tr>
               <tr>
-                <td><strong>11:30 ~ 12:10</strong></td>
+                <td><strong>11:30 ~ 12:10</strong><br/><span style="font-size:0.75rem; color:#475569;">(고학년 4교시)</span></td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
                   🍱 <strong>저학년 점심시간 및 강당 이동 (11:20 ~ 12:10)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600;">• 식사 후 이동하여 <strong>12:05까지 강당 착석 완료</strong></span>
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 점심(11:20~12:20) 대비 10분 단축!</span><br/>
+                  <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 식사 후 이동하여 12:05까지 강당 착석 완료!</span>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
                   🔬 <strong>운동장 고학년 1차 부스 체험 (4개 부스)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~4회차 (10분씩 총 40분 로테이션)</span>
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 기존 4교시(11:30~12:10) 시각과 동일 (1~4회차 각 10분)</span>
                 </td>
-                <td>• 고학년은 오전에 <strong>4개 부스</strong>만 먼저 체험 후 중식 이동</td>
+                <td>• <strong>저학년 중식 종료 시각 주의</strong>: 기존 12:20이 아닌 <strong>12:10에 4교시(공연)가 바로 시작</strong>됩니다.</td>
               </tr>
               <tr>
                 <td><strong>12:10 ~ 13:00</strong></td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
                   🎭 <strong>강당 과학공연 2차 관람 (1·2·3학년)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (13:00 공연 종료 후 하교/교실 이동)</span>
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 4교시(12:20~13:00)보다 10분 조기 시작!</span><br/>
+                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (13:00 종료 후 5교시 13:10~13:50 정상 운영)</span>
                 </td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
                   🍱 <strong>고학년 점심시간 (12:10 ~ 13:00)</strong><br/>
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 점심(12:10~13:10) 대비 10분 단축!</span><br/>
                   <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 12:55까지 운동장 '5회차 부스' 앞으로 재집결!</span>
                 </td>
-                <td>• 운동장 강사·스텝 중식 시간 (학교 지정 식사 장소)<br/>• 강당은 13:00 공연 종료 후 정리</td>
+                <td>• 운동장 강사·스텝 중식 시간 (학교 지정 식사 장소)<br/>• <strong>고학년 중식 종료 주의</strong>: 기존 13:10이 아닌 <strong>13:00에 오후 부스 시작!</strong></td>
               </tr>
               <tr>
                 <td><strong>13:00 ~ 14:30</strong></td>
                 <td style="background:#f8fafc; color:#475569; font-weight:600;">
-                  저학년 과학 체험 일정 완료 (교실 정리 및 학년별 일과)
+                  저학년 과학 체험 일정 완료<br/>
+                  <strong>5교시 (13:10 ~ 13:50) 기존 시간표대로 정상 운영</strong>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
                   🔬 <strong>운동장 고학년 2차 부스 체험 (나머지 8개 부스)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 5~11회차(각 10분) + 12회차(14:10~14:30 마무리)<br/>• 14:28~14:30 전체 과학축제 종료</span>
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 5교시(13:10)보다 10분 조기 시작 · 6교시(14:40)보다 10분 조기 종료</span><br/>
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 5~11회차(각 10분) + 12회차(14:10~14:30 마무리) 연속 진행</span>
                 </td>
                 <td>• <strong>고학년 13:00 집결지 주의</strong>: 오전 마지막(4회차) 부스의 <strong>다음 번호 부스(5회차)</strong>에서 시작!</td>
               </tr>
@@ -1839,6 +2055,139 @@
         `;
       }
 
+      // 2.5 Regular vs Festival Timetable Diff Box for Selected Class
+      const diffEl = document.getElementById("myClassScheduleDiff");
+      if (low) {
+        diffEl.innerHTML = `
+          <div class="diff-box-card">
+            <div class="diff-box-header">
+              <div class="diff-box-title">
+                🚨 [${cls}반 필독] 기존 저학년 수업 시간표와 다른 시간 확인!
+              </div>
+              <span class="diff-badge">평소 타종(종소리) 및 점심 종료 시각과 다릅니다</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:90px;">교시 구분</th>
+                    <th style="width:140px;">기존 수업 시간표</th>
+                    <th style="width:155px;">과학축제 당일 (${cls}반)</th>
+                    <th>기존 시간표 대비 핵심 차이점 (강조)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="diff-row-highlight">
+                    <td><strong>1~3교시</strong></td>
+                    <td>1교시 09:00~09:40<br/>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
+                    <td><strong style="color:#1e40af; font-size:0.95rem;">09:00 ~ 11:10</strong><br/>(운동장 12부스 연속)</td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge warn">🔔 쉬는시간 종소리 무시 · 3교시보다 10분 조기 종료</span><br/>
+                      교시별 쉬는시간 없이 진행자 방송에 맞춰 11분/10분 간격 회전하며, <strong>11:10에 부스 체험이 끝나 교실로 이동(손 씻기·결과물 보관)</strong>합니다.
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>점심시간</strong></td>
+                    <td><span class="strike-old">11:20 ~ 12:20</span> (60분)</td>
+                    <td><strong style="color:#dc2626; font-size:0.95rem;">11:20 ~ 12:10</strong><br/><strong>(50분 · 10분 단축!)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 점심 종료(12:20)보다 10분 일찍 종료!</span><br/>
+                      평소처럼 12:20까지 점심시간으로 생각하시면 늦습니다! <strong>반드시 12:05까지 강당 지정석 착석을 완료</strong>해 주세요.
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>4교시</strong></td>
+                    <td><span class="strike-old">12:20 ~ 13:00</span> (40분)</td>
+                    <td><strong style="color:#5b21b6; font-size:0.95rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 강당 과학공연)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 4교시(12:20)보다 10분 일찍 시작!</span><br/>
+                      12:10 정각에 강당 과학공연(50분)이 시작됩니다.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>5교시</strong></td>
+                    <td>13:10 ~ 13:50 (40분)</td>
+                    <td><strong>13:10 ~ 13:50</strong> (교실)</td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge same">✓ 기존 시간표와 동일</span> — 13:00 공연 종료 후 교실로 이동하여 5교시 정상 운영
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      } else {
+        diffEl.innerHTML = `
+          <div class="diff-box-card">
+            <div class="diff-box-header">
+              <div class="diff-box-title">
+                🚨 [${cls}반 필독] 기존 고학년 수업 시간표와 다른 시간 확인!
+              </div>
+              <span class="diff-badge">1교시 연장 · 점심 10분 단축 · 5교시 10분 조기 시작 주의!</span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width:90px;">교시 구분</th>
+                    <th style="width:140px;">기존 수업 시간표</th>
+                    <th style="width:155px;">과학축제 당일 (${cls}반)</th>
+                    <th>기존 시간표 대비 핵심 차이점 (강조)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="diff-row-highlight">
+                    <td><strong>1교시</strong></td>
+                    <td><span class="strike-old">09:00 ~ 09:40</span> (40분)</td>
+                    <td><strong style="color:#5b21b6; font-size:0.95rem;">09:00 ~ 09:50</strong><br/><strong>(50분 · 강당 과학공연)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 1교시(09:40 종료)보다 10분 연장 · 쉬는시간 없음!</span><br/>
+                      09:40 종이 울려도 <strong>09:50까지 공연 관람 후 곧바로 2교시(09:50~) 수업으로 이어집니다.</strong> (2교시 전담 수업 시 사전 공유 필수)
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>2~3교시</strong></td>
+                    <td>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
+                    <td><strong>09:50 ~ 11:20 교실수업</strong><br/><strong style="color:#dc2626;">(11:25 운동장 집결)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge warn">⚠️ 3교시 종료(11:20) 직후 운동장으로 바로 이동</span><br/>
+                      2·3교시는 정상 수업하되, 3교시 종료 후 쉬는시간(11:20~11:30)에 <strong>11:25까지 운동장 ${firstBooth}번 부스 앞</strong>으로 집결합니다.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>4교시</strong></td>
+                    <td>11:30 ~ 12:10 (40분)</td>
+                    <td><strong style="color:#1e40af;">11:30 ~ 12:10</strong><br/>(운동장 1~4회차 부스)</td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge same">✓ 시작·종료 시각 기존 4교시와 동일</span> — 10분씩 4개 부스 로테이션
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>점심시간</strong></td>
+                    <td><span class="strike-old">12:10 ~ 13:10</span> (60분)</td>
+                    <td><strong style="color:#dc2626; font-size:0.95rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 10분 단축!)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 점심 종료(13:10)보다 10분 일찍 종료!</span><br/>
+                      평소 5교시 시작(13:10)에 맞춰 나오시면 5회차를 놓칩니다! <strong>반드시 12:55까지 운동장 [${round5Booth}번 부스] 앞으로 재집결</strong>해 주세요!
+                    </td>
+                  </tr>
+                  <tr class="diff-row-highlight">
+                    <td><strong>5~6교시</strong></td>
+                    <td><span class="strike-old">5교시 13:10~13:50</span><br/><span class="strike-old">6교시 14:00~14:40</span></td>
+                    <td><strong style="color:#1e40af; font-size:0.95rem;">13:00 ~ 14:30</strong><br/><strong>(운동장 5~12회차 연속)</strong></td>
+                    <td style="text-align:left;">
+                      <span class="diff-badge">🚨 기존 5교시보다 10분 조기 시작 · 6교시보다 10분 조기 종료!</span><br/>
+                      <strong>13:00 정각</strong>에 2차 부스 체험을 시작하며, 5·6교시 사이 쉬는시간 타종 없이 연속 회전 후 <strong>14:30에 종료</strong>됩니다.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
       // 3. Timeline
       const tlEl = document.getElementById("myClassTimeline");
       if (low) {
@@ -1853,7 +2202,10 @@
           <div class="timeline-item type-booth">
             <div class="tl-time">09:00 ~ 11:10</div>
             <div class="tl-content">
-              <div class="tl-title">🔬 운동장 과학축제 부스 체험 (1~12회차 전 부스 완주)</div>
+              <div class="tl-title">
+                🔬 운동장 과학축제 부스 체험 (1~12회차 전 부스 완주)
+                <span class="diff-badge warn">🔔 1~3교시 종소리 무관 연속 · 3교시(11:20)보다 10분 조기 종료</span>
+              </div>
               <div class="tl-desc">${firstBooth}번 부스에서 시작하여 시계방향으로 11분씩(11·12회차는 10분) 총 12개 부스 이동</div>
             </div>
           </div>
@@ -1864,18 +2216,34 @@
               <div class="tl-desc">크리스탈방향제, 자외선야광팔찌, 관성라바, 테라리움 분실 여부 확인 및 손 씻기</div>
             </div>
           </div>
-          <div class="timeline-item type-lunch">
-            <div class="tl-time">11:20 ~ 12:10</div>
+          <div class="timeline-item type-lunch" style="border:2px solid #f59e0b;">
+            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 11:20~12:20</span>11:20 ~ 12:10</div>
             <div class="tl-content">
-              <div class="tl-title">🍱 저학년 점심시간 (중식) 및 강당 이동</div>
-              <div class="tl-desc">식사 후 이동하여 <strong>12:05까지 강당 지정 좌석</strong> 착석 완료</div>
+              <div class="tl-title">
+                🍱 저학년 점심시간 및 강당 이동
+                <span class="diff-badge">🚨 기존 점심(12:20 종료) 대비 10분 단축!</span>
+              </div>
+              <div class="tl-desc" style="color:#b91c1c; font-weight:700;">평소보다 점심시간이 10분 일찍 끝납니다! 식사 후 <strong>12:05까지 강당 지정 좌석</strong> 착석 완료</div>
             </div>
           </div>
-          <div class="timeline-item type-show">
-            <div class="tl-time">12:10 ~ 13:00</div>
+          <div class="timeline-item type-show" style="border:2px solid #8b5cf6;">
+            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 4교시 12:20~</span>12:10 ~ 13:00</div>
             <div class="tl-content">
-              <div class="tl-title">🎭 강당 과학공연 2차 관람 ("서프라이즈 과학대탐험")</div>
-              <div class="tl-desc">1~3학년 전체 관람 (50분) · 공연 종료 후 학급별 정리</div>
+              <div class="tl-title">
+                🎭 강당 과학공연 2차 관람 ("서프라이즈 과학대탐험")
+                <span class="diff-badge">🚨 기존 4교시(12:20)보다 10분 일찍 시작!</span>
+              </div>
+              <div class="tl-desc">1~3학년 전체 관람 (50분) · 공연 종료 후 교실로 이동</div>
+            </div>
+          </div>
+          <div class="timeline-item type-class">
+            <div class="tl-time">13:10 ~ 13:50</div>
+            <div class="tl-content">
+              <div class="tl-title">
+                📚 5교시 학급별 정상 수업
+                <span class="diff-badge same">✓ 기존 5교시 시간표와 동일</span>
+              </div>
+              <div class="tl-desc">과학축제 일정 완료 후 기존 시정표대로 5교시 운영</div>
             </div>
           </div>
         `;
@@ -1890,39 +2258,54 @@
               <div class="tl-desc">무대 앞 4학년 → 5학년 → 6학년 순 착석</div>
             </div>
           </div>
-          <div class="timeline-item type-show">
-            <div class="tl-time">09:00 ~ 09:50</div>
+          <div class="timeline-item type-show" style="border:2px solid #8b5cf6;">
+            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 1교시 ~09:40</span>09:00 ~ 09:50</div>
             <div class="tl-content">
-              <div class="tl-title">🎭 강당 과학공연 1차 관람 ("서프라이즈 과학대탐험")</div>
-              <div class="tl-desc">4~6학년 전체 관람 (50분) · 관람 후 교실로 이동</div>
+              <div class="tl-title">
+                🎭 강당 과학공연 1차 관람 ("서프라이즈 과학대탐험")
+                <span class="diff-badge">🚨 기존 1교시(09:40)보다 10분 연장 · 쉬는시간 없음!</span>
+              </div>
+              <div class="tl-desc">4~6학년 전체 관람 (50분) · 09:50 종료 직후 쉬는시간 없이 교실(2교시 수업)로 이동</div>
             </div>
           </div>
           <div class="timeline-item type-class">
-            <div class="tl-time">09:50 ~ 11:30</div>
+            <div class="tl-time">09:50 ~ 11:20<br/><span style="font-size:0.76rem; color:#dc2626;">(11:25 운동장집결)</span></div>
             <div class="tl-content">
-              <div class="tl-title">📚 학급별 수업 진행 (교실)</div>
+              <div class="tl-title">
+                📚 2교시(09:50~10:30) · 3교시(10:40~11:20) 교실 수업
+                <span class="diff-badge warn">⚠️ 3교시 종료(11:20) 직후 운동장 이동</span>
+              </div>
               <div class="tl-desc">수업 후 개인 결과물 가방 지참하여 <strong>11:20~11:25까지 운동장 ${firstBooth}번 부스 앞</strong> 집결</div>
             </div>
           </div>
           <div class="timeline-item type-booth">
             <div class="tl-time">11:30 ~ 12:10</div>
             <div class="tl-content">
-              <div class="tl-title">🔬 운동장 과학축제 1차 부스 체험 (1~4회차, 4개 부스)</div>
+              <div class="tl-title">
+                🔬 운동장 과학축제 1차 부스 체험 (1~4회차, 4개 부스)
+                <span class="diff-badge same">✓ 기존 4교시(11:30~12:10) 시각과 동일</span>
+              </div>
               <div class="tl-desc"><strong>${firstBooth}번 부스(${firstProg.name})</strong> 시작 → ${round4Booth}번 부스까지 10분씩 4회 로테이션</div>
             </div>
           </div>
-          <div class="timeline-item type-lunch">
-            <div class="tl-time">12:10 ~ 13:00</div>
+          <div class="timeline-item type-lunch" style="border:2px solid #f59e0b;">
+            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 12:10~13:10</span>12:10 ~ 13:00</div>
             <div class="tl-content">
-              <div class="tl-title">🍱 고학년 점심시간 (식사 시간)</div>
-              <div class="tl-desc" style="color:#dc2626; font-weight:700;">식사 후 12:55까지 운동장 [${round5Booth}번 부스: ${round5Prog.name}] 앞으로 재집결!</div>
+              <div class="tl-title">
+                🍱 고학년 점심시간 (식사 시간)
+                <span class="diff-badge">🚨 기존 점심(13:10 종료) 대비 10분 단축!</span>
+              </div>
+              <div class="tl-desc" style="color:#dc2626; font-weight:700;">평소보다 점심시간이 10분 일찍 끝납니다! 식사 후 12:55까지 운동장 [${round5Booth}번 부스: ${round5Prog.name}] 앞으로 재집결!</div>
             </div>
           </div>
-          <div class="timeline-item type-booth">
-            <div class="tl-time">13:00 ~ 14:30</div>
+          <div class="timeline-item type-booth" style="border:2px solid #1e40af;">
+            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 5~6교시 13:10~14:40</span>13:00 ~ 14:30</div>
             <div class="tl-content">
-              <div class="tl-title">🔬 운동장 과학축제 2차 부스 체험 (5~12회차, 나머지 8개 부스)</div>
-              <div class="tl-desc"><strong>${round5Booth}번 부스(${round5Prog.name})</strong>에서 재개 → ${round12Booth}번 부스까지 체험 후 정리 (14:10~14:30 마지막 회차 및 마무리)</div>
+              <div class="tl-title">
+                🔬 운동장 과학축제 2차 부스 체험 (5~12회차, 나머지 8개 부스)
+                <span class="diff-badge">🚨 기존 5교시(13:10)보다 10분 조기 시작 · 10분 조기 종료!</span>
+              </div>
+              <div class="tl-desc"><strong>${round5Booth}번 부스(${round5Prog.name})</strong>에서 13:00 정각 재개 → 쉬는시간 없이 ${round12Booth}번 부스까지 체험 후 14:30 종료</div>
             </div>
           </div>
         `;
@@ -2336,15 +2719,25 @@
           </div>
         </div>
 
-        <div style="margin-bottom:10px; padding:8px 10px; border:1px solid #0f172a; border-radius:6px; background:#f8fafc;">
+        <div style="margin-bottom:8px; padding:7px 10px; border:1.5px solid #0f172a; border-radius:6px; background:#f8fafc;">
           <strong>■ ${cls}반 전체 일과 요약:</strong>
           ${low
-            ? `08:50 운동장 <strong>${firstBooth}번 부스</strong> 집결 → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong>`
-            : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:30 학급별 수업</strong> (11:20~11:25 운동장 <strong>${firstBooth}번 부스</strong> 집결) → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
+            ? `08:50 운동장 <strong>${firstBooth}번 부스</strong> 집결 → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong> → <strong>13:10~13:50 5교시 정상 수업</strong>`
+            : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:20 2·3교시 학급 수업</strong> (11:25 운동장 <strong>${firstBooth}번 부스</strong> 집결) → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
           }
         </div>
 
-        <div style="margin-bottom:10px; padding:8px; border:1px solid #cbd5e1; border-radius:6px; text-align:center; font-size:10.5px;">
+        <div style="margin-bottom:8px; padding:7px 10px; border:2px solid #dc2626; border-radius:6px; background:#fff1f2; font-size:10px;">
+          <strong style="color:#b91c1c;">🚨 [필독] 기존 정규 수업 시간표와 다른 시간 주의사항 (평소 타종·중식 시각과 다름):</strong><br/>
+          ${low
+            ? `• <strong>1~3교시 부스 체험(09:00~11:10)</strong>: 정규 쉬는시간 종소리와 무관하게 연속 진행되며, <strong>기존 3교시(11:20)보다 10분 일찍(11:10) 종료</strong>됩니다.<br/>
+               • <strong>점심시간 10분 단축(기존 11:20~12:20 → 당일 11:20~12:10)</strong> 및 <strong>4교시 10분 조기 시작(기존 12:20 → 당일 12:10 공연 시작)</strong>: <strong>반드시 12:05까지 강당에 착석</strong>해 주세요! (5교시 13:10~13:50은 기존과 동일)`
+            : `• <strong>1교시 10분 연장(기존 09:00~09:40 → 당일 09:00~09:50 공연)</strong>: 09:40 종이 울려도 09:50까지 관람 후 <strong>쉬는시간 없이 바로 2교시(09:50~10:30) 수업</strong>으로 연결됩니다.<br/>
+               • <strong>점심시간 10분 단축(기존 12:10~13:10 → 당일 12:10~13:00)</strong> 및 <strong>5교시 10분 조기 시작(기존 13:10 → 당일 13:00 부스 시작)</strong>: <strong>12:55까지 운동장 [${round5Booth}번 부스] 앞 재집결 필수!</strong> (종료도 기존 6교시 14:40보다 10분 빠른 14:30 종료)`
+          }
+        </div>
+
+        <div style="margin-bottom:8px; padding:7px; border:1px solid #cbd5e1; border-radius:6px; text-align:center; font-size:10.5px;">
           <strong>[운동장 구령대 기준 ㄷ자 부스 배치 및 시계방향 이동 순서]</strong><br/>
           좌측 아래→위: <strong>1번 → 2번 → 3번(🎁)</strong> | 상단 좌측: <strong>4번 → 5번 → 6번(🎁)</strong> | <strong>[구령대]</strong> | 상단 우측: <strong>7번 → 8번 → 9번(🎁)</strong> | 우측 위→아래: <strong>10번 → 11번 → 12번(🎁) → (1번으로 이동)</strong>
         </div>
@@ -2406,13 +2799,13 @@
           <tbody>
             <tr>
               <td><strong>09:00 ~ 09:50</strong></td>
-              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (각 11분/10분)</td>
-              <td><strong>강당 과학공연 1차 관람 (09:00~09:50)</strong></td>
+              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (종소리 무관 · 기존 3교시보다 10분 조기 종료)</td>
+              <td><strong>강당 과학공연 1차 관람 (09:00~09:50)</strong><br/><strong>※ 기존 1교시(~09:40)보다 10분 연장·쉬는시간 없음</strong></td>
               <td>08:50까지 각 장소 집결 완료</td>
             </tr>
             <tr>
               <td><strong>09:50 ~ 11:10</strong></td>
-              <td rowspan="2"><strong>고학년 학급별 수업 (09:50~11:30)</strong><br/>※ 11:20~11:25까지 운동장 1차 첫 부스 앞 집결</td>
+              <td rowspan="2"><strong>고학년 2·3교시 수업 (09:50~11:20)</strong><br/>※ 11:20~11:25까지 운동장 1차 첫 부스 앞 집결</td>
               <td>강당 2차 공연 준비 (09:50~12:10)</td>
             </tr>
             <tr>
@@ -2422,21 +2815,21 @@
             </tr>
             <tr>
               <td><strong>11:30 ~ 12:10</strong></td>
-              <td><strong>저학년 점심시간 및 강당 이동 (11:20~12:10)</strong> → 12:05 착석</td>
-              <td><strong>운동장 고학년 1차 부스 체험 (1~4회차, 4개 부스)</strong></td>
+              <td><strong>저학년 점심시간 (11:20~12:10, ※기존 ~12:20 대비 10분 단축!)</strong> → 12:05 강당 착석</td>
+              <td><strong>운동장 고학년 1차 부스 체험 (1~4회차, 4개 부스)</strong> — 기존 4교시 시각 동일</td>
               <td>고학년 오전 4개 부스 우선 체험</td>
             </tr>
             <tr>
               <td><strong>12:10 ~ 13:00</strong></td>
-              <td><strong>강당 과학공연 2차 관람 (12:10~13:00)</strong></td>
-              <td><strong>고학년 점심시간 (12:10~13:00)</strong> → 12:55 5회차 부스 집결</td>
+              <td><strong>강당 과학공연 2차 관람 (12:10~13:00, ※기존 4교시 12:20보다 10분 조기 시작!)</strong></td>
+              <td><strong>고학년 점심시간 (12:10~13:00, ※기존 ~13:10 대비 10분 단축!)</strong> → 12:55 5회차 집결</td>
               <td>강사·스텝 식사(학교 지정 장소)</td>
             </tr>
             <tr>
               <td><strong>13:00 ~ 14:30</strong></td>
-              <td>저학년 행사 종료 (학급별 일과)</td>
-              <td><strong>운동장 고학년 2차 부스 체험 (5~12회차, 8개 부스)</strong></td>
-              <td>14:28~14:30 전체 행사 종료 및 정리</td>
+              <td>저학년 5교시 (13:10~13:50) 정상 운영</td>
+              <td><strong>운동장 고학년 2차 부스 체험 (5~12회차, ※기존 5교시 13:10보다 10분 조기 시작!)</strong></td>
+              <td>14:30 종료 (기존 6교시 14:40보다 10분 단축)</td>
             </tr>
           </tbody>
         </table>

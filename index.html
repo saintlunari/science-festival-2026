@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
@@ -25,12 +26,18 @@
       --border: #e2e8f0;
       --radius: 14px;
       --shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.07);
-      --g1: #ef4444; --g1-bg: #fef2f2;
-      --g2: #f97316; --g2-bg: #fff7ed;
-      --g3: #eab308; --g3-bg: #fefce8;
-      --g4: #10b981; --g4-bg: #ecfdf5;
-      --g5: #3b82f6; --g5-bg: #eff6ff;
-      --g6: #8b5cf6; --g6-bg: #f5f3ff;
+      --g1: #ef4444;
+      --g1-bg: #fef2f2;
+      --g2: #f97316;
+      --g2-bg: #fff7ed;
+      --g3: #eab308;
+      --g3-bg: #fefce8;
+      --g4: #10b981;
+      --g4-bg: #ecfdf5;
+      --g5: #3b82f6;
+      --g5-bg: #eff6ff;
+      --g6: #8b5cf6;
+      --g6-bg: #f5f3ff;
     }
 
     * {
@@ -124,6 +131,7 @@
       color: #fff;
       border-color: rgba(255, 255, 255, 0.3);
     }
+
     .btn-mobile-link:hover {
       background: rgba(255, 255, 255, 0.25);
     }
@@ -132,6 +140,7 @@
       background: #f59e0b;
       color: #0f172a;
     }
+
     .btn-print-class:hover {
       background: #fbbf24;
     }
@@ -140,6 +149,7 @@
       background: #ffffff;
       color: #1e3a8a;
     }
+
     .btn-print-all:hover {
       background: #eff6ff;
     }
@@ -284,14 +294,22 @@
     .tab-panel {
       display: none;
     }
+
     .tab-panel.active {
       display: block;
       animation: fadeIn 0.22s ease;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Summary Cards */
@@ -408,10 +426,12 @@
       .two-col {
         grid-template-columns: 1fr;
       }
+
       .quick-bar {
         top: 0;
         position: relative;
       }
+
       .top-header {
         position: relative;
       }
@@ -478,9 +498,11 @@
       color: #0f172a;
       border-color: #fbbf24;
     }
+
     .hero-Point-card.highlight .p-label {
       color: #451a03;
     }
+
     .hero-Point-card.highlight .p-val {
       color: #0f172a;
     }
@@ -508,18 +530,22 @@
       border-left: 5px solid var(--purple);
       background: #faf5ff;
     }
+
     .timeline-item.type-booth {
       border-left: 5px solid var(--primary);
       background: #f0f9ff;
     }
+
     .timeline-item.type-lunch {
       border-left: 5px solid var(--accent);
       background: #fffbeb;
     }
+
     .timeline-item.type-class {
       border-left: 5px solid #64748b;
       background: #f8fafc;
     }
+
     .timeline-item.type-prep {
       border-left: 5px solid var(--success);
       background: #ecfdf5;
@@ -652,6 +678,7 @@
       font-size: 0.8rem;
       cursor: pointer;
     }
+
     .step-btn.active {
       background: var(--primary);
       color: #fff;
@@ -792,6 +819,7 @@
         display: flex;
         flex-direction: column;
       }
+
       .booth-node {
         flex-direction: row;
         min-height: auto;
@@ -813,7 +841,8 @@
       background: #fff;
     }
 
-    th, td {
+    th,
+    td {
       padding: 9px 8px;
       border: 1px solid #cbd5e1;
       text-align: center;
@@ -836,12 +865,36 @@
       border-radius: 4px;
       transition: all 0.12s;
     }
-    .cell-g1 { background: #fef2f2 !important; color: #991b1b; }
-    .cell-g2 { background: #fff7ed !important; color: #9a3412; }
-    .cell-g3 { background: #fefce8 !important; color: #854d0e; }
-    .cell-g4 { background: #ecfdf5 !important; color: #065f46; }
-    .cell-g5 { background: #eff6ff !important; color: #1e40af; }
-    .cell-g6 { background: #f5f3ff !important; color: #5b21b6; }
+
+    .cell-g1 {
+      background: #fef2f2 !important;
+      color: #991b1b;
+    }
+
+    .cell-g2 {
+      background: #fff7ed !important;
+      color: #9a3412;
+    }
+
+    .cell-g3 {
+      background: #fefce8 !important;
+      color: #854d0e;
+    }
+
+    .cell-g4 {
+      background: #ecfdf5 !important;
+      color: #065f46;
+    }
+
+    .cell-g5 {
+      background: #eff6ff !important;
+      color: #1e40af;
+    }
+
+    .cell-g6 {
+      background: #f5f3ff !important;
+      color: #5b21b6;
+    }
 
     .cell-highlight {
       background: #1e40af !important;
@@ -870,10 +923,12 @@
       font-size: 0.75rem;
       font-weight: 700;
     }
+
     .badge-exp {
       background: #dcfce7;
       color: #166534;
     }
+
     .badge-craft {
       background: #fef3c7;
       color: #92400e;
@@ -1053,30 +1108,39 @@
         size: A4 portrait;
         margin: 10mm;
       }
+
       body {
         background: #fff !important;
         color: #000 !important;
         font-size: 11px !important;
       }
-      .top-header, .quick-bar, .no-print {
+
+      .top-header,
+      .quick-bar,
+      .no-print {
         display: none !important;
       }
+
       .container {
         margin: 0 !important;
         padding: 0 !important;
         max-width: 100% !important;
       }
+
       /* Mode 1: Print Single Class Sheet */
       body.print-mode-class .tab-panel {
         display: none !important;
       }
+
       body.print-mode-class #print-class-sheet {
         display: block !important;
       }
+
       /* Mode 2: Print Full School Guide */
       body.print-mode-all .tab-panel {
         display: none !important;
       }
+
       body.print-mode-all #print-all-sheet {
         display: block !important;
       }
@@ -1084,378 +1148,34 @@
       .print-page-break {
         page-break-before: always;
       }
+
       table {
         font-size: 9.5px !important;
       }
-      th, td {
+
+      th,
+      td {
         padding: 4px 3px !important;
         border: 1px solid #334155 !important;
       }
+
       th {
         background: #e2e8f0 !important;
         color: #000 !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
-      .cell-highlight, .badge-craft, .badge-exp {
+
+      .cell-highlight,
+      .badge-craft,
+      .badge-exp {
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
     }
-
-    /* D-Day Badge & Live Auto-Sync Bar */
-    .badge-dday {
-      background: #f59e0b;
-      color: #0f172a;
-      padding: 6px 13px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 0.88rem;
-      letter-spacing: 0.02em;
-      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
-      white-space: nowrap;
-    }
-    .badge-dday.is-today {
-      background: #ef4444;
-      color: #ffffff;
-      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.35);
-    }
-
-    .live-sync-bar {
-      background: #ffffff;
-      border: 2px solid #cbd5e1;
-      border-radius: 14px;
-      padding: 12px 16px;
-      margin-bottom: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      box-shadow: var(--shadow);
-    }
-    .live-sync-bar.active-sync {
-      border-color: #2563eb;
-      background: linear-gradient(90deg, #eff6ff 0%, #ffffff 60%);
-    }
-    .live-sync-left {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-    .live-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 800;
-      background: #1e40af;
-      color: #fff;
-      white-space: nowrap;
-    }
-    .live-status-text {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #0f172a;
-    }
-    .live-sync-controls {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 8px;
-    }
-    .sync-toggle-btn {
-      padding: 7px 13px;
-      border-radius: 999px;
-      font-size: 0.82rem;
-      font-weight: 800;
-      cursor: pointer;
-      border: 1.5px solid #cbd5e1;
-      background: #f8fafc;
-      color: #334155;
-      transition: all 0.15s;
-    }
-    .sync-toggle-btn.on {
-      background: #1d4ed8;
-      color: #ffffff;
-      border-color: #1d4ed8;
-    }
-    .sync-time-select {
-      padding: 6px 10px;
-      border-radius: 8px;
-      border: 1.5px solid #93c5fd;
-      background: #ffffff;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #1e3a8a;
-      cursor: pointer;
-    }
-    .sync-resume-btn {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: 1.5px solid #f59e0b;
-      background: #fef3c7;
-      color: #92400e;
-      font-size: 0.8rem;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    /* ==================== FLUID MOBILE / GALAXY S24 RESPONSIVE FIXES ==================== */
-    html, body {
-      max-width: 100vw;
-      overflow-x: hidden;
-      -webkit-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-
-    /* Prevent CSS Grid '1fr' blowout when child contains wide tables */
-    .two-col > *,
-    .summary-grid > *,
-    .program-grid > *,
-    .card,
-    .diff-box-card,
-    .tab-panel {
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .table-wrap {
-      width: 100%;
-      max-width: 100%;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    th, td {
-      word-break: keep-all;
-      overflow-wrap: break-word;
-    }
-
-    @media (max-width: 768px) {
-      .top-header {
-        padding: 14px 12px;
-      }
-      .title-area {
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-      .title-text h1 {
-        font-size: clamp(1.08rem, 4.6vw, 1.35rem);
-        line-height: 1.3;
-      }
-      .title-text p {
-        font-size: 0.8rem;
-      }
-      .header-actions {
-        width: 100%;
-      }
-      .header-actions .btn {
-        flex: 1 1 auto;
-        justify-content: center;
-        font-size: 0.78rem;
-        padding: 8px 10px;
-        white-space: normal;
-        text-align: center;
-      }
-      .quick-bar {
-        padding: 10px 12px;
-      }
-      .class-pills {
-        padding-left: 0;
-        border-left: none;
-        flex-wrap: wrap;
-      }
-      .nav-tabs {
-        width: 100%;
-        overflow-x: auto;
-        flex-wrap: nowrap;
-        padding-bottom: 4px;
-        -webkit-overflow-scrolling: touch;
-      }
-      .tab-btn {
-        flex-shrink: 0;
-        font-size: 0.8rem;
-        padding: 7px 11px;
-      }
-      .container {
-        margin: 14px auto 40px;
-        padding: 0 12px;
-      }
-      .card, .diff-box-card {
-        padding: 14px 12px;
-        margin-bottom: 14px;
-      }
-      .card-title {
-        font-size: clamp(0.95rem, 4.2vw, 1.1rem);
-      }
-      .class-hero {
-        padding: 16px 14px;
-      }
-      .class-hero-left h2 {
-        font-size: clamp(1.15rem, 5vw, 1.4rem);
-        flex-wrap: wrap;
-      }
-      .class-hero-badges {
-        width: 100%;
-      }
-      .hero-Point-card {
-        flex: 1 1 100%;
-        min-width: 0;
-      }
-      .timeline-item {
-        grid-template-columns: 1fr;
-        gap: 6px;
-        padding: 11px 12px;
-      }
-      .diff-badge {
-        white-space: normal;
-        text-align: left;
-      }
-      .live-sync-bar {
-        padding: 10px 12px;
-      }
-      .live-status-text {
-        font-size: 0.82rem;
-      }
-      .sync-time-select {
-        width: 100%;
-        max-width: 100%;
-      }
-      table {
-        font-size: 0.76rem;
-      }
-      th, td {
-        padding: 6px 5px;
-      }
-    }
-
-    /* Playground Initial Lineup Formation Box (U-Space Notice) */
-    .lineup-guide-box {
-      background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
-      border: 2px solid #0284c7;
-      border-radius: var(--radius);
-      padding: 16px 18px;
-      margin-bottom: 18px;
-      box-shadow: 0 4px 14px rgba(2, 132, 199, 0.1);
-    }
-    .lineup-guide-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1.5px dashed #7dd3fc;
-    }
-    .lineup-guide-title {
-      font-size: 1.02rem;
-      font-weight: 900;
-      color: #0369a1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .lineup-step-pills {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-      font-size: 0.8rem;
-      font-weight: 800;
-    }
-    .lineup-step-pill {
-      padding: 4px 10px;
-      border-radius: 99px;
-      background: #0284c7;
-      color: #fff;
-    }
-    .lineup-step-pill.step2 {
-      background: #0f766e;
-    }
-    .lineup-grid-12 {
-      display: grid;
-      grid-template-columns: repeat(12, minmax(64px, 1fr));
-      gap: 6px;
-      margin-top: 10px;
-      overflow-x: auto;
-      padding-bottom: 4px;
-    }
-    .lineup-col-card {
-      background: #ffffff;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 8px 4px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .lineup-col-card:hover {
-      border-color: #0284c7;
-      transform: translateY(-2px);
-    }
-    .lineup-col-card.my-lineup-col {
-      background: #fef08a;
-      border: 2.5px solid #0284c7;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.22);
-      transform: translateY(-2px);
-    }
-    .lineup-pos-tag {
-      font-size: 0.67rem;
-      font-weight: 800;
-      color: #475569;
-      background: #f1f5f9;
-      border-radius: 99px;
-      padding: 1px 5px;
-      display: inline-block;
-      margin-bottom: 4px;
-    }
-    .lineup-col-card.my-lineup-col .lineup-pos-tag {
-      background: #0284c7;
-      color: #fff;
-    }
-    .lineup-cls-title {
-      font-size: 0.88rem;
-      font-weight: 900;
-      color: #0f172a;
-    }
-    .lineup-two-lines {
-      display: flex;
-      justify-content: center;
-      gap: 4px;
-      margin: 5px 0 3px;
-    }
-    .lineup-line-bar {
-      width: 10px;
-      height: 22px;
-      border-radius: 4px;
-      background: #93c5fd;
-      border: 1px solid #2563eb;
-      font-size: 0.55rem;
-      font-weight: 900;
-      color: #1e3a8a;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .lineup-col-card.my-lineup-col .lineup-line-bar {
-      background: #2563eb;
-      color: #fff;
-    }
-    .lineup-target-booth {
-      font-size: 0.68rem;
-      font-weight: 800;
-      color: #0369a1;
-      margin-top: 2px;
-    }
   </style>
 </head>
+
 <body class="print-mode-all">
 
   <!-- TOP HEADER -->
@@ -1586,7 +1306,8 @@
                 <h3 class="card-title" id="myBoothTableTitle">📋 우리 반 회차별 부스 이동 시간표 (총 12개 부스)</h3>
                 <p class="card-subtitle">🎁 표시된 4개 부스(3·6·9·12번)는 결과물을 만들어 가져가는 부스입니다.</p>
               </div>
-              <button class="btn btn-print-class" style="padding:6px 12px; font-size:0.8rem;" onclick="printClassSheet()">
+              <button class="btn btn-print-class" style="padding:6px 12px; font-size:0.8rem;"
+                onclick="printClassSheet()">
                 🖨️ 이 학급 시트 인쇄
               </button>
             </div>
@@ -1658,23 +1379,31 @@
           </div>
         </div>
         <div style="font-size:0.9rem; color:#0f172a; line-height:1.55;">
-          • 각 반별로 운동장에 도착하면 <strong style="color:#dc2626; background:#fee2e2; padding:1px 6px; border-radius:4px;">바로 첫 번째 부스로 이동하는 것이 아니라</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달한 후</strong> 각 부스로 이동합니다.<br/>
+          • 각 반별로 운동장에 도착하면 <strong style="color:#dc2626; background:#fee2e2; padding:1px 6px; border-radius:4px;">바로 첫
+            번째 부스로 이동하는 것이 아니라</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달한 후</strong> 각 부스로 이동합니다.<br />
           • 원활한 진행을 위해 <strong>행사 시작 5분 전까지(저학년 08:55 / 고학년 1차 11:25)</strong> 미리 운동장에 나와 아래 순서대로 정렬해 주시면 감사하겠습니다.
         </div>
         <div class="two-col" style="margin-top:10px; gap:12px;">
           <div style="background:#fff; border:1.5px solid #7dd3fc; border-radius:10px; padding:10px 14px;">
-            <div style="font-weight:900; color:#1e40af; font-size:0.92rem; margin-bottom:4px;">👦 저학년 (1~3학년) 운동장 최초 집결 정렬 (08:55까지)</div>
+            <div style="font-weight:900; color:#1e40af; font-size:0.92rem; margin-bottom:4px;">👦 저학년 (1~3학년) 운동장 최초 집결
+              정렬 (08:55까지)</div>
             <div style="font-size:0.84rem; color:#334155;">
-              • <strong>정렬 방향</strong>: 운동장 기준 <strong>왼쪽부터 1-1반</strong>을 시작으로 순서대로 세워주시고, <strong>가장 오른쪽 끝에는 3-4반</strong>이 위치하도록 정렬<br/>
-              • <strong>정렬 대형</strong>: <code>[왼쪽] 1-1 → 1-2 → 1-3 → 1-4 → 2-1 → … → 3-4 [오른쪽 끝]</code> 순서로 <strong>각 반별 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동)
+              • <strong>정렬 방향</strong>: 운동장 기준 <strong>왼쪽부터 1-1반</strong>을 시작으로 순서대로 세워주시고, <strong>가장 오른쪽 끝에는
+                3-4반</strong>이 위치하도록 정렬<br />
+              • <strong>정렬 대형</strong>: <code>[왼쪽] 1-1 → 1-2 → 1-3 → 1-4 → 2-1 → … → 3-4 [오른쪽 끝]</code> 순서로 <strong>각 반별
+                2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동)
             </div>
           </div>
           <div style="background:#fff; border:1.5px solid #c4b5fd; border-radius:10px; padding:10px 14px;">
-            <div style="font-weight:900; color:#5b21b6; font-size:0.92rem; margin-bottom:4px;">🧑 고학년 (4~6학년) 운동장 1차 집결 정렬 (11:25까지)</div>
+            <div style="font-weight:900; color:#5b21b6; font-size:0.92rem; margin-bottom:4px;">🧑 고학년 (4~6학년) 운동장 1차 집결
+              정렬 (11:25까지)</div>
             <div style="font-size:0.84rem; color:#334155;">
-              • <strong>정렬 방향</strong>: 운동장 기준 <strong>왼쪽부터 4-1반</strong>을 시작으로 순서대로 세워주시고, <strong>가장 오른쪽 끝에는 6-4반</strong>이 위치하도록 정렬<br/>
-              • <strong>정렬 대형</strong>: <code>[왼쪽] 4-1 → 4-2 → 4-3 → 4-4 → 5-1 → … → 6-4 [오른쪽 끝]</code> 순서로 <strong>각 반별 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동)<br/>
-              <span style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 점심식사 후 12:55(2차)에는 이미 오전 안내를 마쳤으므로 5회차 배정 부스로 재집결합니다.</span>
+              • <strong>정렬 방향</strong>: 운동장 기준 <strong>왼쪽부터 4-1반</strong>을 시작으로 순서대로 세워주시고, <strong>가장 오른쪽 끝에는
+                6-4반</strong>이 위치하도록 정렬<br />
+              • <strong>정렬 대형</strong>: <code>[왼쪽] 4-1 → 4-2 → 4-3 → 4-4 → 5-1 → … → 6-4 [오른쪽 끝]</code> 순서로 <strong>각 반별
+                2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동)<br />
+              <span style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 점심식사 후 12:55(2차)에는 이미 오전 안내를 마쳤으므로 5회차
+                배정 부스로 재집결합니다.</span>
             </div>
           </div>
         </div>
@@ -1689,13 +1418,15 @@
           <span class="diff-badge">평소 정규 시정표 및 점심시간과 다름 주의!</span>
         </div>
         <p style="font-size:0.88rem; color:#881337; margin-bottom:14px; font-weight:600;">
-          행사 당일에는 강당 공연(50분) 및 운동장 12부스 연속 로테이션 운영으로 인해 <strong>기존 수업 시간표(쉬는시간·점심시간·교시 시작 시각)와 다른 구간</strong>이 있습니다. 담임선생님 및 전담·비교과 선생님께서는 아래 강조 표시된 시간을 꼭 확인해 주세요.
+          행사 당일에는 강당 공연(50분) 및 운동장 12부스 연속 로테이션 운영으로 인해 <strong>기존 수업 시간표(쉬는시간·점심시간·교시 시작 시각)와 다른 구간</strong>이 있습니다.
+          담임선생님 및 전담·비교과 선생님께서는 아래 강조 표시된 시간을 꼭 확인해 주세요.
         </p>
 
         <div class="two-col">
           <!-- Low Grade Comparison -->
           <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:14px;">
-            <div style="font-weight:900; font-size:0.98rem; color:#1e40af; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <div
+              style="font-weight:900; font-size:0.98rem; color:#1e40af; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
               <span>👦 저학년 (1~3학년) 시정 비교</span>
               <span class="diff-badge">점심 10분 단축 · 4교시 10분 조기 시작</span>
             </div>
@@ -1712,28 +1443,30 @@
                 <tbody>
                   <tr class="diff-row-highlight">
                     <td><strong>1~3교시</strong></td>
-                    <td>1교시 09:00~09:40<br/>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
-                    <td><strong style="color:#1e40af;">09:00 ~ 11:10</strong><br/>(운동장 12부스)</td>
+                    <td>1교시 09:00~09:40<br />2교시 09:50~10:30<br />3교시 10:40~11:20</td>
+                    <td><strong style="color:#1e40af;">09:00 ~ 11:10</strong><br />(운동장 12부스)</td>
                     <td style="text-align:left;">
-                      <span class="diff-badge warn">⚠️ 쉬는시간 없이 연속 진행</span><br/>
+                      <span class="diff-badge warn">⚠️ 쉬는시간 없이 연속 진행</span><br />
                       교시별 쉬는시간 없이 11분/10분 단위 회전, <strong>기존 3교시보다 10분 일찍(11:10) 체험 종료</strong> (11:10~11:20 교실 이동·손 씻기)
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
                     <td><strong>점심시간</strong></td>
-                    <td><span class="strike-old">11:20 ~ 12:20</span><br/>(60분)</td>
-                    <td><strong style="color:#dc2626; font-size:0.92rem;">11:20 ~ 12:10</strong><br/><strong>(50분 · 10분 단축!)</strong></td>
+                    <td><span class="strike-old">11:20 ~ 12:20</span><br />(60분)</td>
+                    <td><strong style="color:#dc2626; font-size:0.92rem;">11:20 ~ 12:10</strong><br /><strong>(50분 · 10분
+                        단축!)</strong></td>
                     <td style="text-align:left;">
-                      <span class="diff-badge">🚨 종료 10분 앞당김 (12:05 강당 착석!)</span><br/>
+                      <span class="diff-badge">🚨 종료 10분 앞당김 (12:05 강당 착석!)</span><br />
                       기존 점심 종료(12:20)보다 <strong>15분 빠른 12:05까지 강당 착석</strong>을 완료해야 합니다.
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
                     <td><strong>4교시</strong></td>
-                    <td><span class="strike-old">12:20 ~ 13:00</span><br/>(40분)</td>
-                    <td><strong style="color:#5b21b6; font-size:0.92rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 공연 관람)</strong></td>
+                    <td><span class="strike-old">12:20 ~ 13:00</span><br />(40분)</td>
+                    <td><strong style="color:#5b21b6; font-size:0.92rem;">12:10 ~ 13:00</strong><br /><strong>(50분 · 공연
+                        관람)</strong></td>
                     <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 4교시보다 10분 일찍 시작!</span><br/>
+                      <span class="diff-badge">🚨 기존 4교시보다 10분 일찍 시작!</span><br />
                       강당 과학공연 2차 관람 (50분간 진행)
                     </td>
                   </tr>
@@ -1752,7 +1485,8 @@
 
           <!-- High Grade Comparison -->
           <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:14px;">
-            <div style="font-weight:900; font-size:0.98rem; color:#5b21b6; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+            <div
+              style="font-weight:900; font-size:0.98rem; color:#5b21b6; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
               <span>🧑 고학년 (4~6학년) 시정 비교</span>
               <span class="diff-badge">1교시 연장 · 점심 10분 단축 · 5교시 조기 시작</span>
             </div>
@@ -1769,45 +1503,50 @@
                 <tbody>
                   <tr class="diff-row-highlight">
                     <td><strong>1교시</strong></td>
-                    <td><span class="strike-old">09:00 ~ 09:40</span><br/>(40분)</td>
-                    <td><strong style="color:#5b21b6; font-size:0.92rem;">09:00 ~ 09:50</strong><br/><strong>(50분 · 공연 관람)</strong></td>
+                    <td><span class="strike-old">09:00 ~ 09:40</span><br />(40분)</td>
+                    <td><strong style="color:#5b21b6; font-size:0.92rem;">09:00 ~ 09:50</strong><br /><strong>(50분 · 공연
+                        관람)</strong></td>
                     <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 1교시보다 10분 늦게 종료!</span><br/>
+                      <span class="diff-badge">🚨 기존 1교시보다 10분 늦게 종료!</span><br />
                       기존 1교시(09:40 종료)보다 10분 연장되어 <strong>09:50까지 공연 진행 후 쉬는시간 없이 바로 2교시 수업</strong>으로 이동
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
                     <td><strong>2~3교시</strong></td>
-                    <td>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
-                    <td><strong>09:50 ~ 11:20</strong><br/>(11:25 운동장 집결)</td>
+                    <td>2교시 09:50~10:30<br />3교시 10:40~11:20</td>
+                    <td><strong>09:50 ~ 11:20</strong><br />(11:25 운동장 집결)</td>
                     <td style="text-align:left;">
-                      <span class="diff-badge warn">⚠️ 1교시 직후 2교시 시작 · 3교시 후 11:25 운동장 전체 집결</span><br/>
-                      교실 정상 수업 후 쉬는시간(11:20~11:30) 중 <strong>11:25까지 운동장 전체 집결(좌측 4-1 ~ 우측 6-4, 반별 2줄 정렬 → 안내 후 첫 부스 이동)</strong>
+                      <span class="diff-badge warn">⚠️ 1교시 직후 2교시 시작 · 3교시 후 11:25 운동장 전체 집결</span><br />
+                      교실 정상 수업 후 쉬는시간(11:20~11:30) 중 <strong>11:25까지 운동장 전체 집결(좌측 4-1 ~ 우측 6-4, 반별 2줄 정렬 → 안내 후 첫 부스
+                        이동)</strong>
                     </td>
                   </tr>
                   <tr>
                     <td><strong>4교시</strong></td>
-                    <td>11:30 ~ 12:10<br/>(40분)</td>
-                    <td><strong style="color:#1e40af;">11:30 ~ 12:10</strong><br/>(운동장 1~4회차)</td>
+                    <td>11:30 ~ 12:10<br />(40분)</td>
+                    <td><strong style="color:#1e40af;">11:30 ~ 12:10</strong><br />(운동장 1~4회차)</td>
                     <td style="text-align:left;">
                       <span class="diff-badge same">✓ 시작·종료 시각 동일</span> (운동장 1차 4개 부스 각 10분 체험)
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
                     <td><strong>점심시간</strong></td>
-                    <td><span class="strike-old">12:10 ~ 13:10</span><br/>(60분)</td>
-                    <td><strong style="color:#dc2626; font-size:0.92rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 10분 단축!)</strong></td>
+                    <td><span class="strike-old">12:10 ~ 13:10</span><br />(60분)</td>
+                    <td><strong style="color:#dc2626; font-size:0.92rem;">12:10 ~ 13:00</strong><br /><strong>(50분 · 10분
+                        단축!)</strong></td>
                     <td style="text-align:left;">
-                      <span class="diff-badge">🚨 종료 10분 앞당김 (12:55 운동장 재집결!)</span><br/>
+                      <span class="diff-badge">🚨 종료 10분 앞당김 (12:55 운동장 재집결!)</span><br />
                       기존 점심 종료(13:10)보다 <strong>15분 빠른 12:55까지 운동장 5회차 부스 앞 재집결</strong> 필수!
                     </td>
                   </tr>
                   <tr class="diff-row-highlight">
                     <td><strong>5~6교시</strong></td>
-                    <td><span class="strike-old">5교시 13:10~13:50</span><br/><span class="strike-old">6교시 14:00~14:40</span></td>
-                    <td><strong style="color:#1e40af; font-size:0.92rem;">13:00 ~ 14:30</strong><br/><strong>(운동장 5~12회차)</strong></td>
+                    <td><span class="strike-old">5교시 13:10~13:50</span><br /><span class="strike-old">6교시
+                        14:00~14:40</span></td>
+                    <td><strong style="color:#1e40af; font-size:0.92rem;">13:00 ~ 14:30</strong><br /><strong>(운동장
+                        5~12회차)</strong></td>
                     <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 5교시보다 10분 일찍 시작 · 10분 일찍 종료!</span><br/>
+                      <span class="diff-badge">🚨 기존 5교시보다 10분 일찍 시작 · 10분 일찍 종료!</span><br />
                       <strong>13:00 정각</strong>에 5회차 부스가 시작되며 쉬는시간 없이 연속 진행 후 <strong>14:30 종료(기존 6교시보다 10분 단축)</strong>
                     </td>
                   </tr>
@@ -1823,7 +1562,8 @@
         <div class="card-header">
           <div>
             <h3 class="card-title">⏰ 전교생 통합 행사 진행 일정표 (저학년 vs 고학년 한눈에 보기)</h3>
-            <p class="card-subtitle">선생님들께서 학년군별 이동 시점과 중식·수업 시간을 한눈에 비교하실 수 있는 통합 표입니다. <span style="color:#dc2626; font-weight:700;">(🚨 표시는 기존 수업 시간표와 다른 시간대입니다)</span></p>
+            <p class="card-subtitle">선생님들께서 학년군별 이동 시점과 중식·수업 시간을 한눈에 비교하실 수 있는 통합 표입니다. <span
+                style="color:#dc2626; font-weight:700;">(🚨 표시는 기존 수업 시간표와 다른 시간대입니다)</span></p>
           </div>
         </div>
 
@@ -1845,82 +1585,97 @@
                 <td>강당(과학공연) 및 운동장(12부스) 사전 세팅 완료</td>
               </tr>
               <tr>
-                <td><strong>08:50 ~ 09:00</strong><br/><span style="font-size:0.75rem; color:#dc2626; font-weight:800;">(08:55 집결 완료)</span></td>
+                <td><strong>08:50 ~ 09:00</strong><br /><span
+                    style="font-size:0.75rem; color:#dc2626; font-weight:800;">(08:55 집결 완료)</span></td>
                 <td style="background:#eff6ff; font-weight:700; color:#1e40af;">
-                  📢 <strong>08:55까지 운동장 전체 집결 (반별 2줄 정렬)</strong><br/>
-                  <span style="font-size:0.78rem; color:#0369a1;">• 운동장 기준 <strong>왼쪽(1-1) ~ 오른쪽 끝(3-4)</strong> 순서로 각 반 2줄 정렬<br/>• <strong>전체 안내사항 전달 후</strong> 각 반 1회차 부스로 이동!</span>
+                  📢 <strong>08:55까지 운동장 전체 집결 (반별 2줄 정렬)</strong><br />
+                  <span style="font-size:0.78rem; color:#0369a1;">• 운동장 기준 <strong>왼쪽(1-1) ~ 오른쪽 끝(3-4)</strong> 순서로 각 반
+                    2줄 정렬<br />• <strong>전체 안내사항 전달 후</strong> 각 반 1회차 부스로 이동!</span>
                 </td>
-                <td style="background:#f5f3ff; font-weight:700; color:#5b21b6;">강당 이동 및 학년·반 지정 좌석 착석<br/><span style="font-size:0.78rem;">(무대 기준 좌측 4-1 ~ 우측 6-4)</span></td>
-                <td><strong>시작 5분 전(08:55) 운동장 전체 집결·2줄 정렬 완료</strong><br/><span style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 바로 첫 부스로 가지 않고 전체 집결·안내 후 이동</span></td>
+                <td style="background:#f5f3ff; font-weight:700; color:#5b21b6;">강당 이동 및 학년·반 지정 좌석 착석<br /><span
+                    style="font-size:0.78rem;">(무대 기준 좌측 4-1 ~ 우측 6-4)</span></td>
+                <td><strong>시작 5분 전(08:55) 운동장 전체 집결·2줄 정렬 완료</strong><br /><span
+                    style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 바로 첫 부스로 가지 않고 전체 집결·안내 후 이동</span>
+                </td>
               </tr>
               <tr>
                 <td><strong>09:00 ~ 09:50</strong></td>
                 <td rowspan="2" style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
-                  🔬 <strong>운동장 과학축제 부스 체험</strong><br/>
-                  (09:00 ~ 11:10, 총 12개 부스 완주)<br/>
-                  <span class="diff-badge warn" style="margin:3px 0;">⚠️ 1~3교시 쉬는시간 없이 연속 진행 · 3교시보다 10분 조기 종료</span><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~10회차: 각 11분 / 11~12회차: 각 10분<br/>• 구령대 중심 시계방향(1→12번) 로테이션</span>
+                  🔬 <strong>운동장 과학축제 부스 체험</strong><br />
+                  (09:00 ~ 11:10, 총 12개 부스 완주)<br />
+                  <span class="diff-badge warn" style="margin:3px 0;">⚠️ 1~3교시 쉬는시간 없이 연속 진행 · 3교시보다 10분 조기
+                    종료</span><br />
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~10회차: 각 11분 / 11~12회차: 각
+                    10분<br />• 구령대 중심 시계방향(1→12번) 로테이션</span>
                 </td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
-                  🎭 <strong>강당 과학공연 1차 관람 (4·5·6학년)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (50분)</span><br/>
+                  🎭 <strong>강당 과학공연 1차 관람 (4·5·6학년)</strong><br />
+                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (50분)</span><br />
                   <span class="diff-badge" style="margin-top:3px;">🚨 기존 1교시(09:40 종료)보다 10분 연장 (쉬는시간 없음)</span>
                 </td>
-                <td>• 강당: 고학년 공연 (09:50 종료 후 즉시 2교시 이동)<br/>• 운동장: 저학년 부스 1~5회차 진행</td>
+                <td>• 강당: 고학년 공연 (09:50 종료 후 즉시 2교시 이동)<br />• 운동장: 저학년 부스 1~5회차 진행</td>
               </tr>
               <tr>
                 <td><strong>09:50 ~ 11:10</strong></td>
                 <td rowspan="2" style="background:#f8fafc; font-weight:800; color:#334155;">
-                  📚 <strong>고학년 학급별 수업 (2교시 09:50~10:30 / 3교시 10:40~11:20)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 직후 교실 이동하여 2·3교시 정상 수업 진행<br/>• <strong>11:25까지(5분 전)</strong> 운동장 전체 집결 (<strong>왼쪽 4-1 ~ 오른쪽 끝 6-4, 각 반 2줄 정렬</strong> → 전체 안내사항 전달 후 첫 부스로 이동)</span>
+                  📚 <strong>고학년 학급별 수업 (2교시 09:50~10:30 / 3교시 10:40~11:20)</strong><br />
+                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 직후 교실 이동하여 2·3교시 정상 수업
+                    진행<br />• <strong>11:25까지(5분 전)</strong> 운동장 전체 집결 (<strong>왼쪽 4-1 ~ 오른쪽 끝 6-4, 각 반 2줄 정렬</strong> →
+                    전체 안내사항 전달 후 첫 부스로 이동)</span>
                 </td>
-                <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br/>• 운동장: 저학년 부스 6~12회차 진행 (~11:10)</td>
+                <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br />• 운동장: 저학년 부스 6~12회차 진행 (~11:10)</td>
               </tr>
               <tr>
                 <td><strong>11:10 ~ 11:30</strong></td>
                 <td style="background:#ecfdf5; font-weight:700; color:#065f46;">
-                  부스 체험 종료(기존 3교시보다 10분 일찍 종료) → 교실 이동·손 씻기<br/>
+                  부스 체험 종료(기존 3교시보다 10분 일찍 종료) → 교실 이동·손 씻기<br />
                   <strong>11:20부터 저학년 점심식사 시작 (기존과 시작 시각 동일)</strong>
                 </td>
                 <td>• 운동장: 고학년 프로그램 실험도구 전환 및 재세팅 (11:10~11:30)</td>
               </tr>
               <tr>
-                <td><strong>11:30 ~ 12:10</strong><br/><span style="font-size:0.75rem; color:#475569;">(고학년 4교시)</span></td>
+                <td><strong>11:30 ~ 12:10</strong><br /><span style="font-size:0.75rem; color:#475569;">(고학년 4교시)</span>
+                </td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
-                  🍱 <strong>저학년 점심시간 및 강당 이동 (11:20 ~ 12:10)</strong><br/>
-                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 점심(11:20~12:20) 대비 10분 단축!</span><br/>
+                  🍱 <strong>저학년 점심시간 및 강당 이동 (11:20 ~ 12:10)</strong><br />
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 점심(11:20~12:20) 대비 10분 단축!</span><br />
                   <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 식사 후 이동하여 12:05까지 강당 착석 완료!</span>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
-                  🔬 <strong>운동장 고학년 1차 부스 체험 (4개 부스)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 기존 4교시(11:30~12:10) 시각과 동일 (1~4회차 각 10분)</span>
+                  🔬 <strong>운동장 고학년 1차 부스 체험 (4개 부스)</strong><br />
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 기존 4교시(11:30~12:10) 시각과 동일 (1~4회차 각
+                    10분)</span>
                 </td>
                 <td>• <strong>저학년 중식 종료 시각 주의</strong>: 기존 12:20이 아닌 <strong>12:10에 4교시(공연)가 바로 시작</strong>됩니다.</td>
               </tr>
               <tr>
                 <td><strong>12:10 ~ 13:00</strong></td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
-                  🎭 <strong>강당 과학공연 2차 관람 (1·2·3학년)</strong><br/>
-                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 4교시(12:20~13:00)보다 10분 조기 시작!</span><br/>
-                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (13:00 종료 후 5교시 13:10~13:50 정상 운영)</span>
+                  🎭 <strong>강당 과학공연 2차 관람 (1·2·3학년)</strong><br />
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 4교시(12:20~13:00)보다 10분 조기 시작!</span><br />
+                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (13:00 종료 후 5교시 13:10~13:50 정상
+                    운영)</span>
                 </td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
-                  🍱 <strong>고학년 점심시간 (12:10 ~ 13:00)</strong><br/>
-                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 점심(12:10~13:10) 대비 10분 단축!</span><br/>
+                  🍱 <strong>고학년 점심시간 (12:10 ~ 13:00)</strong><br />
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 점심(12:10~13:10) 대비 10분 단축!</span><br />
                   <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 12:55까지 운동장 '5회차 부스' 앞으로 재집결!</span>
                 </td>
-                <td>• 운동장 강사·스텝 중식 시간 (학교 지정 식사 장소)<br/>• <strong>고학년 중식 종료 주의</strong>: 기존 13:10이 아닌 <strong>13:00에 오후 부스 시작!</strong></td>
+                <td>• 운동장 강사·스텝 중식 시간 (학교 지정 식사 장소)<br />• <strong>고학년 중식 종료 주의</strong>: 기존 13:10이 아닌 <strong>13:00에 오후
+                    부스 시작!</strong></td>
               </tr>
               <tr>
                 <td><strong>13:00 ~ 14:30</strong></td>
                 <td style="background:#f8fafc; color:#475569; font-weight:600;">
-                  저학년 과학 체험 일정 완료<br/>
+                  저학년 과학 체험 일정 완료<br />
                   <strong>5교시 (13:10 ~ 13:50) 기존 시간표대로 정상 운영</strong>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
-                  🔬 <strong>운동장 고학년 2차 부스 체험 (나머지 8개 부스)</strong><br/>
-                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 5교시(13:10)보다 10분 조기 시작 · 6교시(14:40)보다 10분 조기 종료</span><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 5~11회차(각 10분) + 12회차(14:10~14:30 마무리) 연속 진행</span>
+                  🔬 <strong>운동장 고학년 2차 부스 체험 (나머지 8개 부스)</strong><br />
+                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 5교시(13:10)보다 10분 조기 시작 · 6교시(14:40)보다 10분 조기
+                    종료</span><br />
+                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 5~11회차(각 10분) + 12회차(14:10~14:30
+                    마무리) 연속 진행</span>
                 </td>
                 <td>• <strong>고학년 13:00 집결지 주의</strong>: 오전 마지막(4회차) 부스의 <strong>다음 번호 부스(5회차)</strong>에서 시작!</td>
               </tr>
@@ -1937,10 +1692,12 @@
             <p class="card-subtitle">저학년/고학년 및 회차(시간대)를 클릭하면 운동장 1~12번 부스에 각각 어느 반이 위치하는지 한눈에 표시됩니다.</p>
           </div>
           <div style="display:flex; gap:6px;">
-            <button class="btn" id="simBtnLow" style="background:#1e40af; color:#fff; padding:7px 14px;" onclick="setSimGroup('low')">
+            <button class="btn" id="simBtnLow" style="background:#1e40af; color:#fff; padding:7px 14px;"
+              onclick="setSimGroup('low')">
               저학년 (09:00~11:10)
             </button>
-            <button class="btn" id="simBtnHigh" style="background:#e2e8f0; color:#0f172a; padding:7px 14px;" onclick="setSimGroup('high')">
+            <button class="btn" id="simBtnHigh" style="background:#e2e8f0; color:#0f172a; padding:7px 14px;"
+              onclick="setSimGroup('high')">
               고학년 (11:30~14:30)
             </button>
           </div>
@@ -1990,7 +1747,8 @@
         <div class="card-header">
           <div>
             <h3 class="card-title">🎭 강당 과학공연 "서프라이즈 과학대탐험" 학급별 좌석 배치도 (1행 12열)</h3>
-            <p class="card-subtitle">무대를 바라보는 기준 좌측(1열)부터 우측(12열)까지 학년·반 오름차순(고학년 4-1~6-4 / 저학년 1-1~3-4)으로 나란히 앉는 <strong>1행 12열</strong> 기본 배치입니다. <strong>두 학급을 차례로 클릭하면 자리를 서로 맞바꿀 수 있습니다.</strong></p>
+            <p class="card-subtitle">무대를 바라보는 기준 좌측(1열)부터 우측(12열)까지 학년·반 오름차순(고학년 4-1~6-4 / 저학년 1-1~3-4)으로 나란히 앉는
+              <strong>1행 12열</strong> 기본 배치입니다. <strong>두 학급을 차례로 클릭하면 자리를 서로 맞바꿀 수 있습니다.</strong></p>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button class="btn" id="audBtn1" style="background:#5b21b6; color:#fff;" onclick="setAudSession(1)">
@@ -1999,7 +1757,8 @@
             <button class="btn" id="audBtn2" style="background:#e2e8f0; color:#0f172a;" onclick="setAudSession(2)">
               2차 공연: 저학년 1·2·3학년 (12:10~13:00)
             </button>
-            <button class="btn" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;" onclick="resetAudSeats()">
+            <button class="btn" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;"
+              onclick="resetAudSeats()">
               ↺ 기본 배치로 초기화
             </button>
           </div>
@@ -2009,7 +1768,8 @@
           <div>💡</div>
           <div>
             <strong>강당 입장 및 관람 지도 안내:</strong>
-            공연 시작 <strong>5~10분 전까지(고학년 08:50, 저학년 12:05)</strong> 강당 입장을 완료해 주세요. 공연 중 현장 상황에 따라 학생 참가자를 무대 위로 호명하여 함께 실험하는 코너가 있으니 안전한 이동을 지도해 주시기 바랍니다. (자리 변경 시 인쇄물에도 즉시 반영됩니다.)
+            공연 시작 <strong>5~10분 전까지(고학년 08:50, 저학년 12:05)</strong> 강당 입장을 완료해 주세요. 공연 중 현장 상황에 따라 학생 참가자를 무대 위로 호명하여 함께
+            실험하는 코너가 있으니 안전한 이동을 지도해 주시기 바랍니다. (자리 변경 시 인쇄물에도 즉시 반영됩니다.)
           </div>
         </div>
 
@@ -2019,7 +1779,8 @@
 
         <div id="audSeatingContainer"></div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:10px 14px; background:#f8fafc; border-radius:10px; font-size:0.85rem; color:#475569;">
+        <div
+          style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:10px 14px; background:#f8fafc; border-radius:10px; font-size:0.85rem; color:#475569;">
           <span>⬅️ 강당 무대 바라보는 기준 좌측 끝 (1열)</span>
           <strong>1행 12열 종대 배치 · 복도 및 통로 확보 (담임교사 임장 지도)</strong>
           <span>강당 무대 바라보는 기준 우측 끝 (12열) ➡️</span>
@@ -2036,10 +1797,12 @@
             <p class="card-subtitle">체험활동 8종 + 결과물 활동 4종(3·6·9·12번 부스)의 과학 원리 및 활동 내용입니다.</p>
           </div>
           <div style="display:flex; gap:8px;">
-            <button class="btn" id="progFilterLow" style="background:#1e40af; color:#fff;" onclick="renderProgramCards('low')">
+            <button class="btn" id="progFilterLow" style="background:#1e40af; color:#fff;"
+              onclick="renderProgramCards('low')">
               저학년 (1~3학년) 12종 보기
             </button>
-            <button class="btn" id="progFilterHigh" style="background:#e2e8f0; color:#0f172a;" onclick="renderProgramCards('high')">
+            <button class="btn" id="progFilterHigh" style="background:#e2e8f0; color:#0f172a;"
+              onclick="renderProgramCards('high')">
               고학년 (4~6학년) 12종 보기
             </button>
           </div>
@@ -2059,40 +1822,51 @@
             </div>
             <div class="check-list">
               <label class="check-item">
-                <input type="checkbox" data-check-key="common_bag" onchange="toggleSavedCheck('common_bag', this.checked)" />
+                <input type="checkbox" data-check-key="common_bag"
+                  onchange="toggleSavedCheck('common_bag', this.checked)" />
                 <div>
                   <strong>[학생 준비물] 개인 결과물 보관 가방(에코백/비닐백) 및 이름표 준비</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    모든 학생이 <strong>총 4종의 결과물</strong>(3·6·9·12번 부스)을 직접 만들어 가져갑니다. 이동 중 분실하거나 파손되지 않도록 개인 보조가방(또는 에코백)을 지참하고 가방에 학년·반·이름을 적도록 사전 지도해 주세요.
+                    모든 학생이 <strong>총 4종의 결과물</strong>(3·6·9·12번 부스)을 직접 만들어 가져갑니다. 이동 중 분실하거나 파손되지 않도록 개인 보조가방(또는 에코백)을
+                    지참하고 가방에 학년·반·이름을 적도록 사전 지도해 주세요.
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="common_time" onchange="toggleSavedCheck('common_time', this.checked)" />
+                <input type="checkbox" data-check-key="common_time"
+                  onchange="toggleSavedCheck('common_time', this.checked)" />
                 <div>
                   <strong>[운동장 최초 전체 집결 및 반별 2줄 정렬] 시작 5분 전 도착 후 전체 안내 청취</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    • 운동장 도착 시 <strong>바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로 이동</strong>합니다.<br/>
-                    • <strong>1~3학년(저학년)</strong>: <strong>08:55까지(5분 전)</strong> 운동장 기준 <strong>왼쪽 1-1반 ~ 오른쪽 끝 3-4반 순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동) / 중식 후 12:05까지 강당 착석 완료<br/>
-                    • <strong>4~6학년(고학년)</strong>: 08:50까지 강당 착석 / <strong>11:25까지(5분 전)</strong> 운동장 기준 <strong>왼쪽 4-1반 ~ 오른쪽 끝 6-4반 순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1차 부스 이동) / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스 재집결</strong>
+                    • 운동장 도착 시 <strong>바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로
+                      이동</strong>합니다.<br />
+                    • <strong>1~3학년(저학년)</strong>: <strong>08:55까지(5분 전)</strong> 운동장 기준 <strong>왼쪽 1-1반 ~ 오른쪽 끝 3-4반
+                      순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동) / 중식 후 12:05까지 강당 착석 완료<br />
+                    • <strong>4~6학년(고학년)</strong>: 08:50까지 강당 착석 / <strong>11:25까지(5분 전)</strong> 운동장 기준 <strong>왼쪽 4-1반
+                      ~ 오른쪽 끝 6-4반 순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1차 부스 이동) / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스
+                      재집결</strong>
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="common_rot" onchange="toggleSavedCheck('common_rot', this.checked)" />
+                <input type="checkbox" data-check-key="common_rot"
+                  onchange="toggleSavedCheck('common_rot', this.checked)" />
                 <div>
                   <strong>[시계방향 동시 로테이션] 진행자 방송 신호에 맞춘 학급 이동</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    운동장 부스는 <strong>구령대를 중심으로 시계 방향(1번→2번→…→12번→1번)</strong>으로 회전합니다. 개별 학급이 먼저 이동하지 않고 <strong>행사 진행자의 부스 종료 및 이동 안내 방송</strong>에 맞춰 전 학급이 동시에 다음 번호 부스로 이동합니다.
+                    운동장 부스는 <strong>구령대를 중심으로 시계 방향(1번→2번→…→12번→1번)</strong>으로 회전합니다. 개별 학급이 먼저 이동하지 않고 <strong>행사 진행자의
+                      부스 종료 및 이동 안내 방송</strong>에 맞춰 전 학급이 동시에 다음 번호 부스로 이동합니다.
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="common_safe" onchange="toggleSavedCheck('common_safe', this.checked)" />
+                <input type="checkbox" data-check-key="common_safe"
+                  onchange="toggleSavedCheck('common_safe', this.checked)" />
                 <div>
                   <strong>[안전 지도] 액화질소·드라이아이스·전기분해 등 실험 안전 유의</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    1번(극저온의 세계-액화질소), 7번(슬러시 만들기-드라이아이스) 등 시약 및 실험 기구를 다루는 부스에서는 강사의 안전 지시에 따라 실험 도구를 임의로 만지지 않도록 임장 지도 부탁드립니다.
+                    1번(극저온의 세계-액화질소), 7번(슬러시 만들기-드라이아이스) 등 시약 및 실험 기구를 다루는 부스에서는 강사의 안전 지시에 따라 실험 도구를 임의로 만지지 않도록 임장 지도
+                    부탁드립니다.
                   </p>
                 </div>
               </label>
@@ -2107,34 +1881,41 @@
             </div>
             <div class="check-list">
               <label class="check-item">
-                <input type="checkbox" data-check-key="admin_open" onchange="toggleSavedCheck('admin_open', this.checked)" />
+                <input type="checkbox" data-check-key="admin_open"
+                  onchange="toggleSavedCheck('admin_open', this.checked)" />
                 <div>
                   <strong>[학교 출입 및 사전 설치 협조] 전일 15시 이후 또는 당일 06시부터</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    운동장 천막·테이블 및 강당 공연 장비 설치를 위해 <strong>전일 오후 3시 이후 또는 당일 오전 6시부터</strong> 업체 차량 출입 및 강당·운동장 개방 협조가 필요합니다. (08:00 세팅 완료)
+                    운동장 천막·테이블 및 강당 공연 장비 설치를 위해 <strong>전일 오후 3시 이후 또는 당일 오전 6시부터</strong> 업체 차량 출입 및 강당·운동장 개방 협조가
+                    필요합니다. (08:00 세팅 완료)
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="admin_meal" onchange="toggleSavedCheck('admin_meal', this.checked)" />
+                <input type="checkbox" data-check-key="admin_meal"
+                  onchange="toggleSavedCheck('admin_meal', this.checked)" />
                 <div>
                   <strong>[강사 및 스텝 식사 장소 마련] 12:10 ~ 13:00 (총 20명 내외)</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    4교시 이상 행사가 진행되므로 점심시간(12:10~13:00) 동안 강사 및 운영 스텝(축제 17명 + 공연 3명)이 식사할 수 있는 장소를 행사장과 가까운 근거리에 마련해 주세요.
+                    4교시 이상 행사가 진행되므로 점심시간(12:10~13:00) 동안 강사 및 운영 스텝(축제 17명 + 공연 3명)이 식사할 수 있는 장소를 행사장과 가까운 근거리에 마련해
+                    주세요.
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="admin_trash" onchange="toggleSavedCheck('admin_trash', this.checked)" />
+                <input type="checkbox" data-check-key="admin_trash"
+                  onchange="toggleSavedCheck('admin_trash', this.checked)" />
                 <div>
                   <strong>[종량제 쓰레기봉투 준비 및 분리수거장 안내]</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    행사 당일 <strong>학교용 종량제 쓰레기봉투</strong>를 준비하여 (주)유스페이스 행사 담당자에게 전달해 주시고, 행사 종료 후(14:30~) 분리수거장 위치를 안내해 주세요.
+                    행사 당일 <strong>학교용 종량제 쓰레기봉투</strong>를 준비하여 (주)유스페이스 행사 담당자에게 전달해 주시고, 행사 종료 후(14:30~) 분리수거장 위치를 안내해
+                    주세요.
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="admin_stage" onchange="toggleSavedCheck('admin_stage', this.checked)" />
+                <input type="checkbox" data-check-key="admin_stage"
+                  onchange="toggleSavedCheck('admin_stage', this.checked)" />
                 <div>
                   <strong>[강당 과학공연 시설 점검] 테이블 2~3개(길이 1800) 및 마이크</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -2143,11 +1924,13 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" data-check-key="admin_weather" onchange="toggleSavedCheck('admin_weather', this.checked)" />
+                <input type="checkbox" data-check-key="admin_weather"
+                  onchange="toggleSavedCheck('admin_weather', this.checked)" />
                 <div>
                   <strong>[우천·강풍·미세먼지 시 대체 운영 방안]</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    기상 악화 시 사전 협의를 통해 강당(체육관) 내 무대 중심 좌·우 부스 배치 또는 지정 실내 공간으로 장소를 변경하여 동일 로테이션 방식으로 운영합니다. (업체 담당자: 010-5077-7894 / 070-7006-1060~2)
+                    기상 악화 시 사전 협의를 통해 강당(체육관) 내 무대 중심 좌·우 부스 배치 또는 지정 실내 공간으로 장소를 변경하여 동일 로테이션 방식으로 운영합니다. (업체 담당자:
+                    010-5077-7894 / 070-7006-1060~2)
                   </p>
                 </div>
               </label>
@@ -2197,8 +1980,8 @@
       { booth: 12, name: "테라리움", common: true, type: "결과물", lv: "LV.2", principle: "식물의 성장 원리", desc: "식물의 성장과정을 알아보고 흙과 정원을 담은 나만의 테라리움 만들기" }
     ];
 
-    const LOW_CLASSES = ["1-1","1-2","1-3","1-4","2-1","2-2","2-3","2-4","3-1","3-2","3-3","3-4"];
-    const HIGH_CLASSES = ["4-1","4-2","4-3","4-4","5-1","5-2","5-3","5-4","6-1","6-2","6-3","6-4"];
+    const LOW_CLASSES = ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"];
+    const HIGH_CLASSES = ["4-1", "4-2", "4-3", "4-4", "5-1", "5-2", "5-3", "5-4", "6-1", "6-2", "6-3", "6-4"];
 
     const LOW_TIMES = [
       "09:00 ~ 09:11", "09:11 ~ 09:22", "09:22 ~ 09:33", "09:33 ~ 09:44",
@@ -2246,248 +2029,6 @@
     let audSession = currentGrade <= 3 ? 2 : 1; // 1 (high 4~6) | 2 (low 1~3)
     let swapSourceIndex = null;
 
-    // D-Day & Auto-Round Sync State
-    const LOW_ROUND_RANGES = [
-      [540, 551], [551, 562], [562, 573], [573, 584],
-      [584, 595], [595, 606], [606, 617], [617, 628],
-      [628, 639], [639, 650], [650, 660], [660, 670]
-    ]; // 09:00 ~ 11:10
-    const HIGH_ROUND_RANGES = [
-      [690, 700], [700, 710], [710, 720], [720, 730], // 11:30 ~ 12:10
-      [780, 790], [790, 800], [800, 810], [810, 820], // 13:00 ~ 13:40
-      [820, 830], [830, 840], [840, 850], [850, 870]  // 13:40 ~ 14:30
-    ];
-
-    function computeDdayInfo() {
-      const now = new Date();
-      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const eventMidnight = new Date(2026, 10, 12); // 2026-11-12
-      const diffDays = Math.round((eventMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
-      if (diffDays > 0) {
-        return { diffDays, isDday: false, badgeText: `D-${diffDays}`, detailText: `행사까지 ${diffDays}일 남음` };
-      } else if (diffDays === 0) {
-        return { diffDays: 0, isDday: true, badgeText: `🎉 D-DAY (오늘 행사)`, detailText: `오늘 과학축제 진행 중!` };
-      } else {
-        return { diffDays, isDday: false, badgeText: `D+${Math.abs(diffDays)}`, detailText: `행사 종료 (${Math.abs(diffDays)}일 경과)` };
-      }
-    }
-
-    const initialDday = computeDdayInfo();
-    let autoSyncEnabled = initialDday.isDday; // D-Day에는 기본 자동 켜짐
-    let manualRoundOverride = false;
-    let previewTestMins = "real"; // "real" or integer minutes (e.g. 565)
-
-    function getActiveMinutesOfDay() {
-      if (previewTestMins !== "real") {
-        return parseInt(previewTestMins, 10);
-      }
-      const now = new Date();
-      return now.getHours() * 60 + now.getMinutes();
-    }
-
-    function formatMinsToHHMM(mins) {
-      const h = String(Math.floor(mins / 60)).padStart(2, "0");
-      const m = String(mins % 60).padStart(2, "0");
-      return `${h}:${m}`;
-    }
-
-    function computeAutoSchedule(grade, clsName, totalMins) {
-      const low = grade <= 3;
-      const b1 = getBoothForClassAtRound(clsName, 1);
-      const lineupOrd = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
-      if (low) {
-        if (totalMins < 530) {
-          return { round: 1, phase: "prep", badge: "집결 준비", text: `08:55까지 운동장 전체 집결(좌측에서 ${lineupOrd}번째 · 2줄 정렬) → 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
-        }
-        if (totalMins < 540) {
-          return { round: 1, phase: "gather", badge: "🔔 운동장 전체집결(2줄)", text: `08:55까지 운동장 왼쪽부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name})로 이동합니다.` };
-        }
-        if (totalMins >= 540 && totalMins < 670) {
-          let r = 1;
-          for (let i = 0; i < 12; i++) {
-            if (totalMins >= LOW_ROUND_RANGES[i][0] && totalMins < LOW_ROUND_RANGES[i][1]) {
-              r = i + 1;
-              break;
-            }
-          }
-          const b = getBoothForClassAtRound(clsName, r);
-          const rem = LOW_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, phase: "booth", badge: `🔬 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${LOW_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
-        }
-        if (totalMins < 680) {
-          return { round: 12, phase: "move", badge: "결과물 정리·이동", text: `부스 체험 완료! 결과물 4종 확인 및 손 씻기 후 11:20 점심식사` };
-        }
-        if (totalMins < 725) {
-          return { round: 12, phase: "lunch", badge: "🍱 점심시간(단축)", text: `저학년 점심식사(11:20~12:10) · 식사 후 12:05까지 강당 지정석 착석!` };
-        }
-        if (totalMins < 730) {
-          return { round: 12, phase: "gather", badge: "🎭 강당 착석 완료", text: `12:05 강당 지정석 착석 완료 · 12:10부터 2차 과학공연 시작` };
-        }
-        if (totalMins < 780) {
-          return { round: 12, phase: "show", badge: "🎭 2차 공연 관람 중", text: `강당 과학공연 2차 관람 중 (12:10 ~ 13:00, 종료 후 교실 이동)` };
-        }
-        if (totalMins < 830) {
-          return { round: 12, phase: "class", badge: "📚 5교시 수업", text: `저학년 과학축제 일정 완료 · 13:10~13:50 5교시 정상 수업` };
-        }
-        return { round: 1, phase: "done", badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 수업 일과가 종료되었습니다.` };
-      } else {
-        const b5 = getBoothForClassAtRound(clsName, 5);
-        if (totalMins < 530) {
-          return { round: 1, phase: "prep", badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 과학공연)` };
-        }
-        if (totalMins < 540) {
-          return { round: 1, phase: "gather", badge: "🎭 강당 착석 중", text: `08:50까지 강당 지정 좌석 착석을 완료해 주세요! (09:00 공연 시작)` };
-        }
-        if (totalMins < 590) {
-          return { round: 1, phase: "show", badge: "🎭 1차 공연 관람 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 쉬는시간 없이 곧바로 2교시 수업)` };
-        }
-        if (totalMins < 680) {
-          return { round: 1, phase: "class", badge: "📚 2·3교시 교실수업", text: `교실 수업 진행 중 · 11:20 종료 직후 11:25까지 운동장 전체 집결(좌측에서 ${lineupOrd}번째 · 2줄 정렬)` };
-        }
-        if (totalMins < 690) {
-          return { round: 1, phase: "gather", badge: "🔔 운동장 전체집결(2줄)!", text: `11:25까지 운동장 왼쪽부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}]로 이동합니다.` };
-        }
-        if (totalMins >= 690 && totalMins < 730) {
-          let r = 1;
-          for (let i = 0; i < 4; i++) {
-            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) {
-              r = i + 1;
-              break;
-            }
-          }
-          const b = getBoothForClassAtRound(clsName, r);
-          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, phase: "booth", badge: `🔬 1차 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
-        }
-        if (totalMins < 775) {
-          return { round: 5, phase: "lunch", badge: "🍱 점심 · 5회차 자동전환", text: `고학년 점심식사(12:10~13:00) · 식사 후 12:55까지 오후 시작 부스인 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5 - 1].name}] 앞으로 재집결!` };
-        }
-        if (totalMins < 780) {
-          return { round: 5, phase: "gather", badge: "🔔 오후 2차 재집결!", text: `지금 오후 2차 시작 부스인 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5 - 1].name}] 앞으로 집결 완료해 주세요! (13:00 시작)` };
-        }
-        if (totalMins >= 780 && totalMins < 870) {
-          let r = 5;
-          for (let i = 4; i < 12; i++) {
-            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) {
-              r = i + 1;
-              break;
-            }
-          }
-          const b = getBoothForClassAtRound(clsName, r);
-          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, phase: "booth", badge: `🔬 2차 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
-        }
-        return { round: 1, phase: "done", badge: "✅ 일과 종료", text: `금일 고학년 과학축제 전 일정(14:30)이 완료되었습니다.` };
-      }
-    }
-
-    function applyAutoSyncIfActive() {
-      if (!autoSyncEnabled) return;
-      const cls = getSelectedClassName();
-      const mins = getActiveMinutesOfDay();
-      const autoState = computeAutoSchedule(currentGrade, cls, mins);
-      if (!manualRoundOverride) {
-        mySelectedRound = autoState.round;
-        simRound = autoState.round;
-      }
-    }
-
-    function toggleAutoSync() {
-      autoSyncEnabled = !autoSyncEnabled;
-      manualRoundOverride = false;
-      if (autoSyncEnabled) {
-        // 만약 현재 실제 시각이 14:30 이후이거나 08:50 이전이면, 행사 전 미리보기 편의를 위해 학년군 맞춤 테스트 시각으로 자동 안내하거나 실제 시각 유지
-        const nowMins = new Date().getHours() * 60 + new Date().getMinutes();
-        const dday = computeDdayInfo();
-        if (!dday.isDday && previewTestMins === "real" && (nowMins < 530 || nowMins >= 870)) {
-          previewTestMins = isLowGrade(currentGrade) ? "565" : "750"; // 저학년은 09:25(3회차), 고학년은 12:30(점심 5회차 전환) 기본 추천
-        }
-        applyAutoSyncIfActive();
-      } else {
-        previewTestMins = "real";
-      }
-      renderAll();
-    }
-
-    function setPreviewTestTime(val) {
-      previewTestMins = val;
-      manualRoundOverride = false;
-      applyAutoSyncIfActive();
-      renderAll();
-    }
-
-    function resumeAutoSyncRound() {
-      manualRoundOverride = false;
-      applyAutoSyncIfActive();
-      renderAll();
-    }
-
-    function renderLiveSyncBar() {
-      const dday = computeDdayInfo();
-      const headerBadge = document.getElementById("headerDdayBadge");
-      if (headerBadge) {
-        headerBadge.textContent = dday.badgeText;
-        headerBadge.classList.toggle("is-today", dday.isDday);
-      }
-
-      const barEl = document.getElementById("liveSyncBar");
-      if (!barEl) return;
-      barEl.classList.toggle("active-sync", autoSyncEnabled);
-
-      const cls = getSelectedClassName();
-      const mins = getActiveMinutesOfDay();
-      const timeLabel = formatMinsToHHMM(mins);
-      const autoState = computeAutoSchedule(currentGrade, cls, mins);
-
-      const presetOptions = [
-        { val: "real", label: `🕒 현재 실제 시각 연동 (${formatMinsToHHMM(new Date().getHours() * 60 + new Date().getMinutes())})` },
-        { val: "535", label: "🧪 [미리보기] 08:55 — 오전 첫 집결 / 강당 착석" },
-        { val: "545", label: "🧪 [미리보기] 09:05 — 저학년 1회차 / 고학년 공연" },
-        { val: "565", label: "🧪 [미리보기] 09:25 — 저학년 3회차 부스 체험" },
-        { val: "610", label: "🧪 [미리보기] 10:10 — 저학년 7회차 부스 체험" },
-        { val: "665", label: "🧪 [미리보기] 11:05 — 저학년 12회차 마지막 부스" },
-        { val: "695", label: "🧪 [미리보기] 11:35 — 고학년 1차 1회차 / 저학년 점심" },
-        { val: "715", label: "🧪 [미리보기] 11:55 — 고학년 1차 3회차 / 저학년 점심" },
-        { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(5회차 자동전환) / 저학년 공연" },
-        { val: "785", label: "🧪 [미리보기] 13:05 — 고학년 2차 5회차 부스 재개" },
-        { val: "825", label: "🧪 [미리보기] 13:45 — 고학년 2차 9회차 부스 체험" }
-      ];
-
-      const selectHtml = autoSyncEnabled ? `
-        <select class="sync-time-select" onchange="setPreviewTestTime(this.value)" title="행사 전에도 시간대별 자동 회차 이동을 테스트해볼 수 있습니다">
-          ${presetOptions.map(o => `<option value="${o.val}" ${String(previewTestMins) === o.val ? 'selected' : ''}>${o.label}</option>`).join("")}
-        </select>
-      ` : "";
-
-      const resumeBtnHtml = (autoSyncEnabled && manualRoundOverride) ? `
-        <button type="button" class="sync-resume-btn" onclick="resumeAutoSyncRound()">
-          🔄 실시간 회차(${autoState.round}회차)로 복귀
-        </button>
-      ` : "";
-
-      barEl.innerHTML = `
-        <div class="live-sync-left">
-          <span class="live-status-pill" style="background:${dday.isDday ? '#dc2626' : '#0f172a'};">
-            📅 ${dday.badgeText} (${dday.detailText})
-          </span>
-          <span class="live-status-pill" style="background:${autoSyncEnabled ? '#1d4ed8' : '#64748b'};">
-            ${previewTestMins === 'real' ? `🕒 현재 ${timeLabel}` : `⚡ 테스트 시각 ${timeLabel}`} · ${autoState.badge}
-          </span>
-          <span class="live-status-text">
-            [${cls}반] ${autoState.text}
-            ${(autoSyncEnabled && manualRoundOverride) ? `<span style="color:#d97706; font-size:0.82rem; margin-left:6px;">(현재 ${mySelectedRound}회차 수동 확인 중)</span>` : ''}
-          </span>
-        </div>
-        <div class="live-sync-controls">
-          ${resumeBtnHtml}
-          ${selectHtml}
-          <button type="button" class="sync-toggle-btn ${autoSyncEnabled ? 'on' : ''}" onclick="toggleAutoSync()">
-            ${autoSyncEnabled ? '⚡ 시간대별 자동 회차 이동: 켜짐 (ON)' : '⚡ 시간대별 자동 회차 이동 켜기 (미리보기)'}
-          </button>
-        </div>
-      `;
-    }
-
     // Checklist state persistence
     let savedChecks = {};
     try {
@@ -2511,8 +2052,8 @@
 
     // Default Auditorium Seating
     const defaultAudSeats = {
-      1: ["4-1","4-2","4-3","4-4","5-1","5-2","5-3","5-4","6-1","6-2","6-3","6-4"],
-      2: ["1-1","1-2","1-3","1-4","2-1","2-2","2-3","2-4","3-1","3-2","3-3","3-4"]
+      1: ["4-1", "4-2", "4-3", "4-4", "5-1", "5-2", "5-3", "5-4", "6-1", "6-2", "6-3", "6-4"],
+      2: ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"]
     };
     let audSeats = JSON.parse(localStorage.getItem("scifest_aud_seats_2026")) || JSON.parse(JSON.stringify(defaultAudSeats));
 
@@ -3451,9 +2992,9 @@
         <div style="margin-bottom:8px; padding:7px 10px; border:1.5px solid #0f172a; border-radius:6px; background:#f8fafc;">
           <strong>■ ${cls}반 전체 일과 요약:</strong>
           ${low
-            ? `<strong>08:55 운동장 전체집결(좌측 ${lineupOrd}번째·2줄 정렬 → 안내사항 청취 후 ${firstBooth}번 부스 이동)</strong> → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong> → <strong>13:10~13:50 5교시 정상 수업</strong>`
-            : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:20 2·3교시 학급 수업</strong> → <strong>11:25 운동장 전체집결(좌측 ${lineupOrd}번째·2줄 정렬 → 안내 후 ${firstBooth}번 부스 이동)</strong> → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
-          }
+          ? `<strong>08:55 운동장 전체집결(좌측 ${lineupOrd}번째·2줄 정렬 → 안내사항 청취 후 ${firstBooth}번 부스 이동)</strong> → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong> → <strong>13:10~13:50 5교시 정상 수업</strong>`
+          : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:20 2·3교시 학급 수업</strong> → <strong>11:25 운동장 전체집결(좌측 ${lineupOrd}번째·2줄 정렬 → 안내 후 ${firstBooth}번 부스 이동)</strong> → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
+        }
         </div>
 
         <div style="margin-bottom:8px; padding:7px 10px; border:2px solid #0284c7; border-radius:6px; background:#f0f9ff; font-size:10px;">
@@ -3465,11 +3006,11 @@
         <div style="margin-bottom:8px; padding:7px 10px; border:2px solid #dc2626; border-radius:6px; background:#fff1f2; font-size:10px;">
           <strong style="color:#b91c1c;">🚨 [필독] 기존 정규 수업 시간표와 다른 시간 주의사항 (평소 시정표·중식 시각과 다름):</strong><br/>
           ${low
-            ? `• <strong>1~3교시 부스 체험(09:00~11:10)</strong>: 교시별 쉬는시간 없이 연속 진행되며, <strong>기존 3교시(11:20)보다 10분 일찍(11:10) 종료</strong>됩니다.<br/>
+          ? `• <strong>1~3교시 부스 체험(09:00~11:10)</strong>: 교시별 쉬는시간 없이 연속 진행되며, <strong>기존 3교시(11:20)보다 10분 일찍(11:10) 종료</strong>됩니다.<br/>
                • <strong>점심시간 10분 단축(기존 11:20~12:20 → 당일 11:20~12:10)</strong> 및 <strong>4교시 10분 조기 시작(기존 12:20 → 당일 12:10 공연 시작)</strong>: <strong>반드시 12:05까지 강당에 착석</strong>해 주세요! (5교시 13:10~13:50은 기존과 동일)`
-            : `• <strong>1교시 10분 연장(기존 09:00~09:40 → 당일 09:00~09:50 공연)</strong>: 기존 1교시보다 10분 연장되어 09:50까지 관람 후 <strong>쉬는시간 없이 바로 2교시(09:50~10:30) 수업</strong>으로 연결됩니다.<br/>
+          : `• <strong>1교시 10분 연장(기존 09:00~09:40 → 당일 09:00~09:50 공연)</strong>: 기존 1교시보다 10분 연장되어 09:50까지 관람 후 <strong>쉬는시간 없이 바로 2교시(09:50~10:30) 수업</strong>으로 연결됩니다.<br/>
                • <strong>점심시간 10분 단축(기존 12:10~13:10 → 당일 12:10~13:00)</strong> 및 <strong>5교시 10분 조기 시작(기존 13:10 → 당일 13:00 부스 시작)</strong>: <strong>12:55까지 운동장 [${round5Booth}번 부스] 앞 재집결 필수!</strong> (종료도 기존 6교시 14:40보다 10분 빠른 14:30 종료)`
-          }
+        }
         </div>
 
         <div style="margin-bottom:8px; padding:7px; border:1px solid #cbd5e1; border-radius:6px; text-align:center; font-size:10.5px;">
@@ -3534,7 +3075,7 @@
           <tbody>
             <tr>
               <td><strong>09:00 ~ 09:50</strong></td>
-              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>※ <strong>08:55 운동장 전체집결(좌측 1-1~우측 3-4, 반별 2줄 정렬) → 안내 후 첫 부스 이동</strong><br/>12개 부스 시계방향 로테이션 (쉬는시간 없이 연속 진행 · 3교시보다 10분 조기 종료)</td>
+              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (종소리 무관 · 기존 3교시보다 10분 조기 종료)</td>
               <td><strong>강당 과학공연 1차 관람 (09:00~09:50)</strong><br/><strong>※ 기존 1교시(~09:40)보다 10분 연장·쉬는시간 없음</strong></td>
               <td><strong>저학년 08:55 운동장 2줄 정렬</strong><br/>고학년 08:50 강당 착석</td>
             </tr>
@@ -3647,4 +3188,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -1086,10 +1086,16 @@
     function computeMAutoSchedule(grade, clsName, totalMins) {
       const low = grade <= 3;
       const b1 = getBooth(clsName, 1);
+<<<<<<< HEAD
       const ord = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
       if (low) {
         if (totalMins < 530) return { round: 1, badge: "집결 준비", text: `08:55까지 운동장 전체 집결(좌측 ${ord}번째·2줄 정렬) → 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 이동 예정` };
         if (totalMins < 540) return { round: 1, badge: "🔔 전체집결(2줄)", text: `08:55까지 운동장 왼쪽에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 이동` };
+=======
+      if (low) {
+        if (totalMins < 530) return { round: 1, badge: "집결 준비", text: `08:50까지 운동장 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 집결 예정` };
+        if (totalMins < 540) return { round: 1, badge: "🔔 1회차 집결", text: `운동장 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 앞으로 집결하세요!` };
+>>>>>>> 64c3bc85c8798883beafa8a31f31811836b88a08
         if (totalMins >= 540 && totalMins < 670) {
           let r = 1;
           for (let i = 0; i < 12; i++) {
@@ -1110,8 +1116,13 @@
         if (totalMins < 530) return { round: 1, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
         if (totalMins < 540) return { round: 1, badge: "🎭 강당 착석", text: `08:50까지 강당 지정석 착석을 완료해 주세요!` };
         if (totalMins < 590) return { round: 1, badge: "🎭 1차 공연 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 즉시 2교시)` };
+<<<<<<< HEAD
         if (totalMins < 680) return { round: 1, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:25까지 운동장 전체 집결(좌측 ${ord}번째·2줄 정렬)` };
         if (totalMins < 690) return { round: 1, badge: "🔔 전체집결(2줄)!", text: `11:25까지 운동장 왼쪽에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 [${b1}번 ${HIGH_PROGRAMS[b1-1].name}] 이동` };
+=======
+        if (totalMins < 680) return { round: 1, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:25까지 운동장 1회차(${b1}번) 집결` };
+        if (totalMins < 690) return { round: 1, badge: "🔔 1차 집결!", text: `11:25까지 운동장 1회차 [${b1}번 ${HIGH_PROGRAMS[b1-1].name}] 앞 집결!` };
+>>>>>>> 64c3bc85c8798883beafa8a31f31811836b88a08
         if (totalMins >= 690 && totalMins < 730) {
           let r = 1;
           for (let i = 0; i < 4; i++) {
@@ -1498,9 +1509,13 @@
       // 3. Timeline
       if (low) {
         document.getElementById("mTimelineList").innerHTML = `
+<<<<<<< HEAD
           <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
             • <strong>08:55 집결 완료(5분 전)</strong> : 🚩 <strong>운동장 전체 집결(좌측 1-1~우측 3-4, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내사항 전달 후 <strong>${b1}번 부스</strong>로 이동!
           </div>
+=======
+          <div>• <strong>08:50~09:00</strong> : 운동장 <strong>${b1}번 부스</strong> 앞 집결</div>
+>>>>>>> 64c3bc85c8798883beafa8a31f31811836b88a08
           <div>• <strong>09:00~11:10</strong> : 운동장 1~12회차 부스 <span style="color:#b45309; font-weight:800;">(쉬는시간 없이 연속 진행 · 기존 3교시보다 10분 조기 종료)</span></div>
           <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
             • <strong>11:20~12:10</strong> : 🍱 <strong>저학년 점심식사</strong> <span style="color:#dc2626; font-weight:900;">[🚨기존 ~12:20 대비 10분 단축! 12:05 강당 착석]</span>

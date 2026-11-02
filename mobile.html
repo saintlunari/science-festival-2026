@@ -384,9 +384,30 @@
 
     .m-top-row-booths {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 4px;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
       margin-bottom: 8px;
+    }
+
+    .m-top-half {
+      background: rgba(255, 255, 255, 0.55);
+      border-radius: 8px;
+      padding: 6px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .m-top-half-label {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #334155;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+
+    .m-top-half-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
     }
 
     .m-side-booths-wrap {
@@ -619,7 +640,7 @@
               </tr>
               <tr>
                 <td><strong>09:50~11:10</strong></td>
-                <td rowspan="2">교실 수업<br/>(09:50~11:30)<br/>11:25 운동장 집결</td>
+                <td rowspan="2">교실 수업<br/>(09:50~11:30)<br/>11:20~11:25 집결</td>
               </tr>
               <tr>
                 <td><strong>11:10~11:30</strong></td>
@@ -627,7 +648,7 @@
               </tr>
               <tr>
                 <td><strong>11:30~12:10</strong></td>
-                <td style="background:#fffbeb; font-weight:700;">저학년 중식<br/>(~12:10)</td>
+                <td style="background:#fffbeb; font-weight:700;">저학년 중식·이동<br/>(12:05 강당착석)</td>
                 <td style="background:#eff6ff; font-weight:700;">운동장 1차<br/>(1~4회차 부스)</td>
               </tr>
               <tr>
@@ -645,12 +666,18 @@
         </div>
 
         <div class="m-card">
-          <div class="m-card-title">📊 저학년(1~3학년) 전체 이동표 (가로 스크롤)</div>
+          <div class="m-card-title">
+            <span>📊 저학년(1~3학년) 전체 이동표</span>
+            <span style="font-size:0.7rem; color:#64748b;">학급 터치 시 선택</span>
+          </div>
           <div class="m-table-scroll" id="mLowMasterWrap"></div>
         </div>
 
         <div class="m-card">
-          <div class="m-card-title">📊 고학년(4~6학년) 전체 이동표 (가로 스크롤)</div>
+          <div class="m-card-title">
+            <span>📊 고학년(4~6학년) 전체 이동표</span>
+            <span style="font-size:0.7rem; color:#64748b;">학급 터치 시 선택</span>
+          </div>
           <div class="m-table-scroll" id="mHighMasterWrap"></div>
         </div>
       </section>
@@ -658,7 +685,10 @@
       <!-- PANEL 4: 강당 공연 좌석 배치 -->
       <section id="mp-aud" class="m-panel">
         <div class="m-card">
-          <div class="m-card-title">🎭 강당 과학공연 학급 좌석배치</div>
+          <div class="m-card-title">
+            <span>🎭 강당 과학공연 학급 좌석배치</span>
+            <button type="button" onclick="resetMAudSeats()" style="padding:4px 8px; border-radius:6px; border:1px solid #cbd5e1; background:#f8fafc; font-size:0.72rem; font-weight:700; color:#475569; cursor:pointer;">↺ 기본 배치 초기화</button>
+          </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px;">
             <button id="mAudBtn1" style="padding:8px; border-radius:8px; border:none; font-weight:800; background:#5b21b6; color:#fff;" onclick="setMAud(1)">
               1차 고학년 (09:00)
@@ -671,7 +701,11 @@
             🎤 강 당 무 대 (앞줄부터 저학년순 · 좌→우 1~4반)
           </div>
           <div id="mAudGrid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px;"></div>
-          <p style="font-size:0.74rem; color:#64748b; margin-top:8px; text-align:center;">
+          <div style="display:flex; justify-content:space-between; font-size:0.72rem; color:#475569; background:#f8fafc; padding:6px 10px; border-radius:8px; margin-top:8px;">
+            <span>⬅️ 무대 좌측 (1반 라인)</span>
+            <span>무대 우측 (4반 라인) ➡️</span>
+          </div>
+          <p style="font-size:0.74rem; color:#64748b; margin-top:6px; text-align:center;">
             ※ 두 학급을 차례로 터치하면 자리를 맞바꿀 수 있습니다.
           </p>
         </div>
@@ -774,12 +808,27 @@
       "13:40~13:50", "13:50~14:00", "14:00~14:10", "14:10~14:30"
     ];
 
-    let savedCls = localStorage.getItem("scifest_my_class_2026") || "1-1";
+    const urlClsParam = new URLSearchParams(window.location.search).get("class");
+    let savedCls = (urlClsParam && /^[1-6]-[1-4]$/.test(urlClsParam))
+      ? urlClsParam
+      : (localStorage.getItem("scifest_my_class_2026") || "1-1");
     let mGrade = parseInt(savedCls.split("-")[0], 10) || 1;
     let mCls = parseInt(savedCls.split("-")[1], 10) || 1;
     let mRound = 1;
     let mAudSession = mGrade <= 3 ? 2 : 1;
     let mSwapIdx = null;
+
+    let savedChecks = {};
+    try {
+      savedChecks = JSON.parse(localStorage.getItem("scifest_checks_2026")) || {};
+    } catch (e) {
+      savedChecks = {};
+    }
+
+    function toggleMSavedCheck(key, checked) {
+      savedChecks[key] = !!checked;
+      localStorage.setItem("scifest_checks_2026", JSON.stringify(savedChecks));
+    }
 
     const defaultAudSeats = {
       1: ["4-1","4-2","4-3","4-4","5-1","5-2","5-3","5-4","6-1","6-2","6-3","6-4"],
@@ -817,6 +866,15 @@
       saveAndRender();
     }
 
+    function selectMClassFromTable(clsStr, roundNum) {
+      const parts = clsStr.split("-");
+      mGrade = parseInt(parts[0], 10);
+      mCls = parseInt(parts[1], 10);
+      mRound = roundNum || 1;
+      mAudSession = mGrade <= 3 ? 2 : 1;
+      saveAndRender();
+    }
+
     function changeRound(delta) {
       let next = mRound + delta;
       if (next < 1) next = 1;
@@ -831,7 +889,12 @@
     }
 
     function saveAndRender() {
-      localStorage.setItem("scifest_my_class_2026", getClsStr());
+      const cls = getClsStr();
+      localStorage.setItem("scifest_my_class_2026", cls);
+      const pcLink = document.querySelector(".pc-link-btn");
+      if (pcLink) {
+        pcLink.setAttribute("href", `index.html?class=${cls}`);
+      }
       renderMAll();
     }
 
@@ -842,11 +905,16 @@
     }
 
     function renderMAll() {
-      // Update top buttons
+      // Update top buttons & PC link
       document.querySelectorAll("#mGradeRow .m-grade-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === mGrade));
       document.querySelectorAll("#mClassRow .m-class-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === mCls));
 
       const cls = getClsStr();
+      const pcLink = document.querySelector(".pc-link-btn");
+      if (pcLink) {
+        pcLink.setAttribute("href", `index.html?class=${cls}`);
+      }
+
       const low = mGrade <= 3;
       const progs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
       const times = low ? LOW_TIMES : HIGH_TIMES;
@@ -924,13 +992,13 @@
         document.getElementById("mTimelineList").innerHTML = `
           <div>• <strong>08:50~09:00</strong> : 운동장 <strong>${b1}번 부스</strong> 앞 집결</div>
           <div>• <strong>09:00~11:10</strong> : 운동장 1~12회차 부스 로테이션</div>
-          <div>• <strong>11:20~12:10</strong> : 🍱 <strong>저학년 점심식사</strong> (12:05 강당 착석)</div>
+          <div>• <strong>11:20~12:10</strong> : 🍱 <strong>저학년 점심식사 및 이동</strong> (12:05 강당 착석 완료)</div>
           <div>• <strong>12:10~13:00</strong> : 🎭 <strong>강당 과학공연 2차 관람</strong></div>
         `;
       } else {
         document.getElementById("mTimelineList").innerHTML = `
           <div>• <strong>09:00~09:50</strong> : 🎭 <strong>강당 과학공연 1차 관람</strong> (08:50 착석)</div>
-          <div>• <strong>09:50~11:30</strong> : 📚 <strong>교실 학급 수업</strong> (11:25 운동장 집결)</div>
+          <div>• <strong>09:50~11:30</strong> : 📚 <strong>교실 학급 수업</strong> (11:20~11:25 운동장 집결)</div>
           <div>• <strong>11:30~12:10</strong> : 🔬 <strong>운동장 1차 체험</strong> (1~4회차, ${b1}번 시작)</div>
           <div>• <strong>12:10~13:00</strong> : 🍱 <strong>고학년 점심식사</strong></div>
           <div style="color:#dc2626; font-weight:800;">• <strong>13:00~14:30</strong> : 🔬 <strong>운동장 2차 체험</strong> (5~12회차, <strong>${b5}번 부스</strong> 재집결)</div>
@@ -952,7 +1020,7 @@
               <span class="m-b-badge">${b}번</span>
               <div class="m-prog-info">
                 <div class="p-name">${p.name} ${p.type === '결과물' ? '🎁' : ''}</div>
-                <div class="p-time">${times[r - 1]} · ${p.principle}</div>
+                <div class="p-time">${times[r - 1]}${(!low && r === 12) ? ' (체험+정리)' : ''} · ${p.principle}</div>
               </div>
             </div>
             <div style="font-size:0.75rem; font-weight:800; color:#475569;">
@@ -996,9 +1064,16 @@
       };
 
       document.getElementById("mMapVisual").innerHTML = `
-        <div class="m-guryeongdae">📢 구령대 (상단 중앙)</div>
+        <div class="m-guryeongdae">📢 구령대 (상단 중앙 진행 본부)</div>
         <div class="m-top-row-booths">
-          ${nodeHtml(4)}${nodeHtml(5)}${nodeHtml(6)}${nodeHtml(7)}${nodeHtml(8)}${nodeHtml(9)}
+          <div class="m-top-half">
+            <div class="m-top-half-label">⬅️ 구령대 좌측 (4→6번)</div>
+            <div class="m-top-half-grid">${nodeHtml(4)}${nodeHtml(5)}${nodeHtml(6)}</div>
+          </div>
+          <div class="m-top-half">
+            <div class="m-top-half-label">구령대 우측 (7→9번) ➡️</div>
+            <div class="m-top-half-grid">${nodeHtml(7)}${nodeHtml(8)}${nodeHtml(9)}</div>
+          </div>
         </div>
         <div class="m-side-booths-wrap">
           <div class="m-side-col">
@@ -1027,7 +1102,7 @@
         const c = getClassAt(grp, b, mRound);
         const isMe = c === cls;
         allList += `
-          <div style="padding:6px 8px; border-radius:6px; background:${isMe ? '#dbeafe' : '#f8fafc'}; border:1px solid ${isMe ? '#1d4ed8' : '#e2e8f0'}; font-weight:${isMe ? '900' : '600'};">
+          <div onclick="selectMClassFromTable('${c}', ${mRound})" style="cursor:pointer; padding:6px 8px; border-radius:6px; background:${isMe ? '#dbeafe' : '#f8fafc'}; border:1px solid ${isMe ? '#1d4ed8' : '#e2e8f0'}; font-weight:${isMe ? '900' : '600'};">
             <strong>${b}번</strong> (${progs[b-1].name}): <span style="color:#1d4ed8;">${c}반</span>
           </div>
         `;
@@ -1053,7 +1128,7 @@
         lHtml += `<tr><td>${r}</td><td>${LOW_TIMES[r-1]}</td>`;
         for (let b = 1; b <= 12; b++) {
           const c = getClassAt("low", b, r);
-          lHtml += `<td class="${c === selectedCls ? 'hi-cell' : ''}">${c}</td>`;
+          lHtml += `<td class="${c === selectedCls ? 'hi-cell' : ''}" style="cursor:pointer;" onclick="selectMClassFromTable('${c}', ${r})">${c}</td>`;
         }
         lHtml += `</tr>`;
       }
@@ -1069,7 +1144,7 @@
         hHtml += `<tr><td>${r}</td><td>${HIGH_TIMES[r-1]}</td>`;
         for (let b = 1; b <= 12; b++) {
           const c = getClassAt("high", b, r);
-          hHtml += `<td class="${c === selectedCls ? 'hi-cell' : ''}">${c}</td>`;
+          hHtml += `<td class="${c === selectedCls ? 'hi-cell' : ''}" style="cursor:pointer;" onclick="selectMClassFromTable('${c}', ${r})">${c}</td>`;
         }
         hHtml += `</tr>`;
       }
@@ -1080,6 +1155,13 @@
     function setMAud(s) {
       mAudSession = s;
       mSwapIdx = null;
+      renderMAud(getClsStr());
+    }
+
+    function resetMAudSeats() {
+      audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
+      mSwapIdx = null;
+      localStorage.removeItem("scifest_aud_seats_2026");
       renderMAud(getClsStr());
     }
 
@@ -1110,10 +1192,12 @@
       arr.forEach((c, idx) => {
         const isMe = c === selectedCls;
         const isSwap = mSwapIdx === idx;
+        const g = parseInt(c.split("-")[0], 10);
+        const cnt = g === 1 ? "약 16명" : "약 20명";
         html += `
-          <div onclick="tapMAudSeat(${idx})" style="padding:12px 4px; border-radius:8px; text-align:center; border:2px solid ${isSwap ? '#f59e0b' : (isMe ? '#1d4ed8' : '#cbd5e1')}; background:${isMe ? '#dbeafe' : '#fff'}; font-weight:900; font-size:0.86rem;">
+          <div onclick="tapMAudSeat(${idx})" style="cursor:pointer; padding:10px 4px; border-radius:8px; text-align:center; border:2px solid ${isSwap ? '#f59e0b' : (isMe ? '#1d4ed8' : '#cbd5e1')}; background:${isSwap ? '#fffbeb' : (isMe ? '#dbeafe' : '#fff')}; font-weight:900; font-size:0.86rem;">
             ${c}반
-            <div style="font-size:0.66rem; color:#64748b; font-weight:600;">${Math.floor(idx/4)+1}열</div>
+            <div style="font-size:0.65rem; color:#64748b; font-weight:600; margin-top:2px;">${Math.floor(idx/4)+1}열 · ${cnt}</div>
           </div>
         `;
       });
@@ -1122,12 +1206,16 @@
 
     function renderMChecks(cls, progs) {
       const crafts = progs.filter(p => p.type === "결과물");
-      document.getElementById("mCraftChecklist").innerHTML = crafts.map(c => `
-        <label style="display:flex; align-items:center; gap:8px; padding:8px 10px; background:#fffbeb; border:1px solid #fcd34d; border-radius:8px;">
-          <input type="checkbox" style="width:18px; height:18px;" />
-          <span><strong>${c.booth}번 ${c.name}</strong> (${c.principle})</span>
-        </label>
-      `).join("");
+      document.getElementById("mCraftChecklist").innerHTML = crafts.map(c => {
+        const key = `craft_${cls}_${c.booth}`;
+        const checkedAttr = savedChecks[key] ? "checked" : "";
+        return `
+          <label style="display:flex; align-items:center; gap:8px; padding:8px 10px; background:#fffbeb; border:1px solid #fcd34d; border-radius:8px; cursor:pointer;">
+            <input type="checkbox" style="width:18px; height:18px;" ${checkedAttr} onchange="toggleMSavedCheck('${key}', this.checked)" />
+            <span><strong>[${cls}반] ${c.booth}번 ${c.name}</strong> (${c.principle})</span>
+          </label>
+        `;
+      }).join("");
 
       document.getElementById("mProgSummaryList").innerHTML = progs.map(p => `
         <div style="padding:8px 10px; border-radius:8px; background:#f8fafc; border:1px solid #e2e8f0; display:flex; justify-content:space-between;">
@@ -1138,7 +1226,7 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
-      renderMAll();
+      saveAndRender();
     });
   </script>
 </body>

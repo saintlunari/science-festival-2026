@@ -1249,7 +1249,7 @@
                 <td><strong>09:50 ~ 11:10</strong></td>
                 <td rowspan="2" style="background:#f8fafc; font-weight:800; color:#334155;">
                   📚 <strong>고학년 학급별 수업 (09:50 ~ 11:30)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 후 교실 이동하여 정상 수업 진행<br/>• <strong>11:20~11:30</strong> 운동장 1차 첫 부스 앞 이동·대기</span>
+                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 후 교실 이동하여 정상 수업 진행<br/>• <strong>11:20~11:25까지</strong> 운동장 1차 첫 부스 앞 이동·대기</span>
                 </td>
                 <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br/>• 운동장: 저학년 부스 6~12회차 진행 (~11:10)</td>
               </tr>
@@ -1264,8 +1264,8 @@
               <tr>
                 <td><strong>11:30 ~ 12:10</strong></td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
-                  🍱 <strong>저학년 점심시간 (11:20 ~ 12:10)</strong><br/>
-                  <span style="font-size:0.8rem; font-weight:600;">• 식사 후 <strong>12:05까지 강당 이동 및 착석</strong></span>
+                  🍱 <strong>저학년 점심시간 및 강당 이동 (11:20 ~ 12:10)</strong><br/>
+                  <span style="font-size:0.8rem; font-weight:600;">• 식사 후 이동하여 <strong>12:05까지 강당 착석 완료</strong></span>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
                   🔬 <strong>운동장 고학년 1차 부스 체험 (4개 부스)</strong><br/>
@@ -1431,7 +1431,7 @@
             </div>
             <div class="check-list">
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="common_bag" onchange="toggleSavedCheck('common_bag', this.checked)" />
                 <div>
                   <strong>[학생 준비물] 개인 결과물 보관 가방(에코백/비닐백) 및 이름표 준비</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1440,17 +1440,17 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="common_time" onchange="toggleSavedCheck('common_time', this.checked)" />
                 <div>
                   <strong>[집결 시간 엄수] 행사 시작 5~10분 전까지 지정 장소 도착</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    • <strong>1~3학년</strong>: 08:50까지 운동장 첫 부스 집결 / 중식 후 12:05까지 강당 착석<br/>
-                    • <strong>4~6학년</strong>: 08:50까지 강당 착석 / 11:25까지 운동장 1차 첫 부스 집결 / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스 재집결</strong>
+                    • <strong>1~3학년</strong>: 08:50까지 운동장 첫 부스 집결 / 중식 후 12:05까지 강당 착석 완료<br/>
+                    • <strong>4~6학년</strong>: 08:50까지 강당 착석 / 11:20~11:25까지 운동장 1차 첫 부스 집결 / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스 재집결</strong>
                   </p>
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="common_rot" onchange="toggleSavedCheck('common_rot', this.checked)" />
                 <div>
                   <strong>[시계방향 동시 로테이션] 진행자 방송 신호에 맞춘 학급 이동</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1459,7 +1459,7 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="common_safe" onchange="toggleSavedCheck('common_safe', this.checked)" />
                 <div>
                   <strong>[안전 지도] 액화질소·드라이아이스·전기분해 등 실험 안전 유의</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1478,7 +1478,7 @@
             </div>
             <div class="check-list">
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="admin_open" onchange="toggleSavedCheck('admin_open', this.checked)" />
                 <div>
                   <strong>[학교 출입 및 사전 설치 협조] 전일 15시 이후 또는 당일 06시부터</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1487,7 +1487,7 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="admin_meal" onchange="toggleSavedCheck('admin_meal', this.checked)" />
                 <div>
                   <strong>[강사 및 스텝 식사 장소 마련] 12:10 ~ 13:00 (총 20명 내외)</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1496,7 +1496,7 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="admin_trash" onchange="toggleSavedCheck('admin_trash', this.checked)" />
                 <div>
                   <strong>[종량제 쓰레기봉투 준비 및 분리수거장 안내]</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1505,7 +1505,7 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="admin_stage" onchange="toggleSavedCheck('admin_stage', this.checked)" />
                 <div>
                   <strong>[강당 과학공연 시설 점검] 테이블 2~3개(길이 1800) 및 마이크</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1514,7 +1514,7 @@
                 </div>
               </label>
               <label class="check-item">
-                <input type="checkbox" />
+                <input type="checkbox" data-check-key="admin_weather" onchange="toggleSavedCheck('admin_weather', this.checked)" />
                 <div>
                   <strong>[우천·강풍·미세먼지 시 대체 운영 방안]</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
@@ -1604,14 +1604,39 @@
       12: { col: 9, row: 4 }
     };
 
-    // State
-    let currentGrade = 1;
-    let currentClassNum = 1;
+    // State (Sync with URL query ?class=X-Y or localStorage)
+    const urlClassParam = new URLSearchParams(window.location.search).get("class");
+    const savedClassStr = (urlClassParam && /^[1-6]-[1-4]$/.test(urlClassParam))
+      ? urlClassParam
+      : (localStorage.getItem("scifest_my_class_2026") || "1-1");
+    let currentGrade = parseInt(savedClassStr.split("-")[0], 10) || 1;
+    let currentClassNum = parseInt(savedClassStr.split("-")[1], 10) || 1;
     let mySelectedRound = 1; // 1..12
-    let simGroup = "low"; // 'low' | 'high'
+    let simGroup = currentGrade <= 3 ? "low" : "high"; // 'low' | 'high'
     let simRound = 1; // 1..12
-    let audSession = 1; // 1 (high 4~6) | 2 (low 1~3)
+    let audSession = currentGrade <= 3 ? 2 : 1; // 1 (high 4~6) | 2 (low 1~3)
     let swapSourceIndex = null;
+
+    // Checklist state persistence
+    let savedChecks = {};
+    try {
+      savedChecks = JSON.parse(localStorage.getItem("scifest_checks_2026")) || {};
+    } catch (e) {
+      savedChecks = {};
+    }
+
+    function toggleSavedCheck(key, checked) {
+      savedChecks[key] = !!checked;
+      localStorage.setItem("scifest_checks_2026", JSON.stringify(savedChecks));
+      syncStaticCheckboxes();
+    }
+
+    function syncStaticCheckboxes() {
+      document.querySelectorAll("input[type='checkbox'][data-check-key]").forEach(cb => {
+        const k = cb.getAttribute("data-check-key");
+        cb.checked = !!savedChecks[k];
+      });
+    }
 
     // Default Auditorium Seating
     const defaultAudSeats = {
@@ -1626,6 +1651,37 @@
 
     function isLowGrade(grade) {
       return grade <= 3;
+    }
+
+    function syncGroupTabsForGrade(g) {
+      const low = isLowGrade(g);
+      simGroup = low ? "low" : "high";
+      audSession = low ? 2 : 1;
+      const btnLow = document.getElementById("simBtnLow");
+      const btnHigh = document.getElementById("simBtnHigh");
+      if (btnLow && btnHigh) {
+        btnLow.style.background = simGroup === "low" ? "#1e40af" : "#e2e8f0";
+        btnLow.style.color = simGroup === "low" ? "#fff" : "#0f172a";
+        btnHigh.style.background = simGroup === "high" ? "#1e40af" : "#e2e8f0";
+        btnHigh.style.color = simGroup === "high" ? "#fff" : "#0f172a";
+      }
+      const audBtn1 = document.getElementById("audBtn1");
+      const audBtn2 = document.getElementById("audBtn2");
+      if (audBtn1 && audBtn2) {
+        audBtn1.style.background = audSession === 1 ? "#5b21b6" : "#e2e8f0";
+        audBtn1.style.color = audSession === 1 ? "#fff" : "#0f172a";
+        audBtn2.style.background = audSession === 2 ? "#5b21b6" : "#e2e8f0";
+        audBtn2.style.color = audSession === 2 ? "#fff" : "#0f172a";
+      }
+    }
+
+    function persistClassSelection() {
+      const cls = getSelectedClassName();
+      localStorage.setItem("scifest_my_class_2026", cls);
+      const mobileLink = document.querySelector(".btn-mobile-link");
+      if (mobileLink) {
+        mobileLink.setAttribute("href", `mobile.html?class=${cls}`);
+      }
     }
 
     // For a given class (e.g. "1-1") and round (1..12), return booth number (1..12)
@@ -1648,6 +1704,8 @@
     function selectGrade(g) {
       currentGrade = g;
       mySelectedRound = 1;
+      syncGroupTabsForGrade(g);
+      persistClassSelection();
       updateSelectorUI();
       renderAll();
     }
@@ -1655,17 +1713,25 @@
     function selectClassNum(c) {
       currentClassNum = c;
       mySelectedRound = 1;
+      syncGroupTabsForGrade(currentGrade);
+      persistClassSelection();
       updateSelectorUI();
       renderAll();
     }
 
-    function selectClassDirect(className) {
+    function selectClassDirect(className, targetRound, navigateToMyClass) {
       const parts = className.split("-");
       currentGrade = parseInt(parts[0], 10);
       currentClassNum = parseInt(parts[1], 10);
-      mySelectedRound = 1;
+      mySelectedRound = targetRound || 1;
+      syncGroupTabsForGrade(currentGrade);
+      persistClassSelection();
       updateSelectorUI();
       renderAll();
+      if (navigateToMyClass) {
+        switchTab("tab-myclass");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
     }
 
     function updateSelectorUI() {
@@ -1713,12 +1779,12 @@
               <div class="p-val">${firstBooth}번 부스 (${firstProg.name})</div>
             </div>
             <div class="hero-Point-card">
-              <div class="p-label">🍱 점심시간 (중식)</div>
-              <div class="p-val">11:20 ~ 12:10</div>
+              <div class="p-label">🍱 점심시간 및 강당 이동</div>
+              <div class="p-val">11:20 ~ 12:10 (12:05 착석)</div>
             </div>
             <div class="hero-Point-card">
               <div class="p-label">🎭 강당 과학공연 관람 (2차)</div>
-              <div class="p-val">12:10 ~ 13:00 (12:05 착석)</div>
+              <div class="p-val">12:10 ~ 13:00 관람</div>
             </div>
           </div>
         `;
@@ -1754,7 +1820,7 @@
             <div>
               <strong>[${cls} 담임선생님 핵심 안내]</strong><br/>
               • <strong>08:50까지</strong> 학생들에게 개인 가방(결과물 4종 보관용)을 지참시켜 <strong>운동장 ${firstBooth}번 부스(${firstProg.name})</strong> 앞으로 인솔해 주세요.<br/>
-              • 09:00~11:10 동안 시계 방향으로 12개 부스를 모두 체험한 뒤, <strong>11:20~12:10 점심식사</strong> 후 <strong>12:05까지 강당</strong>으로 이동하여 과학공연을 관람합니다.
+              • 09:00~11:10 동안 시계 방향으로 12개 부스를 모두 체험한 뒤, <strong>11:20~12:10 점심식사 및 강당 이동(12:05까지 착석 완료)</strong> 후 12:10부터 과학공연을 관람합니다.
             </div>
           </div>
         `;
@@ -1766,7 +1832,7 @@
             <div>
               <strong>[${cls} 담임선생님 핵심 안내 — 점심시간 전후 부스 위치 주의!]</strong><br/>
               • <strong>08:50까지 강당</strong>에 착석하여 1차 과학공연(09:00~09:50)을 관람한 뒤, <strong>09:50~11:30에는 교실에서 학급 수업</strong>을 진행합니다.<br/>
-              • <strong>11:25까지 운동장 ${firstBooth}번 부스(${firstProg.name})</strong>로 이동하여 1차 체험(4개 부스: ${firstBooth}번→${round4Booth}번)을 진행합니다.<br/>
+              • <strong>11:20~11:25까지 운동장 ${firstBooth}번 부스(${firstProg.name})</strong>로 이동하여 1차 체험(4개 부스: ${firstBooth}번→${round4Booth}번)을 진행합니다.<br/>
               • <strong>12:10~13:00 점심식사 후 12:55까지</strong> 오전 첫 부스가 아닌 <strong>5회차 배정 부스인 [${round5Booth}번 부스: ${round5Prog.name}]</strong> 앞으로 재집결해 주세요!
             </div>
           </div>
@@ -1802,7 +1868,7 @@
             <div class="tl-time">11:20 ~ 12:10</div>
             <div class="tl-content">
               <div class="tl-title">🍱 저학년 점심시간 (중식) 및 강당 이동</div>
-              <div class="tl-desc">식사 후 <strong>12:05까지 강당 지정 좌석</strong>으로 이동 및 착석 완료</div>
+              <div class="tl-desc">식사 후 이동하여 <strong>12:05까지 강당 지정 좌석</strong> 착석 완료</div>
             </div>
           </div>
           <div class="timeline-item type-show">
@@ -1835,7 +1901,7 @@
             <div class="tl-time">09:50 ~ 11:30</div>
             <div class="tl-content">
               <div class="tl-title">📚 학급별 수업 진행 (교실)</div>
-              <div class="tl-desc">수업 후 개인 결과물 가방 지참하여 <strong>11:25까지 운동장 ${firstBooth}번 부스 앞</strong> 집결</div>
+              <div class="tl-desc">수업 후 개인 결과물 가방 지참하여 <strong>11:20~11:25까지 운동장 ${firstBooth}번 부스 앞</strong> 집결</div>
             </div>
           </div>
           <div class="timeline-item type-booth">
@@ -1856,13 +1922,53 @@
             <div class="tl-time">13:00 ~ 14:30</div>
             <div class="tl-content">
               <div class="tl-title">🔬 운동장 과학축제 2차 부스 체험 (5~12회차, 나머지 8개 부스)</div>
-              <div class="tl-desc"><strong>${round5Booth}번 부스(${round5Prog.name})</strong>에서 재개 → ${round12Booth}번 부스까지 체험 후 14:30 종료</div>
+              <div class="tl-desc"><strong>${round5Booth}번 부스(${round5Prog.name})</strong>에서 재개 → ${round12Booth}번 부스까지 체험 후 정리 (14:10~14:30 마지막 회차 및 마무리)</div>
             </div>
           </div>
         `;
       }
 
-      // 4. Booth Schedule Table (1..12)
+      // 4 & 5. Render My Class Booth Table & Playground Map
+      renderMyClassRoundDependentUI();
+
+      // 6. Quick checks for my class (persisted in localStorage and shared with mobile.html)
+      const crafts = programs.filter(p => p.type === "결과물");
+      const craftItemsHtml = crafts.map(c => {
+        const key = `craft_${cls}_${c.booth}`;
+        const checkedAttr = savedChecks[key] ? "checked" : "";
+        return `
+          <label class="check-item" style="background:#fffbeb; border-color:#fcd34d;">
+            <input type="checkbox" data-check-key="${key}" ${checkedAttr} onchange="toggleSavedCheck('${key}', this.checked)" />
+            <div>
+              <strong>[결과물] ${c.booth}번 부스 — ${c.name}</strong>
+              <p style="font-size:0.82rem; color:#92400e;">${c.principle} · 체험 후 개인 가방(에코백) 보관 확인</p>
+            </div>
+          </label>
+        `;
+      }).join("");
+
+      const moveKey = `quick_${cls}_move12to1`;
+      const moveChecked = savedChecks[moveKey] ? "checked" : "";
+      document.getElementById("myClassQuickChecks").innerHTML = `
+        ${craftItemsHtml}
+        <label class="check-item">
+          <input type="checkbox" data-check-key="${moveKey}" ${moveChecked} onchange="toggleSavedCheck('${moveKey}', this.checked)" />
+          <div>
+            <strong>12번 부스(테라리움) → 1번 부스(극저온의 세계) 이동 구간 숙지</strong>
+            <p style="font-size:0.82rem; color:#475569;">우측 하단 12번 부스 체험 후에는 운동장 하단을 가로질러 좌측 하단 1번 부스로 이동합니다.</p>
+          </div>
+        </label>
+      `;
+    }
+
+    function renderMyClassRoundDependentUI() {
+      const cls = getSelectedClassName();
+      const low = isLowGrade(currentGrade);
+      const programs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      const times = low ? LOW_TIMES : HIGH_TIMES;
+      const round5Booth = getBoothForClassAtRound(cls, 5);
+      const round5Prog = programs[round5Booth - 1];
+
       const tbody = document.getElementById("myClassBoothTbody");
       let rowsHtml = "";
       for (let r = 1; r <= 12; r++) {
@@ -1883,7 +1989,7 @@
 
         rowsHtml += `
           <tr style="${isSelected ? 'background:#dbeafe; font-weight:800;' : 'cursor:pointer;'}" onclick="setMyRound(${r})">
-            <td><strong>${r}회차</strong> ${(!low && r === 1) ? '<span style="color:#1d4ed8;font-size:0.72rem;display:block;">(1차시작)</span>' : ''}${(!low && r === 5) ? '<span style="color:#dc2626;font-size:0.72rem;display:block;">(점심후집결)</span>' : ''}</td>
+            <td><strong>${r}회차</strong> ${(!low && r === 1) ? '<span style="color:#1d4ed8;font-size:0.72rem;display:block;">(1차시작)</span>' : ''}${(!low && r === 5) ? '<span style="color:#dc2626;font-size:0.72rem;display:block;">(점심후집결)</span>' : ''}${(!low && r === 12) ? '<span style="color:#475569;font-size:0.7rem;display:block;">(체험+정리)</span>' : ''}</td>
             <td>${times[r - 1]}</td>
             <td><span style="display:inline-block; background:#0f172a; color:#fff; font-weight:800; padding:2px 8px; border-radius:6px;">${bNum}번</span></td>
             <td style="text-align:left; padding-left:12px;">
@@ -1897,32 +2003,12 @@
       }
       tbody.innerHTML = rowsHtml;
 
-      // 5. Render My Class Playground Map & Stepper
       renderMyPlaygroundMap();
-
-      // 6. Quick checks for my class
-      const craftList = programs.filter(p => p.type === "결과물").map(p => `${p.booth}번 ${p.name}`).join(", ");
-      document.getElementById("myClassQuickChecks").innerHTML = `
-        <label class="check-item">
-          <input type="checkbox" />
-          <div>
-            <strong>우리 반(${cls}) 결과물 4종 수령 확인</strong>
-            <p style="font-size:0.82rem; color:#475569;">${craftList} (총 4종을 개인 가방에 보관)</p>
-          </div>
-        </label>
-        <label class="check-item">
-          <input type="checkbox" />
-          <div>
-            <strong>12번 부스(테라리움) → 1번 부스(극저온의 세계) 이동 구간 숙지</strong>
-            <p style="font-size:0.82rem; color:#475569;">우측 하단 12번 부스 체험 후에는 운동장 하단을 가로질러 좌측 하단 1번 부스로 이동합니다.</p>
-          </div>
-        </label>
-      `;
     }
 
     function setMyRound(r) {
       mySelectedRound = r;
-      renderMyClassView();
+      renderMyClassRoundDependentUI();
     }
 
     function renderMyPlaygroundMap() {
@@ -2041,7 +2127,7 @@
             <strong>${groupTitle} ${simRound}회차 (${times[simRound - 1]})</strong> — 각 부스에 위치한 학급이 표시되어 있습니다.
           </div>
           <div style="font-size:0.78rem; color:#64748b;">
-            (부스를 클릭하면 해당 학급의 맞춤 동선 화면으로 이동할 수 있습니다)
+            (부스를 클릭하면 해당 학급의 맞춤 동선 화면으로 바로 이동합니다)
           </div>
         </div>
       `;
@@ -2055,7 +2141,7 @@
         html += `
           <div class="booth-node ${prog.type === '결과물' ? 'is-craft' : ''} ${isMySelectedClass ? 'active-current' : ''}"
                style="grid-column:${pos.col}; grid-row:${pos.row};"
-               onclick="selectClassDirect('${clsAtBooth}')">
+               onclick="selectClassDirect('${clsAtBooth}', ${simRound}, true)">
             <span class="b-num">${b}번 ${prog.type === '결과물' ? '🎁' : ''}</span>
             <div class="b-name">${prog.name}</div>
             <div class="b-class-tag" style="font-size:0.85rem; padding:3px 10px;">${clsAtBooth}반</div>
@@ -2066,63 +2152,45 @@
       document.getElementById("simPlaygroundGrid").innerHTML = html;
     }
 
-    function renderMasterTables() {
-      const selectedCls = getSelectedClassName();
-
-      // 1. Low Grade Table
-      let lowHtml = `
+    function buildMasterTableHtml(group, highlightClass, interactive) {
+      const programs = group === "low" ? LOW_PROGRAMS : HIGH_PROGRAMS;
+      const times = group === "low" ? LOW_TIMES : HIGH_TIMES;
+      let html = `
         <thead>
           <tr>
             <th style="width:52px;">회차</th>
             <th style="width:105px;">시간</th>
-            ${LOW_PROGRAMS.map(p => `<th>${p.booth}번 ${p.type === '결과물' ? '🎁' : ''}<br/>${p.name}</th>`).join("")}
+            ${programs.map(p => `<th>${p.booth}번 ${p.type === '결과물' ? '🎁' : ''}<br/>${p.name}</th>`).join("")}
           </tr>
         </thead>
         <tbody>
       `;
       for (let r = 1; r <= 12; r++) {
-        lowHtml += `<tr><td><strong>${r}회</strong></td><td><strong>${LOW_TIMES[r - 1]}</strong></td>`;
-        for (let b = 1; b <= 12; b++) {
-          const c = getClassAtBoothAndRound("low", b, r);
-          const g = c.split("-")[0];
-          const isHi = c === selectedCls;
-          lowHtml += `<td class="cell-class cell-g${g} ${isHi ? 'cell-highlight' : ''}" style="cursor:pointer;" onclick="selectClassDirect('${c}')">${c}</td>`;
-        }
-        lowHtml += `</tr>`;
-      }
-      lowHtml += `</tbody>`;
-      document.getElementById("lowGradeMasterTable").innerHTML = lowHtml;
-
-      // 2. High Grade Table
-      let highHtml = `
-        <thead>
-          <tr>
-            <th style="width:52px;">회차</th>
-            <th style="width:105px;">시간</th>
-            ${HIGH_PROGRAMS.map(p => `<th>${p.booth}번 ${p.type === '결과물' ? '🎁' : ''}<br/>${p.name}</th>`).join("")}
-          </tr>
-        </thead>
-        <tbody>
-      `;
-      for (let r = 1; r <= 12; r++) {
-        if (r === 5) {
-          highHtml += `
+        if (group === "high" && r === 5) {
+          html += `
             <tr class="lunch-divider-row">
               <td colspan="14">🍱 12:10 ~ 13:00 점심시간 (강사 및 스텝 식사) — 식사 후 12:55까지 아래 5회차 배정 부스로 각 반 재집결!</td>
             </tr>
           `;
         }
-        highHtml += `<tr><td><strong>${r}회</strong></td><td><strong>${HIGH_TIMES[r - 1]}</strong></td>`;
+        html += `<tr><td><strong>${r}회</strong></td><td><strong>${times[r - 1]}</strong></td>`;
         for (let b = 1; b <= 12; b++) {
-          const c = getClassAtBoothAndRound("high", b, r);
+          const c = getClassAtBoothAndRound(group, b, r);
           const g = c.split("-")[0];
-          const isHi = c === selectedCls;
-          highHtml += `<td class="cell-class cell-g${g} ${isHi ? 'cell-highlight' : ''}" style="cursor:pointer;" onclick="selectClassDirect('${c}')">${c}</td>`;
+          const isHi = highlightClass && c === highlightClass;
+          const clickAttr = interactive ? `style="cursor:pointer;" onclick="selectClassDirect('${c}', ${r}, false)"` : "";
+          html += `<td class="cell-class cell-g${g} ${isHi ? 'cell-highlight' : ''}" ${clickAttr}>${c}</td>`;
         }
-        highHtml += `</tr>`;
+        html += `</tr>`;
       }
-      highHtml += `</tbody>`;
-      document.getElementById("highGradeMasterTable").innerHTML = highHtml;
+      html += `</tbody>`;
+      return html;
+    }
+
+    function renderMasterTables() {
+      const selectedCls = getSelectedClassName();
+      document.getElementById("lowGradeMasterTable").innerHTML = buildMasterTableHtml("low", selectedCls, true);
+      document.getElementById("highGradeMasterTable").innerHTML = buildMasterTableHtml("high", selectedCls, true);
     }
 
     // ==================== AUDITORIUM SEATING CHART ====================
@@ -2164,9 +2232,7 @@
     function renderAudSeats() {
       const seats = audSeats[audSession];
       const selectedCls = getSelectedClassName();
-      const rowLabels = audSession === 1
-        ? ["앞줄 (1열 구역)", "중간줄 (2열 구역)", "뒷줄 (3열 구역)"]
-        : ["앞줄 (1열 구역)", "중간줄 (2열 구역)", "뒷줄 (3열 구역)"];
+      const rowLabels = ["앞줄 (1열 구역)", "중간줄 (2열 구역)", "뒷줄 (3열 구역)"];
 
       let html = `<div class="seating-grid">`;
       seats.forEach((clsName, idx) => {
@@ -2273,8 +2339,8 @@
         <div style="margin-bottom:10px; padding:8px 10px; border:1px solid #0f172a; border-radius:6px; background:#f8fafc;">
           <strong>■ ${cls}반 전체 일과 요약:</strong>
           ${low
-            ? `08:50 운동장 <strong>${firstBooth}번 부스</strong> 집결 → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간</strong> (12:05 강당 착석) → <strong>12:10~13:00 강당 과학공연 관람</strong>`
-            : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:30 학급별 수업</strong> (11:25 운동장 <strong>${firstBooth}번 부스</strong> 집결) → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
+            ? `08:50 운동장 <strong>${firstBooth}번 부스</strong> 집결 → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong>`
+            : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:30 학급별 수업</strong> (11:20~11:25 운동장 <strong>${firstBooth}번 부스</strong> 집결) → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
           }
         </div>
 
@@ -2315,7 +2381,10 @@
         </div>
       `;
 
-      // 2. Full School A4 Summary Sheet (2 pages)
+      // 2. Full School A4 Summary Sheet (2 pages, clean without single-class highlight)
+      const cleanLowTableHtml = `<table>${buildMasterTableHtml("low", null, false)}</table>`;
+      const cleanHighTableHtml = `<table>${buildMasterTableHtml("high", null, false)}</table>`;
+
       document.getElementById("print-all-sheet").innerHTML = `
         <div style="border-bottom:2px solid #0f172a; padding-bottom:6px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:flex-end;">
           <div>
@@ -2343,7 +2412,7 @@
             </tr>
             <tr>
               <td><strong>09:50 ~ 11:10</strong></td>
-              <td rowspan="2"><strong>고학년 학급별 수업 (09:50~11:30)</strong><br/>※ 11:25까지 운동장 1차 첫 부스 앞 집결</td>
+              <td rowspan="2"><strong>고학년 학급별 수업 (09:50~11:30)</strong><br/>※ 11:20~11:25까지 운동장 1차 첫 부스 앞 집결</td>
               <td>강당 2차 공연 준비 (09:50~12:10)</td>
             </tr>
             <tr>
@@ -2353,7 +2422,7 @@
             </tr>
             <tr>
               <td><strong>11:30 ~ 12:10</strong></td>
-              <td><strong>저학년 점심시간 (11:20~12:10)</strong> → 12:05 강당 착석</td>
+              <td><strong>저학년 점심시간 및 강당 이동 (11:20~12:10)</strong> → 12:05 착석</td>
               <td><strong>운동장 고학년 1차 부스 체험 (1~4회차, 4개 부스)</strong></td>
               <td>고학년 오전 4개 부스 우선 체험</td>
             </tr>
@@ -2373,12 +2442,12 @@
         </table>
 
         <h3 style="font-size:11px; margin-bottom:3px;">2. [저학년 1~3학년] 반별 부스 이동시간 조편성표 (09:00~11:10, 구령대 중심 시계방향 1→12번 이동)</h3>
-        <div style="margin-bottom:8px;">${document.getElementById("lowGradeMasterTable").outerHTML}</div>
+        <div style="margin-bottom:8px;">${cleanLowTableHtml}</div>
 
         <div class="print-page-break"></div>
 
         <h3 style="font-size:11px; margin-bottom:3px; margin-top:4px;">3. [고학년 4~6학년] 반별 부스 이동시간 조편성표 (1차 11:30~12:10 / 중식 12:10~13:00 / 2차 13:00~14:30)</h3>
-        <div style="margin-bottom:8px;">${document.getElementById("highGradeMasterTable").outerHTML}</div>
+        <div style="margin-bottom:8px;">${cleanHighTableHtml}</div>
 
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:10px;">
           <div style="border:1px solid #334155; padding:6px; border-radius:4px;">
@@ -2424,10 +2493,14 @@
       renderAudSeats();
       renderProgramCards(isLowGrade(currentGrade) ? "low" : "high");
       renderPrintSheets();
+      syncStaticCheckboxes();
     }
 
     // Initialize on load
     window.addEventListener("DOMContentLoaded", () => {
+      syncGroupTabsForGrade(currentGrade);
+      persistClassSelection();
+      updateSelectorUI();
       renderAll();
     });
   </script>

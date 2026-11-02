@@ -536,6 +536,33 @@
       color: #fff !important;
       font-weight: 900;
     }
+
+    .m-dday-badge {
+      display: inline-block;
+      background: #f59e0b;
+      color: #0f172a;
+      font-weight: 900;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 5px;
+    }
+    .m-dday-badge.is-today {
+      background: #ef4444;
+      color: #ffffff;
+    }
+    .m-sync-card {
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+    }
+    .m-sync-card.active-sync {
+      border-color: #2563eb;
+      background: linear-gradient(135deg, #eff6ff 0%, #ffffff 70%);
+    }
   </style>
 </head>
 <body>
@@ -544,7 +571,7 @@
     <header class="m-header">
       <div class="m-header-top">
         <div>
-          <div class="m-sub">2026. 11. 12.(목) 공주교대부설초</div>
+          <div class="m-sub">2026. 11. 12.(목) 공주교대부설초 <span class="m-dday-badge" id="mDdayBadge">D-Day</span></div>
           <div class="m-title">찾아가는 과학축제 모바일 가이드</div>
         </div>
         <a href="index.html" class="pc-link-btn">💻 PC/인쇄 화면</a>
@@ -571,6 +598,9 @@
 
     <!-- MAIN CONTENT -->
     <main class="m-content">
+
+      <!-- LIVE D-DAY & AUTO-ROUND SYNC CARD -->
+      <div class="m-sync-card" id="mLiveSyncCard"></div>
 
       <!-- PANEL 1: 우리 반 동선 (HOME) -->
       <section id="mp-home" class="m-panel active">
@@ -916,6 +946,197 @@
     let mAudSession = mGrade <= 3 ? 2 : 1;
     let mSwapIdx = null;
 
+    // D-Day & Auto-Round Sync State
+    const LOW_ROUND_RANGES = [
+      [540, 551], [551, 562], [562, 573], [573, 584],
+      [584, 595], [595, 606], [606, 617], [617, 628],
+      [628, 639], [639, 650], [650, 660], [660, 670]
+    ];
+    const HIGH_ROUND_RANGES = [
+      [690, 700], [700, 710], [710, 720], [720, 730],
+      [780, 790], [790, 800], [800, 810], [810, 820],
+      [820, 830], [830, 840], [840, 850], [850, 870]
+    ];
+
+    function computeMDdayInfo() {
+      const now = new Date();
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const eventMidnight = new Date(2026, 10, 12);
+      const diffDays = Math.round((eventMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
+      if (diffDays > 0) {
+        return { diffDays, isDday: false, badgeText: `D-${diffDays}`, detailText: `행사까지 ${diffDays}일 남음` };
+      } else if (diffDays === 0) {
+        return { diffDays: 0, isDday: true, badgeText: `🎉 D-DAY`, detailText: `오늘 행사 진행일!` };
+      } else {
+        return { diffDays, isDday: false, badgeText: `D+${Math.abs(diffDays)}`, detailText: `행사 완료` };
+      }
+    }
+
+    const mInitialDday = computeMDdayInfo();
+    let mAutoSync = mInitialDday.isDday;
+    let mManualOverride = false;
+    let mPreviewMins = "real";
+
+    function getMActiveMins() {
+      if (mPreviewMins !== "real") return parseInt(mPreviewMins, 10);
+      const now = new Date();
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    function formatMHHMM(mins) {
+      return `${String(Math.floor(mins / 60)).padStart(2, "0")}:${String(mins % 60).padStart(2, "0")}`;
+    }
+
+    function computeMAutoSchedule(grade, clsName, totalMins) {
+      const low = grade <= 3;
+      const b1 = getBooth(clsName, 1);
+      if (low) {
+        if (totalMins < 530) return { round: 1, badge: "집결 준비", text: `08:50까지 운동장 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 집결 예정` };
+        if (totalMins < 540) return { round: 1, badge: "🔔 1회차 집결", text: `운동장 1회차(${b1}번 ${LOW_PROGRAMS[b1-1].name}) 앞으로 집결하세요!` };
+        if (totalMins >= 540 && totalMins < 670) {
+          let r = 1;
+          for (let i = 0; i < 12; i++) {
+            if (totalMins >= LOW_ROUND_RANGES[i][0] && totalMins < LOW_ROUND_RANGES[i][1]) { r = i + 1; break; }
+          }
+          const b = getBooth(clsName, r);
+          const rem = LOW_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, badge: `🔬 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${LOW_PROGRAMS[b-1].name} 체험 중 (약 ${rem}분 남음)` };
+        }
+        if (totalMins < 680) return { round: 12, badge: "결과물 정리", text: `부스 체험 완료 · 결과물 4종 확인 및 11:20 점심 이동` };
+        if (totalMins < 725) return { round: 12, badge: "🍱 점심(단축)", text: `저학년 점심식사 중 · 12:05까지 강당 지정석 착석!` };
+        if (totalMins < 730) return { round: 12, badge: "🎭 강당 착석", text: `12:05 강당 착석 완료 · 12:10 2차 공연 시작` };
+        if (totalMins < 780) return { round: 12, badge: "🎭 2차 공연 중", text: `강당 과학공연 2차 관람 중 (12:10~13:00)` };
+        if (totalMins < 830) return { round: 12, badge: "📚 5교시 수업", text: `과학축제 완료 · 13:10~13:50 5교시 정상 수업` };
+        return { round: 1, badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 일과가 종료되었습니다.` };
+      } else {
+        const b5 = getBooth(clsName, 5);
+        if (totalMins < 530) return { round: 1, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
+        if (totalMins < 540) return { round: 1, badge: "🎭 강당 착석", text: `08:50까지 강당 지정석 착석을 완료해 주세요!` };
+        if (totalMins < 590) return { round: 1, badge: "🎭 1차 공연 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 즉시 2교시)` };
+        if (totalMins < 680) return { round: 1, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:25까지 운동장 1회차(${b1}번) 집결` };
+        if (totalMins < 690) return { round: 1, badge: "🔔 1차 집결!", text: `11:25까지 운동장 1회차 [${b1}번 ${HIGH_PROGRAMS[b1-1].name}] 앞 집결!` };
+        if (totalMins >= 690 && totalMins < 730) {
+          let r = 1;
+          for (let i = 0; i < 4; i++) {
+            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) { r = i + 1; break; }
+          }
+          const b = getBooth(clsName, r);
+          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, badge: `🔬 1차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b-1].name} 체험 중 (약 ${rem}분 남음)` };
+        }
+        if (totalMins < 775) return { round: 5, badge: "🍱 점심·5회차 전환", text: `점심식사 중 · 12:55까지 오후 시작 부스인 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5-1].name}] 앞 재집결!` };
+        if (totalMins < 780) return { round: 5, badge: "🔔 2차 재집결!", text: `지금 오후 2차 시작 부스 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5-1].name}] 앞 집결!` };
+        if (totalMins >= 780 && totalMins < 870) {
+          let r = 5;
+          for (let i = 4; i < 12; i++) {
+            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) { r = i + 1; break; }
+          }
+          const b = getBooth(clsName, r);
+          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, badge: `🔬 2차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b-1].name} 체험 중 (약 ${rem}분 남음)` };
+        }
+        return { round: 1, badge: "✅ 일과 종료", text: `금일 고학년 과학축제 전 일정(14:30)이 완료되었습니다.` };
+      }
+    }
+
+    function applyMAutoSyncIfActive() {
+      if (!mAutoSync) return;
+      const autoState = computeMAutoSchedule(mGrade, getClsStr(), getMActiveMins());
+      if (!mManualOverride) {
+        mRound = autoState.round;
+      }
+    }
+
+    function toggleMAutoSync() {
+      mAutoSync = !mAutoSync;
+      mManualOverride = false;
+      if (mAutoSync) {
+        const nowMins = new Date().getHours() * 60 + new Date().getMinutes();
+        const dday = computeMDdayInfo();
+        if (!dday.isDday && mPreviewMins === "real" && (nowMins < 530 || nowMins >= 870)) {
+          mPreviewMins = mGrade <= 3 ? "565" : "750";
+        }
+        applyMAutoSyncIfActive();
+      } else {
+        mPreviewMins = "real";
+      }
+      renderMAll();
+    }
+
+    function setMPreviewTime(val) {
+      mPreviewMins = val;
+      mManualOverride = false;
+      applyMAutoSyncIfActive();
+      renderMAll();
+    }
+
+    function resumeMAutoSync() {
+      mManualOverride = false;
+      applyMAutoSyncIfActive();
+      renderMAll();
+    }
+
+    function renderMLiveSync() {
+      const dday = computeMDdayInfo();
+      const badgeEl = document.getElementById("mDdayBadge");
+      if (badgeEl) {
+        badgeEl.textContent = dday.badgeText;
+        badgeEl.classList.toggle("is-today", dday.isDday);
+      }
+      const cardEl = document.getElementById("mLiveSyncCard");
+      if (!cardEl) return;
+      cardEl.classList.toggle("active-sync", mAutoSync);
+
+      const cls = getClsStr();
+      const mins = getMActiveMins();
+      const tStr = formatMHHMM(mins);
+      const autoState = computeMAutoSchedule(mGrade, cls, mins);
+
+      const presets = [
+        { val: "real", label: `🕒 실제 현재 시각 (${formatMHHMM(new Date().getHours()*60 + new Date().getMinutes())})` },
+        { val: "535", label: "🧪 [미리보기] 08:55 — 오전 첫 집결/강당 착석" },
+        { val: "545", label: "🧪 [미리보기] 09:05 — 저학년 1회차 / 고학년 공연" },
+        { val: "565", label: "🧪 [미리보기] 09:25 — 저학년 3회차 체험 중" },
+        { val: "610", label: "🧪 [미리보기] 10:10 — 저학년 7회차 체험 중" },
+        { val: "695", label: "🧪 [미리보기] 11:35 — 고학년 1차 1회차 / 저학년 점심" },
+        { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(5회차 전환) / 저학년 공연" },
+        { val: "785", label: "🧪 [미리보기] 13:05 — 고학년 2차 5회차 재개" },
+        { val: "825", label: "🧪 [미리보기] 13:45 — 고학년 2차 9회차 체험 중" }
+      ];
+
+      cardEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:6px; margin-bottom:6px;">
+          <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap;">
+            <span style="background:${dday.isDday ? '#dc2626' : '#0f172a'}; color:#fff; font-size:0.7rem; font-weight:900; padding:2px 7px; border-radius:99px;">
+              📅 ${dday.badgeText}
+            </span>
+            <span style="background:${mAutoSync ? '#1d4ed8' : '#64748b'}; color:#fff; font-size:0.7rem; font-weight:800; padding:2px 7px; border-radius:99px;">
+              ${mPreviewMins === 'real' ? `🕒 ${tStr}` : `⚡ ${tStr}`} · ${autoState.badge}
+            </span>
+          </div>
+          <button type="button" onclick="toggleMAutoSync()" style="padding:4px 9px; border-radius:99px; border:1px solid ${mAutoSync ? '#1d4ed8' : '#cbd5e1'}; background:${mAutoSync ? '#1d4ed8' : '#f8fafc'}; color:${mAutoSync ? '#fff' : '#334155'}; font-size:0.72rem; font-weight:800; cursor:pointer; white-space:nowrap;">
+            ${mAutoSync ? '⚡ 자동이동 ON' : '⚡ 자동이동 켜기'}
+          </button>
+        </div>
+        <div style="font-size:0.78rem; font-weight:700; color:#0f172a; line-height:1.35;">
+          [${cls}반] ${autoState.text}
+          ${(mAutoSync && mManualOverride) ? `<span style="color:#d97706; display:block; font-size:0.72rem; margin-top:2px;">※ 현재 ${mRound}회차 수동 확인 중</span>` : ''}
+        </div>
+        ${mAutoSync ? `
+          <div style="display:flex; gap:6px; margin-top:7px; align-items:center;">
+            <select onchange="setMPreviewTime(this.value)" style="flex:1; padding:5px 7px; border-radius:6px; border:1px solid #93c5fd; font-size:0.74rem; font-weight:700; color:#1e3a8a; background:#fff;">
+              ${presets.map(p => `<option value="${p.val}" ${String(mPreviewMins) === p.val ? 'selected' : ''}>${p.label}</option>`).join("")}
+            </select>
+            ${mManualOverride ? `
+              <button type="button" onclick="resumeMAutoSync()" style="padding:5px 9px; border-radius:6px; border:1px solid #f59e0b; background:#fef3c7; color:#92400e; font-size:0.72rem; font-weight:900; white-space:nowrap; cursor:pointer;">
+                🔄 ${autoState.round}회차 복귀
+              </button>
+            ` : ''}
+          </div>
+        ` : ''}
+      `;
+    }
+
     let savedChecks = {};
     try {
       savedChecks = JSON.parse(localStorage.getItem("scifest_checks_2026")) || {};
@@ -953,14 +1174,18 @@
 
     function setGrade(g) {
       mGrade = g;
+      mManualOverride = false;
       mRound = 1;
+      applyMAutoSyncIfActive();
       mAudSession = g <= 3 ? 2 : 1;
       saveAndRender();
     }
 
     function setCls(c) {
       mCls = c;
+      mManualOverride = false;
       mRound = 1;
+      applyMAutoSyncIfActive();
       saveAndRender();
     }
 
@@ -968,7 +1193,14 @@
       const parts = clsStr.split("-");
       mGrade = parseInt(parts[0], 10);
       mCls = parseInt(parts[1], 10);
-      mRound = roundNum || 1;
+      if (roundNum) {
+        mManualOverride = true;
+        mRound = roundNum;
+      } else {
+        mManualOverride = false;
+        mRound = 1;
+        applyMAutoSyncIfActive();
+      }
       mAudSession = mGrade <= 3 ? 2 : 1;
       saveAndRender();
     }
@@ -978,11 +1210,19 @@
       if (next < 1) next = 1;
       if (next > 12) next = 12;
       mRound = next;
+      if (mAutoSync) {
+        const autoInfo = computeMAutoSchedule(mGrade, getClsStr(), getMActiveMins());
+        mManualOverride = (mRound !== autoInfo.round);
+      }
       renderMAll();
     }
 
     function setRoundDirect(r) {
       mRound = parseInt(r, 10);
+      if (mAutoSync) {
+        const autoInfo = computeMAutoSchedule(mGrade, getClsStr(), getMActiveMins());
+        mManualOverride = (mRound !== autoInfo.round);
+      }
       renderMAll();
     }
 
@@ -1003,6 +1243,9 @@
     }
 
     function renderMAll() {
+      applyMAutoSyncIfActive();
+      renderMLiveSync();
+
       // Update top buttons & PC link
       document.querySelectorAll("#mGradeRow .m-grade-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === mGrade));
       document.querySelectorAll("#mClassRow .m-class-btn").forEach((b, i) => b.classList.toggle("active", i + 1 === mCls));
@@ -1263,6 +1506,10 @@
       for (let r = 1; r <= 12; r++) {
         if (getBooth(cls, r) === boothNum) {
           mRound = r;
+          if (mAutoSync) {
+            const autoInfo = computeMAutoSchedule(mGrade, cls, getMActiveMins());
+            mManualOverride = (mRound !== autoInfo.round);
+          }
           renderMAll();
           break;
         }
@@ -1375,7 +1622,19 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      applyMAutoSyncIfActive();
       saveAndRender();
+      setInterval(() => {
+        if (mPreviewMins === null) {
+          const prevRound = mRound;
+          applyMAutoSyncIfActive();
+          if (mRound !== prevRound) {
+            renderMAll();
+          } else {
+            renderMLiveSync();
+          }
+        }
+      }, 15000);
     });
   </script>
 </body>

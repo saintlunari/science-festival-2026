@@ -1285,7 +1285,19 @@
       1: ["4-1", "4-2", "4-3", "4-4", "5-1", "5-2", "5-3", "5-4", "6-1", "6-2", "6-3", "6-4"],
       2: ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"]
     };
-    let audSeats = JSON.parse(localStorage.getItem("scifest_aud_seats_2026")) || JSON.parse(JSON.stringify(defaultAudSeats));
+    let audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
+    try {
+      const parsedAud = JSON.parse(localStorage.getItem("scifest_aud_seats_2026"));
+      if (
+        parsedAud &&
+        Array.isArray(parsedAud[1]) && parsedAud[1].length === 12 && parsedAud[1].every(x => typeof x === "string" && /^[4-6]-[1-4]$/.test(x)) &&
+        Array.isArray(parsedAud[2]) && parsedAud[2].length === 12 && parsedAud[2].every(x => typeof x === "string" && /^[1-3]-[1-4]$/.test(x))
+      ) {
+        audSeats = parsedAud;
+      }
+    } catch (e) {
+      audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
+    }
 
     function getClsStr() {
       return `${mGrade}-${mCls}`;
@@ -1792,7 +1804,7 @@
       applyMAutoSyncIfActive();
       saveAndRender();
       setInterval(() => {
-        if (mPreviewMins === null) {
+        if (mAutoSync && mPreviewMins === "real" && !mManualOverride) {
           const prevRound = mRound;
           applyMAutoSyncIfActive();
           if (mRound !== prevRound) {

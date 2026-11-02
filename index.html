@@ -2379,6 +2379,248 @@
     let audSession = currentGrade <= 3 ? 2 : 1; // 1 (high 4~6) | 2 (low 1~3)
     let swapSourceIndex = null;
 
+    // D-Day & Auto-Round Sync State
+    const LOW_ROUND_RANGES = [
+      [540, 551], [551, 562], [562, 573], [573, 584],
+      [584, 595], [595, 606], [606, 617], [617, 628],
+      [628, 639], [639, 650], [650, 660], [660, 670]
+    ]; // 09:00 ~ 11:10
+    const HIGH_ROUND_RANGES = [
+      [690, 700], [700, 710], [710, 720], [720, 730], // 11:30 ~ 12:10
+      [780, 790], [790, 800], [800, 810], [810, 820], // 13:00 ~ 13:40
+      [820, 830], [830, 840], [840, 850], [850, 870]  // 13:40 ~ 14:30
+    ];
+
+    function computeDdayInfo() {
+      const now = new Date();
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const eventMidnight = new Date(2026, 10, 12); // 2026-11-12
+      const diffDays = Math.round((eventMidnight - todayMidnight) / (1000 * 60 * 60 * 24));
+      if (diffDays > 0) {
+        return { diffDays, isDday: false, badgeText: `D-${diffDays}`, detailText: `행사까지 ${diffDays}일 남음` };
+      } else if (diffDays === 0) {
+        return { diffDays: 0, isDday: true, badgeText: `🎉 D-DAY (오늘 행사)`, detailText: `오늘 과학축제 진행 중!` };
+      } else {
+        return { diffDays, isDday: false, badgeText: `D+${Math.abs(diffDays)}`, detailText: `행사 종료 (${Math.abs(diffDays)}일 경과)` };
+      }
+    }
+
+    const initialDday = computeDdayInfo();
+    let autoSyncEnabled = initialDday.isDday; // D-Day에는 기본 자동 켜짐
+    let manualRoundOverride = false;
+    let previewTestMins = "real"; // "real" or integer minutes (e.g. 565)
+
+    function getActiveMinutesOfDay() {
+      if (previewTestMins !== "real") {
+        return parseInt(previewTestMins, 10);
+      }
+      const now = new Date();
+      return now.getHours() * 60 + now.getMinutes();
+    }
+
+    function formatMinsToHHMM(mins) {
+      const h = String(Math.floor(mins / 60)).padStart(2, "0");
+      const m = String(mins % 60).padStart(2, "0");
+      return `${h}:${m}`;
+    }
+
+    function computeAutoSchedule(grade, clsName, totalMins) {
+      const low = grade <= 3;
+      const b1 = getBoothForClassAtRound(clsName, 1);
+      const lineupOrd = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
+      if (low) {
+        if (totalMins < 530) {
+          return { round: 1, phase: "prep", badge: "집결 준비", text: `08:55까지 운동장 전체 집결(좌측에서 ${lineupOrd}번째 · 2줄 정렬) → 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
+        }
+        if (totalMins < 540) {
+          return { round: 1, phase: "gather", badge: "🔔 운동장 전체집결(2줄)", text: `08:55까지 운동장 왼쪽부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name})로 이동합니다.` };
+        }
+        if (totalMins >= 540 && totalMins < 670) {
+          let r = 1;
+          for (let i = 0; i < 12; i++) {
+            if (totalMins >= LOW_ROUND_RANGES[i][0] && totalMins < LOW_ROUND_RANGES[i][1]) {
+              r = i + 1;
+              break;
+            }
+          }
+          const b = getBoothForClassAtRound(clsName, r);
+          const rem = LOW_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, phase: "booth", badge: `🔬 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${LOW_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
+        }
+        if (totalMins < 680) {
+          return { round: 12, phase: "move", badge: "결과물 정리·이동", text: `부스 체험 완료! 결과물 4종 확인 및 손 씻기 후 11:20 점심식사` };
+        }
+        if (totalMins < 725) {
+          return { round: 12, phase: "lunch", badge: "🍱 점심시간(단축)", text: `저학년 점심식사(11:20~12:10) · 식사 후 12:05까지 강당 지정석 착석!` };
+        }
+        if (totalMins < 730) {
+          return { round: 12, phase: "gather", badge: "🎭 강당 착석 완료", text: `12:05 강당 지정석 착석 완료 · 12:10부터 2차 과학공연 시작` };
+        }
+        if (totalMins < 780) {
+          return { round: 12, phase: "show", badge: "🎭 2차 공연 관람 중", text: `강당 과학공연 2차 관람 중 (12:10 ~ 13:00, 종료 후 교실 이동)` };
+        }
+        if (totalMins < 830) {
+          return { round: 12, phase: "class", badge: "📚 5교시 수업", text: `저학년 과학축제 일정 완료 · 13:10~13:50 5교시 정상 수업` };
+        }
+        return { round: 1, phase: "done", badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 수업 일과가 종료되었습니다.` };
+      } else {
+        const b5 = getBoothForClassAtRound(clsName, 5);
+        if (totalMins < 530) {
+          return { round: 1, phase: "prep", badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 과학공연)` };
+        }
+        if (totalMins < 540) {
+          return { round: 1, phase: "gather", badge: "🎭 강당 착석 중", text: `08:50까지 강당 지정 좌석 착석을 완료해 주세요! (09:00 공연 시작)` };
+        }
+        if (totalMins < 590) {
+          return { round: 1, phase: "show", badge: "🎭 1차 공연 관람 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 쉬는시간 없이 곧바로 2교시 수업)` };
+        }
+        if (totalMins < 680) {
+          return { round: 1, phase: "class", badge: "📚 2·3교시 교실수업", text: `교실 수업 진행 중 · 11:20 종료 직후 11:25까지 운동장 전체 집결(좌측에서 ${lineupOrd}번째 · 2줄 정렬)` };
+        }
+        if (totalMins < 690) {
+          return { round: 1, phase: "gather", badge: "🔔 운동장 전체집결(2줄)!", text: `11:25까지 운동장 왼쪽부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}]로 이동합니다.` };
+        }
+        if (totalMins >= 690 && totalMins < 730) {
+          let r = 1;
+          for (let i = 0; i < 4; i++) {
+            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) {
+              r = i + 1;
+              break;
+            }
+          }
+          const b = getBoothForClassAtRound(clsName, r);
+          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, phase: "booth", badge: `🔬 1차 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
+        }
+        if (totalMins < 775) {
+          return { round: 5, phase: "lunch", badge: "🍱 점심 · 5회차 자동전환", text: `고학년 점심식사(12:10~13:00) · 식사 후 12:55까지 오후 시작 부스인 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5 - 1].name}] 앞으로 재집결!` };
+        }
+        if (totalMins < 780) {
+          return { round: 5, phase: "gather", badge: "🔔 오후 2차 재집결!", text: `지금 오후 2차 시작 부스인 [5회차: ${b5}번 ${HIGH_PROGRAMS[b5 - 1].name}] 앞으로 집결 완료해 주세요! (13:00 시작)` };
+        }
+        if (totalMins >= 780 && totalMins < 870) {
+          let r = 5;
+          for (let i = 4; i < 12; i++) {
+            if (totalMins >= HIGH_ROUND_RANGES[i][0] && totalMins < HIGH_ROUND_RANGES[i][1]) {
+              r = i + 1;
+              break;
+            }
+          }
+          const b = getBoothForClassAtRound(clsName, r);
+          const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
+          return { round: r, phase: "booth", badge: `🔬 2차 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
+        }
+        return { round: 1, phase: "done", badge: "✅ 일과 종료", text: `금일 고학년 과학축제 전 일정(14:30)이 완료되었습니다.` };
+      }
+    }
+
+    function applyAutoSyncIfActive() {
+      if (!autoSyncEnabled) return;
+      const cls = getSelectedClassName();
+      const mins = getActiveMinutesOfDay();
+      const autoState = computeAutoSchedule(currentGrade, cls, mins);
+      if (!manualRoundOverride) {
+        mySelectedRound = autoState.round;
+        simRound = autoState.round;
+      }
+    }
+
+    function toggleAutoSync() {
+      autoSyncEnabled = !autoSyncEnabled;
+      manualRoundOverride = false;
+      if (autoSyncEnabled) {
+        const nowMins = new Date().getHours() * 60 + new Date().getMinutes();
+        const dday = computeDdayInfo();
+        if (!dday.isDday && previewTestMins === "real" && (nowMins < 530 || nowMins >= 870)) {
+          previewTestMins = isLowGrade(currentGrade) ? "565" : "750";
+        }
+        applyAutoSyncIfActive();
+      } else {
+        previewTestMins = "real";
+      }
+      renderAll();
+    }
+
+    function setPreviewTestTime(val) {
+      previewTestMins = val;
+      manualRoundOverride = false;
+      applyAutoSyncIfActive();
+      renderAll();
+    }
+
+    function resumeAutoSyncRound() {
+      manualRoundOverride = false;
+      applyAutoSyncIfActive();
+      renderAll();
+    }
+
+    function renderLiveSyncBar() {
+      const dday = computeDdayInfo();
+      const headerBadge = document.getElementById("headerDdayBadge");
+      if (headerBadge) {
+        headerBadge.textContent = dday.badgeText;
+        headerBadge.classList.toggle("is-today", dday.isDday);
+      }
+
+      const barEl = document.getElementById("liveSyncBar");
+      if (!barEl) return;
+      barEl.classList.toggle("active-sync", autoSyncEnabled);
+
+      const cls = getSelectedClassName();
+      const mins = getActiveMinutesOfDay();
+      const timeLabel = formatMinsToHHMM(mins);
+      const autoState = computeAutoSchedule(currentGrade, cls, mins);
+
+      const presetOptions = [
+        { val: "real", label: `🕒 현재 실제 시각 연동 (${formatMinsToHHMM(new Date().getHours() * 60 + new Date().getMinutes())})` },
+        { val: "535", label: "🧪 [미리보기] 08:55 — 오전 첫 전체집결(2줄 정렬) / 강당 착석" },
+        { val: "545", label: "🧪 [미리보기] 09:05 — 저학년 1회차 / 고학년 공연" },
+        { val: "565", label: "🧪 [미리보기] 09:25 — 저학년 3회차 부스 체험" },
+        { val: "610", label: "🧪 [미리보기] 10:10 — 저학년 7회차 부스 체험" },
+        { val: "665", label: "🧪 [미리보기] 11:05 — 저학년 12회차 마지막 부스" },
+        { val: "685", label: "🧪 [미리보기] 11:25 — 고학년 운동장 1차 전체집결(2줄 정렬)" },
+        { val: "695", label: "🧪 [미리보기] 11:35 — 고학년 1차 1회차 / 저학년 점심" },
+        { val: "715", label: "🧪 [미리보기] 11:55 — 고학년 1차 3회차 / 저학년 점심" },
+        { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(5회차 자동전환) / 저학년 공연" },
+        { val: "785", label: "🧪 [미리보기] 13:05 — 고학년 2차 5회차 부스 재개" },
+        { val: "825", label: "🧪 [미리보기] 13:45 — 고학년 2차 9회차 부스 체험" }
+      ];
+
+      const selectHtml = autoSyncEnabled ? `
+        <select class="sync-time-select" onchange="setPreviewTestTime(this.value)" title="행사 전에도 시간대별 자동 회차 이동을 테스트해볼 수 있습니다">
+          ${presetOptions.map(o => `<option value="${o.val}" ${String(previewTestMins) === o.val ? 'selected' : ''}>${o.label}</option>`).join("")}
+        </select>
+      ` : "";
+
+      const resumeBtnHtml = (autoSyncEnabled && manualRoundOverride) ? `
+        <button type="button" class="sync-resume-btn" onclick="resumeAutoSyncRound()">
+          🔄 실시간 회차(${autoState.round}회차)로 복귀
+        </button>
+      ` : "";
+
+      barEl.innerHTML = `
+        <div class="live-sync-left">
+          <span class="live-status-pill" style="background:${dday.isDday ? '#dc2626' : '#0f172a'};">
+            📅 ${dday.badgeText} (${dday.detailText})
+          </span>
+          <span class="live-status-pill" style="background:${autoSyncEnabled ? '#1d4ed8' : '#64748b'};">
+            ${previewTestMins === 'real' ? `🕒 현재 ${timeLabel}` : `⚡ 테스트 시각 ${timeLabel}`} · ${autoState.badge}
+          </span>
+          <span class="live-status-text">
+            [${cls}반] ${autoState.text}
+            ${(autoSyncEnabled && manualRoundOverride) ? `<span style="color:#d97706; font-size:0.82rem; margin-left:6px;">(현재 ${mySelectedRound}회차 수동 확인 중)</span>` : ''}
+          </span>
+        </div>
+        <div class="live-sync-controls">
+          ${resumeBtnHtml}
+          ${selectHtml}
+          <button type="button" class="sync-toggle-btn ${autoSyncEnabled ? 'on' : ''}" onclick="toggleAutoSync()">
+            ${autoSyncEnabled ? '⚡ 시간대별 자동 회차 이동: 켜짐 (ON)' : '⚡ 시간대별 자동 회차 이동 켜기 (미리보기)'}
+          </button>
+        </div>
+      `;
+    }
+
     // Checklist state persistence
     let savedChecks = {};
     try {
@@ -2405,7 +2647,19 @@
       1: ["4-1", "4-2", "4-3", "4-4", "5-1", "5-2", "5-3", "5-4", "6-1", "6-2", "6-3", "6-4"],
       2: ["1-1", "1-2", "1-3", "1-4", "2-1", "2-2", "2-3", "2-4", "3-1", "3-2", "3-3", "3-4"]
     };
-    let audSeats = JSON.parse(localStorage.getItem("scifest_aud_seats_2026")) || JSON.parse(JSON.stringify(defaultAudSeats));
+    let audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
+    try {
+      const parsedAud = JSON.parse(localStorage.getItem("scifest_aud_seats_2026"));
+      if (
+        parsedAud &&
+        Array.isArray(parsedAud[1]) && parsedAud[1].length === 12 && parsedAud[1].every(x => typeof x === "string" && /^[4-6]-[1-4]$/.test(x)) &&
+        Array.isArray(parsedAud[2]) && parsedAud[2].length === 12 && parsedAud[2].every(x => typeof x === "string" && /^[1-3]-[1-4]$/.test(x))
+      ) {
+        audSeats = parsedAud;
+      }
+    } catch (e) {
+      audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
+    }
 
     function getSelectedClassName() {
       return `${currentGrade}-${currentClassNum}`;

@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#0f172a" />
   <title>[모바일] 2026 공주교대부설초 과학축제 교원 인솔 가이드</title>
@@ -29,26 +29,38 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
     body {
       font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Malgun Gothic", sans-serif;
       background: var(--bg);
       color: var(--text);
       padding-bottom: 84px; /* Space for bottom nav */
       line-height: 1.45;
+      word-break: keep-all;
+      overflow-wrap: break-word;
     }
 
     .app-shell {
+      width: 100%;
       max-width: 520px;
       margin: 0 auto;
       min-height: 100vh;
       background: var(--bg);
+      overflow-x: hidden;
     }
 
     /* Sticky Top Header + Class Selector */
     .m-header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
       color: #fff;
-      padding: 14px 16px 12px;
+      padding: 12px 12px 10px;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -57,39 +69,46 @@
 
     .m-header-top {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
     .m-title {
-      font-size: 1.05rem;
+      font-size: clamp(0.92rem, 4vw, 1.05rem);
       font-weight: 800;
       letter-spacing: -0.02em;
     }
 
     .m-sub {
-      font-size: 0.74rem;
+      font-size: clamp(0.68rem, 3vw, 0.74rem);
       color: #93c5fd;
       font-weight: 600;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
     }
 
     .pc-link-btn {
       background: rgba(255, 255, 255, 0.16);
       color: #fff;
       text-decoration: none;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      padding: 6px 10px;
+      padding: 5px 9px;
       border-radius: 8px;
       border: 1px solid rgba(255, 255, 255, 0.25);
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* Compact Grade/Class Selector */
     .m-selector-row {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 4px;
       margin-bottom: 6px;
     }
@@ -101,8 +120,10 @@
       background: rgba(255, 255, 255, 0.08);
       color: #cbd5e1;
       font-weight: 700;
-      font-size: 0.8rem;
+      font-size: clamp(0.72rem, 3.2vw, 0.8rem);
       cursor: pointer;
+      min-width: 0;
+      white-space: nowrap;
     }
 
     .m-grade-btn.active {
@@ -114,7 +135,7 @@
 
     .m-class-row {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 6px;
     }
 
@@ -125,8 +146,9 @@
       background: rgba(15, 23, 42, 0.4);
       color: #fde68a;
       font-weight: 800;
-      font-size: 0.82rem;
+      font-size: clamp(0.76rem, 3.4vw, 0.82rem);
       cursor: pointer;
+      min-width: 0;
     }
 
     .m-class-btn.active {
@@ -138,11 +160,14 @@
 
     /* Main Content Padding */
     .m-content {
-      padding: 12px;
+      padding: 10px;
+      width: 100%;
     }
 
     .m-panel {
       display: none;
+      width: 100%;
+      min-width: 0;
     }
     .m-panel.active {
       display: block;
@@ -152,19 +177,24 @@
     .m-card {
       background: var(--card);
       border-radius: 14px;
-      padding: 15px;
+      padding: 13px 12px;
       margin-bottom: 12px;
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
       border: 1px solid var(--border);
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .m-card-title {
-      font-size: 0.96rem;
+      font-size: clamp(0.86rem, 3.8vw, 0.96rem);
       font-weight: 800;
       margin-bottom: 10px;
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 6px;
       color: var(--text);
     }
 
@@ -173,15 +203,19 @@
       background: linear-gradient(135deg, #1e40af 0%, #0284c7 100%);
       color: #fff;
       border-radius: 16px;
-      padding: 16px;
+      padding: 14px 12px;
       margin-bottom: 12px;
       box-shadow: 0 8px 20px -4px rgba(29, 78, 216, 0.4);
+      width: 100%;
+      min-width: 0;
     }
 
     .now-top {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 6px;
       margin-bottom: 10px;
     }
 
@@ -195,7 +229,7 @@
     }
 
     .now-time {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 800;
       color: #e0f2fe;
     }
@@ -209,13 +243,13 @@
     }
 
     .now-booth-num {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: #fde68a;
       font-weight: 800;
     }
 
     .now-booth-name {
-      font-size: 1.3rem;
+      font-size: clamp(1.08rem, 4.8vw, 1.3rem);
       font-weight: 900;
       margin: 2px 0 4px;
     }
@@ -227,51 +261,58 @@
 
     .now-next-bar {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
+      gap: 4px;
       background: rgba(15, 23, 42, 0.35);
-      padding: 8px 12px;
+      padding: 8px 10px;
       border-radius: 10px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       margin-bottom: 12px;
     }
 
     .stepper-controls {
       display: grid;
-      grid-template-columns: 1fr 1.2fr 1fr;
-      gap: 8px;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr) minmax(0, 0.9fr);
+      gap: 6px;
       align-items: center;
     }
 
     .step-nav-btn {
-      padding: 10px;
+      padding: 9px 4px;
       border-radius: 10px;
       border: none;
       background: #ffffff;
       color: #0f172a;
       font-weight: 900;
-      font-size: 0.86rem;
+      font-size: clamp(0.74rem, 3.2vw, 0.84rem);
       cursor: pointer;
+      min-width: 0;
+      white-space: nowrap;
     }
     .step-nav-btn:active {
       transform: scale(0.97);
     }
 
     .step-select {
-      padding: 10px 6px;
+      width: 100%;
+      min-width: 0;
+      padding: 9px 4px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,0.4);
       background: rgba(15,23,42,0.5);
       color: #fff;
       font-weight: 800;
-      font-size: 0.85rem;
+      font-size: clamp(0.74rem, 3.2vw, 0.84rem);
       text-align: center;
+      text-overflow: ellipsis;
     }
 
     /* Key Gathering Points Box */
     .gather-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 8px;
       margin-bottom: 12px;
     }
@@ -280,7 +321,8 @@
       background: #fff;
       border: 1.5px solid #cbd5e1;
       border-radius: 12px;
-      padding: 10px 12px;
+      padding: 10px;
+      min-width: 0;
     }
 
     .gather-box.warn {
@@ -289,13 +331,13 @@
     }
 
     .gather-label {
-      font-size: 0.72rem;
+      font-size: 0.71rem;
       font-weight: 800;
       color: #475569;
     }
 
     .gather-val {
-      font-size: 0.92rem;
+      font-size: clamp(0.82rem, 3.6vw, 0.92rem);
       font-weight: 900;
       color: #0f172a;
       margin-top: 2px;
@@ -306,11 +348,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
+      gap: 8px;
+      padding: 10px;
       border-radius: 10px;
       border: 1px solid var(--border);
       margin-bottom: 6px;
       background: #fff;
+      min-width: 0;
     }
 
     .m-round-item.active-row {
@@ -321,34 +365,43 @@
     .m-round-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      min-width: 0;
+      flex: 1;
     }
 
     .m-r-num {
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       font-weight: 900;
       color: var(--primary);
-      min-width: 38px;
+      min-width: 34px;
+      flex-shrink: 0;
     }
 
     .m-b-badge {
       background: #0f172a;
       color: #fff;
       font-weight: 800;
-      font-size: 0.78rem;
-      padding: 4px 8px;
+      font-size: 0.75rem;
+      padding: 4px 6px;
       border-radius: 7px;
-      min-width: 44px;
+      min-width: 40px;
       text-align: center;
+      flex-shrink: 0;
+    }
+
+    .m-prog-info {
+      min-width: 0;
+      flex: 1;
     }
 
     .m-prog-info .p-name {
       font-weight: 800;
-      font-size: 0.9rem;
+      font-size: clamp(0.82rem, 3.6vw, 0.9rem);
     }
 
     .m-prog-info .p-time {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--muted);
     }
 
@@ -358,17 +411,19 @@
       color: #92400e;
       padding: 10px 12px;
       border-radius: 10px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 800;
       margin: 8px 0;
       text-align: center;
     }
 
-    /* Mobile U-Shape Map (Compact 3-Col Layout) */
+    /* Mobile U-Shape Map (Compact Fluid Layout) */
     .m-map-visual {
       background: #e2e8f0;
       border-radius: 12px;
-      padding: 10px;
+      padding: 8px;
+      width: 100%;
+      min-width: 0;
     }
 
     .m-guryeongdae {
@@ -378,15 +433,21 @@
       padding: 8px;
       border-radius: 8px;
       font-weight: 900;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       margin-bottom: 8px;
     }
 
     .m-top-row-booths {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
       margin-bottom: 8px;
+    }
+
+    @media (max-width: 420px) {
+      .m-top-row-booths {
+        grid-template-columns: 1fr;
+      }
     }
 
     .m-top-half {
@@ -394,6 +455,7 @@
       border-radius: 8px;
       padding: 6px;
       border: 1px solid #cbd5e1;
+      min-width: 0;
     }
 
     .m-top-half-label {
@@ -406,46 +468,50 @@
 
     .m-top-half-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 4px;
     }
 
     .m-side-booths-wrap {
       display: grid;
-      grid-template-columns: 1fr 1.3fr 1fr;
-      gap: 6px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 5px;
       align-items: stretch;
     }
 
     .m-side-col {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
+      min-width: 0;
     }
 
     .m-center-field {
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.85);
       border: 1.5px dashed #64748b;
       border-radius: 10px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 8px;
+      padding: 6px 4px;
       text-align: center;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       color: #334155;
+      min-width: 0;
     }
 
     .m-node {
       background: #fff;
       border: 1.5px solid #94a3b8;
       border-radius: 8px;
-      padding: 6px 4px;
+      padding: 6px 3px;
       text-align: center;
-      font-size: 0.72rem;
+      font-size: clamp(0.66rem, 2.8vw, 0.72rem);
       cursor: pointer;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .m-node.craft {
@@ -507,23 +573,37 @@
 
     /* Tables in mobile */
     .m-table-scroll {
+      width: 100%;
+      max-width: 100%;
       overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
       border-radius: 8px;
       border: 1px solid var(--border);
     }
 
     table {
       width: 100%;
+      max-width: 100%;
       border-collapse: collapse;
-      font-size: 0.76rem;
+      font-size: clamp(0.68rem, 3vw, 0.76rem);
       background: #fff;
+      table-layout: auto;
     }
 
     th, td {
-      padding: 6px 5px;
+      padding: 6px 4px;
       border: 1px solid #cbd5e1;
       text-align: center;
+      white-space: normal;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+      line-height: 1.3;
+    }
+
+    .m-table-scroll th,
+    .m-table-scroll td {
       white-space: nowrap;
+      padding: 6px 6px;
     }
 
     th {

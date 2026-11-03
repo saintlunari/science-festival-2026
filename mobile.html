@@ -1394,6 +1394,21 @@
       renderMAll();
     }
 
+    function jumpMRound(r) {
+      setRoundDirect(r);
+      const nowCard = document.getElementById("mNowCard");
+      if (nowCard) {
+        if (typeof nowCard.scrollIntoView === "function") {
+          nowCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        nowCard.style.transition = "box-shadow 0.25s, transform 0.25s";
+        nowCard.style.boxShadow = "0 0 0 4px #fde047, 0 10px 25px rgba(29, 78, 216, 0.35)";
+        setTimeout(() => {
+          if (nowCard) nowCard.style.boxShadow = "";
+        }, 1200);
+      }
+    }
+
     function saveAndRender() {
       const cls = getClsStr();
       safeSetStorage("scifest_my_class_2026", cls);
@@ -1530,23 +1545,23 @@
 
       const mStepCardsHtml = low ? `
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
-          <div onclick="setRoundDirect(0)" style="cursor:pointer; background:#fff; border:1.5px solid #0284c7; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#0284c7;">STEP 1 · 08:55 (0회차)</div>
+          <div onclick="jumpMRound(0)" style="cursor:pointer; background:${mRound === 0 ? '#fef08a' : '#fff'}; border:${mRound === 0 ? '2px solid #0284c7' : '1.5px solid #0284c7'}; box-shadow:${mRound === 0 ? '0 0 0 2px rgba(2,132,199,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.66rem; font-weight:900; color:#0284c7;">STEP 1 · 08:55 (0회차) ${mRound === 0 ? '✓선택됨' : '👆'}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🚩 꿈나무관 좌측 ${lineupOrd}번째</div>
             <div style="font-size:0.68rem; color:#475569;">개인 가방 지참 · <strong>2줄 정렬</strong> (부스 직행 금지!)</div>
           </div>
-          <div onclick="setRoundDirect(1)" style="cursor:pointer; background:#fff; border:1.5px solid #059669; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#059669;">STEP 2 · 09:00~11:10</div>
+          <div onclick="jumpMRound(1)" style="cursor:pointer; background:${mRound === 1 ? '#fef08a' : '#fff'}; border:${mRound === 1 ? '2px solid #059669' : '1.5px solid #059669'}; box-shadow:${mRound === 1 ? '0 0 0 2px rgba(5,150,105,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.66rem; font-weight:900; color:#059669;">STEP 2 · 09:00~11:10 ${mRound === 1 ? '✓선택됨' : '👆'}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🔬 [${b1}번] ${progs[b1 - 1].name}</div>
             <div style="font-size:0.68rem; color:#475569;">안내 후 첫 부스 이동 → ${b12}번까지 12부스 완주</div>
           </div>
           <div onclick="switchMPanel('mp-aud')" style="cursor:pointer; background:#fff; border:1.5px solid #d97706; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 3 · 11:20~12:10</div>
+            <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 3 · 11:20~12:10 👆</div>
             <div style="font-size:0.78rem; font-weight:900; color:#dc2626; margin:2px 0;">🍱 점심 10분 단축!</div>
             <div style="font-size:0.68rem; color:#475569;">식사 후 <strong>12:05까지 강당(좌측 ${audCol}열) 착석</strong></div>
           </div>
           <div onclick="switchMPanel('mp-aud')" style="cursor:pointer; background:#fff; border:1.5px solid #7c3aed; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#7c3aed;">STEP 4 · 12:10~13:50</div>
+            <div style="font-size:0.66rem; font-weight:900; color:#7c3aed;">STEP 4 · 12:10~13:50 👆</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🎭 과학공연 & 5교시</div>
             <div style="font-size:0.68rem; color:#475569;">12:10~13:00 공연 관람 → 13:10 5교시 수업</div>
           </div>
@@ -1554,22 +1569,22 @@
       ` : `
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
           <div onclick="switchMPanel('mp-aud')" style="cursor:pointer; background:#fff; border:1.5px solid #7c3aed; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#7c3aed;">STEP 1 · 08:50~11:20</div>
+            <div style="font-size:0.66rem; font-weight:900; color:#7c3aed;">STEP 1 · 08:50~11:20 👆</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🎭 1차 공연 & 2·3교시</div>
             <div style="font-size:0.68rem; color:#475569;">08:50 강당(좌${audCol}열) → 09:50~11:20 교실수업</div>
           </div>
-          <div onclick="setRoundDirect(0)" style="cursor:pointer; background:#fff; border:1.5px solid #0284c7; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#0284c7;">STEP 2 · 11:25 (0회차)</div>
+          <div onclick="jumpMRound(0)" style="cursor:pointer; background:${mRound === 0 ? '#fef08a' : '#fff'}; border:${mRound === 0 ? '2px solid #0284c7' : '1.5px solid #0284c7'}; box-shadow:${mRound === 0 ? '0 0 0 2px rgba(2,132,199,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.66rem; font-weight:900; color:#0284c7;">STEP 2 · 11:25 (0회차) ${mRound === 0 ? '✓선택됨' : '👆'}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🚩 꿈나무관 좌측 ${lineupOrd}번째</div>
             <div style="font-size:0.68rem; color:#475569;">개인 가방 지참 · <strong>2줄 정렬</strong> (부스 직행 금지!)</div>
           </div>
-          <div onclick="setRoundDirect(1)" style="cursor:pointer; background:#fff; border:1.5px solid #059669; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#059669;">STEP 3 · 11:30~12:10</div>
+          <div onclick="jumpMRound(1)" style="cursor:pointer; background:${mRound === 1 ? '#fef08a' : '#fff'}; border:${mRound === 1 ? '2px solid #059669' : '1.5px solid #059669'}; box-shadow:${mRound === 1 ? '0 0 0 2px rgba(5,150,105,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.66rem; font-weight:900; color:#059669;">STEP 3 · 11:30~12:10 ${mRound === 1 ? '✓선택됨' : '👆'}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🔬 [${b1}번] ${progs[b1 - 1].name}</div>
             <div style="font-size:0.68rem; color:#475569;">안내 후 첫 부스 이동 → ${b4}번까지 4부스 체험</div>
           </div>
-          <div onclick="setRoundDirect(5)" style="cursor:pointer; background:#fff; border:1.5px solid #d97706; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 4 · 12:10~14:30</div>
+          <div onclick="jumpMRound(5)" style="cursor:pointer; background:${mRound === 5 ? '#fef08a' : '#fff'}; border:${mRound === 5 ? '2px solid #d97706' : '1.5px solid #d97706'}; box-shadow:${mRound === 5 ? '0 0 0 2px rgba(217,119,6,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 4 · 12:10~14:30 ${mRound === 5 ? '✓선택됨' : '👆'}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#dc2626; margin:2px 0;">🔔 12:55 [${b5}번] 재집결</div>
             <div style="font-size:0.68rem; color:#475569;">점심(12:10~13:00) 후 5회차 ${b5}번~${b12}번 완주</div>
           </div>

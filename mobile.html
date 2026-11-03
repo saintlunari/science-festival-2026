@@ -669,20 +669,20 @@
 
       <!-- Grade Selector -->
       <div class="m-selector-row" id="mGradeRow">
-        <button class="m-grade-btn active" onclick="setGrade(1)">1학년</button>
-        <button class="m-grade-btn" onclick="setGrade(2)">2학년</button>
-        <button class="m-grade-btn" onclick="setGrade(3)">3학년</button>
-        <button class="m-grade-btn" onclick="setGrade(4)">4학년</button>
-        <button class="m-grade-btn" onclick="setGrade(5)">5학년</button>
-        <button class="m-grade-btn" onclick="setGrade(6)">6학년</button>
+        <button type="button" class="m-grade-btn active" data-grade="1" onclick="setGrade(1)">1학년</button>
+        <button type="button" class="m-grade-btn" data-grade="2" onclick="setGrade(2)">2학년</button>
+        <button type="button" class="m-grade-btn" data-grade="3" onclick="setGrade(3)">3학년</button>
+        <button type="button" class="m-grade-btn" data-grade="4" onclick="setGrade(4)">4학년</button>
+        <button type="button" class="m-grade-btn" data-grade="5" onclick="setGrade(5)">5학년</button>
+        <button type="button" class="m-grade-btn" data-grade="6" onclick="setGrade(6)">6학년</button>
       </div>
 
       <!-- Class Selector -->
       <div class="m-class-row" id="mClassRow">
-        <button class="m-class-btn active" onclick="setCls(1)">1반</button>
-        <button class="m-class-btn" onclick="setCls(2)">2반</button>
-        <button class="m-class-btn" onclick="setCls(3)">3반</button>
-        <button class="m-class-btn" onclick="setCls(4)">4반</button>
+        <button type="button" class="m-class-btn active" data-class="1" onclick="setCls(1)">1반</button>
+        <button type="button" class="m-class-btn" data-class="2" onclick="setCls(2)">2반</button>
+        <button type="button" class="m-class-btn" data-class="3" onclick="setCls(3)">3반</button>
+        <button type="button" class="m-class-btn" data-class="4" onclick="setCls(4)">4반</button>
       </div>
     </header>
 
@@ -700,7 +700,7 @@
         <!-- Gathering Points Summary -->
         <div class="gather-grid" id="mGatherGrid"></div>
 
-        <!-- U-Space Playground Initial Gathering & 2-Row Lineup Card -->
+        <!-- Playground Initial Gathering & 2-Row Lineup Card (Round 0) -->
         <div class="m-card" id="mLineupCard"
           style="background:linear-gradient(135deg,#eff6ff 0%,#f0fdf4 100%); border:2px solid #0284c7;"></div>
 
@@ -715,10 +715,10 @@
           <div id="mTimelineList" style="display:flex; flex-direction:column; gap:8px; font-size:0.82rem;"></div>
         </div>
 
-        <!-- 12 Rounds List -->
+        <!-- 0~12 Rounds List -->
         <div class="m-card">
           <div class="m-card-title">
-            <span>📋 1~12회차 부스 이동 순서</span>
+            <span>📋 0회차(집결) 및 1~12회차 부스 이동 순서</span>
             <span
               style="font-size:0.74rem; color:#92400e; background:#fef3c7; padding:2px 7px; border-radius:99px;">🎁=결과물(4종)</span>
           </div>
@@ -822,8 +822,8 @@
               <tr>
                 <td><strong>2~3교시</strong></td>
                 <td>09:50~10:30<br />10:40~11:20</td>
-                <td><strong>09:50~11:20</strong><br />(11:25 전체집결)</td>
-                <td style="color:#92400e; font-weight:800; font-size:0.7rem;">11:25 운동장 2줄정렬<br />안내 후 부스이동</td>
+                <td><strong>09:50~11:20</strong><br />(11:25 0회차 집결)</td>
+                <td style="color:#92400e; font-weight:800; font-size:0.7rem;">11:25 꿈나무관 좌측부터<br />2줄정렬 후 부스이동</td>
               </tr>
               <tr>
                 <td><strong>4교시</strong></td>
@@ -850,18 +850,18 @@
 
         <div class="m-card" style="background:#f0f9ff; border:2px solid #0284c7;">
           <div class="m-card-title" style="color:#0369a1;">
-            <span>📢 운동장 최초 집결 및 2줄 정렬 방법</span>
+            <span>📢 운동장 0회차 집결 및 꿈나무관 기준 2줄 정렬</span>
             <span
-              style="font-size:0.68rem; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:99px; border:1px solid #38bdf8;">유스페이스
-              안내</span>
+              style="font-size:0.68rem; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:99px; border:1px solid #38bdf8;">0회차
+              필독</span>
           </div>
           <div style="font-size:0.76rem; color:#0f172a; line-height:1.45;">
-            • 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달받은
+            • 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>[0회차] 운동장에 전체 집결하여 안내사항을 전달받은
               후</strong> 각 부스로 이동합니다.<br />
-            • <strong>시작 5분 전 미리 도착</strong>: 저학년 <strong>08:55까지</strong> / 고학년 1차 <strong>11:25까지</strong><br />
-            • <strong>저학년 정렬</strong>: 운동장 기준 <strong>왼쪽 1-1반 ~ 오른쪽 끝 3-4반</strong> 순서로 <strong>각 반별 2줄씩
+            • <strong>시작 5분 전 미리 도착</strong>: 저학년 0회차 <strong>08:55~09:00</strong> / 고학년 0회차 <strong>11:25~11:30</strong><br />
+            • <strong>저학년 0회차 정렬</strong>: <strong>꿈나무관을 바라보고 좌측 1-1반 ~ 우측 끝 3-4반</strong> 순서로 <strong>각 반별 2줄씩
               정렬</strong><br />
-            • <strong>고학년 정렬</strong>: 운동장 기준 <strong>왼쪽 4-1반 ~ 오른쪽 끝 6-4반</strong> 순서로 <strong>각 반별 2줄씩 정렬</strong>
+            • <strong>고학년 0회차 정렬</strong>: <strong>꿈나무관을 바라보고 좌측 4-1반 ~ 우측 끝 6-4반</strong> 순서로 <strong>각 반별 2줄씩 정렬</strong>
           </div>
         </div>
 
@@ -877,14 +877,14 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>08:55 집결</strong><br /><strong>09:00~09:50</strong></td>
-                <td rowspan="2" style="background:#eff6ff; font-weight:700;"><strong>08:55 전체집결(2줄)</strong><br />안내 후
+                <td><strong>08:55(0회차)</strong><br /><strong>09:00~09:50</strong></td>
+                <td rowspan="2" style="background:#eff6ff; font-weight:700;"><strong>[0회차] 08:55 꿈나무관 좌측부터 2줄</strong><br />안내 후
                   운동장 부스<br />(09:00~11:10 완주)</td>
                 <td style="background:#f5f3ff; font-weight:700;">강당 공연 1차<br />(09:00~09:50)</td>
               </tr>
               <tr>
                 <td><strong>09:50~11:10</strong></td>
-                <td rowspan="2">교실 수업(09:50~11:20)<br /><strong>11:25 전체집결(2줄)</strong><br />안내 후 1차 부스 이동</td>
+                <td rowspan="2">교실 수업(09:50~11:20)<br /><strong>[0회차] 11:25 꿈나무관 좌측부터 2줄</strong><br />안내 후 1차 부스 이동</td>
               </tr>
               <tr>
                 <td><strong>11:10~11:30</strong></td>
@@ -979,12 +979,10 @@
           <div class="m-card-title">👩‍🏫 교원 인솔 핵심 유의사항</div>
           <ul
             style="padding-left:18px; font-size:0.82rem; color:#334155; display:flex; flex-direction:column; gap:6px;">
-            <li><strong>[필독] 운동장 최초 집결(5분 전) 및 2줄 정렬:</strong> 운동장 도착 시 바로 첫 부스로 가지 않고, <strong>먼저 운동장에 전체 집결(저학년 08:55
-                좌측 1-1~우측 3-4 / 고학년 11:25 좌측 4-1~우측 6-4 순서로 각 반 2줄씩 정렬)</strong>하여 전체 안내사항을 전달받은 후 각 부스로 이동합니다.</li>
+            <li><strong>[필독] 운동장 0회차 집결(5분 전) 및 꿈나무관 기준 2줄 정렬:</strong> 운동장 도착 시 바로 첫 부스로 가지 않고, <strong>먼저 [0회차] 운동장에 전체 집결(꿈나무관을 바라보고 저학년 08:55 좌측 1-1~우측 3-4 / 고학년 11:25 좌측 4-1~우측 6-4 순서로 각 반 2줄씩 정렬)</strong>하여 전체 안내사항을 전달받은 후 각 부스로 이동합니다.</li>
             <li><strong>개인 가방 지참:</strong> 결과물 4종(3·6·9·12번 부스) 보관을 위한 에코백/비닐백(이름 표기) 지참</li>
             <li><strong>동시 로테이션:</strong> 진행자 방송 안내에 따라 구령대 기준 시계방향(1→12번) 이동</li>
             <li><strong>고학년 12:55 재집결:</strong> 중식 후 오전 첫 부스가 아닌 <strong>5회차 배정 부스</strong> 앞에서 시작</li>
-            <li><strong>비상 연락처:</strong> (주)유스페이스 담당자 010-5077-7894</li>
           </ul>
         </div>
 
@@ -1067,13 +1065,38 @@
       "13:40~13:50", "13:50~14:00", "14:00~14:10", "14:10~14:30"
     ];
 
-    const urlClsParam = new URLSearchParams(window.location.search).get("class");
+    function safeGetStorage(key) {
+      try {
+        return window.localStorage ? window.localStorage.getItem(key) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function safeSetStorage(key, val) {
+      try {
+        if (window.localStorage) window.localStorage.setItem(key, val);
+      } catch (e) {}
+    }
+
+    function safeRemoveStorage(key) {
+      try {
+        if (window.localStorage) window.localStorage.removeItem(key);
+      } catch (e) {}
+    }
+
+    let urlClsParam = null;
+    try {
+      urlClsParam = new URLSearchParams(window.location.search).get("class");
+    } catch (e) {
+      urlClsParam = null;
+    }
     let savedCls = (urlClsParam && /^[1-6]-[1-4]$/.test(urlClsParam))
       ? urlClsParam
-      : (localStorage.getItem("scifest_my_class_2026") || "1-1");
+      : (safeGetStorage("scifest_my_class_2026") || "1-1");
     let mGrade = parseInt(savedCls.split("-")[0], 10) || 1;
     let mCls = parseInt(savedCls.split("-")[1], 10) || 1;
-    let mRound = 1;
+    let mRound = 1; // 0..12 (0 = 0회차 운동장 전체집결)
     let mAudSession = mGrade <= 3 ? 2 : 1;
     let mSwapIdx = null;
 
@@ -1123,8 +1146,8 @@
       const b1 = getBooth(clsName, 1);
       const ord = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
       if (low) {
-        if (totalMins < 530) return { round: 1, badge: "집결 준비", text: `08:55까지 운동장 전체 집결(좌측 ${ord}번째·2줄 정렬) → 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
-        if (totalMins < 540) return { round: 1, badge: "🔔 전체집결(2줄)", text: `08:55까지 운동장 왼쪽에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동` };
+        if (totalMins < 530) return { round: 0, badge: "0회차 준비", text: `[0회차] 08:55까지 운동장 전체 집결(꿈나무관 바라보고 좌측 ${ord}번째·2줄 정렬) → 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
+        if (totalMins < 540) return { round: 0, badge: "🚩 0회차 집결(2줄)", text: `[0회차] 08:55까지 꿈나무관을 바라보고 좌측에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동` };
         if (totalMins >= 540 && totalMins < 670) {
           let r = 1;
           for (let i = 0; i < 12; i++) {
@@ -1142,11 +1165,11 @@
         return { round: 1, badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 일과가 종료되었습니다.` };
       } else {
         const b5 = getBooth(clsName, 5);
-        if (totalMins < 530) return { round: 1, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
-        if (totalMins < 540) return { round: 1, badge: "🎭 강당 착석", text: `08:50까지 강당 지정석 착석을 완료해 주세요!` };
-        if (totalMins < 590) return { round: 1, badge: "🎭 1차 공연 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 즉시 2교시)` };
-        if (totalMins < 680) return { round: 1, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:25까지 운동장 전체 집결(좌측 ${ord}번째·2줄 정렬)` };
-        if (totalMins < 690) return { round: 1, badge: "🔔 전체집결(2줄)!", text: `11:25까지 운동장 왼쪽에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}] 이동` };
+        if (totalMins < 530) return { round: 0, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
+        if (totalMins < 540) return { round: 0, badge: "🎭 강당 착석", text: `08:50까지 강당 지정석 착석을 완료해 주세요!` };
+        if (totalMins < 590) return { round: 0, badge: "🎭 1차 공연 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 즉시 2교시)` };
+        if (totalMins < 680) return { round: 0, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:25까지 [0회차] 운동장 전체 집결(꿈나무관 바라보고 좌측 ${ord}번째·2줄 정렬)` };
+        if (totalMins < 690) return { round: 0, badge: "🚩 0회차 집결(2줄)!", text: `[0회차] 11:25까지 꿈나무관을 바라보고 좌측에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}] 이동` };
         if (totalMins >= 690 && totalMins < 730) {
           let r = 1;
           for (let i = 0; i < 4; i++) {
@@ -1226,10 +1249,11 @@
 
       const presets = [
         { val: "real", label: `🕒 실제 현재 시각 (${formatMHHMM(new Date().getHours() * 60 + new Date().getMinutes())})` },
-        { val: "535", label: "🧪 [미리보기] 08:55 — 오전 첫 집결/강당 착석" },
+        { val: "535", label: "🧪 [미리보기] 08:55 — 저학년 0회차(꿈나무관 좌측부터 2줄) / 고학년 강당" },
         { val: "545", label: "🧪 [미리보기] 09:05 — 저학년 1회차 / 고학년 공연" },
         { val: "565", label: "🧪 [미리보기] 09:25 — 저학년 3회차 체험 중" },
         { val: "610", label: "🧪 [미리보기] 10:10 — 저학년 7회차 체험 중" },
+        { val: "685", label: "🧪 [미리보기] 11:25 — 고학년 0회차(꿈나무관 좌측부터 2줄)" },
         { val: "695", label: "🧪 [미리보기] 11:35 — 고학년 1차 1회차 / 저학년 점심" },
         { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(5회차 전환) / 저학년 공연" },
         { val: "785", label: "🧪 [미리보기] 13:05 — 고학년 2차 5회차 재개" },
@@ -1271,14 +1295,14 @@
 
     let savedChecks = {};
     try {
-      savedChecks = JSON.parse(localStorage.getItem("scifest_checks_2026")) || {};
+      savedChecks = JSON.parse(safeGetStorage("scifest_checks_2026")) || {};
     } catch (e) {
       savedChecks = {};
     }
 
     function toggleMSavedCheck(key, checked) {
       savedChecks[key] = !!checked;
-      localStorage.setItem("scifest_checks_2026", JSON.stringify(savedChecks));
+      safeSetStorage("scifest_checks_2026", JSON.stringify(savedChecks));
     }
 
     const defaultAudSeats = {
@@ -1287,7 +1311,7 @@
     };
     let audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
     try {
-      const parsedAud = JSON.parse(localStorage.getItem("scifest_aud_seats_2026"));
+      const parsedAud = JSON.parse(safeGetStorage("scifest_aud_seats_2026"));
       if (
         parsedAud &&
         Array.isArray(parsedAud[1]) && parsedAud[1].length === 12 && parsedAud[1].every(x => typeof x === "string" && /^[4-6]-[1-4]$/.test(x)) &&
@@ -1337,7 +1361,7 @@
       const parts = clsStr.split("-");
       mGrade = parseInt(parts[0], 10);
       mCls = parseInt(parts[1], 10);
-      if (roundNum) {
+      if (roundNum !== undefined && roundNum !== null) {
         mManualOverride = true;
         mRound = roundNum;
       } else {
@@ -1351,7 +1375,7 @@
 
     function changeRound(delta) {
       let next = mRound + delta;
-      if (next < 1) next = 1;
+      if (next < 0) next = 0;
       if (next > 12) next = 12;
       mRound = next;
       if (mAutoSync) {
@@ -1372,7 +1396,7 @@
 
     function saveAndRender() {
       const cls = getClsStr();
-      localStorage.setItem("scifest_my_class_2026", cls);
+      safeSetStorage("scifest_my_class_2026", cls);
       const pcLink = document.querySelector(".pc-link-btn");
       if (pcLink) {
         pcLink.setAttribute("href", `index.html?class=${cls}`);
@@ -1403,61 +1427,73 @@
       const low = mGrade <= 3;
       const progs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
       const times = low ? LOW_TIMES : HIGH_TIMES;
+      const b1 = getBooth(cls, 1);
+      const b5 = getBooth(cls, 5);
+      const grpClasses = low ? LOW_CLASSES : HIGH_CLASSES;
+      const lineupOrd = grpClasses.indexOf(cls) + 1;
+      const leftNeighbor = lineupOrd > 1 ? `${grpClasses[lineupOrd - 2]}반` : "꿈나무관 기준 좌측 끝";
+      const rightNeighbor = lineupOrd < 12 ? `${grpClasses[lineupOrd]}반` : "꿈나무관 기준 우측 끝";
+      const round0Time = low ? "08:55~09:00" : "11:25~11:30";
 
-      const curBooth = getBooth(cls, mRound);
-      const curProg = progs[curBooth - 1];
-      const nextBooth = mRound < 12 ? getBooth(cls, mRound + 1) : null;
+      const isRound0 = mRound === 0;
+      const curBooth = isRound0 ? null : getBooth(cls, mRound);
+      const curProg = curBooth ? progs[curBooth - 1] : null;
+      const nextBooth = isRound0 ? b1 : (mRound < 12 ? getBooth(cls, mRound + 1) : null);
       const nextProg = nextBooth ? progs[nextBooth - 1] : null;
 
       // 1. Now Card
-      let optionsHtml = "";
+      let optionsHtml = `<option value="0" ${isRound0 ? 'selected' : ''}>0회차 · 전체집결 (${round0Time})</option>`;
       for (let r = 1; r <= 12; r++) {
         optionsHtml += `<option value="${r}" ${r === mRound ? 'selected' : ''}>${r}회차 (${times[r - 1]})</option>`;
       }
 
       let specialMoveNotice = "";
-      if (!low && mRound === 4) {
-        const b5 = getBooth(cls, 5);
+      if (isRound0) {
+        specialMoveNotice = `<div style="background:#fef08a; color:#0f172a; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🚩 [0회차] 바로 부스로 가지 않고 꿈나무관을 바라보고 좌측부터 ${low ? '1-1반' : '4-1반'} 순으로 각 반 2줄 정렬! 안내 후 [${b1}번 ${progs[b1 - 1].name}] 부스로 이동합니다.</div>`;
+      } else if (!low && mRound === 4) {
         specialMoveNotice = `<div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🍱 4회차 종료 후 점심식사(12:10~13:00) 시간입니다! 식사 후 12:55까지 [${b5}번 ${progs[b5 - 1].name}] 앞으로 집결하세요.</div>`;
       } else if (curBooth === 12 && mRound < 12) {
         specialMoveNotice = `<div style="background:#fee2e2; color:#991b1b; padding:7px 10px; border-radius:8px; font-size:0.76rem; font-weight:800; margin-bottom:10px;">⚠️ 12번 부스(우측 하단) 종료 후에는 운동장 반대편 1번 부스(좌측 하단)로 이동합니다!</div>`;
       }
 
-      document.getElementById("mNowCard").innerHTML = `
-        <div class="now-top">
-          <span class="now-badge">${mGrade}학년 ${mCls}반 · ${mRound}회차</span>
-          <span class="now-time">🕒 ${times[mRound - 1]}</span>
+      const mainNowBoxHtml = isRound0 ? `
+        <div class="now-main-booth">
+          <div class="now-booth-num">현재 우리 반 위치 (🚩 0회차 운동장 전체집결 · 2줄 정렬)</div>
+          <div class="now-booth-name">꿈나무관 바라보고 좌측 ${lineupOrd}번째 (${cls}반)</div>
+          <div class="now-booth-desc">꿈나무관을 바라보고 좌측(${low ? '1-1반' : '4-1반'})부터 순서대로 2줄 정렬 후 전체 안내 청취</div>
         </div>
+      ` : `
         <div class="now-main-booth">
           <div class="now-booth-num">현재 우리 반 위치 (${curProg.type === '결과물' ? '🎁 결과물 보관 필요' : '🧪 체험활동'})</div>
           <div class="now-booth-name">${curBooth}번 — ${curProg.name}</div>
           <div class="now-booth-desc">과학 원리: ${curProg.principle}</div>
         </div>
+      `;
+
+      document.getElementById("mNowCard").innerHTML = `
+        <div class="now-top">
+          <span class="now-badge">${mGrade}학년 ${mCls}반 · ${isRound0 ? '0회차(전체집결)' : `${mRound}회차`}</span>
+          <span class="now-time">🕒 ${isRound0 ? round0Time : times[mRound - 1]}</span>
+        </div>
+        ${mainNowBoxHtml}
         ${specialMoveNotice}
         <div class="now-next-bar">
-          <span>다음 이동 부스:</span>
+          <span>${isRound0 ? '안내 후 1회차 이동 부스:' : '다음 이동 부스:'}</span>
           <strong>${nextBooth ? `→ ${nextBooth}번 (${nextProg.name})` : '🎉 12개 부스 전체 완주!'}</strong>
         </div>
         <div class="stepper-controls">
-          <button class="step-nav-btn" onclick="changeRound(-1)">◀ 이전 회차</button>
+          <button type="button" class="step-nav-btn" onclick="changeRound(-1)">◀ 이전 회차</button>
           <select class="step-select" onchange="setRoundDirect(this.value)">${optionsHtml}</select>
-          <button class="step-nav-btn" onclick="changeRound(1)">다음 회차 ▶</button>
+          <button type="button" class="step-nav-btn" onclick="changeRound(1)">다음 회차 ▶</button>
         </div>
       `;
 
-      // 2. Gathering Points & 2-Line Lineup Card
-      const b1 = getBooth(cls, 1);
-      const b5 = getBooth(cls, 5);
-      const grpClasses = low ? LOW_CLASSES : HIGH_CLASSES;
-      const lineupOrd = grpClasses.indexOf(cls) + 1;
-      const leftNeighbor = lineupOrd > 1 ? `${grpClasses[lineupOrd - 2]}반` : "운동장 왼쪽 끝";
-      const rightNeighbor = lineupOrd < 12 ? `${grpClasses[lineupOrd]}반` : "운동장 오른쪽 끝";
-
+      // 2. Gathering Points & 2-Line Lineup Card (Round 0)
       if (low) {
         document.getElementById("mGatherGrid").innerHTML = `
           <div class="gather-box warn">
-            <div class="gather-label">① 08:55 전체집결(2줄 정렬)</div>
-            <div class="gather-val">좌측 ${lineupOrd}번째 → ${b1}번 부스</div>
+            <div class="gather-label">① [0회차] 08:55 꿈나무관 기준</div>
+            <div class="gather-val">좌측 ${lineupOrd}번째(2줄) → ${b1}번</div>
           </div>
           <div class="gather-box">
             <div class="gather-label">🎭 12:05 강당 공연 착석</div>
@@ -1467,8 +1503,8 @@
       } else {
         document.getElementById("mGatherGrid").innerHTML = `
           <div class="gather-box">
-            <div class="gather-label">① 11:25 전체집결(2줄 정렬)</div>
-            <div class="gather-val">좌측 ${lineupOrd}번째 → ${b1}번 부스</div>
+            <div class="gather-label">① [0회차] 11:25 꿈나무관 기준</div>
+            <div class="gather-val">좌측 ${lineupOrd}번째(2줄) → ${b1}번</div>
           </div>
           <div class="gather-box warn">
             <div class="gather-label">🔔 12:55 점심 후 재집결</div>
@@ -1480,7 +1516,7 @@
       const lineupStripHtml = grpClasses.map((cName, idx) => {
         const isMe = cName === cls;
         return `
-          <div onclick="selectMClassFromTable('${cName}', 1)" style="cursor:pointer; min-width:54px; padding:6px 3px; border-radius:8px; text-align:center; border:${isMe ? '2px solid #0284c7' : '1px solid #cbd5e1'}; background:${isMe ? '#fef08a' : '#fff'}; flex-shrink:0;">
+          <div onclick="selectMClassFromTable('${cName}', 0)" style="cursor:pointer; min-width:54px; padding:6px 3px; border-radius:8px; text-align:center; border:${isMe ? '2px solid #0284c7' : '1px solid #cbd5e1'}; background:${isMe ? '#fef08a' : '#fff'}; flex-shrink:0;">
             <div style="font-size:0.6rem; font-weight:800; color:${isMe ? '#0369a1' : '#64748b'};">${idx === 0 ? '⬅️좌측끝' : (idx === 11 ? '우측끝➡️' : `좌${idx + 1}`)}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">${cName}반</div>
             <div style="font-size:0.62rem; font-weight:800; color:#1d4ed8;">|| 2줄</div>
@@ -1490,13 +1526,16 @@
 
       document.getElementById("mLineupCard").innerHTML = `
         <div style="font-weight:900; font-size:0.86rem; color:#0369a1; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
-          <span>🚩 [${cls}반] 운동장 최초 집결 & 2줄 정렬 안내</span>
-          <span style="font-size:0.68rem; background:#0284c7; color:#fff; padding:2px 7px; border-radius:99px;">${low ? '08:55까지(5분전)' : '11:25까지(5분전)'}</span>
+          <span>🚩 [0회차 · ${cls}반] 꿈나무관 기준 2줄 정렬 안내</span>
+          <span style="font-size:0.68rem; background:#0284c7; color:#fff; padding:2px 7px; border-radius:99px;">0회차 (${round0Time})</span>
         </div>
         <div style="font-size:0.77rem; color:#0f172a; line-height:1.45; margin-bottom:8px;">
-          • 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 부스(${b1}번)로 가지 않고</strong>, 먼저 운동장 전체 집결 후 안내사항을 듣고 이동합니다.<br/>
-          • <strong>${cls}반 정렬 위치</strong>: 운동장 기준 <strong style="color:#0369a1; background:#e0f2fe; padding:1px 5px; border-radius:4px;">왼쪽에서 ${lineupOrd}번째 (${leftNeighbor}·${rightNeighbor} 사이) · 2줄씩 정렬</strong><br/>
-          • <strong>전체 안내 후 이동</strong>: <strong>${b1}번 ${progs[b1 - 1].name}</strong> 부스로 이동!
+          • <strong>[0회차 전체집결]</strong> 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 부스(${b1}번)로 가지 않고</strong>, 먼저 <strong>꿈나무관을 바라보고 좌측(${low ? '1-1반' : '4-1반'})부터 순서대로 2줄 정렬</strong> 후 안내사항을 듣고 이동합니다.<br/>
+          • <strong>${cls}반 정렬 위치</strong>: <strong style="color:#0369a1; background:#e0f2fe; padding:1px 5px; border-radius:4px;">꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 (${leftNeighbor}·${rightNeighbor} 사이) · 2줄씩 정렬</strong><br/>
+          • <strong>전체 안내 후 1회차 이동</strong>: <strong>${b1}번 ${progs[b1 - 1].name}</strong> 부스로 이동!
+        </div>
+        <div style="background:#0f172a; color:#fde68a; font-size:0.7rem; font-weight:800; text-align:center; padding:5px 8px; border-radius:6px; margin-bottom:6px;">
+          🏛️ 정면 기준: 꿈나무관 (⬅️ 꿈나무관을 바라보고 좌측 ${low ? '1-1반' : '4-1반'}부터 서기 ➡️)
         </div>
         <div style="display:flex; gap:5px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch;">
           ${lineupStripHtml}
@@ -1546,7 +1585,7 @@
       if (low) {
         document.getElementById("mTimelineList").innerHTML = `
           <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
-            • <strong>08:55 집결 완료(5분 전)</strong> : 🚩 <strong>운동장 전체 집결(좌측 1-1~우측 3-4, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내사항 전달 후 <strong>${b1}번 부스</strong>로 이동!
+            • <strong>[0회차] 08:55~09:00 집결</strong> : 🚩 <strong>운동장 전체 집결(꿈나무관을 바라보고 좌측 1-1반~우측 3-4반, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내사항 전달 후 <strong>1회차 ${b1}번 부스</strong>로 이동!
           </div>
           <div>• <strong>09:00~11:10</strong> : 운동장 1~12회차 부스 <span style="color:#b45309; font-weight:800;">(쉬는시간 없이 연속 진행 · 기존 3교시보다 10분 조기 종료)</span></div>
           <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
@@ -1563,7 +1602,7 @@
             • <strong>09:00~09:50</strong> : 🎭 <strong>강당 과학공연 1차</strong> <span style="color:#5b21b6; font-weight:900;">[🚨기존 1교시 ~09:40보다 10분 연장·쉬는시간 없음]</span>
           </div>
           <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
-            • <strong>09:50~11:20 수업 후 11:25 집결</strong> : 🚩 <strong>운동장 전체 집결(좌측 4-1~우측 6-4, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내 후 <strong>${b1}번 부스</strong>로 이동!
+            • <strong>09:50~11:20 수업 후 [0회차] 11:25 집결</strong> : 🚩 <strong>운동장 전체 집결(꿈나무관을 바라보고 좌측 4-1반~우측 6-4반, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내 후 <strong>1회차 ${b1}번 부스</strong>로 이동!
           </div>
           <div>• <strong>11:30~12:10</strong> : 🔬 <strong>운동장 1차 체험</strong> (1~4회차, ${b1}번 시작 · 기존 4교시 시각 동일)</div>
           <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
@@ -1575,8 +1614,22 @@
         `;
       }
 
-      // 4. 12 Rounds List
-      let rListHtml = "";
+      // 4. 0~12 Rounds List
+      let rListHtml = `
+        <div class="m-round-item ${isRound0 ? 'active-row' : ''}" style="background:${isRound0 ? '#eff6ff' : '#f0f9ff'}; border-color:${isRound0 ? '#1d4ed8' : '#7dd3fc'};" onclick="setRoundDirect(0)">
+          <div class="m-round-left">
+            <span class="m-r-num" style="color:#0369a1;">0회차</span>
+            <span class="m-b-badge" style="background:#0284c7;">집결</span>
+            <div class="m-prog-info">
+              <div class="p-name">운동장 전체집결 · 2줄 정렬 🚩</div>
+              <div class="p-time">${round0Time} · 꿈나무관을 바라보고 좌측 ${lineupOrd}번째(${cls}반) 2줄 정렬 후 안내 청취</div>
+            </div>
+          </div>
+          <div style="font-size:0.75rem; font-weight:800; color:#0369a1;">
+            → ${b1}번
+          </div>
+        </div>
+      `;
       for (let r = 1; r <= 12; r++) {
         if (!low && r === 5) {
           rListHtml += `<div class="lunch-banner-mobile">🍱 12:10~13:00 점심시간 후 12:55까지 아래 [${b5}번 ${progs[b5 - 1].name}] 앞으로 재집결!</div>`;
@@ -1602,7 +1655,7 @@
       document.getElementById("mRoundList").innerHTML = rListHtml;
 
       // 5. Render Map Panel
-      renderMMap(cls, low, progs, times, curBooth, nextBooth);
+      renderMMap(cls, low, progs, times, curBooth, nextBooth, lineupOrd, round0Time, b1);
 
       // 6. Render Master Tables
       renderMMasterTables(cls);
@@ -1614,10 +1667,11 @@
       renderMChecks(cls, progs);
     }
 
-    function renderMMap(cls, low, progs, times, curBooth, nextBooth) {
-      let pills = "";
+    function renderMMap(cls, low, progs, times, curBooth, nextBooth, lineupOrd, round0Time, b1) {
+      const isRound0 = mRound === 0;
+      let pills = `<button type="button" style="padding:5px 10px; border-radius:99px; border:1px solid #cbd5e1; font-weight:800; font-size:0.75rem; white-space:nowrap; background:${isRound0 ? '#0284c7' : '#fff'}; color:${isRound0 ? '#fff' : '#0369a1'};" onclick="setRoundDirect(0)">0회차(집결)</button>`;
       for (let r = 1; r <= 12; r++) {
-        pills += `<button style="padding:5px 10px; border-radius:99px; border:1px solid #cbd5e1; font-weight:800; font-size:0.75rem; white-space:nowrap; background:${r === mRound ? '#1d4ed8' : '#fff'}; color:${r === mRound ? '#fff' : '#0f172a'};" onclick="setRoundDirect(${r})">${r}회차</button>`;
+        pills += `<button type="button" style="padding:5px 10px; border-radius:99px; border:1px solid #cbd5e1; font-weight:800; font-size:0.75rem; white-space:nowrap; background:${r === mRound ? '#1d4ed8' : '#fff'}; color:${r === mRound ? '#fff' : '#0f172a'};" onclick="setRoundDirect(${r})">${r}회차</button>`;
       }
       document.getElementById("mMapRoundPills").innerHTML = pills;
 
@@ -1632,6 +1686,22 @@
           </div>
         `;
       };
+
+      const centerHtml = isRound0 ? `
+        <div class="m-center-field">
+          <div style="color:#0284c7; font-weight:900; margin-bottom:4px;">[${cls}] 0회차 (${round0Time})</div>
+          <div style="font-size:0.82rem; font-weight:900; color:#0f172a;">현재: 꿈나무관 바라보고 좌측 ${lineupOrd}번째 (2줄 정렬)</div>
+          <div style="margin-top:4px; color:#dc2626;">안내 후 1회차 이동: ${b1}번 (${progs[b1 - 1].name})</div>
+          <div style="margin-top:8px; font-size:0.68rem; color:#64748b;">🚩 꿈나무관 기준 좌측 ${low ? '1-1반' : '4-1반'}부터 순서대로 2줄 정렬</div>
+        </div>
+      ` : `
+        <div class="m-center-field">
+          <div style="color:#1d4ed8; font-weight:900; margin-bottom:4px;">[${cls}] ${mRound}회차 (${times[mRound - 1]})</div>
+          <div style="font-size:0.88rem; font-weight:900; color:#0f172a;">현재: ${curBooth}번 ${progs[curBooth - 1].name}</div>
+          <div style="margin-top:4px; color:#dc2626;">${nextBooth ? `다음 이동: ${nextBooth}번 부스` : '마지막 회차'}</div>
+          <div style="margin-top:8px; font-size:0.7rem; color:#64748b;">↻ 시계방향 회전 (12번→1번 이동)</div>
+        </div>
+      `;
 
       document.getElementById("mMapVisual").innerHTML = `
         <div class="m-guryeongdae">📢 구령대 (상단 중앙 진행 본부)</div>
@@ -1651,12 +1721,7 @@
             ${nodeHtml(2)}
             ${nodeHtml(1)}
           </div>
-          <div class="m-center-field">
-            <div style="color:#1d4ed8; font-weight:900; margin-bottom:4px;">[${cls}] ${mRound}회차 (${times[mRound - 1]})</div>
-            <div style="font-size:0.88rem; font-weight:900; color:#0f172a;">현재: ${curBooth}번 ${progs[curBooth - 1].name}</div>
-            <div style="margin-top:4px; color:#dc2626;">${nextBooth ? `다음 이동: ${nextBooth}번 부스` : '마지막 회차'}</div>
-            <div style="margin-top:8px; font-size:0.7rem; color:#64748b;">↻ 시계방향 회전 (12번→1번 이동)</div>
-          </div>
+          ${centerHtml}
           <div class="m-side-col">
             ${nodeHtml(10)}
             ${nodeHtml(11)}
@@ -1667,13 +1732,17 @@
 
       // All classes at current round
       const grp = low ? "low" : "high";
+      const effRound = isRound0 ? 1 : mRound;
       let allList = "";
       for (let b = 1; b <= 12; b++) {
-        const c = getClassAt(grp, b, mRound);
+        const c = getClassAt(grp, b, effRound);
         const isMe = c === cls;
+        const labelHtml = isRound0
+          ? `<strong>좌측 ${b}번째(2줄)</strong> → ${b}번(${progs[b - 1].name}): <span style="color:#0284c7;">${c}반</span>`
+          : `<strong>${b}번</strong> (${progs[b - 1].name}): <span style="color:#1d4ed8;">${c}반</span>`;
         allList += `
           <div onclick="selectMClassFromTable('${c}', ${mRound})" style="cursor:pointer; padding:6px 8px; border-radius:6px; background:${isMe ? '#dbeafe' : '#f8fafc'}; border:1px solid ${isMe ? '#1d4ed8' : '#e2e8f0'}; font-weight:${isMe ? '900' : '600'};">
-            <strong>${b}번</strong> (${progs[b - 1].name}): <span style="color:#1d4ed8;">${c}반</span>
+            ${labelHtml}
           </div>
         `;
       }
@@ -1698,6 +1767,12 @@
     function renderMMasterTables(selectedCls) {
       // Low
       let lHtml = `<table><thead><tr><th>회차</th><th>시간</th>${LOW_PROGRAMS.map(p => `<th>${p.booth}.${p.name}</th>`).join("")}</tr></thead><tbody>`;
+      lHtml += `<tr style="background:#f0f9ff;"><td><strong style="color:#0369a1;">0회(집결)</strong></td><td><strong style="color:#0369a1;">08:55~09:00</strong></td>`;
+      for (let b = 1; b <= 12; b++) {
+        const c = getClassAt("low", b, 1);
+        lHtml += `<td class="${c === selectedCls ? 'hi-cell' : ''}" style="cursor:pointer;" onclick="selectMClassFromTable('${c}', 0)">${c}(좌${b}·2줄)</td>`;
+      }
+      lHtml += `</tr>`;
       for (let r = 1; r <= 12; r++) {
         lHtml += `<tr><td>${r}</td><td>${LOW_TIMES[r - 1]}</td>`;
         for (let b = 1; b <= 12; b++) {
@@ -1711,6 +1786,12 @@
 
       // High
       let hHtml = `<table><thead><tr><th>회차</th><th>시간</th>${HIGH_PROGRAMS.map(p => `<th>${p.booth}.${p.name}</th>`).join("")}</tr></thead><tbody>`;
+      hHtml += `<tr style="background:#f0f9ff;"><td><strong style="color:#0369a1;">0회(집결)</strong></td><td><strong style="color:#0369a1;">11:25~11:30</strong></td>`;
+      for (let b = 1; b <= 12; b++) {
+        const c = getClassAt("high", b, 1);
+        hHtml += `<td class="${c === selectedCls ? 'hi-cell' : ''}" style="cursor:pointer;" onclick="selectMClassFromTable('${c}', 0)">${c}(좌${b}·2줄)</td>`;
+      }
+      hHtml += `</tr>`;
       for (let r = 1; r <= 12; r++) {
         if (r === 5) {
           hHtml += `<tr><td colspan="14" style="background:#fef3c7; font-weight:800; color:#92400e;">🍱 12:10~13:00 점심시간 (12:55 5회차 부스 집결)</td></tr>`;
@@ -1735,7 +1816,7 @@
     function resetMAudSeats() {
       audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
       mSwapIdx = null;
-      localStorage.removeItem("scifest_aud_seats_2026");
+      safeRemoveStorage("scifest_aud_seats_2026");
       renderMAud(getClsStr());
     }
 
@@ -1750,7 +1831,7 @@
         arr[mSwapIdx] = arr[idx];
         arr[idx] = tmp;
         mSwapIdx = null;
-        localStorage.setItem("scifest_aud_seats_2026", JSON.stringify(audSeats));
+        safeSetStorage("scifest_aud_seats_2026", JSON.stringify(audSeats));
       }
       renderMAud(getClsStr());
     }
@@ -1801,6 +1882,27 @@
     }
 
     window.addEventListener("DOMContentLoaded", () => {
+      const mGradeRowEl = document.getElementById("mGradeRow");
+      if (mGradeRowEl) {
+        mGradeRowEl.querySelectorAll(".m-grade-btn").forEach((btn, idx) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const g = parseInt(btn.getAttribute("data-grade") || String(idx + 1), 10);
+            setGrade(g);
+          });
+        });
+      }
+      const mClassRowEl = document.getElementById("mClassRow");
+      if (mClassRowEl) {
+        mClassRowEl.querySelectorAll(".m-class-btn").forEach((btn, idx) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const c = parseInt(btn.getAttribute("data-class") || String(idx + 1), 10);
+            setCls(c);
+          });
+        });
+      }
+
       applyMAutoSyncIfActive();
       saveAndRender();
       setInterval(() => {

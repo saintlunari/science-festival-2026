@@ -59,9 +59,8 @@
       background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0284c7 100%);
       color: #fff;
       padding: 24px 24px 20px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: relative;
+      z-index: 90;
       box-shadow: 0 4px 16px rgba(15, 23, 42, 0.2);
     }
 
@@ -160,9 +159,9 @@
       border-bottom: 1px solid var(--border);
       padding: 12px 24px;
       position: sticky;
-      top: 84px;
-      z-index: 95;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
     }
 
     .quick-bar-inner {
@@ -1290,7 +1289,7 @@
       cursor: pointer;
     }
 
-    /* Playground Initial Lineup Formation Box (U-Space Notice) */
+    /* Playground Initial Lineup Formation Box (Round 0 Notice) */
     .lineup-guide-box {
       background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
       border: 2px solid #0284c7;
@@ -1536,7 +1535,7 @@
         <span class="badge-dday" id="headerDdayBadge">D-Day 계산중</span>
         <div class="title-text">
           <h1>공주교대부설초 찾아가는 과학축제 안내 시스템</h1>
-          <p>교원 및 학생 이동 동선 · 반별 부스 시간표 · 강당 공연 좌석 안내 (주관: 공주교대부설초 / ㈜유스페이스)</p>
+          <p>교원 및 학생 이동 동선 · 반별 부스 시간표 · 강당 공연 좌석 안내 (공주교육대학교부설초등학교)</p>
         </div>
       </div>
       <div class="header-actions">
@@ -1559,35 +1558,35 @@
       <div class="class-picker-group">
         <span class="class-picker-label">🎯 학급 선택:</span>
         <div class="grade-pills" id="gradePills">
-          <button class="grade-btn active" onclick="selectGrade(1)">1학년</button>
-          <button class="grade-btn" onclick="selectGrade(2)">2학년</button>
-          <button class="grade-btn" onclick="selectGrade(3)">3학년</button>
-          <button class="grade-btn" onclick="selectGrade(4)">4학년</button>
-          <button class="grade-btn" onclick="selectGrade(5)">5학년</button>
-          <button class="grade-btn" onclick="selectGrade(6)">6학년</button>
+          <button type="button" class="grade-btn active" data-grade="1" onclick="selectGrade(1)">1학년</button>
+          <button type="button" class="grade-btn" data-grade="2" onclick="selectGrade(2)">2학년</button>
+          <button type="button" class="grade-btn" data-grade="3" onclick="selectGrade(3)">3학년</button>
+          <button type="button" class="grade-btn" data-grade="4" onclick="selectGrade(4)">4학년</button>
+          <button type="button" class="grade-btn" data-grade="5" onclick="selectGrade(5)">5학년</button>
+          <button type="button" class="grade-btn" data-grade="6" onclick="selectGrade(6)">6학년</button>
         </div>
         <div class="class-pills" id="classPills">
-          <button class="class-btn active" onclick="selectClassNum(1)">1반</button>
-          <button class="class-btn" onclick="selectClassNum(2)">2반</button>
-          <button class="class-btn" onclick="selectClassNum(3)">3반</button>
-          <button class="class-btn" onclick="selectClassNum(4)">4반</button>
+          <button type="button" class="class-btn active" data-class="1" onclick="selectClassNum(1)">1반</button>
+          <button type="button" class="class-btn" data-class="2" onclick="selectClassNum(2)">2반</button>
+          <button type="button" class="class-btn" data-class="3" onclick="selectClassNum(3)">3반</button>
+          <button type="button" class="class-btn" data-class="4" onclick="selectClassNum(4)">4반</button>
         </div>
       </div>
 
       <nav class="nav-tabs" id="mainTabs">
-        <button class="tab-btn active" data-tab="tab-myclass" onclick="switchTab('tab-myclass')">
+        <button type="button" class="tab-btn active" data-tab="tab-myclass" onclick="switchTab('tab-myclass')">
           🏫 우리 반 맞춤 동선
         </button>
-        <button class="tab-btn" data-tab="tab-all-overview" onclick="switchTab('tab-all-overview')">
+        <button type="button" class="tab-btn" data-tab="tab-all-overview" onclick="switchTab('tab-all-overview')">
           🗺️ 전체 시간표·이동동선 한눈에 보기
         </button>
-        <button class="tab-btn" data-tab="tab-auditorium" onclick="switchTab('tab-auditorium')">
+        <button type="button" class="tab-btn" data-tab="tab-auditorium" onclick="switchTab('tab-auditorium')">
           🎭 강당 과학공연 좌석배치
         </button>
-        <button class="tab-btn" data-tab="tab-programs" onclick="switchTab('tab-programs')">
+        <button type="button" class="tab-btn" data-tab="tab-programs" onclick="switchTab('tab-programs')">
           🔬 1~12번 부스 실험 안내
         </button>
-        <button class="tab-btn" data-tab="tab-checklist" onclick="switchTab('tab-checklist')">
+        <button type="button" class="tab-btn" data-tab="tab-checklist" onclick="switchTab('tab-checklist')">
           ✅ 교원 인솔수칙·행정 체크리스트
         </button>
       </nav>
@@ -1608,7 +1607,7 @@
       <!-- Critical Notice for Selected Grade Group -->
       <div id="myClassAlert"></div>
 
-      <!-- Playground Initial Gathering & 2-Row Lineup Formation Guide (U-Space Update) -->
+      <!-- Playground Initial Gathering & 2-Row Lineup Formation Guide (Round 0) -->
       <div id="myClassLineupGuide"></div>
 
       <!-- Regular vs Festival Schedule Diff Box for Selected Class -->
@@ -1653,8 +1652,8 @@
           <div class="card">
             <div class="card-header">
               <div>
-                <h3 class="card-title" id="myBoothTableTitle">📋 우리 반 회차별 부스 이동 시간표 (총 12개 부스)</h3>
-                <p class="card-subtitle">🎁 표시된 4개 부스(3·6·9·12번)는 결과물을 만들어 가져가는 부스입니다.</p>
+                <h3 class="card-title" id="myBoothTableTitle">📋 우리 반 회차별 부스 이동 시간표 (0회차 전체집결 + 1~12회차 부스)</h3>
+                <p class="card-subtitle">🚩 0회차는 꿈나무관을 바라보고 좌측부터 학급별 2줄 정렬 및 전체 안내 시간이며, 🎁 표시된 4개 부스(3·6·9·12번)는 결과물을 만들어 가져가는 부스입니다.</p>
               </div>
               <button class="btn btn-print-class" style="padding:6px 12px; font-size:0.8rem;"
                 onclick="printClassSheet()">
@@ -1714,43 +1713,43 @@
         </div>
       </div>
 
-      <!-- U-Space Playground Initial Gathering & 2-Row Lineup Notice Card -->
+      <!-- Playground Initial Gathering & 2-Row Lineup Notice Card (Round 0) -->
       <div class="lineup-guide-box">
         <div class="lineup-guide-header">
           <div class="lineup-guide-title">
-            📢 [유스페이스 추가 안내] 운동장 최초 이동 시 대기 및 학급별 2줄 정렬 방법 (필독)
+            📢 [필독 안내] 운동장 0회차 최초 집결 및 꿈나무관 기준 학급별 2줄 정렬 방법
           </div>
           <div class="lineup-step-pills">
-            <span class="lineup-step-pill">① 시작 5분 전 운동장 전체 집결·2줄 정렬</span>
+            <span class="lineup-step-pill">① [0회차] 시작 5분 전 꿈나무관 바라보고 좌측부터 2줄 정렬</span>
             <span>➔</span>
             <span class="lineup-step-pill" style="background:#0369a1;">② 전체 안내사항 전달</span>
             <span>➔</span>
-            <span class="lineup-step-pill step2">③ 각 반 1회차 부스로 이동</span>
+            <span class="lineup-step-pill step2">③ [1회차] 각 반 첫 부스로 이동</span>
           </div>
         </div>
         <div style="font-size:0.9rem; color:#0f172a; line-height:1.55;">
           • 각 반별로 운동장에 도착하면 <strong style="color:#dc2626; background:#fee2e2; padding:1px 6px; border-radius:4px;">바로 첫
-            번째 부스로 이동하는 것이 아니라</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달한 후</strong> 각 부스로 이동합니다.<br />
-          • 원활한 진행을 위해 <strong>행사 시작 5분 전까지(저학년 08:55 / 고학년 1차 11:25)</strong> 미리 운동장에 나와 아래 순서대로 정렬해 주시면 감사하겠습니다.
+            번째 부스로 이동하는 것이 아니라</strong>, 먼저 <strong>[0회차] 운동장에 전체 집결하여 안내사항을 전달한 후</strong> 각 부스로 이동합니다.<br />
+          • 원활한 진행을 위해 <strong>행사 시작 5분 전까지(저학년 0회차 08:55~09:00 / 고학년 0회차 11:25~11:30)</strong> 미리 운동장에 나와 <strong>꿈나무관을 바라보고 좌측부터</strong> 아래 순서대로 정렬해 주시면 감사하겠습니다.
         </div>
         <div class="two-col" style="margin-top:10px; gap:12px;">
           <div style="background:#fff; border:1.5px solid #7dd3fc; border-radius:10px; padding:10px 14px;">
-            <div style="font-weight:900; color:#1e40af; font-size:0.92rem; margin-bottom:4px;">👦 저학년 (1~3학년) 운동장 최초 집결
-              정렬 (08:55까지)</div>
+            <div style="font-weight:900; color:#1e40af; font-size:0.92rem; margin-bottom:4px;">👦 저학년 (1~3학년) 0회차 운동장 집결
+              정렬 (08:55 ~ 09:00)</div>
             <div style="font-size:0.84rem; color:#334155;">
-              • <strong>정렬 방향</strong>: 운동장 기준 <strong>왼쪽부터 1-1반</strong>을 시작으로 순서대로 세워주시고, <strong>가장 오른쪽 끝에는
+              • <strong>정렬 방향</strong>: <strong>꿈나무관을 바라보고 좌측부터 1-1반</strong>을 시작으로 순서대로 서고, <strong>가장 오른쪽 끝에는
                 3-4반</strong>이 위치하도록 정렬<br />
-              • <strong>정렬 대형</strong>: <code>[왼쪽] 1-1 → 1-2 → 1-3 → 1-4 → 2-1 → … → 3-4 [오른쪽 끝]</code> 순서로 <strong>각 반별
+              • <strong>정렬 대형</strong>: <code>[꿈나무관 바라보고 좌측] 1-1 → 1-2 → 1-3 → 1-4 → 2-1 → … → 3-4 [우측 끝]</code> 순서로 <strong>각 반별
                 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동)
             </div>
           </div>
           <div style="background:#fff; border:1.5px solid #c4b5fd; border-radius:10px; padding:10px 14px;">
-            <div style="font-weight:900; color:#5b21b6; font-size:0.92rem; margin-bottom:4px;">🧑 고학년 (4~6학년) 운동장 1차 집결
-              정렬 (11:25까지)</div>
+            <div style="font-weight:900; color:#5b21b6; font-size:0.92rem; margin-bottom:4px;">🧑 고학년 (4~6학년) 0회차 운동장 1차 집결
+              정렬 (11:25 ~ 11:30)</div>
             <div style="font-size:0.84rem; color:#334155;">
-              • <strong>정렬 방향</strong>: 운동장 기준 <strong>왼쪽부터 4-1반</strong>을 시작으로 순서대로 세워주시고, <strong>가장 오른쪽 끝에는
+              • <strong>정렬 방향</strong>: <strong>꿈나무관을 바라보고 좌측부터 4-1반</strong>을 시작으로 순서대로 서고, <strong>가장 오른쪽 끝에는
                 6-4반</strong>이 위치하도록 정렬<br />
-              • <strong>정렬 대형</strong>: <code>[왼쪽] 4-1 → 4-2 → 4-3 → 4-4 → 5-1 → … → 6-4 [오른쪽 끝]</code> 순서로 <strong>각 반별
+              • <strong>정렬 대형</strong>: <code>[꿈나무관 바라보고 좌측] 4-1 → 4-2 → 4-3 → 4-4 → 5-1 → … → 6-4 [우측 끝]</code> 순서로 <strong>각 반별
                 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동)<br />
               <span style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 점심식사 후 12:55(2차)에는 이미 오전 안내를 마쳤으므로 5회차
                 배정 부스로 재집결합니다.</span>
@@ -1864,10 +1863,10 @@
                   <tr class="diff-row-highlight">
                     <td><strong>2~3교시</strong></td>
                     <td>2교시 09:50~10:30<br />3교시 10:40~11:20</td>
-                    <td><strong>09:50 ~ 11:20</strong><br />(11:25 운동장 집결)</td>
+                    <td><strong>09:50 ~ 11:20</strong><br />(11:25 0회차 집결)</td>
                     <td style="text-align:left;">
-                      <span class="diff-badge warn">⚠️ 1교시 직후 2교시 시작 · 3교시 후 11:25 운동장 전체 집결</span><br />
-                      교실 정상 수업 후 쉬는시간(11:20~11:30) 중 <strong>11:25까지 운동장 전체 집결(좌측 4-1 ~ 우측 6-4, 반별 2줄 정렬 → 안내 후 첫 부스
+                      <span class="diff-badge warn">⚠️ 1교시 직후 2교시 시작 · 3교시 후 11:25 0회차 운동장 집결</span><br />
+                      교실 정상 수업 후 쉬는시간(11:20~11:30) 중 <strong>11:25까지 [0회차] 운동장 전체 집결(꿈나무관을 바라보고 좌측 4-1 ~ 우측 끝 6-4, 반별 2줄 정렬 → 안내 후 1회차 부스
                         이동)</strong>
                     </td>
                   </tr>
@@ -1936,16 +1935,16 @@
               </tr>
               <tr>
                 <td><strong>08:50 ~ 09:00</strong><br /><span
-                    style="font-size:0.75rem; color:#dc2626; font-weight:800;">(08:55 집결 완료)</span></td>
+                    style="font-size:0.75rem; color:#dc2626; font-weight:800;">(0회차: 08:55 집결)</span></td>
                 <td style="background:#eff6ff; font-weight:700; color:#1e40af;">
-                  📢 <strong>08:55까지 운동장 전체 집결 (반별 2줄 정렬)</strong><br />
-                  <span style="font-size:0.78rem; color:#0369a1;">• 운동장 기준 <strong>왼쪽(1-1) ~ 오른쪽 끝(3-4)</strong> 순서로 각 반
+                  📢 <strong>[0회차] 08:55까지 운동장 전체 집결 (반별 2줄 정렬)</strong><br />
+                  <span style="font-size:0.78rem; color:#0369a1;">• <strong>꿈나무관을 바라보고 좌측(1-1반) ~ 우측 끝(3-4반)</strong> 순서로 각 반
                     2줄 정렬<br />• <strong>전체 안내사항 전달 후</strong> 각 반 1회차 부스로 이동!</span>
                 </td>
                 <td style="background:#f5f3ff; font-weight:700; color:#5b21b6;">강당 이동 및 학년·반 지정 좌석 착석<br /><span
                     style="font-size:0.78rem;">(무대 기준 좌측 4-1 ~ 우측 6-4)</span></td>
-                <td><strong>시작 5분 전(08:55) 운동장 전체 집결·2줄 정렬 완료</strong><br /><span
-                    style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 바로 첫 부스로 가지 않고 전체 집결·안내 후 이동</span>
+                <td><strong>[0회차] 시작 5분 전(08:55) 꿈나무관 바라보고 좌측부터 2줄 정렬</strong><br /><span
+                    style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 바로 첫 부스로 가지 않고 0회차 전체 집결·안내 후 이동</span>
                 </td>
               </tr>
               <tr>
@@ -1970,8 +1969,8 @@
                 <td rowspan="2" style="background:#f8fafc; font-weight:800; color:#334155;">
                   📚 <strong>고학년 학급별 수업 (2교시 09:50~10:30 / 3교시 10:40~11:20)</strong><br />
                   <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 공연 관람 직후 교실 이동하여 2·3교시 정상 수업
-                    진행<br />• <strong>11:25까지(5분 전)</strong> 운동장 전체 집결 (<strong>왼쪽 4-1 ~ 오른쪽 끝 6-4, 각 반 2줄 정렬</strong> →
-                    전체 안내사항 전달 후 첫 부스로 이동)</span>
+                    진행<br />• <strong>[0회차] 11:25까지(5분 전)</strong> 운동장 전체 집결 (<strong>꿈나무관을 바라보고 좌측 4-1반 ~ 우측 끝 6-4반, 각 반 2줄 정렬</strong> →
+                    전체 안내사항 전달 후 1회차 부스로 이동)</span>
                 </td>
                 <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br />• 운동장: 저학년 부스 6~12회차 진행 (~11:10)</td>
               </tr>
@@ -2186,14 +2185,14 @@
                 <input type="checkbox" data-check-key="common_time"
                   onchange="toggleSavedCheck('common_time', this.checked)" />
                 <div>
-                  <strong>[운동장 최초 전체 집결 및 반별 2줄 정렬] 시작 5분 전 도착 후 전체 안내 청취</strong>
+                  <strong>[운동장 0회차 전체 집결 및 꿈나무관 기준 2줄 정렬] 시작 5분 전 도착 후 전체 안내 청취</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    • 운동장 도착 시 <strong>바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로
+                    • 운동장 도착 시 <strong>바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>[0회차] 운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로
                       이동</strong>합니다.<br />
-                    • <strong>1~3학년(저학년)</strong>: <strong>08:55까지(5분 전)</strong> 운동장 기준 <strong>왼쪽 1-1반 ~ 오른쪽 끝 3-4반
+                    • <strong>1~3학년(저학년 0회차)</strong>: <strong>08:55까지(5분 전)</strong> <strong>꿈나무관을 바라보고 좌측 1-1반 ~ 우측 끝 3-4반
                       순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1회차 부스 이동) / 중식 후 12:05까지 강당 착석 완료<br />
-                    • <strong>4~6학년(고학년)</strong>: 08:50까지 강당 착석 / <strong>11:25까지(5분 전)</strong> 운동장 기준 <strong>왼쪽 4-1반
-                      ~ 오른쪽 끝 6-4반 순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1차 부스 이동) / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스
+                    • <strong>4~6학년(고학년 0회차)</strong>: 08:50까지 강당 착석 / <strong>11:25까지(5분 전)</strong> <strong>꿈나무관을 바라보고 좌측 4-1반
+                      ~ 우측 끝 6-4반 순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 1차 1회차 부스 이동) / 중식 후 <strong>12:55까지 운동장 2차(5회차) 부스
                       재집결</strong>
                   </p>
                 </div>
@@ -2236,7 +2235,7 @@
                 <div>
                   <strong>[학교 출입 및 사전 설치 협조] 전일 15시 이후 또는 당일 06시부터</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    운동장 천막·테이블 및 강당 공연 장비 설치를 위해 <strong>전일 오후 3시 이후 또는 당일 오전 6시부터</strong> 업체 차량 출입 및 강당·운동장 개방 협조가
+                    운동장 천막·테이블 및 강당 공연 장비 설치를 위해 <strong>전일 오후 3시 이후 또는 당일 오전 6시부터</strong> 행사 준비 차량 출입 및 강당·운동장 개방 협조가
                     필요합니다. (08:00 세팅 완료)
                   </p>
                 </div>
@@ -2258,7 +2257,7 @@
                 <div>
                   <strong>[종량제 쓰레기봉투 준비 및 분리수거장 안내]</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    행사 당일 <strong>학교용 종량제 쓰레기봉투</strong>를 준비하여 (주)유스페이스 행사 담당자에게 전달해 주시고, 행사 종료 후(14:30~) 분리수거장 위치를 안내해
+                    행사 당일 <strong>학교용 종량제 쓰레기봉투</strong>를 준비하여 행사 운영 본부에 전달해 주시고, 행사 종료 후(14:30~) 분리수거장 위치를 안내해
                     주세요.
                   </p>
                 </div>
@@ -2279,8 +2278,7 @@
                 <div>
                   <strong>[우천·강풍·미세먼지 시 대체 운영 방안]</strong>
                   <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    기상 악화 시 사전 협의를 통해 강당(체육관) 내 무대 중심 좌·우 부스 배치 또는 지정 실내 공간으로 장소를 변경하여 동일 로테이션 방식으로 운영합니다. (업체 담당자:
-                    010-5077-7894 / 070-7006-1060~2)
+                    기상 악화 시 사전 협의를 통해 강당(체육관) 내 무대 중심 좌·우 부스 배치 또는 지정 실내 공간으로 장소를 변경하여 동일 로테이션 방식으로 운영합니다.
                   </p>
                 </div>
               </label>
@@ -2366,16 +2364,42 @@
       12: { col: 9, row: 4 }
     };
 
+    // Safe localStorage helpers (prevents SecurityError on file:// protocol in strict browsers)
+    function safeGetStorage(key) {
+      try {
+        return window.localStorage ? window.localStorage.getItem(key) : null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function safeSetStorage(key, val) {
+      try {
+        if (window.localStorage) window.localStorage.setItem(key, val);
+      } catch (e) {}
+    }
+
+    function safeRemoveStorage(key) {
+      try {
+        if (window.localStorage) window.localStorage.removeItem(key);
+      } catch (e) {}
+    }
+
     // State (Sync with URL query ?class=X-Y or localStorage)
-    const urlClassParam = new URLSearchParams(window.location.search).get("class");
+    let urlClassParam = null;
+    try {
+      urlClassParam = new URLSearchParams(window.location.search).get("class");
+    } catch (e) {
+      urlClassParam = null;
+    }
     const savedClassStr = (urlClassParam && /^[1-6]-[1-4]$/.test(urlClassParam))
       ? urlClassParam
-      : (localStorage.getItem("scifest_my_class_2026") || "1-1");
+      : (safeGetStorage("scifest_my_class_2026") || "1-1");
     let currentGrade = parseInt(savedClassStr.split("-")[0], 10) || 1;
     let currentClassNum = parseInt(savedClassStr.split("-")[1], 10) || 1;
-    let mySelectedRound = 1; // 1..12
+    let mySelectedRound = 1; // 0..12 (0 = 0회차 운동장 전체집결)
     let simGroup = currentGrade <= 3 ? "low" : "high"; // 'low' | 'high'
-    let simRound = 1; // 1..12
+    let simRound = 1; // 0..12
     let audSession = currentGrade <= 3 ? 2 : 1; // 1 (high 4~6) | 2 (low 1~3)
     let swapSourceIndex = null;
 
@@ -2430,10 +2454,10 @@
       const lineupOrd = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
       if (low) {
         if (totalMins < 530) {
-          return { round: 1, phase: "prep", badge: "집결 준비", text: `08:55까지 운동장 전체 집결(좌측에서 ${lineupOrd}번째 · 2줄 정렬) → 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
+          return { round: 0, phase: "prep", badge: "0회차 집결 준비", text: `[0회차] 08:55까지 운동장 전체 집결(꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 · 2줄 정렬) → 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
         }
         if (totalMins < 540) {
-          return { round: 1, phase: "gather", badge: "🔔 운동장 전체집결(2줄)", text: `08:55까지 운동장 왼쪽부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name})로 이동합니다.` };
+          return { round: 0, phase: "gather", badge: "🚩 0회차 전체집결(2줄)", text: `[0회차] 08:55까지 꿈나무관을 바라보고 좌측부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name})로 이동합니다.` };
         }
         if (totalMins >= 540 && totalMins < 670) {
           let r = 1;
@@ -2466,19 +2490,19 @@
       } else {
         const b5 = getBoothForClassAtRound(clsName, 5);
         if (totalMins < 530) {
-          return { round: 1, phase: "prep", badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 과학공연)` };
+          return { round: 0, phase: "prep", badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 과학공연)` };
         }
         if (totalMins < 540) {
-          return { round: 1, phase: "gather", badge: "🎭 강당 착석 중", text: `08:50까지 강당 지정 좌석 착석을 완료해 주세요! (09:00 공연 시작)` };
+          return { round: 0, phase: "gather", badge: "🎭 강당 착석 중", text: `08:50까지 강당 지정 좌석 착석을 완료해 주세요! (09:00 공연 시작)` };
         }
         if (totalMins < 590) {
-          return { round: 1, phase: "show", badge: "🎭 1차 공연 관람 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 쉬는시간 없이 곧바로 2교시 수업)` };
+          return { round: 0, phase: "show", badge: "🎭 1차 공연 관람 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 쉬는시간 없이 곧바로 2교시 수업)` };
         }
         if (totalMins < 680) {
-          return { round: 1, phase: "class", badge: "📚 2·3교시 교실수업", text: `교실 수업 진행 중 · 11:20 종료 직후 11:25까지 운동장 전체 집결(좌측에서 ${lineupOrd}번째 · 2줄 정렬)` };
+          return { round: 0, phase: "class", badge: "📚 2·3교시 교실수업", text: `교실 수업 진행 중 · 11:20 종료 직후 11:25까지 [0회차] 운동장 전체 집결(꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 · 2줄 정렬)` };
         }
         if (totalMins < 690) {
-          return { round: 1, phase: "gather", badge: "🔔 운동장 전체집결(2줄)!", text: `11:25까지 운동장 왼쪽부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}]로 이동합니다.` };
+          return { round: 0, phase: "gather", badge: "🚩 0회차 전체집결(2줄)!", text: `[0회차] 11:25까지 꿈나무관을 바라보고 좌측부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 1회차 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}]로 이동합니다.` };
         }
         if (totalMins >= 690 && totalMins < 730) {
           let r = 1;
@@ -2573,12 +2597,12 @@
 
       const presetOptions = [
         { val: "real", label: `🕒 현재 실제 시각 연동 (${formatMinsToHHMM(new Date().getHours() * 60 + new Date().getMinutes())})` },
-        { val: "535", label: "🧪 [미리보기] 08:55 — 오전 첫 전체집결(2줄 정렬) / 강당 착석" },
+        { val: "535", label: "🧪 [미리보기] 08:55 — 저학년 0회차(꿈나무관 좌측부터 2줄 정렬) / 고학년 강당 착석" },
         { val: "545", label: "🧪 [미리보기] 09:05 — 저학년 1회차 / 고학년 공연" },
         { val: "565", label: "🧪 [미리보기] 09:25 — 저학년 3회차 부스 체험" },
         { val: "610", label: "🧪 [미리보기] 10:10 — 저학년 7회차 부스 체험" },
         { val: "665", label: "🧪 [미리보기] 11:05 — 저학년 12회차 마지막 부스" },
-        { val: "685", label: "🧪 [미리보기] 11:25 — 고학년 운동장 1차 전체집결(2줄 정렬)" },
+        { val: "685", label: "🧪 [미리보기] 11:25 — 고학년 0회차(꿈나무관 좌측부터 2줄 정렬)" },
         { val: "695", label: "🧪 [미리보기] 11:35 — 고학년 1차 1회차 / 저학년 점심" },
         { val: "715", label: "🧪 [미리보기] 11:55 — 고학년 1차 3회차 / 저학년 점심" },
         { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(5회차 자동전환) / 저학년 공연" },
@@ -2624,14 +2648,14 @@
     // Checklist state persistence
     let savedChecks = {};
     try {
-      savedChecks = JSON.parse(localStorage.getItem("scifest_checks_2026")) || {};
+      savedChecks = JSON.parse(safeGetStorage("scifest_checks_2026")) || {};
     } catch (e) {
       savedChecks = {};
     }
 
     function toggleSavedCheck(key, checked) {
       savedChecks[key] = !!checked;
-      localStorage.setItem("scifest_checks_2026", JSON.stringify(savedChecks));
+      safeSetStorage("scifest_checks_2026", JSON.stringify(savedChecks));
       syncStaticCheckboxes();
     }
 
@@ -2649,7 +2673,7 @@
     };
     let audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
     try {
-      const parsedAud = JSON.parse(localStorage.getItem("scifest_aud_seats_2026"));
+      const parsedAud = JSON.parse(safeGetStorage("scifest_aud_seats_2026"));
       if (
         parsedAud &&
         Array.isArray(parsedAud[1]) && parsedAud[1].length === 12 && parsedAud[1].every(x => typeof x === "string" && /^[4-6]-[1-4]$/.test(x)) &&
@@ -2693,7 +2717,7 @@
 
     function persistClassSelection() {
       const cls = getSelectedClassName();
-      localStorage.setItem("scifest_my_class_2026", cls);
+      safeSetStorage("scifest_my_class_2026", cls);
       const mobileLink = document.querySelector(".btn-mobile-link");
       if (mobileLink) {
         mobileLink.setAttribute("href", `mobile.html?class=${cls}`);
@@ -2743,7 +2767,7 @@
       const parts = className.split("-");
       currentGrade = parseInt(parts[0], 10);
       currentClassNum = parseInt(parts[1], 10);
-      if (targetRound) {
+      if (targetRound !== undefined && targetRound !== null) {
         manualRoundOverride = true;
         mySelectedRound = targetRound;
       } else {
@@ -2792,9 +2816,9 @@
       const round5Prog = programs[round5Booth - 1];
       const studentCount = currentGrade === 1 ? "약 16명 (학년 64명)" : "약 20명 (학년 80명)";
       const groupClasses = low ? LOW_CLASSES : HIGH_CLASSES;
-      const lineupOrder = groupClasses.indexOf(cls) + 1; // 1..12 from left
-      const leftNeighbor = lineupOrder > 1 ? `${groupClasses[lineupOrder - 2]}반` : "운동장 왼쪽 끝";
-      const rightNeighbor = lineupOrder < 12 ? `${groupClasses[lineupOrder]}반` : "운동장 오른쪽 끝";
+      const lineupOrder = groupClasses.indexOf(cls) + 1; // 1..12 from left facing 꿈나무관
+      const leftNeighbor = lineupOrder > 1 ? `${groupClasses[lineupOrder - 2]}반` : "꿈나무관 기준 좌측 끝";
+      const rightNeighbor = lineupOrder < 12 ? `${groupClasses[lineupOrder]}반` : "꿈나무관 기준 우측 끝";
 
       // 1. Hero Banner
       const heroEl = document.getElementById("myClassHero");
@@ -2802,15 +2826,15 @@
         heroEl.innerHTML = `
           <div class="class-hero-left">
             <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 이동 안내</h2>
-            <p>저학년군 (1~3학년) · 학급 인원 ${studentCount} · <strong>08:55 운동장 전체집결(2줄 정렬) 후 부스 이동</strong></p>
+            <p>저학년군 (1~3학년) · 학급 인원 ${studentCount} · <strong>[0회차] 08:55 꿈나무관을 바라보고 좌측부터 2줄 정렬 후 부스 이동</strong></p>
           </div>
           <div class="class-hero-badges">
             <div class="hero-Point-card highlight">
-              <div class="p-label">① 08:55 운동장 전체집결 위치</div>
-              <div class="p-val">왼쪽에서 ${lineupOrder}번째 (2줄 정렬)</div>
+              <div class="p-label">① [0회차] 08:55 운동장 집결 위치</div>
+              <div class="p-val">꿈나무관 바라보고 좌측 ${lineupOrder}번째 (2줄)</div>
             </div>
             <div class="hero-Point-card highlight" style="background:#bae6fd; border-color:#38bdf8;">
-              <div class="p-label">② 전체 안내 후 첫 이동 부스</div>
+              <div class="p-label">② 안내 후 1회차 이동 부스</div>
               <div class="p-val">${firstBooth}번 부스 (${firstProg.name})</div>
             </div>
             <div class="hero-Point-card">
@@ -2823,7 +2847,7 @@
         heroEl.innerHTML = `
           <div class="class-hero-left">
             <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 이동 안내</h2>
-            <p>고학년군 (4~6학년) · 학급 인원 ${studentCount} · <strong>11:25 운동장 전체집결(2줄 정렬) 후 1차 부스 시작</strong></p>
+            <p>고학년군 (4~6학년) · 학급 인원 ${studentCount} · <strong>[0회차] 11:25 꿈나무관을 바라보고 좌측부터 2줄 정렬 후 1차 부스 시작</strong></p>
           </div>
           <div class="class-hero-badges">
             <div class="hero-Point-card">
@@ -2831,8 +2855,8 @@
               <div class="p-val">09:00 ~ 09:50 관람</div>
             </div>
             <div class="hero-Point-card highlight">
-              <div class="p-label">① 11:25 전체집결(2줄) → ② 1차 부스</div>
-              <div class="p-val">좌측 ${lineupOrder}번째 정렬 → ${firstBooth}번(${firstProg.name})</div>
+              <div class="p-label">① [0회차] 11:25 집결 → ② 1회차 부스</div>
+              <div class="p-val">꿈나무관 좌측 ${lineupOrder}번째(2줄) → ${firstBooth}번</div>
             </div>
             <div class="hero-Point-card highlight" style="background:#fef08a;">
               <div class="p-label">🔔 12:55 점심 후 2차 재집결 부스</div>
@@ -2849,8 +2873,8 @@
           <div class="alert-box alert-info">
             <div style="font-size:1.3rem;">📢</div>
             <div>
-              <strong>[${cls} 담임선생님 핵심 안내 — 운동장 최초 도착 시 바로 첫 부스로 가지 않습니다!]</strong><br/>
-              • <strong>08:55까지(시작 5분 전)</strong> 개인 가방(결과물 4종 보관용)을 지참하여 <strong>운동장에 먼저 전체 집결(운동장 기준 왼쪽 1-1반부터 순서대로, ${cls}반은 왼쪽에서 ${lineupOrder}번째에 2줄 정렬)</strong>해 주세요.<br/>
+              <strong>[${cls} 담임선생님 핵심 안내 — 0회차 운동장 도착 시 바로 첫 부스로 가지 않습니다!]</strong><br/>
+              • <strong>[0회차: 08:55~09:00]</strong> 개인 가방(결과물 4종 보관용)을 지참하여 <strong>운동장에 먼저 전체 집결(꿈나무관을 바라보고 좌측부터 1-1반을 시작으로 순서대로, ${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬)</strong>해 주세요.<br/>
               • 운동장에서 <strong>전체 안내사항을 전달받은 후</strong> 우리 반 1회차 부스인 <strong>[${firstBooth}번 부스: ${firstProg.name}]</strong>로 이동하여 09:00~11:10 동안 12개 부스를 체험합니다.<br/>
               • 부스 종료 후 <strong>11:20~12:10 점심식사 및 강당 이동(12:05까지 착석 완료)</strong>, 12:10~13:00 과학공연 관람 순으로 진행됩니다.
             </div>
@@ -2862,33 +2886,33 @@
           <div class="alert-box alert-important">
             <div style="font-size:1.3rem;">⚠️</div>
             <div>
-              <strong>[${cls} 담임선생님 핵심 안내 — 11:25 최초 전체 집결(2줄 정렬) 및 점심 후 5회차 위치 주의!]</strong><br/>
+              <strong>[${cls} 담임선생님 핵심 안내 — 0회차(11:25) 전체 집결·2줄 정렬 및 점심 후 5회차 위치 주의!]</strong><br/>
               • <strong>08:50까지 강당</strong>에 착석하여 1차 과학공연(09:00~09:50)을 관람한 뒤, <strong>09:50~11:20에는 교실에서 2·3교시 수업</strong>을 진행합니다.<br/>
-              • <strong>11:25까지(시작 5분 전)</strong> 바로 부스로 가지 않고 <strong>운동장에 먼저 전체 집결(운동장 기준 왼쪽 4-1반부터 순서대로, ${cls}반은 왼쪽에서 ${lineupOrder}번째에 2줄 정렬)</strong>하여 안내사항을 들은 뒤 <strong>1회차 부스(${firstBooth}번 ${firstProg.name})</strong>로 이동합니다. (1차 4개 부스: ${firstBooth}번→${round4Booth}번)<br/>
+              • <strong>[0회차: 11:25~11:30]</strong> 바로 부스로 가지 않고 <strong>운동장에 먼저 전체 집결(꿈나무관을 바라보고 좌측부터 4-1반을 시작으로 순서대로, ${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬)</strong>하여 안내사항을 들은 뒤 <strong>1회차 부스(${firstBooth}번 ${firstProg.name})</strong>로 이동합니다. (1차 4개 부스: ${firstBooth}번→${round4Booth}번)<br/>
               • <strong>12:10~13:00 점심식사 후 12:55까지</strong>는 오전 첫 부스가 아닌 <strong>5회차 배정 부스인 [${round5Booth}번 부스: ${round5Prog.name}]</strong> 앞으로 재집결해 주세요!
             </div>
           </div>
         `;
       }
 
-      // 2.2 Playground Initial Gathering & 2-Row Lineup Visual Guide
+      // 2.2 Playground Initial Gathering & 2-Row Lineup Visual Guide (Round 0)
       const lineupEl = document.getElementById("myClassLineupGuide");
       if (lineupEl) {
-        const gatherTimeStr = low ? "08:55까지 (09:00 시작 5분 전)" : "11:25까지 (11:30 1차 시작 5분 전)";
-        const rangeStr = low ? "왼쪽 1-1반 ~ 오른쪽 끝 3-4반" : "왼쪽 4-1반 ~ 오른쪽 끝 6-4반";
+        const gatherTimeStr = low ? "0회차: 08:55~09:00 (시작 5분 전)" : "0회차: 11:25~11:30 (1차 시작 5분 전)";
+        const rangeStr = low ? "꿈나무관을 바라보고 좌측 1-1반 ~ 우측 끝 3-4반" : "꿈나무관을 바라보고 좌측 4-1반 ~ 우측 끝 6-4반";
         const colsHtml = groupClasses.map((cName, idx) => {
           const isMe = cName === cls;
           const bNum = getBoothForClassAtRound(cName, 1);
           return `
-            <div class="lineup-col-card ${isMe ? 'my-lineup-col' : ''}" onclick="selectClassDirect('${cName}', 1, false)" title="${cName}반 선택 (전체 안내 후 ${bNum}번 부스 이동)">
-              <span class="lineup-pos-tag">${idx === 0 ? '⬅️ 왼쪽 끝' : (idx === 11 ? '오른쪽 끝 ➡️' : `좌측 ${idx + 1}번째`)}</span>
+            <div class="lineup-col-card ${isMe ? 'my-lineup-col' : ''}" onclick="selectClassDirect('${cName}', 0, false)" title="${cName}반 0회차 선택 (전체 안내 후 ${bNum}번 부스 이동)">
+              <span class="lineup-pos-tag">${idx === 0 ? '⬅️ 꿈나무관 좌측끝' : (idx === 11 ? '우측 끝 ➡️' : `좌측 ${idx + 1}번째`)}</span>
               <div class="lineup-cls-title">${cName}반</div>
               <div class="lineup-two-lines">
                 <div class="lineup-line-bar">1줄</div>
                 <div class="lineup-line-bar">2줄</div>
               </div>
               <div style="font-size:0.66rem; font-weight:800; color:#475569;">2줄 정렬</div>
-              <div class="lineup-target-booth">안내후→${bNum}번</div>
+              <div class="lineup-target-booth">1회차→${bNum}번</div>
             </div>
           `;
         }).join("");
@@ -2897,19 +2921,24 @@
           <div class="lineup-guide-box">
             <div class="lineup-guide-header">
               <div class="lineup-guide-title">
-                🚩 [${cls}반] 운동장 최초 집결 시 학급별 2줄 정렬 위치 안내 (${gatherTimeStr})
+                🚩 [0회차 · ${cls}반] 꿈나무관을 바라보고 좌측부터 학급별 2줄 정렬 위치 안내 (${gatherTimeStr})
               </div>
               <div class="lineup-step-pills">
-                <span class="lineup-step-pill">① ${gatherTimeStr} 2줄 정렬</span>
+                <span class="lineup-step-pill">① [${gatherTimeStr}] 꿈나무관 좌측부터 2줄 정렬</span>
                 <span>➔</span>
                 <span class="lineup-step-pill" style="background:#0369a1;">② 전체 안내사항 전달</span>
                 <span>➔</span>
-                <span class="lineup-step-pill step2">③ ${firstBooth}번 부스(${firstProg.name})로 이동</span>
+                <span class="lineup-step-pill step2">③ [1회차] ${firstBooth}번 부스(${firstProg.name}) 이동</span>
               </div>
             </div>
             <div style="font-size:0.88rem; color:#0f172a; line-height:1.5;">
-              • 운동장 도착 시 <strong>바로 첫 번째 부스(${firstBooth}번)로 이동하지 않고</strong>, 먼저 운동장 기준 <strong>${rangeStr} 순서대로 각 반 2줄씩 정렬</strong>합니다.<br/>
-              • <strong>우리 반(${cls}반) 정렬 위치</strong>: 운동장 기준 <strong style="color:#0369a1; background:#e0f2fe; padding:1px 7px; border-radius:4px;">왼쪽에서 ${lineupOrder}번째 (${leftNeighbor}과 ${rightNeighbor} 사이) · 2줄씩 정렬</strong> → 전체 안내사항 청취 후 <strong>${firstBooth}번 부스(${firstProg.name})</strong>로 이동!
+              • <strong>[0회차 전체집결]</strong> 운동장 도착 시 <strong>바로 첫 번째 부스(${firstBooth}번)로 이동하지 않고</strong>, 먼저 <strong>${rangeStr} 순서대로 각 반 2줄씩 정렬</strong>합니다.<br/>
+              • <strong>우리 반(${cls}반) 0회차 정렬 위치</strong>: <strong style="color:#0369a1; background:#e0f2fe; padding:1px 7px; border-radius:4px;">꿈나무관을 바라보고 좌측에서 ${lineupOrder}번째 (${leftNeighbor}과 ${rightNeighbor} 사이) · 2줄씩 정렬</strong> → 전체 안내사항 청취 후 <strong>1회차 ${firstBooth}번 부스(${firstProg.name})</strong>로 이동!
+            </div>
+            <div style="margin-top:10px; background:#0f172a; color:#fff; text-align:center; padding:7px 12px; border-radius:8px; font-weight:900; font-size:0.82rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+              <span style="color:#fde68a;">⬅️ 꿈나무관을 바라보고 좌측 (${low ? '1-1반' : '4-1반'} 시작)</span>
+              <span>🏛️ 정면 기준: 꿈나무관 (꿈나무관을 바라보고 정렬)</span>
+              <span style="color:#fde68a;">꿈나무관을 바라보고 우측 끝 (${low ? '3-4반' : '6-4반'}) ➡️</span>
             </div>
             <div class="lineup-grid-12">
               ${colsHtml}
@@ -3012,10 +3041,10 @@
                   <tr class="diff-row-highlight">
                     <td><strong>2~3교시</strong></td>
                     <td>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
-                    <td><strong>09:50 ~ 11:20 교실수업</strong><br/><strong style="color:#dc2626;">(11:25 운동장 전체집결)</strong></td>
+                    <td><strong>09:50 ~ 11:20 교실수업</strong><br/><strong style="color:#dc2626;">(11:25 0회차 전체집결)</strong></td>
                     <td style="text-align:left;">
-                      <span class="diff-badge warn">⚠️ 3교시 종료(11:20) 직후 운동장 전체 집결(2줄 정렬)</span><br/>
-                      2·3교시는 정상 수업하되, 3교시 종료 후 쉬는시간(11:20~11:30)에 <strong>11:25까지 운동장 전체 집결(좌측에서 ${lineupOrder}번째 2줄 정렬 → 안내 후 ${firstBooth}번 부스 이동)</strong>합니다.
+                      <span class="diff-badge warn">⚠️ 3교시 종료(11:20) 직후 [0회차] 운동장 전체 집결(2줄 정렬)</span><br/>
+                      2·3교시는 정상 수업하되, 3교시 종료 후 쉬는시간(11:20~11:30)에 <strong>11:25까지 [0회차] 운동장 전체 집결(꿈나무관을 바라보고 좌측에서 ${lineupOrder}번째 2줄 정렬 → 안내 후 ${firstBooth}번 부스 이동)</strong>합니다.
                     </td>
                   </tr>
                   <tr>
@@ -3056,13 +3085,13 @@
       if (low) {
         tlEl.innerHTML = `
           <div class="timeline-item type-prep" style="border:2px solid #0284c7;">
-            <div class="tl-time">08:55 집결 완료<br/><span style="font-size:0.74rem; color:#0369a1;">(시작 5분 전)</span></div>
+            <div class="tl-time">[0회차] 08:55~09:00<br/><span style="font-size:0.74rem; color:#0369a1;">(08:55 집결 완료)</span></div>
             <div class="tl-content">
               <div class="tl-title">
-                🚩 운동장 전체 집결 및 2줄 정렬 → 안내 후 <span style="color:#1e40af;">${firstBooth}번 부스 (${firstProg.name})</span> 이동
+                🚩 [0회차] 꿈나무관을 바라보고 좌측부터 2줄 정렬 → 안내 후 <span style="color:#1e40af;">1회차 ${firstBooth}번 부스 (${firstProg.name})</span> 이동
               </div>
               <div class="tl-desc">
-                <strong>바로 부스로 가지 않고</strong> 운동장 기준 <strong>왼쪽(1-1)~오른쪽(3-4) 순서로 각 반 2줄 정렬(${cls}반: 왼쪽에서 ${lineupOrder}번째)</strong> → 전체 안내사항 전달 후 ${firstBooth}번 부스로 이동
+                <strong>바로 부스로 가지 않고</strong> <strong>꿈나무관을 바라보고 좌측(1-1반)~우측 끝(3-4반) 순서로 각 반 2줄 정렬(${cls}반: 좌측에서 ${lineupOrder}번째)</strong> → 전체 안내사항 전달 후 ${firstBooth}번 부스로 이동
               </div>
             </div>
           </div>
@@ -3136,14 +3165,14 @@
             </div>
           </div>
           <div class="timeline-item type-class" style="border:2px solid #0284c7;">
-            <div class="tl-time">09:50 ~ 11:20<br/><span style="font-size:0.76rem; color:#dc2626;">(11:25 전체집결)</span></div>
+            <div class="tl-time">09:50 ~ 11:20<br/><span style="font-size:0.76rem; color:#dc2626;">([0회차] 11:25 집결)</span></div>
             <div class="tl-content">
               <div class="tl-title">
-                📚 2교시(09:50~10:30) · 3교시(10:40~11:20) 교실 수업 후 운동장 전체 집결
-                <span class="diff-badge warn">⚠️ 11:25(5분 전) 운동장 2줄 정렬 집결</span>
+                📚 2교시(09:50~10:30) · 3교시(10:40~11:20) 교실 수업 후 [0회차] 운동장 전체 집결
+                <span class="diff-badge warn">⚠️ 11:25(5분 전) 꿈나무관 기준 좌측부터 2줄 정렬</span>
               </div>
               <div class="tl-desc">
-                <strong>바로 부스로 가지 않고</strong> 11:25까지 운동장 기준 <strong>왼쪽(4-1)~오른쪽(6-4) 순서로 각 반 2줄 정렬(${cls}반: 왼쪽에서 ${lineupOrder}번째)</strong> → 전체 안내사항 청취 후 <strong>${firstBooth}번 부스</strong>로 이동
+                <strong>바로 부스로 가지 않고</strong> 11:25까지 <strong>꿈나무관을 바라보고 좌측(4-1반)~우측 끝(6-4반) 순서로 각 반 2줄 정렬(${cls}반: 좌측에서 ${lineupOrder}번째)</strong> → 전체 안내사항 청취 후 <strong>1회차 ${firstBooth}번 부스</strong>로 이동
               </div>
             </div>
           </div>
@@ -3218,11 +3247,29 @@
       const low = isLowGrade(currentGrade);
       const programs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
       const times = low ? LOW_TIMES : HIGH_TIMES;
+      const firstBooth = getBoothForClassAtRound(cls, 1);
+      const firstProg = programs[firstBooth - 1];
       const round5Booth = getBoothForClassAtRound(cls, 5);
       const round5Prog = programs[round5Booth - 1];
+      const groupClasses = low ? LOW_CLASSES : HIGH_CLASSES;
+      const lineupOrd = groupClasses.indexOf(cls) + 1;
+      const round0Time = low ? "08:55 ~ 09:00" : "11:25 ~ 11:30";
+      const isRound0Selected = mySelectedRound === 0;
 
       const tbody = document.getElementById("myClassBoothTbody");
-      let rowsHtml = "";
+      let rowsHtml = `
+        <tr style="${isRound0Selected ? 'background:#dbeafe; font-weight:800;' : 'background:#f0f9ff; cursor:pointer;'}" onclick="setMyRound(0)">
+          <td><strong style="color:#0369a1;">0회차</strong><span style="color:#0284c7;font-size:0.72rem;display:block;font-weight:800;">(전체집결)</span></td>
+          <td><strong>${round0Time}</strong><span style="display:block;font-size:0.7rem;color:#0369a1;">(시작 5분전)</span></td>
+          <td><span style="display:inline-block; background:#0284c7; color:#fff; font-weight:800; padding:2px 6px; border-radius:6px; font-size:0.76rem;">좌측 ${lineupOrd}번째</span></td>
+          <td style="text-align:left; padding-left:12px;">
+            <strong style="color:#0369a1;">운동장 0회차 전체집결 (꿈나무관을 바라보고 좌측부터 ${low ? '1-1반' : '4-1반'} 순 2줄 정렬)</strong>
+            <span style="display:block; font-size:0.76rem; color:#0f172a; font-weight:700;">우리 반(${cls}반): 꿈나무관 바라보고 좌측에서 ${lineupOrd}번째 2줄 정렬 → 전체 안내 후 ${firstBooth}번 부스(${firstProg.name}) 이동</span>
+          </td>
+          <td><span class="badge" style="background:#e0f2fe; color:#0369a1; border:1px solid #38bdf8;">🚩 2줄정렬</span></td>
+          <td><strong>→ ${firstBooth}번</strong></td>
+        </tr>
+      `;
       for (let r = 1; r <= 12; r++) {
         if (!low && r === 5) {
           rowsHtml += `
@@ -3273,37 +3320,57 @@
       const low = isLowGrade(currentGrade);
       const programs = low ? LOW_PROGRAMS : HIGH_PROGRAMS;
       const times = low ? LOW_TIMES : HIGH_TIMES;
+      const groupClasses = low ? LOW_CLASSES : HIGH_CLASSES;
+      const lineupOrd = groupClasses.indexOf(cls) + 1;
+      const firstBooth = getBoothForClassAtRound(cls, 1);
+      const firstProg = programs[firstBooth - 1];
+      const round0Time = low ? "08:55 ~ 09:00" : "11:25 ~ 11:30";
 
-      const curBooth = getBoothForClassAtRound(cls, mySelectedRound);
-      const nextBooth = mySelectedRound < 12 ? getBoothForClassAtRound(cls, mySelectedRound + 1) : null;
-      const curProg = programs[curBooth - 1];
+      const isRound0 = mySelectedRound === 0;
+      const curBooth = isRound0 ? null : getBoothForClassAtRound(cls, mySelectedRound);
+      const nextBooth = isRound0
+        ? firstBooth
+        : (mySelectedRound < 12 ? getBoothForClassAtRound(cls, mySelectedRound + 1) : null);
+      const curProg = curBooth ? programs[curBooth - 1] : null;
 
-      document.getElementById("mapRoundInfo").innerHTML = `
-        [${cls}] <strong>${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> 위치:
-        <span style="background:#1e40af; color:#fff; padding:2px 8px; border-radius:6px;">${curBooth}번 ${curProg.name}</span>
-        ${nextBooth ? ` → 다음 이동: <strong>${nextBooth}번</strong>` : ' (마지막 회차)'}
-      `;
+      if (isRound0) {
+        document.getElementById("mapRoundInfo").innerHTML = `
+          [${cls}] <strong>0회차 (${round0Time})</strong> 위치:
+          <span style="background:#0284c7; color:#fff; padding:2px 8px; border-radius:6px;">🚩 꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 (2줄 정렬)</span>
+          → 안내 후 1회차 이동: <strong>${firstBooth}번 (${firstProg.name})</strong>
+        `;
+      } else {
+        document.getElementById("mapRoundInfo").innerHTML = `
+          [${cls}] <strong>${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> 위치:
+          <span style="background:#1e40af; color:#fff; padding:2px 8px; border-radius:6px;">${curBooth}번 ${curProg.name}</span>
+          ${nextBooth ? ` → 다음 이동: <strong>${nextBooth}번</strong>` : ' (마지막 회차)'}
+        `;
+      }
 
-      // Stepper buttons 1..12
-      let stepHtml = "";
+      // Stepper buttons 0..12
+      let stepHtml = `<button type="button" class="step-btn ${isRound0 ? 'active' : ''}" onclick="setMyRound(0)">0회(집결)</button>`;
       for (let r = 1; r <= 12; r++) {
-        stepHtml += `<button class="step-btn ${r === mySelectedRound ? 'active' : ''}" onclick="setMyRound(${r})">${r}회</button>`;
+        stepHtml += `<button type="button" class="step-btn ${r === mySelectedRound ? 'active' : ''}" onclick="setMyRound(${r})">${r}회</button>`;
       }
       document.getElementById("myMapStepper").innerHTML = stepHtml;
 
       // Grid
       const gridEl = document.getElementById("myPlaygroundGrid");
+      const centerStatusHtml = isRound0
+        ? `현재 선택: <strong>${cls} · 0회차 (${round0Time})</strong> — <strong style="color:#0369a1;">꿈나무관을 바라보고 좌측부터 ${lineupOrd}번째 2줄 정렬</strong> 후 전체 안내 뒤 <strong>1회차 ${firstBooth}번(${firstProg.name})</strong> 이동`
+        : `현재 선택: <strong>${cls} · ${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> — <strong>${curBooth}번 부스 (${curProg.name})</strong> 체험 중`;
+
       let html = `
         <div class="guryeongdae">
           📢 구령대<br/><span style="font-size:0.72rem; font-weight:600;">(진행 본부)</span>
         </div>
         <div class="center-field-guide">
-          <div class="clockwise-arrow-banner">↻ 진행 방향: 구령대 중심 시계 방향 (1번 → 2번 → … → 12번 → 1번)</div>
+          <div class="clockwise-arrow-banner">↻ 진행 방향: 구령대 중심 시계 방향 (0회차: 꿈나무관 바라보고 좌측 ${low ? '1-1' : '4-1'}부터 2줄 정렬 → 1번→12번→1번)</div>
           <div style="font-size:0.86rem; color:#334155; margin-top:4px;">
-            현재 선택: <strong>${cls} · ${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> — <strong>${curBooth}번 부스 (${curProg.name})</strong> 체험 중
+            ${centerStatusHtml}
           </div>
           <div style="font-size:0.78rem; color:#64748b;">
-            (부스 카드를 클릭하거나 상단 1~12회 버튼을 눌러 회차별 위치를 확인하세요 · 12번 종료 후 1번으로 이동)
+            (부스 카드를 클릭하거나 상단 0회~12회 버튼을 눌러 회차별 위치를 확인하세요 · 12번 종료 후 1번으로 이동)
           </div>
         </div>
       `;
@@ -3361,27 +3428,42 @@
       const programs = simGroup === "low" ? LOW_PROGRAMS : HIGH_PROGRAMS;
       const times = simGroup === "low" ? LOW_TIMES : HIGH_TIMES;
       const groupTitle = simGroup === "low" ? "저학년(1~3학년)" : "고학년(4~6학년)";
+      const round0Time = simGroup === "low" ? "08:55 ~ 09:00" : "11:25 ~ 11:30";
+      const startCls = simGroup === "low" ? "1-1반" : "4-1반";
+      const endCls = simGroup === "low" ? "3-4반" : "6-4반";
+      const isSim0 = simRound === 0;
 
-      document.getElementById("simRoundLabel").innerHTML = `
-        <strong>${groupTitle} · ${simRound}회차 (${times[simRound - 1]})</strong> 부스별 배정 학급 현황
-        ${(simGroup === 'high' && simRound === 5) ? '<span style="color:#dc2626; margin-left:8px;">(※ 점심식사 직후 13:00 재집결 위치)</span>' : ''}
-      `;
+      if (isSim0) {
+        document.getElementById("simRoundLabel").innerHTML = `
+          <strong>${groupTitle} · 0회차 (${round0Time})</strong> 운동장 전체집결 (꿈나무관을 바라보고 좌측부터 ${startCls}~${endCls} 2줄 정렬 후 1회차 부스 이동)
+        `;
+      } else {
+        document.getElementById("simRoundLabel").innerHTML = `
+          <strong>${groupTitle} · ${simRound}회차 (${times[simRound - 1]})</strong> 부스별 배정 학급 현황
+          ${(simGroup === 'high' && simRound === 5) ? '<span style="color:#dc2626; margin-left:8px;">(※ 점심식사 직후 13:00 재집결 위치)</span>' : ''}
+        `;
+      }
 
-      let stepHtml = "";
+      let stepHtml = `<button type="button" class="step-btn ${isSim0 ? 'active' : ''}" onclick="setSimRound(0)">0회(집결)</button>`;
       for (let r = 1; r <= 12; r++) {
-        stepHtml += `<button class="step-btn ${r === simRound ? 'active' : ''}" onclick="setSimRound(${r})">${r}회</button>`;
+        stepHtml += `<button type="button" class="step-btn ${r === simRound ? 'active' : ''}" onclick="setSimRound(${r})">${r}회</button>`;
       }
       document.getElementById("simRoundStepper").innerHTML = stepHtml;
 
       const selectedCls = getSelectedClassName();
+      const effRound = isSim0 ? 1 : simRound;
+      const simCenterText = isSim0
+        ? `<strong>${groupTitle} 0회차 (${round0Time})</strong> — 꿈나무관을 바라보고 좌측(${startCls})부터 우측 끝(${endCls})까지 2줄 정렬 후 아래 1회차 부스로 이동합니다.`
+        : `<strong>${groupTitle} ${simRound}회차 (${times[simRound - 1]})</strong> — 각 부스에 위치한 학급이 표시되어 있습니다.`;
+
       let html = `
         <div class="guryeongdae">
           📢 구령대<br/><span style="font-size:0.72rem; font-weight:600;">(진행 본부)</span>
         </div>
         <div class="center-field-guide">
-          <div class="clockwise-arrow-banner">↻ 시계 방향 동시 이동 (1번 → 2번 → … → 12번 → 1번)</div>
+          <div class="clockwise-arrow-banner">↻ 시계 방향 동시 이동 (0회차: 꿈나무관 바라보고 좌측 ${startCls}부터 2줄 정렬 → 1번→12번→1번)</div>
           <div style="font-size:0.88rem; color:#1e293b; margin-top:4px;">
-            <strong>${groupTitle} ${simRound}회차 (${times[simRound - 1]})</strong> — 각 부스에 위치한 학급이 표시되어 있습니다.
+            ${simCenterText}
           </div>
           <div style="font-size:0.78rem; color:#64748b;">
             (부스를 클릭하면 해당 학급의 맞춤 동선 화면으로 바로 이동합니다)
@@ -3392,8 +3474,9 @@
       for (let b = 1; b <= 12; b++) {
         const pos = BOOTH_GRID_POS[b];
         const prog = programs[b - 1];
-        const clsAtBooth = getClassAtBoothAndRound(simGroup, b, simRound);
+        const clsAtBooth = getClassAtBoothAndRound(simGroup, b, effRound);
         const isMySelectedClass = clsAtBooth === selectedCls;
+        const badgeText = isSim0 ? `좌측${b}번째(${clsAtBooth}반)→1회차` : `${clsAtBooth}반`;
 
         html += `
           <div class="booth-node ${prog.type === '결과물' ? 'is-craft' : ''} ${isMySelectedClass ? 'active-current' : ''}"
@@ -3401,7 +3484,7 @@
                onclick="selectClassDirect('${clsAtBooth}', ${simRound}, true)">
             <span class="b-num">${b}번 ${prog.type === '결과물' ? '🎁' : ''}</span>
             <div class="b-name">${prog.name}</div>
-            <div class="b-class-tag" style="font-size:0.85rem; padding:3px 10px;">${clsAtBooth}반</div>
+            <div class="b-class-tag" style="font-size:${isSim0 ? '0.72rem' : '0.85rem'}; padding:3px 8px;">${badgeText}</div>
           </div>
         `;
       }
@@ -3412,6 +3495,7 @@
     function buildMasterTableHtml(group, highlightClass, interactive) {
       const programs = group === "low" ? LOW_PROGRAMS : HIGH_PROGRAMS;
       const times = group === "low" ? LOW_TIMES : HIGH_TIMES;
+      const round0Time = group === "low" ? "08:55 ~ 09:00" : "11:25 ~ 11:30";
       let html = `
         <thead>
           <tr>
@@ -3421,7 +3505,18 @@
           </tr>
         </thead>
         <tbody>
+          <tr style="background:#f0f9ff;">
+            <td><strong style="color:#0369a1;">0회(집결)</strong></td>
+            <td><strong style="color:#0369a1;">${round0Time}</strong><br/><span style="font-size:0.68rem; color:#0284c7; font-weight:800;">꿈나무관 좌측부터 2줄</span></td>
       `;
+      for (let b = 1; b <= 12; b++) {
+        const c = getClassAtBoothAndRound(group, b, 1);
+        const g = c.split("-")[0];
+        const isHi = highlightClass && c === highlightClass;
+        const clickAttr = interactive ? `style="cursor:pointer;" onclick="selectClassDirect('${c}', 0, false)"` : "";
+        html += `<td class="cell-class cell-g${g} ${isHi ? 'cell-highlight' : ''}" ${clickAttr} title="꿈나무관을 바라보고 좌측에서 ${b}번째 2줄 정렬 후 ${b}번 부스 이동">${c}<br/><span style="font-size:0.64rem; font-weight:700; opacity:0.85;">(좌${b}·2줄)</span></td>`;
+      }
+      html += `</tr>`;
       for (let r = 1; r <= 12; r++) {
         if (group === "high" && r === 5) {
           html += `
@@ -3472,7 +3567,7 @@
         arr[swapSourceIndex] = arr[idx];
         arr[idx] = tmp;
         swapSourceIndex = null;
-        localStorage.setItem("scifest_aud_seats_2026", JSON.stringify(audSeats));
+        safeSetStorage("scifest_aud_seats_2026", JSON.stringify(audSeats));
       }
       renderAudSeats();
       renderPrintSheets();
@@ -3481,7 +3576,7 @@
     function resetAudSeats() {
       audSeats = JSON.parse(JSON.stringify(defaultAudSeats));
       swapSourceIndex = null;
-      localStorage.removeItem("scifest_aud_seats_2026");
+      safeRemoveStorage("scifest_aud_seats_2026");
       renderAudSeats();
       renderPrintSheets();
     }
@@ -3554,9 +3649,19 @@
       const round5Booth = getBoothForClassAtRound(cls, 5);
       const round5Prog = programs[round5Booth - 1];
       const lineupOrd = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(cls) + 1;
+      const round0Time = low ? "08:55~09:00" : "11:25~11:30";
 
       // 1. Single Class A4 Sheet
-      let classRows = "";
+      let classRows = `
+        <tr style="background:#f0f9ff;">
+          <td><strong>0회차</strong></td>
+          <td><strong>${round0Time}</strong></td>
+          <td><strong>전체집결</strong></td>
+          <td style="text-align:left; padding-left:8px;"><strong>운동장 0회차 전체집결</strong> (꿈나무관을 바라보고 좌측부터 ${lineupOrd}번째 · 2줄 정렬 후 전체 안내 청취)</td>
+          <td>🚩 2줄 정렬</td>
+          <td>→ ${firstBooth}번 부스</td>
+        </tr>
+      `;
       for (let r = 1; r <= 12; r++) {
         if (!low && r === 5) {
           classRows += `
@@ -3587,7 +3692,7 @@
             <h1 style="font-size:18px; font-weight:900;">[${currentGrade}학년 ${currentClassNum}반 (${cls})] 과학 체험의 날 이동 동선 및 시간표</h1>
           </div>
           <div style="text-align:right; font-size:10.5px; font-weight:800;">
-            ① 최초 전체집결(${low ? '08:55' : '11:25'}): 운동장 좌측에서 ${lineupOrd}번째 (2줄 정렬)<br/>
+            ① 0회차 전체집결(${low ? '08:55' : '11:25'}): 꿈나무관 바라보고 좌측에서 ${lineupOrd}번째 (2줄 정렬)<br/>
             ② 안내 후 1회차 부스: ${firstBooth}번 (${firstProg.name})
             ${!low ? `<br/>③ 점심 후 12:55 재집결: ${round5Booth}번 부스 (${round5Prog.name})` : ''}
           </div>
@@ -3596,15 +3701,15 @@
         <div style="margin-bottom:8px; padding:7px 10px; border:1.5px solid #0f172a; border-radius:6px; background:#f8fafc;">
           <strong>■ ${cls}반 전체 일과 요약:</strong>
           ${low
-          ? `<strong>08:55 운동장 전체집결(좌측 ${lineupOrd}번째·2줄 정렬 → 안내사항 청취 후 ${firstBooth}번 부스 이동)</strong> → <strong>09:00~11:10 운동장 부스 체험(12종)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong> → <strong>13:10~13:50 5교시 정상 수업</strong>`
-          : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:20 2·3교시 학급 수업</strong> → <strong>11:25 운동장 전체집결(좌측 ${lineupOrd}번째·2줄 정렬 → 안내 후 ${firstBooth}번 부스 이동)</strong> → <strong>11:30~12:10 1차 부스 체험(4종)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(8종)</strong>`
+          ? `<strong>[0회차] 08:55 운동장 전체집결(꿈나무관 바라보고 좌측 ${lineupOrd}번째·2줄 정렬 → 안내사항 청취 후 ${firstBooth}번 부스 이동)</strong> → <strong>09:00~11:10 운동장 부스 체험(1~12회차)</strong> → <strong>11:20~12:10 점심시간 및 강당 이동</strong> (12:05 강당 착석 완료) → <strong>12:10~13:00 강당 과학공연 관람</strong> → <strong>13:10~13:50 5교시 정상 수업</strong>`
+          : `08:50 강당 착석 → <strong>09:00~09:50 강당 과학공연 관람</strong> → <strong>09:50~11:20 2·3교시 학급 수업</strong> → <strong>[0회차] 11:25 운동장 전체집결(꿈나무관 바라보고 좌측 ${lineupOrd}번째·2줄 정렬 → 안내 후 ${firstBooth}번 부스 이동)</strong> → <strong>11:30~12:10 1차 부스 체험(1~4회차)</strong> → <strong>12:10~13:00 점심시간</strong> (12:55 운동장 <strong>${round5Booth}번 부스</strong> 재집결) → <strong>13:00~14:30 2차 부스 체험(5~12회차)</strong>`
         }
         </div>
 
         <div style="margin-bottom:8px; padding:7px 10px; border:2px solid #0284c7; border-radius:6px; background:#f0f9ff; font-size:10px;">
-          <strong style="color:#0369a1;">📢 [유스페이스 추가 안내] 운동장 최초 이동 시 대기 및 2줄 정렬 방법 (필독):</strong><br/>
-          • 운동장에 도착하면 <strong>바로 첫 번째 부스로 이동하는 것이 아니라, 먼저 운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로 이동</strong>합니다.<br/>
-          • <strong>시작 5분 전(${low ? '저학년 08:55' : '고학년 11:25'})까지</strong> 운동장 기준 <strong>왼쪽(${low ? '1-1반' : '4-1반'})부터 오른쪽 끝(${low ? '3-4반' : '6-4반'})까지 순서대로 각 반 2줄씩 정렬</strong>해 주세요. (<strong>${cls}반은 왼쪽에서 ${lineupOrd}번째 위치 · 2줄 정렬</strong> → 안내 후 <strong>${firstBooth}번 부스</strong>로 이동)
+          <strong style="color:#0369a1;">📢 [운동장 0회차 집결 안내] 꿈나무관을 바라보고 좌측부터 학급별 2줄 정렬 방법 (필독):</strong><br/>
+          • 운동장에 도착하면 <strong>바로 첫 번째 부스로 이동하는 것이 아니라, 먼저 [0회차] 운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로 이동</strong>합니다.<br/>
+          • <strong>시작 5분 전(${low ? '저학년 08:55' : '고학년 11:25'})까지</strong> <strong>꿈나무관을 바라보고 좌측(${low ? '1-1반' : '4-1반'})부터 우측 끝(${low ? '3-4반' : '6-4반'})까지 순서대로 각 반 2줄씩 정렬</strong>해 주세요. (<strong>${cls}반은 꿈나무관 기준 좌측에서 ${lineupOrd}번째 위치 · 2줄 정렬</strong> → 안내 후 <strong>${firstBooth}번 부스</strong>로 이동)
         </div>
 
         <div style="margin-bottom:8px; padding:7px 10px; border:2px solid #dc2626; border-radius:6px; background:#fff1f2; font-size:10px;">
@@ -3647,7 +3752,7 @@
           </div>
           <div style="border:1px solid #64748b; padding:8px; border-radius:6px;">
             <strong>■ 담임교사 인솔 유의사항</strong><br/>
-            • <strong>최초 도착(${low ? '08:55' : '11:25'}) 시 바로 부스로 가지 않고</strong> 전체 집결(좌측 ${lineupOrd}번째·2줄 정렬) 후 안내에 따라 ${firstBooth}번 부스 이동<br/>
+            • <strong>[0회차] 최초 도착(${low ? '08:55' : '11:25'}) 시 바로 부스로 가지 않고</strong> 전체 집결(꿈나무관을 바라보고 좌측 ${lineupOrd}번째·2줄 정렬) 후 안내에 따라 ${firstBooth}번 부스 이동<br/>
             • 진행자의 종료/이동 마이크 신호에 맞춰 시계방향(1→12번) 이동<br/>
             • 12번 부스 체험 후에는 좌측 하단 1번 부스로 이동
           </div>
@@ -3679,13 +3784,13 @@
           <tbody>
             <tr>
               <td><strong>09:00 ~ 09:50</strong></td>
-              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>12개 부스 시계방향 로테이션 (종소리 무관 · 기존 3교시보다 10분 조기 종료)</td>
+              <td rowspan="2"><strong>운동장 과학축제 부스 체험 (09:00~11:10)</strong><br/>[0회차 08:55 꿈나무관 기준 좌측 1-1~우측 3-4 2줄 정렬 후 이동] 12개 부스 시계방향 로테이션 (기존 3교시보다 10분 조기 종료)</td>
               <td><strong>강당 과학공연 1차 관람 (09:00~09:50)</strong><br/><strong>※ 기존 1교시(~09:40)보다 10분 연장·쉬는시간 없음</strong></td>
-              <td><strong>저학년 08:55 운동장 2줄 정렬</strong><br/>고학년 08:50 강당 착석</td>
+              <td><strong>저학년 08:55(0회차) 2줄 정렬</strong><br/>고학년 08:50 강당 착석</td>
             </tr>
             <tr>
               <td><strong>09:50 ~ 11:10</strong></td>
-              <td rowspan="2"><strong>고학년 2·3교시 수업 (09:50~11:20)</strong><br/>※ <strong>11:25까지 운동장 전체집결(좌측 4-1~우측 6-4, 반별 2줄 정렬) → 안내 후 첫 부스 이동</strong></td>
+              <td rowspan="2"><strong>고학년 2·3교시 수업 (09:50~11:20)</strong><br/>※ <strong>[0회차] 11:25까지 운동장 전체집결(꿈나무관을 바라보고 좌측 4-1~우측 6-4, 반별 2줄 정렬) → 안내 후 첫 부스 이동</strong></td>
               <td>강당 2차 공연 준비 (09:50~12:10)</td>
             </tr>
             <tr>
@@ -3731,8 +3836,8 @@
               ${audSeats[2].map((c, i) => `${i + 1}열(${c})`).join(" → ")}
           </div>
           <div style="border:1px solid #334155; padding:6px; border-radius:4px;">
-            <strong>5. 교원 인솔 수칙 및 운동장 최초 2줄 정렬 안내</strong><br/>
-            • <strong>[필독] 운동장 최초 집결(저학년 08:55 / 고학년 11:25)</strong>: 바로 첫 부스로 이동하지 않고, <strong>운동장 기준 왼쪽(1-1 / 4-1)부터 오른쪽 끝(3-4 / 6-4)까지 순서대로 각 반 2줄씩 정렬</strong> → 전체 안내사항 전달 후 각 반 1회차 부스로 이동<br/>
+            <strong>5. 교원 인솔 수칙 및 운동장 0회차 2줄 정렬 안내</strong><br/>
+            • <strong>[필독] 운동장 0회차 집결(저학년 08:55 / 고학년 11:25)</strong>: 바로 첫 부스로 이동하지 않고, <strong>꿈나무관을 바라보고 좌측(1-1반 / 4-1반)부터 우측 끝(3-4반 / 6-4반)까지 순서대로 각 반 2줄씩 정렬</strong> → 전체 안내사항 전달 후 각 반 1회차 부스로 이동<br/>
             • <strong>결과물 4종(3·6·9·12번 부스)</strong> 보관을 위해 학생 개인 에코백/비닐백(이름 표기) 지참 지도<br/>
             • <strong>고학년 중식 후 12:55 재집결</strong> 시 11:30 첫 부스가 아닌 <strong>5회차(13:00) 배정 부스</strong>로 집결<br/>
             • 행정 협조: 사전 설치 출입(전일 15시/당일 06시), 종량제 봉투 지급, 강사·스텝 식사 장소 마련(12:10~13:00)
@@ -3769,6 +3874,28 @@
 
     // Initialize on load
     window.addEventListener("DOMContentLoaded", () => {
+      // Explicit event delegation for PC Grade/Class/Tab buttons to guarantee reliable selection
+      const gradePillsEl = document.getElementById("gradePills");
+      if (gradePillsEl) {
+        gradePillsEl.querySelectorAll(".grade-btn").forEach((btn, idx) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const g = parseInt(btn.getAttribute("data-grade") || String(idx + 1), 10);
+            selectGrade(g);
+          });
+        });
+      }
+      const classPillsEl = document.getElementById("classPills");
+      if (classPillsEl) {
+        classPillsEl.querySelectorAll(".class-btn").forEach((btn, idx) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const c = parseInt(btn.getAttribute("data-class") || String(idx + 1), 10);
+            selectClassNum(c);
+          });
+        });
+      }
+
       syncGroupTabsForGrade(currentGrade);
       applyAutoSyncIfActive();
       persistClassSelection();

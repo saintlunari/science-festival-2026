@@ -1096,7 +1096,7 @@
       : (safeGetStorage("scifest_my_class_2026") || "1-1");
     let mGrade = parseInt(savedCls.split("-")[0], 10) || 1;
     let mCls = parseInt(savedCls.split("-")[1], 10) || 1;
-    let mRound = 1; // 0..12 (0 = 0회차 운동장 전체집결)
+    let mRound = 0; // 0..12 (기본값: 0 = 0회차 운동장 전체집결)
     let mAudSession = mGrade <= 3 ? 2 : 1;
     let mSwapIdx = null;
 
@@ -1162,7 +1162,7 @@
         if (totalMins < 730) return { round: 12, badge: "🎭 강당 착석", text: `12:05 강당 착석 완료 · 12:10 2차 공연 시작` };
         if (totalMins < 780) return { round: 12, badge: "🎭 2차 공연 중", text: `강당 과학공연 2차 관람 중 (12:10~13:00)` };
         if (totalMins < 830) return { round: 12, badge: "📚 5교시 수업", text: `과학축제 완료 · 13:10~13:50 5교시 정상 수업` };
-        return { round: 1, badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 일과가 종료되었습니다.` };
+        return { round: 0, badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 일과가 종료되었습니다.` };
       } else {
         const b5 = getBooth(clsName, 5);
         if (totalMins < 530) return { round: 0, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
@@ -1190,7 +1190,7 @@
           const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
           return { round: r, badge: `🔬 2차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (약 ${rem}분 남음)` };
         }
-        return { round: 1, badge: "✅ 일과 종료", text: `금일 고학년 과학축제 전 일정(14:30)이 완료되었습니다.` };
+        return { round: 0, badge: "✅ 일과 종료", text: `금일 고학년 과학축제 전 일정(14:30)이 완료되었습니다.` };
       }
     }
 
@@ -1343,7 +1343,7 @@
     function setGrade(g) {
       mGrade = g;
       mManualOverride = false;
-      mRound = 1;
+      mRound = 0;
       applyMAutoSyncIfActive();
       mAudSession = g <= 3 ? 2 : 1;
       saveAndRender();
@@ -1352,7 +1352,7 @@
     function setCls(c) {
       mCls = c;
       mManualOverride = false;
-      mRound = 1;
+      mRound = 0;
       applyMAutoSyncIfActive();
       saveAndRender();
     }
@@ -1366,7 +1366,7 @@
         mRound = roundNum;
       } else {
         mManualOverride = false;
-        mRound = 1;
+        mRound = 0;
         applyMAutoSyncIfActive();
       }
       mAudSession = mGrade <= 3 ? 2 : 1;
@@ -1419,7 +1419,13 @@
       renderMAll();
     }
 
-    function switchMPanel(panelId) {
+    function switchMPanel(panelId, keepRound) {
+      if (panelId === "mp-my" && !keepRound) {
+        mManualOverride = false;
+        mRound = 0;
+        applyMAutoSyncIfActive();
+        renderMAll();
+      }
       document.querySelectorAll(".m-panel").forEach(p => p.classList.toggle("active", p.id === panelId));
       document.querySelectorAll(".b-nav-btn").forEach(b => b.classList.toggle("active", b.dataset.panel === panelId));
       window.scrollTo({ top: 0, behavior: "smooth" });

@@ -1425,6 +1425,277 @@
       margin-top: 2px;
     }
 
+    /* Visual At-a-Glance Teacher Core Guide Board */
+    .teacher-flow-board {
+      background: #ffffff;
+      border: 2.5px solid #1e40af;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 8px 22px -6px rgba(30, 64, 175, 0.16);
+    }
+
+    .teacher-flow-board.is-high {
+      border-color: #6d28d9;
+      box-shadow: 0 8px 22px -6px rgba(109, 40, 217, 0.16);
+    }
+
+    .tf-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-bottom: 12px;
+      margin-bottom: 14px;
+      border-bottom: 2px dashed #cbd5e1;
+    }
+
+    .tf-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tf-class-pill {
+      background: #0f172a;
+      color: #fde68a;
+      font-weight: 900;
+      font-size: 0.92rem;
+      padding: 5px 12px;
+      border-radius: 99px;
+      letter-spacing: -0.01em;
+    }
+
+    .tf-main-heading {
+      font-size: 1.08rem;
+      font-weight: 900;
+      color: #0f172a;
+      letter-spacing: -0.02em;
+    }
+
+    .tf-dont-do-banner {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef2f2;
+      border: 2px solid #ef4444;
+      color: #b91c1c;
+      font-weight: 900;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 99px;
+      box-shadow: 0 2px 6px rgba(239, 68, 68, 0.14);
+    }
+
+    .tf-steps-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 1080px) {
+      .tf-steps-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .tf-steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .tf-step-card {
+      position: relative;
+      background: #f8fafc;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 8px;
+      transition: all 0.16s ease;
+    }
+
+    .tf-step-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(15, 23, 42, 0.08);
+    }
+
+    .tf-step-card.step-gather {
+      background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+      border-color: #0284c7;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12);
+    }
+
+    .tf-step-card.step-booth {
+      background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);
+      border-color: #059669;
+    }
+
+    .tf-step-card.step-lunch {
+      background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
+      border-color: #f59e0b;
+    }
+
+    .tf-step-card.step-show {
+      background: linear-gradient(180deg, #f5f3ff 0%, #ffffff 100%);
+      border-color: #7c3aed;
+    }
+
+    .tf-step-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tf-step-num {
+      font-size: 0.75rem;
+      font-weight: 900;
+      padding: 3px 9px;
+      border-radius: 99px;
+      background: #0f172a;
+      color: #fff;
+    }
+
+    .tf-step-card.step-gather .tf-step-num {
+      background: #0284c7;
+    }
+
+    .tf-step-card.step-booth .tf-step-num {
+      background: #059669;
+    }
+
+    .tf-step-card.step-lunch .tf-step-num {
+      background: #d97706;
+    }
+
+    .tf-step-card.step-show .tf-step-num {
+      background: #6d28d9;
+    }
+
+    .tf-step-time {
+      font-size: 0.8rem;
+      font-weight: 900;
+      color: #1e293b;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+    }
+
+    .tf-step-title {
+      font-size: 0.96rem;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.3;
+      margin-top: 2px;
+    }
+
+    .tf-key-box {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 9px 10px;
+      font-size: 0.82rem;
+      line-height: 1.42;
+      color: #1e293b;
+    }
+
+    .tf-step-card.step-gather .tf-key-box {
+      border-color: #38bdf8;
+      background: #f0f9ff;
+    }
+
+    .tf-step-card.step-booth .tf-key-box {
+      border-color: #34d399;
+      background: #ecfdf5;
+    }
+
+    .tf-step-card.step-lunch .tf-key-box {
+      border-color: #fbbf24;
+      background: #fffbeb;
+    }
+
+    .tf-step-card.step-show .tf-key-box {
+      border-color: #c4b5fd;
+      background: #f5f3ff;
+    }
+
+    .tf-highlight-val {
+      display: block;
+      font-size: 0.92rem;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 3px;
+    }
+
+    .tf-sub-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .tf-chip {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #e2e8f0;
+      color: #1e293b;
+    }
+
+    .tf-chip.red {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .tf-chip.blue {
+      background: #dbeafe;
+      color: #1e40af;
+      border: 1px solid #93c5fd;
+    }
+
+    .tf-chip.green {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    .tf-chip.amber {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    .tf-action-btn {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: #ffffff;
+      color: #0f172a;
+      font-size: 0.75rem;
+      font-weight: 800;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.14s;
+    }
+
+    .tf-action-btn:hover {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
     @media (max-width: 640px) {
       .top-header {
         padding: 14px 12px;
@@ -2866,30 +3137,211 @@
         `;
       }
 
-      // 2. Alert Box
+      // 2. Visual At-a-Glance Teacher Core Flow Board (#myClassAlert)
       const alertEl = document.getElementById("myClassAlert");
+      const round12Booth = getBoothForClassAtRound(cls, 12);
+      const round12Prog = programs[round12Booth - 1];
+      const audCol = (audSeats[low ? 2 : 1] || []).indexOf(cls) + 1;
+
       if (low) {
         alertEl.innerHTML = `
-          <div class="alert-box alert-info">
-            <div style="font-size:1.3rem;">📢</div>
-            <div>
-              <strong>[${cls} 담임선생님 핵심 안내 — 0회차 운동장 도착 시 바로 첫 부스로 가지 않습니다!]</strong><br/>
-              • <strong>[0회차: 08:55~09:00]</strong> 개인 가방(결과물 4종 보관용)을 지참하여 <strong>운동장에 먼저 전체 집결(꿈나무관을 바라보고 좌측부터 1-1반을 시작으로 순서대로, ${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬)</strong>해 주세요.<br/>
-              • 운동장에서 <strong>전체 안내사항을 전달받은 후</strong> 우리 반 1회차 부스인 <strong>[${firstBooth}번 부스: ${firstProg.name}]</strong>로 이동하여 09:00~11:10 동안 12개 부스를 체험합니다.<br/>
-              • 부스 종료 후 <strong>11:20~12:10 점심식사 및 강당 이동(12:05까지 착석 완료)</strong>, 12:10~13:00 과학공연 관람 순으로 진행됩니다.
+          <div class="teacher-flow-board">
+            <div class="tf-top-bar">
+              <div class="tf-title-group">
+                <span class="tf-class-pill">👩‍🏫 ${cls}반 담임선생님 핵심 인솔 동선 (한눈에 보기)</span>
+                <span class="tf-main-heading">운동장 도착 시 바로 부스로 가지 않고 [0회차] 전체집결 후 이동합니다!</span>
+              </div>
+              <div class="tf-dont-do-banner">
+                <span>🚫 도착 즉시 ${firstBooth}번 부스 직행 금지</span>
+                <span>➔</span>
+                <span>✅ 꿈나무관 바라보고 좌측 ${lineupOrder}번째 2줄 정렬 먼저!</span>
+              </div>
+            </div>
+
+            <div class="tf-steps-grid">
+              <!-- STEP 1 -->
+              <div class="tf-step-card step-gather">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 1 · 0회차 전체집결</span>
+                    <span class="tf-step-time">⏰ 08:55까지 (5분 전)</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🚩 운동장 도착 & 2줄 정렬</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#0369a1;">꿈나무관 바라보고 좌측 ${lineupOrder}번째</span>
+                    • <strong>좌측 1-1반 ~ 우측 끝 3-4반</strong> 순서 중 <strong>${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬</strong><br/>
+                    • 전체 진행 안내사항 청취 대기
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip amber">🎒 개인 가방(결과물 4종 보관용) 지참</span>
+                    <span class="tf-chip red">🚫 부스 직행 X</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="setMyRound(0)">📍 아래 시간표·지도에서 0회차(집결) 위치 보기</button>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="tf-step-card step-booth">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 2 · 1~12회차 부스</span>
+                    <span class="tf-step-time">⏰ 09:00 ~ 11:10</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🔬 첫 부스 이동 & 12부스 완주</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#065f46;">1회차: [${firstBooth}번] ${firstProg.name}</span>
+                    • 안내 종료 후 <strong>${firstBooth}번 부스로 이동</strong>하여 시작<br/>
+                    • 방송 신호에 맞춰 시계방향 회전 (<strong>${firstBooth}번 → … → ${round12Booth}번 ${round12Prog.name}</strong>까지 12개 부스)
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip green">🎁 결과물 4종(3·6·9·12번) 수령</span>
+                    <span class="tf-chip blue">⚠️ 쉬는시간 없이 연속 진행</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="setMyRound(1)">📍 1회차(${firstBooth}번 ${firstProg.name}) 위치 보기</button>
+              </div>
+
+              <!-- STEP 3 -->
+              <div class="tf-step-card step-lunch">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 3 · 중식 및 강당 이동</span>
+                    <span class="tf-step-time">⏰ 11:20 ~ 12:10</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🍱 점심식사(단축) & 강당 착석</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#b45309;">🔔 12:05까지 강당 지정석 착석!</span>
+                    • 11:10 부스 종료 → 결과물 교실 보관·손 씻기<br/>
+                    • <strong>11:20~12:10 점심식사 후 12:05까지 강당(무대 좌측 ${audCol}열) 착석 완료</strong>
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip red">🚨 기존 점심(~12:20)보다 10분 단축!</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="switchTab('tab-auditorium')">🎭 강당 ${cls}반 좌석(좌측 ${audCol}열) 배치도 보기</button>
+              </div>
+
+              <!-- STEP 4 -->
+              <div class="tf-step-card step-show">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 4 · 공연 관람 & 5교시</span>
+                    <span class="tf-step-time">⏰ 12:10 ~ 13:50</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🎭 과학공연 2차 & 5교시 수업</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#5b21b6;">12:10 ~ 13:00 강당 과학공연 (50분)</span>
+                    • "서프라이즈 과학대탐험" 공연 관람<br/>
+                    • 13:00 공연 종료 후 교실 이동 → <strong>13:10~13:50 5교시 정상 수업</strong>
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip red">🚨 기존 4교시(12:20)보다 10분 조기 시작</span>
+                    <span class="tf-chip blue">✓ 5교시 시각 동일</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="printClassSheet()">🖨️ ${cls}반 동선 요약본 A4 1장 인쇄</button>
+              </div>
             </div>
           </div>
         `;
       } else {
         const round4Booth = getBoothForClassAtRound(cls, 4);
+        const round4Prog = programs[round4Booth - 1];
         alertEl.innerHTML = `
-          <div class="alert-box alert-important">
-            <div style="font-size:1.3rem;">⚠️</div>
-            <div>
-              <strong>[${cls} 담임선생님 핵심 안내 — 0회차(11:25) 전체 집결·2줄 정렬 및 점심 후 5회차 위치 주의!]</strong><br/>
-              • <strong>08:50까지 강당</strong>에 착석하여 1차 과학공연(09:00~09:50)을 관람한 뒤, <strong>09:50~11:20에는 교실에서 2·3교시 수업</strong>을 진행합니다.<br/>
-              • <strong>[0회차: 11:25~11:30]</strong> 바로 부스로 가지 않고 <strong>운동장에 먼저 전체 집결(꿈나무관을 바라보고 좌측부터 4-1반을 시작으로 순서대로, ${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬)</strong>하여 안내사항을 들은 뒤 <strong>1회차 부스(${firstBooth}번 ${firstProg.name})</strong>로 이동합니다. (1차 4개 부스: ${firstBooth}번→${round4Booth}번)<br/>
-              • <strong>12:10~13:00 점심식사 후 12:55까지</strong>는 오전 첫 부스가 아닌 <strong>5회차 배정 부스인 [${round5Booth}번 부스: ${round5Prog.name}]</strong> 앞으로 재집결해 주세요!
+          <div class="teacher-flow-board is-high">
+            <div class="tf-top-bar">
+              <div class="tf-title-group">
+                <span class="tf-class-pill">👩‍🏫 ${cls}반 담임선생님 핵심 인솔 동선 (한눈에 보기)</span>
+                <span class="tf-main-heading">11:25 [0회차] 운동장 전체집결(2줄 정렬) 및 점심 후 12:55 [5회차 부스] 재집결 주의!</span>
+              </div>
+              <div class="tf-dont-do-banner">
+                <span>🚫 11:25 도착 시 부스 직행 금지</span>
+                <span>➔</span>
+                <span>✅ 꿈나무관 바라보고 좌측 ${lineupOrder}번째 2줄 정렬 먼저!</span>
+              </div>
+            </div>
+
+            <div class="tf-steps-grid">
+              <!-- STEP 1 -->
+              <div class="tf-step-card step-show">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 1 · 1차 공연 & 2·3교시</span>
+                    <span class="tf-step-time">⏰ 08:50 ~ 11:20</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🎭 강당 과학공연 & 교실 수업</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#5b21b6;">08:50 강당 착석 · 09:00~09:50 공연</span>
+                    • 강당 <strong>무대 좌측 ${audCol}열(${cls}반)</strong> 착석 관람<br/>
+                    • 09:50 종료 직후 교실 이동 → <strong>09:50~11:20 2·3교시 정상 수업</strong>
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip red">🚨 1교시 10분 연장·쉬는시간 없이 2교시</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="switchTab('tab-auditorium')">🎭 강당 ${cls}반 좌석(좌측 ${audCol}열) 배치도 보기</button>
+              </div>
+
+              <!-- STEP 2 -->
+              <div class="tf-step-card step-gather">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 2 · 0회차 전체집결</span>
+                    <span class="tf-step-time">⏰ 11:25까지 (5분 전)</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🚩 운동장 도착 & 2줄 정렬</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#0369a1;">꿈나무관 바라보고 좌측 ${lineupOrder}번째</span>
+                    • 3교시 직후 개인 가방 지참하여 운동장 이동<br/>
+                    • <strong>좌측 4-1반 ~ 우측 끝 6-4반</strong> 중 <strong>${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬</strong> 후 안내 청취
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip amber">🎒 개인 가방(결과물 4종 보관용) 지참</span>
+                    <span class="tf-chip red">🚫 부스 직행 X</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="setMyRound(0)">📍 아래 시간표·지도에서 0회차(집결) 위치 보기</button>
+              </div>
+
+              <!-- STEP 3 -->
+              <div class="tf-step-card step-booth">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 3 · 1차 부스 (1~4회차)</span>
+                    <span class="tf-step-time">⏰ 11:30 ~ 12:10</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🔬 첫 부스 이동 & 오전 4부스</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#065f46;">1회차: [${firstBooth}번] ${firstProg.name}</span>
+                    • 전체 안내 후 <strong>${firstBooth}번 부스로 이동</strong>하여 시작<br/>
+                    • 10분씩 시계방향 4개 부스 체험 (<strong>${firstBooth}번 → … → 4회차 ${round4Booth}번 ${round4Prog.name}</strong>)
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip green">✓ 기존 4교시(11:30~12:10) 시각과 동일</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="setMyRound(1)">📍 1회차(${firstBooth}번 ${firstProg.name}) 위치 보기</button>
+              </div>
+
+              <!-- STEP 4 -->
+              <div class="tf-step-card step-lunch">
+                <div>
+                  <div class="tf-step-top">
+                    <span class="tf-step-num">STEP 4 · 중식 & 2차 (5~12회차)</span>
+                    <span class="tf-step-time">⏰ 12:10 ~ 14:30</span>
+                  </div>
+                  <div class="tf-step-title" style="margin-top:6px;">🍱 점심 후 12:55 [5회차] 재집결</div>
+                  <div class="tf-key-box" style="margin-top:6px;">
+                    <span class="tf-highlight-val" style="color:#dc2626;">🔔 12:55 재집결: [${round5Booth}번] ${round5Prog.name}</span>
+                    • <strong>12:10~13:00 점심(10분 단축)</strong> 후 오전 첫 부스가 아닌 <strong>5회차 [${round5Booth}번 부스] 앞 재집결!</strong><br/>
+                    • 13:00~14:30 나머지 8개 부스(${round5Booth}번→${round12Booth}번) 완주
+                  </div>
+                  <div class="tf-sub-chips">
+                    <span class="tf-chip red">🚨 점심 10분 단축 · 5교시 10분 조기 시작</span>
+                  </div>
+                </div>
+                <button type="button" class="tf-action-btn" onclick="setMyRound(5)">📍 점심 후 5회차(${round5Booth}번 ${round5Prog.name}) 위치 보기</button>
+              </div>
             </div>
           </div>
         `;

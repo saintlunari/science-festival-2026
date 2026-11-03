@@ -834,8 +834,8 @@
               <tr style="background:#fff1f2;">
                 <td><strong>점심</strong></td>
                 <td><del style="color:#94a3b8;">12:10~13:10</del></td>
-                <td><strong style="color:#dc2626;">12:10~12:50</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 종료 20분 단축!<br />(12:45 7회차집결)</td>
+                <td><strong style="color:#dc2626;">12:10~12:50</strong><br /><span style="font-size:0.68rem; color:#b45309; font-weight:900;">🍽️ 4학년 우선 식사</span></td>
+                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 종료 20분 단축!<br />4학년 우선 배려 · 12:45 7회차집결</td>
               </tr>
               <tr style="background:#fff1f2;">
                 <td><strong>5~6교시</strong></td>
@@ -898,7 +898,7 @@
               <tr>
                 <td><strong>12:10~12:50</strong></td>
                 <td style="background:#f5f3ff; font-weight:700;">강당 공연 2차<br />(12:10~13:00)</td>
-                <td style="background:#fffbeb; font-weight:700; color:#dc2626;">고학년 중식(40분)<br />(12:45 7회차 집결)</td>
+                <td style="background:#fffbeb; font-weight:700; color:#dc2626;">고학년 중식(40분)<br /><span style="color:#b45309;">🍽️ 4학년 우선 식사 배려</span><br />(12:45 7회차 집결)</td>
               </tr>
               <tr>
                 <td><strong>12:50~13:50</strong></td>
@@ -982,7 +982,7 @@
             <li><strong>[필독] 운동장 0회차 집결(5분 전) 및 꿈나무관 기준 2줄 정렬:</strong> 운동장 도착 시 바로 첫 부스로 가지 않고, <strong>먼저 [0회차] 운동장에 전체 집결(꿈나무관을 바라보고 저학년 08:45 좌측 1-1~우측 3-4 / 고학년 11:05 좌측 4-1~우측 6-4 순서로 각 반 2줄씩 정렬)</strong>하여 전체 안내사항을 전달받은 후 각 부스로 이동합니다.</li>
             <li><strong>개인 가방 지참:</strong> 결과물 4종(3·6·9·12번 부스) 보관을 위한 에코백/비닐백(이름 표기) 지참</li>
             <li><strong>동시 로테이션:</strong> 진행자 방송 안내에 따라 꿈나무관 기준 시계방향(1→12번) 이동</li>
-            <li><strong>고학년 12:45 재집결:</strong> 중식(12:10~12:50) 후 오전 첫 부스가 아닌 <strong>7회차 배정 부스</strong> 앞에서 시작 (13:50 종료 후 4학년 정상 하교 / 5·6학년 6교시 정상 수업)</li>
+            <li><strong>고학년 중식 배려 및 12:45 재집결:</strong> 중식(12:10~12:50) 시 <strong>🍽️ 4학년부터 우선 식사할 수 있도록 5·6학년이 배려</strong>해 주시고, 식사 후 오전 첫 부스가 아닌 <strong>7회차 배정 부스</strong> 앞에서 시작 (13:50 종료 후 4학년 정상 하교 / 5·6학년 6교시 정상 수업)</li>
           </ul>
         </div>
 
@@ -1180,7 +1180,7 @@
           const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
           return { round: r, badge: `🔬 1차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (약 ${rem}분 남음)` };
         }
-        if (totalMins < 765) return { round: 7, badge: "🍱 점심·7회차 전환", text: `점심식사(12:10~12:50) 중 · 12:45까지 오후 시작 부스인 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 재집결!` };
+        if (totalMins < 765) return { round: 7, badge: "🍱 점심·7회차 전환", text: `점심식사(12:10~12:50 · 🍽️4학년 우선 식사 배려 협조!) 중 · 12:45까지 오후 시작 부스인 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 재집결!` };
         if (totalMins < 770) return { round: 7, badge: "🔔 2차 재집결!", text: `지금 오후 2차 시작 부스 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 집결! (12:50 시작)` };
         if (totalMins >= 770 && totalMins < 830) {
           let r = 7;
@@ -1475,7 +1475,7 @@
       if (isRound0) {
         specialMoveNotice = `<div style="background:#fef08a; color:#0f172a; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🚩 [0회차] 바로 부스로 가지 않고 꿈나무관을 바라보고 좌측부터 ${low ? '1-1반' : '4-1반'} 순으로 각 반 2줄 정렬! 안내 후 [${b1}번 ${progs[b1 - 1].name}] 부스로 이동합니다.</div>`;
       } else if (!low && mRound === 6) {
-        specialMoveNotice = `<div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🍱 6회차 종료 후 점심식사(12:10~12:50) 시간입니다! 식사 후 12:45까지 7회차 [${b7}번 ${progs[b7 - 1].name}] 앞으로 집결하세요.</div>`;
+        specialMoveNotice = `<div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🍱 6회차 종료 후 점심식사(12:10~12:50) 시간입니다! 🍽️ 4학년부터 우선 식사할 수 있도록 배려해 주시고, 식사 후 12:45까지 7회차 [${b7}번 ${progs[b7 - 1].name}] 앞으로 집결하세요.</div>`;
       } else if (curBooth === 12 && mRound < 12) {
         specialMoveNotice = `<div style="background:#fee2e2; color:#991b1b; padding:7px 10px; border-radius:8px; font-size:0.76rem; font-weight:800; margin-bottom:10px;">⚠️ 12번 부스(우측 하단) 종료 후에는 운동장 반대편 1번 부스(좌측 하단)로 이동합니다!</div>`;
       }
@@ -1595,7 +1595,7 @@
           <div onclick="jumpMRound(7)" style="cursor:pointer; background:${mRound === 7 ? '#fef08a' : '#fff'}; border:${mRound === 7 ? '2px solid #d97706' : '1.5px solid #d97706'}; box-shadow:${mRound === 7 ? '0 0 0 2px rgba(217,119,6,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
             <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 4 · 12:10~13:50 ${mRound === 7 ? '✓선택됨' : '👆'}</div>
             <div style="font-size:0.78rem; font-weight:900; color:#dc2626; margin:2px 0;">🔔 12:45 [${b7}번] 재집결</div>
-            <div style="font-size:0.68rem; color:#475569;">점심(12:10~12:50) 후 7회차 ${b7}번~${b12}번 완주</div>
+            <div style="font-size:0.68rem; color:#475569;">점심(<strong>🍽️4학년 우선 식사 배려</strong>) 후 ${b7}번~${b12}번 완주</div>
           </div>
         </div>
       `;
@@ -1644,7 +1644,7 @@
               • <strong style="color:#5b21b6;">1교시 10분 연장 · 3교시 15분 단축(11:05 종료)</strong>: 09:00~09:50 공연 후 2·3교시 수업 → <strong>11:05 운동장 0회차 2줄 정렬!</strong>
             </div>
             <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1.5px solid #dc2626;">
-              • <strong style="color:#dc2626;">점심 종료 20분 단축</strong>: <del style="color:#94a3b8;">기존 12:10~13:10</del> → <strong>당일 12:10~12:50 (12:45까지 7회차 ${b7}번 부스 재집결!)</strong>
+              • <strong style="color:#dc2626;">점심 종료 20분 단축 & 🍽️ 4학년 우선 식사 배려</strong>: <del style="color:#94a3b8;">기존 12:10~13:10</del> → <strong>당일 12:10~12:50 (4학년부터 우선 식사할 수 있도록 배려 협조 · 12:45까지 7회차 ${b7}번 부스 재집결!)</strong>
             </div>
             <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1px solid #fda4af;">
               • <strong style="color:#1e40af;">2차 부스 12:50~13:50 완주</strong>: <strong>${mGrade === 4 ? '13:50 부스 종료 후 4학년 정상 하교!' : '13:50 종료 후 14:00~14:40 6교시 정상 수업!'}</strong>
@@ -1678,7 +1678,7 @@
           </div>
           <div>• <strong>11:10~12:10</strong> : 🔬 <strong>운동장 1차 체험</strong> (1~6회차, ${b1}번~${b6}번 부스 10분씩 6개)</div>
           <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
-            • <strong>12:10~12:50</strong> : 🍱 <strong>고학년 점심식사</strong> <span style="color:#dc2626; font-weight:900;">[🚨종료 20분 단축! 12:45 7회차 ${b7}번 부스 재집결]</span>
+            • <strong>12:10~12:50</strong> : 🍱 <strong>고학년 점심식사 (🍽️ 4학년 우선 식사 배려 협조!)</strong> <span style="color:#dc2626; font-weight:900;">[🚨종료 20분 단축! 12:45 7회차 ${b7}번 부스 재집결]</span>
           </div>
           <div style="background:#eff6ff; padding:5px 7px; border-radius:6px; border-left:3px solid #1d4ed8;">
             • <strong>12:50~13:50</strong> : 🔬 <strong>운동장 2차 체험 (7~12회차)</strong> <span style="color:#1e40af; font-weight:900;">[${mGrade === 4 ? '★13:50 종료 후 4학년 정상 하교!' : '13:50 종료 → 14:00~14:40 6교시 정상 수업'}]</span>
@@ -1704,7 +1704,7 @@
       `;
       for (let r = 1; r <= 12; r++) {
         if (!low && r === 7) {
-          rListHtml += `<div class="lunch-banner-mobile">🍱 12:10~12:50 점심시간 후 12:45까지 아래 7회차 [${b7}번 ${progs[b7 - 1].name}] 앞으로 재집결!</div>`;
+          rListHtml += `<div class="lunch-banner-mobile">🍱 12:10~12:50 점심시간 (🍽️ 4학년부터 우선 식사할 수 있도록 배려 협조!) — 식사 후 12:45까지 아래 7회차 [${b7}번 ${progs[b7 - 1].name}] 앞으로 재집결!</div>`;
         }
         const b = getBooth(cls, r);
         const p = progs[b - 1];
@@ -1866,7 +1866,7 @@
       hHtml += `</tr>`;
       for (let r = 1; r <= 12; r++) {
         if (r === 7) {
-          hHtml += `<tr><td colspan="14" style="background:#fef3c7; font-weight:800; color:#92400e;">🍱 12:10~12:50 점심시간 (12:45 7회차 부스 집결)</td></tr>`;
+          hHtml += `<tr><td colspan="14" style="background:#fef3c7; font-weight:800; color:#92400e;">🍱 12:10~12:50 점심시간 (🍽️ 4학년 우선 식사 배려 협조 · 12:45 7회차 부스 집결)</td></tr>`;
         }
         hHtml += `<tr><td>${r}</td><td>${HIGH_TIMES[r - 1]}</td>`;
         for (let b = 1; b <= 12; b++) {

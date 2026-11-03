@@ -1918,6 +1918,66 @@
       animation: targetFlashPulse 1.3s ease-out 2;
     }
 
+    /* Collapsible Details Accordion for Secondary Info */
+    details.pc-details {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    details.pc-details > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 11px 16px;
+      font-size: clamp(0.82rem, 0.96vw, 0.92rem);
+      font-weight: 800;
+      color: #0f172a;
+      background: #f8fafc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
+      transition: background 0.15s;
+    }
+
+    details.pc-details > summary:hover {
+      background: #f1f5f9;
+    }
+
+    details.pc-details > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.pc-details > summary::after {
+      content: "▼ 펼치기";
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #1e40af;
+      background: #dbeafe;
+      padding: 3px 9px;
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+
+    details.pc-details[open] > summary {
+      border-bottom: 1px solid #cbd5e1;
+      background: #eff6ff;
+      color: #1e3a8a;
+    }
+
+    details.pc-details[open] > summary::after {
+      content: "▲ 접기";
+      background: #bfdbfe;
+    }
+
+    details.pc-details .pc-details-body {
+      padding: 14px 16px;
+    }
+
     @media (max-width: 640px) {
       .header-actions {
         width: 100%;
@@ -1966,19 +2026,19 @@
         <span class="badge-year">2026. 11. 12.(목) 1~6교시</span>
         <span class="badge-dday" id="headerDdayBadge">D-Day 계산중</span>
         <div class="title-text">
-          <h1>공주교대부설초 찾아가는 과학축제 안내 시스템</h1>
-          <p>교원 및 학생 이동 동선 · 반별 부스 시간표 · 강당 공연 좌석 안내 (공주교육대학교부설초등학교)</p>
+          <h1>공주교대부설초 찾아가는 과학축제 안내</h1>
+          <p>반별 이동 동선 · 부스 시간표 · 강당 좌석 (공주교대부설초)</p>
         </div>
       </div>
       <div class="header-actions">
         <a href="mobile.html" class="btn btn-mobile-link" title="스마트폰 한손 조작에 최적화된 모바일 전용 페이지 열기">
-          📱 모바일 전용 버전 열기
+          📱 모바일 버전
         </a>
         <button type="button" class="btn btn-print-class" onclick="printClassSheet()">
-          🖨️ 선택 학급(우리 반) A4 1장 인쇄
+          🖨️ 우리 반 A4 인쇄
         </button>
         <button type="button" class="btn btn-print-all" onclick="printAllSheet()">
-          📄 전체 교원 배포용 A4 요약본 인쇄
+          📄 전체 요약본 인쇄
         </button>
       </div>
     </div>
@@ -2007,19 +2067,19 @@
 
       <nav class="nav-tabs" id="mainTabs">
         <button type="button" class="tab-btn active" data-tab="tab-myclass" onclick="switchTab('tab-myclass')">
-          🏫 우리 반 맞춤 동선
+          🏫 우리 반 동선
         </button>
         <button type="button" class="tab-btn" data-tab="tab-all-overview" onclick="switchTab('tab-all-overview')">
-          🗺️ 전체 시간표·이동동선 한눈에 보기
+          🗺️ 전체 시간표·동선
         </button>
         <button type="button" class="tab-btn" data-tab="tab-auditorium" onclick="switchTab('tab-auditorium')">
-          🎭 강당 과학공연 좌석배치
+          🎭 강당 좌석배치
         </button>
         <button type="button" class="tab-btn" data-tab="tab-programs" onclick="switchTab('tab-programs')">
-          🔬 1~12번 부스 실험 안내
+          🔬 1~12번 실험 안내
         </button>
         <button type="button" class="tab-btn" data-tab="tab-checklist" onclick="switchTab('tab-checklist')">
-          ✅ 교원 인솔수칙·행정 체크리스트
+          ✅ 인솔·행정 체크
         </button>
       </nav>
     </div>
@@ -2039,10 +2099,8 @@
       <!-- Critical Notice for Selected Grade Group -->
       <div id="myClassAlert"></div>
 
-      <!-- Playground Initial Gathering & 2-Row Lineup Formation Guide (Round 0) -->
+      <!-- Collapsible Secondary Info: 0-Round 12-Class Lineup & Schedule Diff -->
       <div id="myClassLineupGuide"></div>
-
-      <!-- Regular vs Festival Schedule Diff Box for Selected Class -->
       <div id="myClassScheduleDiff"></div>
 
       <div class="two-col" id="myClassMapAndTableSection">
@@ -2051,8 +2109,8 @@
           <div class="card" id="myPlaygroundMapCard">
             <div class="card-header">
               <div>
-                <h3 class="card-title">🧭 운동장 부스 배치도 및 우리 반 이동 경로</h3>
-                <p class="card-subtitle"><strong>0회차(꿈나무관을 바라보고 좌측부터 2줄 정렬)</strong> 후 꿈나무관을 중심으로 <strong>시계 방향(1번→12번→1번)</strong>으로 이동합니다.</p>
+                <h3 class="card-title">🧭 운동장 부스 배치도 및 우리 반 위치</h3>
+                <p class="card-subtitle">0회차(꿈나무관 좌측부터 2줄 정렬) 후 <strong>시계 방향(1→12→1번)</strong> 이동</p>
               </div>
             </div>
 
@@ -2071,8 +2129,7 @@
           <div class="card" id="myTimelineCard">
             <div class="card-header">
               <div>
-                <h3 class="card-title" id="myTimelineTitle">🕒 우리 반 시간대별 전체 일과표</h3>
-                <p class="card-subtitle">공연·부스 체험·수업·중식 및 집결 시각 안내</p>
+                <h3 class="card-title" id="myTimelineTitle">🕒 우리 반 시간대별 일과 요약</h3>
               </div>
             </div>
             <div class="timeline" id="myClassTimeline"></div>
@@ -2084,12 +2141,12 @@
           <div class="card" id="myClassBoothCard">
             <div class="card-header">
               <div>
-                <h3 class="card-title" id="myBoothTableTitle">📋 우리 반 회차별 부스 이동 시간표 (0회차 전체집결 + 1~12회차 부스)</h3>
-                <p class="card-subtitle">🚩 0회차는 꿈나무관을 바라보고 좌측부터 학급별 2줄 정렬 및 전체 안내 시간이며, 🎁 표시된 4개 부스(3·6·9·12번)는 결과물을 만들어 가져가는 부스입니다.</p>
+                <h3 class="card-title" id="myBoothTableTitle">📋 우리 반 회차별 부스 시간표 (0~12회차)</h3>
+                <p class="card-subtitle">🚩 0회차: 2줄 정렬·안내 | 🎁 결과물 4종: 3·6·9·12번 부스 (행 클릭 시 지도 연동)</p>
               </div>
               <button type="button" class="btn btn-print-class" style="padding:6px 12px; font-size:0.8rem;"
                 onclick="printClassSheet()">
-                🖨️ 이 학급 시트 인쇄
+                🖨️ 우리 반 인쇄
               </button>
             </div>
             <div class="table-wrap">
@@ -2098,10 +2155,10 @@
                   <tr>
                     <th style="width:62px;">회차</th>
                     <th style="width:110px;">시간</th>
-                    <th style="width:72px;">부스 번호</th>
+                    <th style="width:72px;">부스</th>
                     <th>프로그램명</th>
                     <th style="width:90px;">구분</th>
-                    <th style="width:70px;">다음 이동</th>
+                    <th style="width:70px;">다음</th>
                   </tr>
                 </thead>
                 <tbody id="myClassBoothTbody"></tbody>
@@ -2111,7 +2168,7 @@
 
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">🎒 우리 반 학생 사전 준비물 및 인솔 핵심 체크</h3>
+              <h3 class="card-title">🎒 우리 반 결과물 4종 & 이동 체크</h3>
             </div>
             <div class="check-list" id="myClassQuickChecks"></div>
           </div>
@@ -2126,222 +2183,163 @@
         <div class="stat-card">
           <span class="label">행사 일시</span>
           <span class="value">2026. 11. 12.(목) 1~6교시</span>
-          <span class="sub">08:50 ~ 13:50 (5·6학년 6교시 정상수업)</span>
+          <span class="sub">08:50 ~ 13:50 (5·6학년 6교시 수업)</span>
         </div>
         <div class="stat-card">
-          <span class="label">행사 장소 (이원화 운영)</span>
+          <span class="label">행사 장소</span>
           <span class="value">강당(공연) + 운동장(12부스)</span>
           <span class="sub">저학년·고학년 교차 진행</span>
         </div>
         <div class="stat-card">
           <span class="label">참여 대상</span>
-          <span class="value">1~6학년 전 학급 (24학급)</span>
-          <span class="sub">1학년 64명, 2~6학년 각 80명 (총 464명)</span>
+          <span class="value">1~6학년 24학급 (464명)</span>
+          <span class="sub">1학년 64명 · 2~6학년 각 80명</span>
         </div>
         <div class="stat-card">
-          <span class="label">부스 구성 및 이동 방식</span>
-          <span class="value">체험 8종 + 결과물 4종 (12부스)</span>
-          <span class="sub">꿈나무관 기준 시계방향(1→12번) 동시 이동</span>
+          <span class="label">부스 구성·이동</span>
+          <span class="value">체험 8종 + 결과물 4종</span>
+          <span class="sub">0회차 2줄 정렬 → 시계방향(1→12번)</span>
         </div>
       </div>
 
-      <!-- Playground Initial Gathering & 2-Row Lineup Notice Card (Round 0) -->
-      <div class="lineup-guide-box">
-        <div class="lineup-guide-header">
+      <!-- Compact Playground Initial Gathering & 2-Row Lineup Notice Card (Round 0) -->
+      <div class="lineup-guide-box" style="padding:12px 16px;">
+        <div class="lineup-guide-header" style="margin-bottom:8px; padding-bottom:6px;">
           <div class="lineup-guide-title">
-            📢 [필독 안내] 운동장 0회차 최초 집결 및 꿈나무관 기준 학급별 2줄 정렬 방법
+            📢 [0회차 전체집결] 시작 5분 전 꿈나무관 기준 좌측부터 2줄 정렬 (부스 직행 금지)
           </div>
           <div class="lineup-step-pills">
-            <span class="lineup-step-pill">① [0회차] 시작 5분 전 꿈나무관 바라보고 좌측부터 2줄 정렬</span>
+            <span class="lineup-step-pill">① 5분 전 2줄 정렬</span>
             <span>➔</span>
-            <span class="lineup-step-pill" style="background:#0369a1;">② 전체 안내사항 전달</span>
+            <span class="lineup-step-pill" style="background:#0369a1;">② 전체 안내</span>
             <span>➔</span>
-            <span class="lineup-step-pill step2">③ [1회차] 각 반 첫 부스로 이동</span>
+            <span class="lineup-step-pill step2">③ 1회차 부스 이동</span>
           </div>
         </div>
-        <div style="font-size:0.9rem; color:#0f172a; line-height:1.55;">
-          • 각 반별로 운동장에 도착하면 <strong style="color:#dc2626; background:#fee2e2; padding:1px 6px; border-radius:4px;">바로 첫
-            번째 부스로 이동하는 것이 아니라</strong>, 먼저 <strong>[0회차] 운동장에 전체 집결하여 안내사항을 전달한 후</strong> 각 부스로 이동합니다.<br />
-          • 원활한 진행을 위해 <strong>행사 시작 5분 전까지(저학년 0회차 08:45~08:50 / 고학년 0회차 11:05~11:10)</strong> 미리 운동장에 나와 <strong>꿈나무관을 바라보고 좌측부터</strong> 아래 순서대로 정렬해 주시면 감사하겠습니다.
-        </div>
-        <div class="two-col" style="margin-top:10px; gap:12px;">
-          <div style="background:#fff; border:1.5px solid #7dd3fc; border-radius:10px; padding:10px 14px;">
-            <div style="font-weight:900; color:#1e40af; font-size:0.92rem; margin-bottom:4px;">👦 저학년 (1~3학년) 0회차 운동장 집결
-              정렬 (08:45 ~ 08:50)</div>
-            <div style="font-size:0.84rem; color:#334155;">
-              • <strong>정렬 방향</strong>: <strong>꿈나무관을 바라보고 좌측부터 1-1반</strong>을 시작으로 순서대로 서고, <strong>가장 오른쪽 끝에는
-                3-4반</strong>이 위치하도록 정렬<br />
-              • <strong>정렬 대형</strong>: <code>[꿈나무관 바라보고 좌측] 1-1 → 1-2 → 1-3 → 1-4 → 2-1 → … → 3-4 [우측 끝]</code> 순서로 <strong>각 반별
-                2줄씩 정렬</strong> (전체 안내 후 08:50 1회차 부스 이동)
-            </div>
+        <div class="two-col" style="gap:10px;">
+          <div style="background:#fff; border:1.5px solid #7dd3fc; border-radius:10px; padding:8px 12px; font-size:0.84rem;">
+            <strong style="color:#1e40af;">👦 저학년 0회차 (08:45~08:50)</strong>: 꿈나무관 바라보고 <strong>좌측 1-1반 → … → 우측 끝 3-4반</strong> 각 반 2줄 정렬 → 안내 후 08:50 1회차 부스 이동
           </div>
-          <div style="background:#fff; border:1.5px solid #c4b5fd; border-radius:10px; padding:10px 14px;">
-            <div style="font-weight:900; color:#5b21b6; font-size:0.92rem; margin-bottom:4px;">🧑 고학년 (4~6학년) 0회차 운동장 1차 집결
-              정렬 (11:05 ~ 11:10)</div>
-            <div style="font-size:0.84rem; color:#334155;">
-              • <strong>정렬 방향</strong>: <strong>꿈나무관을 바라보고 좌측부터 4-1반</strong>을 시작으로 순서대로 서고, <strong>가장 오른쪽 끝에는
-                6-4반</strong>이 위치하도록 정렬<br />
-              • <strong>정렬 대형</strong>: <code>[꿈나무관 바라보고 좌측] 4-1 → 4-2 → 4-3 → 4-4 → 5-1 → … → 6-4 [우측 끝]</code> 순서로 <strong>각 반별
-                2줄씩 정렬</strong> (전체 안내 후 11:10 1회차 부스 이동)<br />
-              <span style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 점심식사(12:10~12:50) 후 12:45(2차)에는 이미 오전 안내를 마쳤으므로 7회차
-                배정 부스로 재집결합니다.</span>
-            </div>
+          <div style="background:#fff; border:1.5px solid #c4b5fd; border-radius:10px; padding:8px 12px; font-size:0.84rem;">
+            <strong style="color:#5b21b6;">🧑 고학년 0회차 (11:05~11:10)</strong>: 꿈나무관 바라보고 <strong>좌측 4-1반 → … → 우측 끝 6-4반</strong> 각 반 2줄 정렬 → 안내 후 11:10 1회차 이동 <span style="color:#dc2626; font-weight:800;">(※점심 후 12:45는 7회차 부스 직행)</span>
           </div>
         </div>
       </div>
 
-      <!-- Regular vs Festival Timetable Comparison Card -->
-      <div class="diff-box-card">
-        <div class="diff-box-header">
-          <div class="diff-box-title">
-            🚨 [필독] 기존 정규 수업 시간표 vs 과학축제 당일 시간표 변경점 비교
-          </div>
-          <span class="diff-badge">점심 시작 시각 고정(저 11:20 / 고 12:10) · 4학년 13:50 하교 맞춤!</span>
-        </div>
-        <p style="font-size:0.88rem; color:#881337; margin-bottom:14px; font-weight:600;">
-          행사 당일에는 <strong>학년별 점심 시작 시각(저학년 11:20, 고학년 12:10)을 그대로 유지</strong>하고 <strong>4학년 하교 시각(13:50)</strong>을 맞추기 위해, 저학년 부스를 <strong>08:50에 조기 시작</strong>하고 고학년 부스를 <strong>오전 6회차(11:10~12:10) + 오후 6회차(12:50~13:50)</strong>로 운영합니다.
-        </p>
+      <!-- Collapsible Regular vs Festival Timetable Comparison Card -->
+      <details class="pc-details">
+        <summary>
+          <span>🚨 [시정 비교표] 기존 정규 수업 시간표 vs 과학축제 당일 변경 시간 자세히 보기 (저학년 점심 10분 단축 · 고학년 점심 20분 단축 & 4학년 우선 식사)</span>
+        </summary>
+        <div class="pc-details-body">
+          <div class="two-col">
+            <!-- Low Grade Comparison -->
+            <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:12px;">
+              <div style="font-weight:900; font-size:0.94rem; color:#1e40af; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                <span>👦 저학년 (1~3학년) 시정 비교</span>
+                <span class="diff-badge">08:45 집결 · 점심 10분 단축(12:05 착석)</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:72px;">구분</th>
+                      <th style="width:110px;">기존 시간표</th>
+                      <th style="width:120px;">과학축제 당일</th>
+                      <th>핵심 변경 사항</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="diff-row-highlight">
+                      <td><strong>1~3교시</strong></td>
+                      <td>09:00 ~ 11:20</td>
+                      <td><strong style="color:#1e40af;">08:50 ~ 10:50</strong><br /><span style="font-size:0.74rem;">(08:45 0회차 집결)</span></td>
+                      <td style="text-align:left;"><strong>10분 조기 시작</strong> · 12부스 연속 체험 후 10:50~11:20 교실 정리·손 씻기</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>점심시간</strong></td>
+                      <td><span class="strike-old">11:20 ~ 12:20</span></td>
+                      <td><strong style="color:#dc2626;">11:20 ~ 12:10</strong></td>
+                      <td style="text-align:left;"><strong>종료 10분 단축</strong> → 식사 후 <strong>12:05까지 강당 지정석 착석</strong></td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>4교시</strong></td>
+                      <td><span class="strike-old">12:20 ~ 13:00</span></td>
+                      <td><strong style="color:#5b21b6;">12:10 ~ 13:00</strong></td>
+                      <td style="text-align:left;"><strong>10분 조기 시작</strong> · 강당 과학공연 2차 관람 (50분)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>5교시</strong></td>
+                      <td>13:10 ~ 13:50</td>
+                      <td><strong>13:10 ~ 13:50</strong></td>
+                      <td style="text-align:left;">기존과 동일 (5교시 정상 수업 후 13:50 하교)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-        <div class="two-col">
-          <!-- Low Grade Comparison -->
-          <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:14px;">
-            <div
-              style="font-weight:900; font-size:0.98rem; color:#1e40af; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-              <span>👦 저학년 (1~3학년) 시정 비교</span>
-              <span class="diff-badge">08:50 조기 시작 · 점심 10분 단축 · 4교시 10분 조기 시작</span>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:76px;">구분</th>
-                    <th style="width:115px;">기존 수업 시간표</th>
-                    <th style="width:125px;">과학축제 당일</th>
-                    <th>변경 내용 및 핵심 주의사항</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="diff-row-highlight">
-                    <td><strong>1~3교시</strong></td>
-                    <td>1교시 09:00~09:40<br />2교시 09:50~10:30<br />3교시 10:40~11:20</td>
-                    <td><strong style="color:#1e40af;">08:50 ~ 10:50</strong><br />(운동장 12부스)<br /><span style="font-size:0.75rem; color:#475569;">10:50~11:20 교실정리</span></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge warn">⚠️ 08:45 0회차 집결 · 10분 조기 시작 · 연속 진행</span><br />
-                      기존 1교시보다 <strong>10분 빠른 08:50에 부스를 시작</strong>하여 10분씩 12회차(120분) 회전 후 <strong>10:50에 종료</strong>합니다. (10:50~11:20 결과물 정리 및 손 씻기)
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>점심시간</strong></td>
-                    <td><span class="strike-old">11:20 ~ 12:20</span><br />(60분)</td>
-                    <td><strong style="color:#dc2626; font-size:0.92rem;">11:20 ~ 12:10</strong><br /><strong>(50분 · 10분
-                        단축!)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 시작(11:20) 동일 · 종료 10분 단축 (12:05 강당 착석!)</span><br />
-                      점심 시작은 11:20으로 동일하나, 기존 점심 종료(12:20)보다 <strong>15분 빠른 12:05까지 강당 착석</strong>을 완료해야 합니다.
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>4교시</strong></td>
-                    <td><span class="strike-old">12:20 ~ 13:00</span><br />(40분)</td>
-                    <td><strong style="color:#5b21b6; font-size:0.92rem;">12:10 ~ 13:00</strong><br /><strong>(50분 · 공연
-                        관람)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 4교시보다 10분 일찍 시작!</span><br />
-                      강당 과학공연 2차 관람 (50분간 진행)
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>5교시</strong></td>
-                    <td>13:10 ~ 13:50</td>
-                    <td><strong>13:10 ~ 13:50</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge same">✓ 기존 시간표와 동일</span> (13:00 공연 종료 후 교실 이동 · 13:50 하교)
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- High Grade Comparison -->
-          <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:14px;">
-            <div
-              style="font-weight:900; font-size:0.98rem; color:#5b21b6; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
-              <span>🧑 고학년 (4~6학년) 시정 비교</span>
-              <span class="diff-badge">1차 11:10 시작 · 점심 40분 · ★4학년 13:50 하교</span>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:76px;">구분</th>
-                    <th style="width:115px;">기존 수업 시간표</th>
-                    <th style="width:125px;">과학축제 당일</th>
-                    <th>변경 내용 및 핵심 주의사항</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="diff-row-highlight">
-                    <td><strong>1교시</strong></td>
-                    <td><span class="strike-old">09:00 ~ 09:40</span><br />(40분)</td>
-                    <td><strong style="color:#5b21b6; font-size:0.92rem;">09:00 ~ 09:50</strong><br /><strong>(50분 · 공연
-                        관람)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 1교시보다 10분 늦게 종료!</span><br />
-                      기존 1교시(09:40 종료)보다 10분 연장되어 <strong>09:50까지 공연 진행 후 쉬는시간 없이 바로 2교시 수업</strong>으로 이동
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>2~3교시</strong></td>
-                    <td>2교시 09:50~10:30<br /><span class="strike-old">3교시 10:40~11:20</span></td>
-                    <td><strong>2교시 09:50~10:30</strong><br /><strong style="color:#dc2626;">3교시 10:40~11:05</strong><br />(11:05 0회차 집결)</td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge warn">⚠️ 3교시 25분 수업 후 11:05 0회차 운동장 집결</span><br />
-                      2교시 정상 수업 후 3교시는 <strong>10:40~11:05(25분) 수업 후 11:05까지 [0회차] 운동장 전체 집결(꿈나무관 기준 좌측 4-1 ~ 우측 6-4, 2줄 정렬)</strong>
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>1차 부스<br />(3~4교시)</strong></td>
-                    <td><span class="strike-old">4교시 11:30~12:10</span><br />(40분)</td>
-                    <td><strong style="color:#1e40af; font-size:0.92rem;">11:10 ~ 12:10</strong><br /><strong>(운동장 1~6회차)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 4교시보다 20분 조기 시작 (60분 · 6개 부스)</span><br />
-                      11:10부터 12:10까지 10분씩 <strong>오전 6개 부스(1~6회차)</strong>를 체험합니다.
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>점심시간</strong></td>
-                    <td><span class="strike-old">12:10 ~ 13:10</span><br />(60분)</td>
-                    <td><strong style="color:#dc2626; font-size:0.92rem;">12:10 ~ 12:50</strong><br /><strong>(40분 · 20분
-                        단축!)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 시작(12:10) 동일 · 🍽️ 4학년 우선 식사 배려 · 12:45 7회차 부스 재집결!</span><br />
-                      점심 시작은 12:10으로 동일하며, <strong>4학년부터 우선 식사할 수 있도록 5·6학년이 배려</strong>해 주세요. 식사 후 <strong>12:45까지 운동장 7회차 부스 앞 재집결</strong> 필수!
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>2차 부스 &<br />5·6교시</strong></td>
-                    <td><span class="strike-old">5교시 13:10~13:50</span><br />6교시 14:00~14:40</td>
-                    <td><strong style="color:#1e40af; font-size:0.92rem;">12:50 ~ 13:50</strong><br /><strong>(7~12회차 완주)</strong><br /><span style="font-size:0.75rem; color:#0f172a;">5·6학년 6교시 정상수업</span></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">★ 13:50 부스 종료 → 4학년 13:50 정상 하교!</span><br />
-                      <strong>12:50~13:50(60분) 7~12회차 완주 후 4학년은 13:50 하교</strong>하며, <strong>5·6학년은 14:00~14:40 6교시 정상 교실 수업</strong> 후 하교합니다.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <!-- High Grade Comparison -->
+            <div style="background:#fff; border:1.5px solid #fda4af; border-radius:12px; padding:12px;">
+              <div style="font-weight:900; font-size:0.94rem; color:#5b21b6; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                <span>🧑 고학년 (4~6학년) 시정 비교</span>
+                <span class="diff-badge">3교시 단축(11:05 집결) · 점심 40분(4학년 우선)</span>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:72px;">구분</th>
+                      <th style="width:110px;">기존 시간표</th>
+                      <th style="width:120px;">과학축제 당일</th>
+                      <th>핵심 변경 사항</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="diff-row-highlight">
+                      <td><strong>1교시</strong></td>
+                      <td><span class="strike-old">09:00 ~ 09:40</span></td>
+                      <td><strong style="color:#5b21b6;">09:00 ~ 09:50</strong></td>
+                      <td style="text-align:left;"><strong>10분 연장(공연)</strong> · 09:50 종료 즉시 쉬는시간 없이 2교시 이동</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>2~3교시</strong></td>
+                      <td>09:50 ~ 11:20</td>
+                      <td><strong>09:50 ~ 11:05</strong><br /><span style="font-size:0.74rem; color:#dc2626;">(11:05 0회차 집결)</span></td>
+                      <td style="text-align:left;">2교시 정상 · <strong>3교시 15분 단축(10:40~11:05)</strong> 후 0회차 2줄 정렬</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>1차 부스</strong></td>
+                      <td><span class="strike-old">4교시 11:30~12:10</span></td>
+                      <td><strong style="color:#1e40af;">11:10 ~ 12:10</strong></td>
+                      <td style="text-align:left;"><strong>20분 조기 시작</strong> · 오전 1~6회차(6개 부스) 체험</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>점심시간</strong></td>
+                      <td><span class="strike-old">12:10 ~ 13:10</span></td>
+                      <td><strong style="color:#dc2626;">12:10 ~ 12:50</strong></td>
+                      <td style="text-align:left;"><strong>20분 단축 · 🍽️ 4학년 우선 식사 배려</strong> · <strong>12:45 7회차 부스 재집결</strong></td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>2차 & 6교시</strong></td>
+                      <td><span class="strike-old">5교시 13:10~13:50</span><br />6교시 14:00~14:40</td>
+                      <td><strong style="color:#1e40af;">12:50 ~ 13:50</strong><br /><span style="font-size:0.74rem;">5·6학년 6교시 수업</span></td>
+                      <td style="text-align:left;">7~12회차 완주 → <strong>13:50 4학년 하교</strong> / <strong>5·6학년 14:00~14:40 6교시 수업</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </details>
 
       <!-- Integrated Master Timetable -->
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">⏰ 전교생 통합 행사 진행 일정표 (저학년 vs 고학년 한눈에 보기)</h3>
-            <p class="card-subtitle">선생님들께서 학년군별 이동 시점과 중식·수업·하교 시간을 한눈에 비교하실 수 있는 통합 표입니다. <span
-                style="color:#dc2626; font-weight:700;">(🚨 표시는 기존 수업 시간표와 다른 시간대입니다)</span></p>
+            <h3 class="card-title">⏰ 전교생 통합 행사 진행 일정표 (저학년 vs 고학년)</h3>
+            <p class="card-subtitle">학년군별 이동·중식·수업·하교 통합 시간표</p>
           </div>
         </div>
 
@@ -2349,122 +2347,98 @@
           <table>
             <thead>
               <tr>
-                <th style="width:130px;">시간</th>
-                <th style="width:28%;">저학년 (1~3학년, 12학급 / 224명)</th>
-                <th style="width:28%;">고학년 (4~6학년, 12학급 / 240명)</th>
-                <th>장소별 운영 및 교원 협조 사항 (기존 시정 대비 변경점)</th>
+                <th style="width:125px;">시간</th>
+                <th style="width:30%;">저학년 (1~3학년, 12학급)</th>
+                <th style="width:30%;">고학년 (4~6학년, 12학급)</th>
+                <th>핵심 체크 및 협조 사항</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td><strong>08:00 ~ 08:45</strong></td>
-                <td>교실 등교 및 개인 에코백(결과물 가방) 확인</td>
-                <td>교실 등교 및 강당 이동 준비</td>
-                <td>강당(과학공연) 및 운동장(12부스) 사전 세팅 완료</td>
-              </tr>
-              <tr>
-                <td><strong>08:45 ~ 08:50</strong><br /><span
-                    style="font-size:0.75rem; color:#dc2626; font-weight:800;">(저학년 0회차 집결)</span></td>
-                <td style="background:#eff6ff; font-weight:700; color:#1e40af;">
-                  📢 <strong>[0회차] 08:45까지 운동장 전체 집결 (반별 2줄 정렬)</strong><br />
-                  <span style="font-size:0.78rem; color:#0369a1;">• <strong>꿈나무관을 바라보고 좌측(1-1반) ~ 우측 끝(3-4반)</strong> 순서로 각 반
-                    2줄 정렬<br />• <strong>전체 안내사항 전달 후 08:50</strong> 각 반 1회차 부스로 이동!</span>
+                <td><strong>08:45 ~ 08:50</strong><br /><span style="font-size:0.74rem; color:#dc2626; font-weight:800;">(저학년 0회차)</span></td>
+                <td style="background:#eff6ff; font-weight:800; color:#1e40af;">
+                  🚩 <strong>[0회차] 08:45 운동장 전체집결 (2줄 정렬)</strong><br />
+                  <span style="font-size:0.78rem; color:#0369a1;">꿈나무관 좌측(1-1)~우측(3-4) 2줄 정렬 → 안내 후 1회차 이동</span>
                 </td>
-                <td style="background:#f5f3ff; font-weight:700; color:#5b21b6;">08:50까지 강당 이동 및 학년·반 지정 좌석 착석<br /><span
-                    style="font-size:0.78rem;">(무대 기준 좌측 4-1 ~ 우측 6-4)</span></td>
-                <td><strong>[0회차] 시작 5분 전(08:45) 꿈나무관 바라보고 좌측부터 2줄 정렬</strong><br /><span
-                    style="font-size:0.78rem; color:#dc2626; font-weight:700;">※ 바로 첫 부스로 가지 않고 0회차 전체 집결·안내 후 이동</span>
+                <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
+                  🎭 <strong>08:50 강당 지정석 착석</strong><br />
+                  <span style="font-size:0.78rem;">무대 좌측 1열(4-1) ~ 우측 12열(6-4)</span>
                 </td>
+                <td>• 저학년 부스 직행 금지 (0회차 정렬 먼저)<br />• 고학년 08:50 강당 입장 완료</td>
               </tr>
               <tr>
                 <td><strong>08:50 ~ 09:50</strong></td>
                 <td rowspan="2" style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
-                  🔬 <strong>운동장 과학축제 부스 체험</strong><br />
-                  (08:50 ~ 10:50, 총 12개 부스 완주)<br />
-                  <span class="diff-badge warn" style="margin:3px 0;">⚠️ 기존 1교시보다 10분 조기 시작 · 쉬는시간 없이 연속 진행</span><br />
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 1~12회차: 전 회차 각 10분 동일 (총 120분)<br />• 꿈나무관 중심 시계방향(1→12번) 로테이션</span>
+                  🔬 <strong>운동장 부스 체험 (08:50~10:50, 1~12회차)</strong><br />
+                  <span style="font-size:0.78rem; font-weight:600; color:#0369a1;">쉬는시간 없이 10분씩 12부스 시계방향 연속 회전</span>
                 </td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
-                  🎭 <strong>강당 과학공연 1차 관람 (09:00~09:50, 4·5·6학년)</strong><br />
-                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (50분)</span><br />
-                  <span class="diff-badge" style="margin-top:3px;">🚨 기존 1교시(09:40 종료)보다 10분 연장 (쉬는시간 없음)</span>
+                  🎭 <strong>강당 과학공연 1차 (09:00~09:50)</strong><br />
+                  <span class="diff-badge" style="margin-top:3px;">🚨 1교시 10분 연장 · 종료 즉시 2교시 이동</span>
                 </td>
-                <td>• 강당: 고학년 공연 (09:00~09:50 종료 후 즉시 2교시 이동)<br />• 운동장: 저학년 부스 1~6회차 진행 (08:50~09:50)</td>
+                <td>• 강당: 고학년 공연 (50분)<br />• 운동장: 저학년 1~6회차</td>
               </tr>
               <tr>
                 <td><strong>09:50 ~ 10:50</strong></td>
                 <td style="background:#f8fafc; font-weight:800; color:#334155;">
-                  📚 <strong>고학년 2교시 정상 수업 (09:50~10:30) 및 3교시 수업 (10:40~11:05)</strong><br />
-                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• 2교시 정상 수업 후 10:30~10:40 쉬는시간<br />• 3교시는 <strong>10:40~11:05(25분)</strong> 수업 진행</span>
+                  📚 <strong>2교시(09:50~10:30) · 3교시(10:40~11:05) 수업</strong><br />
+                  <span style="font-size:0.78rem; color:#dc2626;">※ 3교시 15분 단축 (25분간 수업)</span>
                 </td>
-                <td>• 강당: 2차 공연 재세팅 시간 (09:50~12:10)<br />• 운동장: 저학년 부스 7~12회차 진행 (10:50 저학년 완주)</td>
+                <td>• 강당: 2차 공연 재세팅<br />• 운동장: 저학년 7~12회차 완주(10:50)</td>
               </tr>
               <tr>
-                <td><strong>10:50 ~ 11:10</strong><br /><span style="font-size:0.75rem; color:#dc2626; font-weight:800;">(고학년 0회차: 11:05)</span></td>
+                <td><strong>10:50 ~ 11:10</strong><br /><span style="font-size:0.74rem; color:#dc2626; font-weight:800;">(고학년 0회차 11:05)</span></td>
                 <td style="background:#ecfdf5; font-weight:700; color:#065f46;">
-                  <strong>10:50 저학년 부스 체험 종료</strong> → 결과물 4종 챙기기·교실 이동·손 씻기 (10:50~11:20)<br />
-                  <strong>11:20부터 저학년 점심식사 시작 (기존과 시작 시각 동일!)</strong>
+                  🧹 <strong>교실 이동 · 결과물 4종 보관 · 손 씻기 (10:50~11:20)</strong>
                 </td>
                 <td style="background:#f0f9ff; font-weight:800; color:#0369a1;">
-                  📢 <strong>[0회차] 11:05까지 운동장 전체 집결 (반별 2줄 정렬)</strong><br />
-                  <span style="font-size:0.78rem; color:#0f172a;">• 3교시(10:40~11:05) 후 <strong>꿈나무관을 바라보고 좌측 4-1반 ~ 우측 끝 6-4반, 각 반 2줄 정렬</strong> → 전체 안내 후 11:10 1회차 부스 이동</span>
+                  🚩 <strong>[0회차] 11:05 운동장 전체집결 (2줄 정렬)</strong><br />
+                  <span style="font-size:0.78rem; color:#0f172a;">꿈나무관 좌측(4-1)~우측(6-4) 2줄 정렬 → 11:10 1회차 이동</span>
                 </td>
-                <td>• <strong>운동장: 고학년 프로그램 실험도구 전환 세팅 (10:50~11:10, 20분)</strong></td>
+                <td>• 운동장 고학년 실험도구 전환 세팅 (20분)<br />• 고학년 11:05 0회차 2줄 정렬</td>
               </tr>
               <tr>
-                <td><strong>11:10 ~ 12:10</strong><br /><span style="font-size:0.75rem; color:#475569;">(고학년 1차 6부스)</span>
-                </td>
+                <td><strong>11:10 ~ 12:10</strong></td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
-                  🍱 <strong>저학년 점심시간 및 강당 이동 (11:20 ~ 12:10)</strong><br />
-                  <span class="diff-badge" style="margin:3px 0;">🚨 점심 시작(11:20) 고정 · 종료만 10분 단축!</span><br />
-                  <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 11:20 급식 시작 → 식사 후 12:05까지 강당 착석 완료!</span>
+                  🍱 <strong>저학년 점심 (11:20~12:10, 10분 단축)</strong><br />
+                  <span style="font-size:0.78rem; color:#dc2626;">🔔 식사 후 <strong>12:05까지 강당 지정석 착석!</strong></span>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
-                  🔬 <strong>운동장 고학년 1차 부스 체험 (1~6회차, 6개 부스 · 60분)</strong><br />
-                  <span class="diff-badge warn" style="margin:3px 0;">⚠️ 기존 4교시(11:30)보다 20분 조기 시작</span><br />
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 11:10 ~ 12:10 동안 회차당 10분씩 6개 부스 우선 체험</span>
+                  🔬 <strong>고학년 1차 부스 체험 (11:10~12:10, 1~6회차)</strong><br />
+                  <span style="font-size:0.78rem; font-weight:600; color:#0369a1;">회차당 10분씩 오전 6개 부스 체험</span>
                 </td>
-                <td>• <strong>저학년 중식 시작(11:20) 고정</strong> · 12:05 강당 착석<br />• <strong>고학년 중식 시작(12:10) 고정</strong>을 위해 12:10 정각 1차 종료</td>
+                <td>• 저학년 12:05 강당 착석 필수<br />• 고학년 12:10 1차 종료 후 급식실 이동</td>
               </tr>
               <tr>
-                <td><strong>12:10 ~ 12:50</strong><br /><span style="font-size:0.75rem; color:#475569;">(저학년 공연 ~13:00)</span></td>
+                <td><strong>12:10 ~ 12:50</strong><br /><span style="font-size:0.74rem; color:#475569;">(공연 ~13:00)</span></td>
                 <td style="background:#f5f3ff; font-weight:800; color:#5b21b6;">
-                  🎭 <strong>강당 과학공연 2차 관람 (12:10 ~ 13:00, 1·2·3학년)</strong><br />
-                  <span class="diff-badge" style="margin:3px 0;">🚨 기존 4교시(12:20~13:00)보다 10분 조기 시작!</span><br />
-                  <span style="font-size:0.8rem; font-weight:600;">"서프라이즈 과학대탐험" (13:00 종료 후 5교시 13:10~13:50 정상
-                    운영)</span>
+                  🎭 <strong>강당 과학공연 2차 (12:10~13:00)</strong><br />
+                  <span style="font-size:0.78rem; font-weight:600;">기존 4교시(12:20)보다 10분 조기 시작</span>
                 </td>
                 <td style="background:#fffbeb; font-weight:800; color:#92400e;">
-                  🍱 <strong>고학년 점심시간 (12:10 ~ 12:50, 40분)</strong><br />
-                  <span class="diff-badge" style="margin:3px 0;">🚨 점심 시작(12:10) 고정 · 종료 20분 단축!</span><br />
-                  <span style="font-size:0.8rem; font-weight:800; color:#b45309;">• 🍽️ <strong>[급식 배려] 4학년부터 우선 식사할 수 있도록 5·6학년 배려 협조!</strong></span><br />
-                  <span style="font-size:0.8rem; font-weight:700; color:#dc2626;">• 식사 후 12:45까지 운동장 '7회차 부스' 앞으로 재집결!</span>
+                  🍱 <strong>고학년 점심 (12:10~12:50, 20분 단축)</strong><br />
+                  <span style="font-size:0.78rem; color:#b45309;">🍽️ <strong>4학년 우선 식사 배려</strong></span> · <span style="font-size:0.78rem; color:#dc2626;"><strong>12:45 7회차 부스 재집결!</strong></span>
                 </td>
-                <td>• 운동장 강사·스텝 중식 시간 (12:10~12:50)<br />• <strong>🍽️ 고학년 급식 배려</strong>: <strong>4학년부터 우선 배식·식사할 수 있도록 배려 협조</strong><br />• <strong>고학년 중식 종료 주의</strong>: <strong>12:50에 오후 2차(7회차) 부스 시작!</strong></td>
+                <td>• <strong>🍽️ 4학년 우선 식사 배려 협조</strong><br />• 강사·스텝 식사 (12:10~12:50)</td>
               </tr>
               <tr>
                 <td><strong>12:50 ~ 13:50</strong></td>
                 <td style="background:#f8fafc; color:#0f172a; font-weight:700;">
-                  📚 <strong>저학년 5교시 (13:10 ~ 13:50) 정상 운영</strong><br />
-                  <span style="font-size:0.8rem; color:#475569;">13:00 공연 종료 후 교실 이동 → 5교시 수업 후 <strong>13:50 하교</strong></span>
+                  📚 <strong>저학년 5교시 (13:10~13:50) 정상 수업 후 하교</strong>
                 </td>
                 <td style="background:#eff6ff; font-weight:800; color:#1e3a8a;">
-                  🔬 <strong>운동장 고학년 2차 부스 체험 (7~12회차, 나머지 6개 부스 · 60분)</strong><br />
-                  <span class="diff-badge" style="margin:3px 0;">★ 13:50 전 부스 종료 → 4학년 13:50 정상 하교!</span><br />
-                  <span style="font-size:0.8rem; font-weight:600; color:#0369a1;">• 7~12회차(각 10분) 연속 진행 후 13:50 완주</span>
+                  🔬 <strong>고학년 2차 부스 체험 (12:50~13:50, 7~12회차)</strong><br />
+                  <span style="font-size:0.78rem; color:#047857;">★ 13:50 종료 후 <strong>4학년 정상 하교!</strong></span>
                 </td>
-                <td>• <strong>고학년 12:50 집결지 주의</strong>: 오전 마지막(6회차) 부스의 <strong>다음 번호 부스(7회차)</strong>에서 시작!<br />• <strong>★ 13:50 저학년 및 4학년 하교!</strong></td>
+                <td>• 고학년 7회차 부스에서 12:50 시작<br />• 13:50 저학년·4학년 하교</td>
               </tr>
               <tr>
-                <td><strong>14:00 ~ 14:40</strong><br /><span style="font-size:0.75rem; color:#475569;">(5·6학년 6교시)</span></td>
-                <td style="background:#f8fafc; color:#64748b; text-align:center; font-weight:600;">
-                  (저학년 하교 완료)
-                </td>
+                <td><strong>14:00 ~ 14:40</strong></td>
+                <td style="background:#f8fafc; color:#64748b; text-align:center;">(하교 완료)</td>
                 <td style="background:#f8fafc; color:#0f172a; font-weight:800;">
-                  📚 <strong>5·6학년 6교시 정상 교실 수업 (14:00 ~ 14:40)</strong><br />
-                  <span style="font-size:0.8rem; font-weight:600; color:#475569;">• <strong>4학년은 13:50 하교 완료</strong> / 5·6학년은 교실 이동 후 6교시 정상 수업 및 14:40 하교</span>
+                  📚 <strong>5·6학년 6교시 정상 수업 (14:00~14:40) 후 하교</strong>
                 </td>
-                <td>• 4학년(5교시 시수, 13:50 하교) 및 5·6학년(6교시 시수, 14:40 하교) 정규 하교 시각 100% 준수</td>
+                <td>• 4학년(13:50)·5·6학년(14:40) 정규 하교 준수</td>
               </tr>
             </tbody>
           </table>
@@ -2475,8 +2449,8 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">🏟️ 운동장 전체 학급 배치 시뮬레이터 (회차별 1~12번 부스 배정 학급 확인)</h3>
-            <p class="card-subtitle">저학년/고학년 및 회차(시간대)를 클릭하면 운동장 1~12번 부스에 각각 어느 반이 위치하는지 한눈에 표시됩니다.</p>
+            <h3 class="card-title">🏟️ 운동장 전체 학급 배치 시뮬레이터 (0~12회차)</h3>
+            <p class="card-subtitle">회차 클릭 시 부스별 배정 학급 표시 (부스 클릭 시 해당 학급 동선으로 이동)</p>
           </div>
           <div style="display:flex; gap:6px;">
             <button class="btn" id="simBtnLow" style="background:#1e40af; color:#fff; padding:7px 14px;"
@@ -2505,8 +2479,8 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">📊 [저학년 1~3학년] 반별 프로그램 이동시간 전체 조편성표 (08:45 집결 / 08:50 ~ 10:50)</h3>
-            <p class="card-subtitle">상단에서 선택한 학급이 파란색으로 강조 표시됩니다. 표의 학급 셀을 클릭하면 해당 학급으로 바로 전환됩니다.</p>
+            <h3 class="card-title">📊 [저학년 1~3학년] 반별 부스 이동 조편성표 (08:45 집결 / 08:50~10:50)</h3>
+            <p class="card-subtitle">학급 셀 클릭 시 해당 학급으로 전환됩니다.</p>
           </div>
         </div>
         <div class="table-wrap">
@@ -2518,8 +2492,8 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">📊 [고학년 4~6학년] 반별 프로그램 이동시간 전체 조편성표 (1차 11:10~12:10 / 중식 12:10~12:50 / 2차 12:50~13:50)</h3>
-            <p class="card-subtitle">⚠️ <strong>12:10~12:50 점심식사(★4학년부터 우선 식사할 수 있도록 배려 협조) 후 12:45까지 재집결할 7회차(12:50) 부스 위치</strong>를 꼭 확인해 주세요! (13:50 종료 후 4학년 하교 / 5·6학년 6교시)</p>
+            <h3 class="card-title">📊 [고학년 4~6학년] 반별 부스 이동 조편성표 (1차 11:10~12:10 / 중식 / 2차 12:50~13:50)</h3>
+            <p class="card-subtitle">⚠️ 12:10~12:50 점심(🍽️ 4학년 우선 식사 배려) 후 <strong>12:45까지 7회차 부스 앞 재집결</strong> (13:50 4학년 하교 / 5·6학년 6교시)</p>
           </div>
         </div>
         <div class="table-wrap">
@@ -2533,44 +2507,41 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">🎭 강당 과학공연 "서프라이즈 과학대탐험" 학급별 좌석 배치도 (1행 12열)</h3>
-            <p class="card-subtitle">무대를 바라보는 기준 좌측(1열)부터 우측(12열)까지 학년·반 오름차순(고학년 4-1~6-4 / 저학년 1-1~3-4)으로 나란히 앉는
-              <strong>1행 12열</strong> 기본 배치입니다. <strong>두 학급을 차례로 클릭하면 자리를 서로 맞바꿀 수 있습니다.</strong></p>
+            <h3 class="card-title">🎭 강당 과학공연 학급별 좌석 배치도 (1행 12열)</h3>
+            <p class="card-subtitle">무대 기준 좌측(1열)~우측(12열) 1행 12열 종대 배치 · <strong>두 학급을 차례로 클릭하면 위치가 변경됩니다.</strong></p>
           </div>
           <div style="display:flex; gap:8px; flex-wrap:wrap;">
             <button class="btn" id="audBtn1" style="background:#5b21b6; color:#fff;" onclick="setAudSession(1)">
-              1차 공연: 고학년 4·5·6학년 (09:00~09:50)
+              1차: 고학년 4~6학년 (09:00~09:50)
             </button>
             <button class="btn" id="audBtn2" style="background:#e2e8f0; color:#0f172a;" onclick="setAudSession(2)">
-              2차 공연: 저학년 1·2·3학년 (12:10~13:00)
+              2차: 저학년 1~3학년 (12:10~13:00)
             </button>
             <button class="btn" style="background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;"
               onclick="resetAudSeats()">
-              ↺ 기본 배치로 초기화
+              ↺ 배치 초기화
             </button>
           </div>
         </div>
 
-        <div class="alert-box alert-info">
+        <div class="alert-box alert-info" style="padding:10px 14px; margin-bottom:14px;">
           <div>💡</div>
           <div>
-            <strong>강당 입장 및 관람 지도 안내:</strong>
-            공연 시작 <strong>5~10분 전까지(고학년 08:50, 저학년 12:05)</strong> 강당 입장을 완료해 주세요. 공연 중 현장 상황에 따라 학생 참가자를 무대 위로 호명하여 함께
-            실험하는 코너가 있으니 안전한 이동을 지도해 주시기 바랍니다. (자리 변경 시 인쇄물에도 즉시 반영됩니다.)
+            <strong>입장 시각:</strong> 고학년 <strong>08:50까지</strong>, 저학년 <strong>12:05까지</strong> 착석 완료 · 무대 실험 학생 호명 시 안전 이동 지도
           </div>
         </div>
 
         <div class="stage-box">
-          🎤 강 당 무 대 (STAGE) — 기초과학 실험공연 "서프라이즈 과학대탐험" (테이블 2~3개 / 음향·마이크)
+          🎤 강 당 무 대 (STAGE) — 기초과학 실험공연 "서프라이즈 과학대탐험"
         </div>
 
         <div id="audSeatingContainer"></div>
 
         <div
           style="display:flex; justify-content:space-between; align-items:center; margin-top:12px; padding:10px 14px; background:#f8fafc; border-radius:10px; font-size:0.85rem; color:#475569;">
-          <span>⬅️ 강당 무대 바라보는 기준 좌측 끝 (1열)</span>
-          <strong>1행 12열 종대 배치 · 복도 및 통로 확보 (담임교사 임장 지도)</strong>
-          <span>강당 무대 바라보는 기준 우측 끝 (12열) ➡️</span>
+          <span>⬅️ 무대 기준 좌측 끝 (1열)</span>
+          <strong>1행 12열 종대 배치 · 통로 확보 및 담임교사 임장 지도</strong>
+          <span>무대 기준 우측 끝 (12열) ➡️</span>
         </div>
       </div>
     </section>
@@ -2580,17 +2551,17 @@
       <div class="card">
         <div class="card-header">
           <div>
-            <h3 class="card-title">🔬 운동장 1~12번 부스 과학 프로그램 상세 안내</h3>
-            <p class="card-subtitle">체험활동 8종 + 결과물 활동 4종(3·6·9·12번 부스)의 과학 원리 및 활동 내용입니다.</p>
+            <h3 class="card-title">🔬 운동장 1~12번 부스 프로그램 안내</h3>
+            <p class="card-subtitle">🧪 체험활동 8종 + 🎁 결과물 4종(3·6·9·12번 부스)</p>
           </div>
           <div style="display:flex; gap:8px;">
             <button class="btn" id="progFilterLow" style="background:#1e40af; color:#fff;"
               onclick="renderProgramCards('low')">
-              저학년 (1~3학년) 12종 보기
+              저학년 (1~3학년) 12종
             </button>
             <button class="btn" id="progFilterHigh" style="background:#e2e8f0; color:#0f172a;"
               onclick="renderProgramCards('high')">
-              고학년 (4~6학년) 12종 보기
+              고학년 (4~6학년) 12종
             </button>
           </div>
         </div>
@@ -2605,17 +2576,16 @@
         <div>
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">👩‍🏫 학급 담임교사 인솔 수칙 및 학생 사전 지도사항</h3>
+              <h3 class="card-title">👩‍🏫 담임교사 인솔 수칙 체크리스트</h3>
             </div>
             <div class="check-list">
               <label class="check-item">
                 <input type="checkbox" data-check-key="common_bag"
                   onchange="toggleSavedCheck('common_bag', this.checked)" />
                 <div>
-                  <strong>[학생 준비물] 개인 결과물 보관 가방(에코백/비닐백) 및 이름표 준비</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    모든 학생이 <strong>총 4종의 결과물</strong>(3·6·9·12번 부스)을 직접 만들어 가져갑니다. 이동 중 분실하거나 파손되지 않도록 개인 보조가방(또는 에코백)을
-                    지참하고 가방에 학년·반·이름을 적도록 사전 지도해 주세요.
+                  <strong>[학생 준비물] 결과물 4종 보관용 개인 가방(에코백/비닐백) 지참</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    3·6·9·12번 부스 결과물(4종) 분실 방지를 위해 학년·반·이름을 적은 보조가방 지참 지도
                   </p>
                 </div>
               </label>
@@ -2623,15 +2593,10 @@
                 <input type="checkbox" data-check-key="common_time"
                   onchange="toggleSavedCheck('common_time', this.checked)" />
                 <div>
-                  <strong>[운동장 0회차 전체 집결 및 꿈나무관 기준 2줄 정렬] 시작 5분 전 도착 후 전체 안내 청취</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    • 운동장 도착 시 <strong>바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>[0회차] 운동장에 전체 집결하여 안내사항을 전달받은 후 각 부스로
-                      이동</strong>합니다.<br />
-                    • <strong>1~3학년(저학년 0회차)</strong>: <strong>08:45까지(5분 전)</strong> <strong>꿈나무관을 바라보고 좌측 1-1반 ~ 우측 끝 3-4반
-                      순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 08:50 1회차 부스 이동) / 중식(11:20~12:10) 후 12:05까지 강당 착석 완료<br />
-                    • <strong>4~6학년(고학년 0회차)</strong>: 08:50까지 강당 착석 / <strong>11:05까지(5분 전)</strong> <strong>꿈나무관을 바라보고 좌측 4-1반
-                      ~ 우측 끝 6-4반 순서로 각 반 2줄씩 정렬</strong> (전체 안내 후 11:10 1차 1~6회차 부스 이동) / 중식(12:10~12:50, <strong>🍽️ 4학년부터 우선 식사할 수 있도록 5·6학년 배려 협조</strong>) 후 <strong>12:45까지 운동장 2차(7회차) 부스
-                      재집결</strong> (13:50 종료 후 4학년 하교 · 5·6학년 6교시 정상 수업)
+                  <strong>[0회차 전체집결 & 점심 후 동선] 시작 5분 전 꿈나무관 좌측부터 2줄 정렬</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    • <strong>저학년</strong>: 08:45 0회차 집결(좌측 1-1~우측 3-4, 2줄) → 08:50~10:50 부스 → 점심(11:20~12:10) → 12:05 강당 착석<br />
+                    • <strong>고학년</strong>: 08:50 강당 착석 → 11:05 0회차 집결(좌측 4-1~우측 6-4, 2줄) → 11:10~12:10 1차 부스 → 점심(12:10~12:50, <strong>🍽️ 4학년 우선 식사 배려</strong>) → <strong>12:45 7회차 부스 재집결</strong> → 13:50 종료(4학년 하교 / 5·6학년 6교시)
                   </p>
                 </div>
               </label>
@@ -2639,10 +2604,9 @@
                 <input type="checkbox" data-check-key="common_rot"
                   onchange="toggleSavedCheck('common_rot', this.checked)" />
                 <div>
-                  <strong>[시계방향 동시 로테이션] 진행자 방송 신호에 맞춘 학급 이동</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    운동장 부스는 <strong>꿈나무관을 중심으로 시계 방향(1번→2번→…→12번→1번)</strong>으로 회전합니다. 개별 학급이 먼저 이동하지 않고 <strong>행사 진행자의
-                      부스 종료 및 이동 안내 방송</strong>에 맞춰 전 학급이 동시에 다음 번호 부스로 이동합니다.
+                  <strong>[시계방향 동시 이동] 진행자 방송 신호에 맞춰 다음 번호 부스로 이동</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    꿈나무관 중심 시계방향(1→2→…→12→1번) 10분 간격 전 학급 동시 로테이션
                   </p>
                 </div>
               </label>
@@ -2650,10 +2614,9 @@
                 <input type="checkbox" data-check-key="common_safe"
                   onchange="toggleSavedCheck('common_safe', this.checked)" />
                 <div>
-                  <strong>[안전 지도] 액화질소·드라이아이스·전기분해 등 실험 안전 유의</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    1번(극저온의 세계-액화질소), 7번(슬러시 만들기-드라이아이스) 등 시약 및 실험 기구를 다루는 부스에서는 강사의 안전 지시에 따라 실험 도구를 임의로 만지지 않도록 임장 지도
-                    부탁드립니다.
+                  <strong>[실험 안전 지도] 액화질소(1번)·드라이아이스(7번) 등 시약 접촉 주의</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    강사 안내 전 실험 도구·시약을 임의로 만지지 않도록 임장 지도
                   </p>
                 </div>
               </label>
@@ -2664,17 +2627,16 @@
         <div>
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">🛠️ 행사 담당교사 · 행정실 협조 및 우천 대비 체크리스트</h3>
+              <h3 class="card-title">🛠️ 담당교사 · 행정 협조 체크리스트</h3>
             </div>
             <div class="check-list">
               <label class="check-item">
                 <input type="checkbox" data-check-key="admin_open"
                   onchange="toggleSavedCheck('admin_open', this.checked)" />
                 <div>
-                  <strong>[학교 출입 및 사전 설치 협조] 전일 15시 이후 또는 당일 06시부터</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    운동장 천막·테이블 및 강당 공연 장비 설치를 위해 <strong>전일 오후 3시 이후 또는 당일 오전 6시부터</strong> 행사 준비 차량 출입 및 강당·운동장 개방 협조가
-                    필요합니다. (08:00 세팅 완료)
+                  <strong>[사전 설치 개방] 전일 15시 이후 또는 당일 06시부터 차량 출입·개방</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    운동장 천막·테이블 및 강당 무대 장비 설치 (08:00 세팅 완료)
                   </p>
                 </div>
               </label>
@@ -2682,10 +2644,9 @@
                 <input type="checkbox" data-check-key="admin_meal"
                   onchange="toggleSavedCheck('admin_meal', this.checked)" />
                 <div>
-                  <strong>[강사 및 스텝 식사 장소 마련] 12:10 ~ 12:50 (총 20명 내외)</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    4교시 이상 행사가 진행되므로 점심시간(12:10~12:50) 동안 강사 및 운영 스텝(축제 17명 + 공연 3명)이 식사할 수 있는 장소를 행사장과 가까운 근거리에 마련해
-                    주세요.
+                  <strong>[강사·스텝 식사 장소] 12:10 ~ 12:50 (약 20명: 부스 17명 + 공연 3명)</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    행사장과 가까운 근거리 식사 공간 마련 협조
                   </p>
                 </div>
               </label>
@@ -2693,10 +2654,9 @@
                 <input type="checkbox" data-check-key="admin_trash"
                   onchange="toggleSavedCheck('admin_trash', this.checked)" />
                 <div>
-                  <strong>[종량제 쓰레기봉투 준비 및 분리수거장 안내]</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    행사 당일 <strong>학교용 종량제 쓰레기봉투</strong>를 준비하여 행사 운영 본부에 전달해 주시고, 행사 종료 후(13:50~) 분리수거장 위치를 안내해
-                    주세요.
+                  <strong>[종량제 봉투 & 분리수거장] 학교용 종량제 봉투 지급 및 위치 안내</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    운영 본부에 종량제 봉투 전달 및 13:50 종료 후 분리수거장 안내
                   </p>
                 </div>
               </label>
@@ -2704,9 +2664,9 @@
                 <input type="checkbox" data-check-key="admin_stage"
                   onchange="toggleSavedCheck('admin_stage', this.checked)" />
                 <div>
-                  <strong>[강당 과학공연 시설 점검] 테이블 2~3개(길이 1800) 및 마이크</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    강당 무대 위 실험용 테이블 2~3개(길이 1800mm)와 음향 시설(가능한 핀마이크 또는 무선마이크, 없을 시 유선마이크) 사용 여부를 사전 확인해 주세요.
+                  <strong>[강당 공연 장비] 무대 테이블 2~3개(1800mm) 및 무선/핀마이크 점검</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    강당 무대 실험용 테이블 및 음향 장비 사전 확인
                   </p>
                 </div>
               </label>
@@ -2714,9 +2674,9 @@
                 <input type="checkbox" data-check-key="admin_weather"
                   onchange="toggleSavedCheck('admin_weather', this.checked)" />
                 <div>
-                  <strong>[우천·강풍·미세먼지 시 대체 운영 방안]</strong>
-                  <p style="font-size:0.84rem; color:#475569; margin-top:3px;">
-                    기상 악화 시 사전 협의를 통해 강당(체육관) 내 무대 중심 좌·우 부스 배치 또는 지정 실내 공간으로 장소를 변경하여 동일 로테이션 방식으로 운영합니다.
+                  <strong>[기상 악화 대비] 우천·강풍·미세먼지 시 강당/실내 대체 부스 운영</strong>
+                  <p style="font-size:0.82rem; color:#475569; margin-top:2px;">
+                    사전 협의된 실내 공간에서 동일 시계방향 로테이션 진행
                   </p>
                 </div>
               </label>
@@ -2893,10 +2853,10 @@
       const lineupOrd = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
       if (low) {
         if (totalMins < 520) {
-          return { round: 0, phase: "prep", badge: "0회차 집결 준비", text: `[0회차] 08:45까지 운동장 전체 집결(꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 · 2줄 정렬) → 전체 안내 후 08:50 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
+          return { round: 0, phase: "prep", badge: "0회차 집결 준비", text: `08:45 0회차 집결(꿈나무관 좌측 ${lineupOrd}번째·2줄) → 08:50 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name})` };
         }
         if (totalMins < 530) {
-          return { round: 0, phase: "gather", badge: "🚩 0회차 전체집결(2줄)", text: `[0회차] 08:45까지 꿈나무관을 바라보고 좌측부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 08:50 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name})로 이동합니다.` };
+          return { round: 0, phase: "gather", badge: "🚩 0회차 전체집결(2줄)", text: `08:45 꿈나무관 좌측 ${lineupOrd}번째(${clsName}반) 2줄 정렬 → 안내 후 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동` };
         }
         if (totalMins >= 530 && totalMins < 650) {
           let r = 1;
@@ -2908,40 +2868,40 @@
           }
           const b = getBoothForClassAtRound(clsName, r);
           const rem = LOW_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, phase: "booth", badge: `🔬 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${LOW_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
+          return { round: r, phase: "booth", badge: `🔬 ${r}회차 진행 중`, text: `[${r}회차] ${b}번 ${LOW_PROGRAMS[b - 1].name} 체험 중 (다음 이동 약 ${rem}분 전)` };
         }
         if (totalMins < 680) {
-          return { round: 12, phase: "move", badge: "결과물 정리·교실 이동", text: `부스 체험 완료(10:50)! 결과물 4종 확인 및 손 씻기·휴식 후 11:20 점심식사` };
+          return { round: 12, phase: "move", badge: "교실 정리·휴식", text: `10:50 부스 완료 · 결과물 4종 보관·손 씻기 후 11:20 점심식사` };
         }
         if (totalMins < 725) {
-          return { round: 12, phase: "lunch", badge: "🍱 점심시간(단축)", text: `저학년 점심식사(11:20~12:10) · 식사 후 12:05까지 강당 지정석 착석!` };
+          return { round: 12, phase: "lunch", badge: "🍱 점심(10분 단축)", text: `저학년 점심(11:20~12:10) · 식사 후 12:05까지 강당 지정석 착석!` };
         }
         if (totalMins < 730) {
-          return { round: 12, phase: "gather", badge: "🎭 강당 착석 완료", text: `12:05 강당 지정석 착석 완료 · 12:10부터 2차 과학공연 시작` };
+          return { round: 12, phase: "gather", badge: "🎭 강당 착석", text: `12:05 강당 지정석 착석 완료 (12:10 2차 공연 시작)` };
         }
         if (totalMins < 780) {
-          return { round: 12, phase: "show", badge: "🎭 2차 공연 관람 중", text: `강당 과학공연 2차 관람 중 (12:10 ~ 13:00, 종료 후 교실 이동)` };
+          return { round: 12, phase: "show", badge: "🎭 2차 공연 관람", text: `강당 과학공연 관람 중 (12:10~13:00, 종료 후 교실 이동)` };
         }
         if (totalMins < 830) {
-          return { round: 12, phase: "class", badge: "📚 5교시 수업", text: `저학년 과학축제 일정 완료 · 13:10~13:50 5교시 정상 수업 후 하교` };
+          return { round: 12, phase: "class", badge: "📚 5교시 수업", text: `13:10~13:50 5교시 정상 수업 후 하교` };
         }
-        return { round: 0, phase: "done", badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 수업 일과가 종료되었습니다.` };
+        return { round: 0, phase: "done", badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 수업 일과 종료` };
       } else {
         const b7 = getBoothForClassAtRound(clsName, 7);
         if (totalMins < 530) {
-          return { round: 0, phase: "prep", badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 과학공연)` };
+          return { round: 0, phase: "prep", badge: "강당 이동 준비", text: `08:50까지 강당 지정석 착석 예정 (09:00 1차 공연)` };
         }
         if (totalMins < 540) {
-          return { round: 0, phase: "gather", badge: "🎭 강당 착석 중", text: `08:50까지 강당 지정 좌석 착석을 완료해 주세요! (09:00 공연 시작)` };
+          return { round: 0, phase: "gather", badge: "🎭 강당 착석 중", text: `08:50까지 강당 지정석 착석 완료 (09:00 공연 시작)` };
         }
         if (totalMins < 590) {
-          return { round: 0, phase: "show", badge: "🎭 1차 공연 관람 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 쉬는시간 없이 곧바로 2교시 수업)` };
+          return { round: 0, phase: "show", badge: "🎭 1차 공연 관람", text: `강당 공연 관람 중 (09:50 종료 즉시 쉬는시간 없이 2교시 이동)` };
         }
         if (totalMins < 665) {
-          return { round: 0, phase: "class", badge: "📚 2·3교시 교실수업", text: `2교시(09:50~10:30)·3교시(10:40~11:05) 수업 진행 중 · 11:05까지 [0회차] 운동장 전체 집결(꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 · 2줄 정렬)` };
+          return { round: 0, phase: "class", badge: "📚 2·3교시 수업", text: `2·3교시(11:05 종료) 수업 후 [0회차] 꿈나무관 좌측 ${lineupOrd}번째 2줄 정렬` };
         }
         if (totalMins < 670) {
-          return { round: 0, phase: "gather", badge: "🚩 0회차 전체집결(2줄)!", text: `[0회차] 11:05까지 꿈나무관을 바라보고 좌측부터 ${lineupOrd}번째(${clsName}반) 위치에 2줄 정렬! 전체 안내 후 11:10 1회차 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}]로 이동합니다.` };
+          return { round: 0, phase: "gather", badge: "🚩 0회차 전체집결(2줄)", text: `11:05 꿈나무관 좌측 ${lineupOrd}번째(${clsName}반) 2줄 정렬 → 11:10 1회차(${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}) 이동` };
         }
         if (totalMins >= 670 && totalMins < 730) {
           let r = 1;
@@ -2953,13 +2913,13 @@
           }
           const b = getBoothForClassAtRound(clsName, r);
           const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, phase: "booth", badge: `🔬 1차 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
+          return { round: r, phase: "booth", badge: `🔬 1차 ${r}회차`, text: `[${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동 약 ${rem}분 전)` };
         }
         if (totalMins < 765) {
-          return { round: 7, phase: "lunch", badge: "🍱 점심 · 7회차 자동전환", text: `고학년 점심식사(12:10~12:50 · 🍽️4학년부터 우선 식사할 수 있도록 배려 협조!) · 식사 후 12:45까지 오후 시작 부스인 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞으로 재집결!` };
+          return { round: 7, phase: "lunch", badge: "🍱 점심 · 7회차 전환", text: `점심(12:10~12:50 · 🍽️4학년 우선 식사 배려) → 12:45 7회차(${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}) 재집결` };
         }
         if (totalMins < 770) {
-          return { round: 7, phase: "gather", badge: "🔔 오후 2차 재집결!", text: `지금 오후 2차 시작 부스인 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞으로 집결 완료해 주세요! (12:50 시작)` };
+          return { round: 7, phase: "gather", badge: "🔔 7회차 재집결", text: `12:45 오후 시작 부스 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 집결 (12:50 시작)` };
         }
         if (totalMins >= 770 && totalMins < 830) {
           let r = 7;
@@ -2971,15 +2931,15 @@
           }
           const b = getBoothForClassAtRound(clsName, r);
           const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, phase: "booth", badge: `🔬 2차 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동까지 약 ${rem}분)` };
+          return { round: r, phase: "booth", badge: `🔬 2차 ${r}회차`, text: `[${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (다음 이동 약 ${rem}분 전)` };
         }
         if (grade === 4) {
-          return { round: 0, phase: "done", badge: "🎒 13:50 4학년 하교", text: `금일 4학년 과학축제 전 일정(13:50)이 완료되어 정상 하교합니다.` };
+          return { round: 0, phase: "done", badge: "🎒 13:50 4학년 하교", text: `13:50 4학년 과학축제 일정 완료 및 정상 하교` };
         }
         if (totalMins < 880) {
-          return { round: 12, phase: "class", badge: "📚 6교시 수업", text: `13:50 부스 체험 완료 · 5·6학년은 교실로 이동하여 14:00~14:40 6교시 정상 수업 후 하교합니다.` };
+          return { round: 12, phase: "class", badge: "📚 6교시 수업", text: `13:50 부스 완료 · 5·6학년 14:00~14:40 6교시 정상 수업 후 하교` };
         }
-        return { round: 0, phase: "done", badge: "✅ 일과 종료", text: `금일 고학년 과학축제 및 정규 수업 일과가 모두 완료되었습니다.` };
+        return { round: 0, phase: "done", badge: "✅ 일과 종료", text: `금일 고학년 과학축제 및 수업 일과 종료` };
       }
     }
 
@@ -3041,50 +3001,50 @@
       const autoState = computeAutoSchedule(currentGrade, cls, mins);
 
       const presetOptions = [
-        { val: "real", label: `🕒 현재 실제 시각 연동 (${formatMinsToHHMM(new Date().getHours() * 60 + new Date().getMinutes())})` },
-        { val: "525", label: "🧪 [미리보기] 08:45 — 저학년 0회차(꿈나무관 좌측부터 2줄 정렬)" },
-        { val: "535", label: "🧪 [미리보기] 08:55 — 저학년 1회차 부스 / 고학년 강당 착석" },
-        { val: "555", label: "🧪 [미리보기] 09:15 — 저학년 3회차 부스 / 고학년 공연" },
-        { val: "595", label: "🧪 [미리보기] 09:55 — 저학년 7회차 부스 / 고학년 2교시" },
-        { val: "645", label: "🧪 [미리보기] 10:45 — 저학년 12회차 마지막 부스" },
-        { val: "665", label: "🧪 [미리보기] 11:05 — 고학년 0회차(꿈나무관 좌측부터 2줄 정렬)" },
-        { val: "675", label: "🧪 [미리보기] 11:15 — 고학년 1차 1회차 부스" },
-        { val: "715", label: "🧪 [미리보기] 11:55 — 고학년 1차 5회차 / 저학년 점심" },
-        { val: "750", label: "🧪 [미리보기] 12:30 — 고학년 점심(7회차 자동전환) / 저학년 공연" },
-        { val: "775", label: "🧪 [미리보기] 12:55 — 고학년 2차 7회차 부스 재개" },
-        { val: "815", label: "🧪 [미리보기] 13:35 — 고학년 2차 11회차 부스 체험" }
+        { val: "real", label: `🕒 실제 시각 (${formatMinsToHHMM(new Date().getHours() * 60 + new Date().getMinutes())})` },
+        { val: "525", label: "🧪 08:45 — 저학년 0회차(2줄 정렬)" },
+        { val: "535", label: "🧪 08:55 — 저학년 1회차 / 고학년 강당" },
+        { val: "555", label: "🧪 09:15 — 저학년 3회차 / 고학년 공연" },
+        { val: "595", label: "🧪 09:55 — 저학년 7회차 / 고학년 2교시" },
+        { val: "645", label: "🧪 10:45 — 저학년 12회차 마지막 부스" },
+        { val: "665", label: "🧪 11:05 — 고학년 0회차(2줄 정렬)" },
+        { val: "675", label: "🧪 11:15 — 고학년 1차 1회차 부스" },
+        { val: "715", label: "🧪 11:55 — 고학년 1차 5회차 / 저학년 점심" },
+        { val: "750", label: "🧪 12:30 — 고학년 점심(7회차 전환) / 저학년 공연" },
+        { val: "775", label: "🧪 12:55 — 고학년 2차 7회차 재개" },
+        { val: "815", label: "🧪 13:35 — 고학년 2차 11회차 부스" }
       ];
 
       const selectHtml = autoSyncEnabled ? `
-        <select class="sync-time-select" onchange="setPreviewTestTime(this.value)" title="행사 전에도 시간대별 자동 회차 이동을 테스트해볼 수 있습니다">
+        <select class="sync-time-select" onchange="setPreviewTestTime(this.value)" title="시간대별 자동 회차 이동 미리보기">
           ${presetOptions.map(o => `<option value="${o.val}" ${String(previewTestMins) === o.val ? 'selected' : ''}>${o.label}</option>`).join("")}
         </select>
       ` : "";
 
       const resumeBtnHtml = (autoSyncEnabled && manualRoundOverride) ? `
         <button type="button" class="sync-resume-btn" onclick="resumeAutoSyncRound()">
-          🔄 실시간 회차(${autoState.round}회차)로 복귀
+          🔄 ${autoState.round}회차 복귀
         </button>
       ` : "";
 
       barEl.innerHTML = `
         <div class="live-sync-left">
           <span class="live-status-pill" style="background:${dday.isDday ? '#dc2626' : '#0f172a'};">
-            📅 ${dday.badgeText} (${dday.detailText})
+            📅 ${dday.badgeText}
           </span>
           <span class="live-status-pill" style="background:${autoSyncEnabled ? '#1d4ed8' : '#64748b'};">
-            ${previewTestMins === 'real' ? `🕒 현재 ${timeLabel}` : `⚡ 테스트 시각 ${timeLabel}`} · ${autoState.badge}
+            ${previewTestMins === 'real' ? `🕒 ${timeLabel}` : `⚡ ${timeLabel}`} · ${autoState.badge}
           </span>
           <span class="live-status-text">
             [${cls}반] ${autoState.text}
-            ${(autoSyncEnabled && manualRoundOverride) ? `<span style="color:#d97706; font-size:0.82rem; margin-left:6px;">(현재 ${mySelectedRound}회차 수동 확인 중)</span>` : ''}
+            ${(autoSyncEnabled && manualRoundOverride) ? `<span style="color:#d97706; font-size:0.8rem; margin-left:4px;">(${mySelectedRound}회차 수동 선택됨)</span>` : ''}
           </span>
         </div>
         <div class="live-sync-controls">
           ${resumeBtnHtml}
           ${selectHtml}
           <button type="button" class="sync-toggle-btn ${autoSyncEnabled ? 'on' : ''}" onclick="toggleAutoSync()">
-            ${autoSyncEnabled ? '⚡ 시간대별 자동 회차 이동: 켜짐 (ON)' : '⚡ 시간대별 자동 회차 이동 켜기 (미리보기)'}
+            ${autoSyncEnabled ? '⚡ 자동 회차 이동: ON' : '⚡ 자동 회차 이동 켜기'}
           </button>
         </div>
       `;
@@ -3266,31 +3226,31 @@
       const firstProg = programs[firstBooth - 1];
       const round7Booth = getBoothForClassAtRound(cls, 7);
       const round7Prog = programs[round7Booth - 1];
-      const studentCount = currentGrade === 1 ? "약 16명 (학년 64명)" : "약 20명 (학년 80명)";
+      const studentCount = currentGrade === 1 ? "약 16명" : "약 20명";
       const groupClasses = low ? LOW_CLASSES : HIGH_CLASSES;
       const lineupOrder = groupClasses.indexOf(cls) + 1; // 1..12 from left facing 꿈나무관
-      const leftNeighbor = lineupOrder > 1 ? `${groupClasses[lineupOrder - 2]}반` : "꿈나무관 기준 좌측 끝";
-      const rightNeighbor = lineupOrder < 12 ? `${groupClasses[lineupOrder]}반` : "꿈나무관 기준 우측 끝";
+      const leftNeighbor = lineupOrder > 1 ? `${groupClasses[lineupOrder - 2]}반` : "좌측 끝";
+      const rightNeighbor = lineupOrder < 12 ? `${groupClasses[lineupOrder]}반` : "우측 끝";
 
-      // 1. Hero Banner
+      // 1. Hero Banner (Concise 1-line summary + 3 key point cards)
       const heroEl = document.getElementById("myClassHero");
       if (low) {
         heroEl.innerHTML = `
           <div class="class-hero-left">
-            <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 이동 안내</h2>
-            <p>저학년군 (1~3학년) · 학급 인원 ${studentCount} · <strong>[0회차] 08:45 꿈나무관을 바라보고 좌측부터 2줄 정렬 후 08:50 부스 이동</strong></p>
+            <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 동선</h2>
+            <p>저학년군 (1~3학년 · ${studentCount}) · <strong>[0회차] 08:45 꿈나무관 좌측 ${lineupOrder}번째(2줄) → 08:50 ${firstBooth}번 부스</strong></p>
           </div>
           <div class="class-hero-badges">
             <div class="hero-Point-card highlight">
-              <div class="p-label">① [0회차] 08:45 운동장 집결 위치</div>
-              <div class="p-val">꿈나무관 바라보고 좌측 ${lineupOrder}번째 (2줄)</div>
+              <div class="p-label">① [0회차] 08:45 전체집결</div>
+              <div class="p-val">꿈나무관 좌측 ${lineupOrder}번째 (2줄)</div>
             </div>
             <div class="hero-Point-card highlight" style="background:#bae6fd; border-color:#38bdf8;">
-              <div class="p-label">② 08:50 안내 후 1회차 이동 부스</div>
-              <div class="p-val">${firstBooth}번 부스 (${firstProg.name})</div>
+              <div class="p-label">② 08:50 1회차 시작 부스</div>
+              <div class="p-val">${firstBooth}번 (${firstProg.name})</div>
             </div>
             <div class="hero-Point-card">
-              <div class="p-label">🍱 점심(11:20~12:10) · 🎭 2차 공연</div>
+              <div class="p-label">🍱 점심(11:20~12:10) · 🎭 공연</div>
               <div class="p-val">12:05 강당 착석 (12:10 공연)</div>
             </div>
           </div>
@@ -3298,27 +3258,27 @@
       } else {
         heroEl.innerHTML = `
           <div class="class-hero-left">
-            <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 이동 안내</h2>
-            <p>고학년군 (4~6학년) · 학급 인원 ${studentCount} · <strong>[0회차] 11:05 꿈나무관을 바라보고 좌측부터 2줄 정렬 후 11:10 1차 부스 시작</strong></p>
+            <h2>🏫 ${currentGrade}학년 ${currentClassNum}반 (${cls}) 맞춤 동선</h2>
+            <p>고학년군 (4~6학년 · ${studentCount}) · <strong>[0회차] 11:05 꿈나무관 좌측 ${lineupOrder}번째(2줄) → 11:10 ${firstBooth}번 부스</strong></p>
           </div>
           <div class="class-hero-badges">
             <div class="hero-Point-card">
-              <div class="p-label">🎭 08:50 강당 공연 착석 (1차)</div>
-              <div class="p-val">09:00 ~ 09:50 관람</div>
+              <div class="p-label">🎭 08:50 강당 착석 (1차)</div>
+              <div class="p-val">09:00 ~ 09:50 공연 관람</div>
             </div>
             <div class="hero-Point-card highlight">
-              <div class="p-label">① [0회차] 11:05 집결 → ② 1회차 부스</div>
-              <div class="p-val">꿈나무관 좌측 ${lineupOrder}번째(2줄) → ${firstBooth}번</div>
+              <div class="p-label">① 11:05 0회차 → ② 1회차</div>
+              <div class="p-val">좌측 ${lineupOrder}번째(2줄) → ${firstBooth}번</div>
             </div>
             <div class="hero-Point-card highlight" style="background:#fef08a;">
-              <div class="p-label">🔔 12:45 점심 후 2차(7회차) 재집결</div>
-              <div class="p-val">${round7Booth}번 부스 (${round7Prog.name})</div>
+              <div class="p-label">🔔 12:45 점심 후 7회차 집결</div>
+              <div class="p-val">${round7Booth}번 (${round7Prog.name})</div>
             </div>
           </div>
         `;
       }
 
-      // 2. Visual At-a-Glance Teacher Core Flow Board (#myClassAlert)
+      // 2. Visual At-a-Glance Teacher Core Flow Board (#myClassAlert - 4 concise step cards)
       const alertEl = document.getElementById("myClassAlert");
       const round12Booth = getBoothForClassAtRound(cls, 12);
       const round12Prog = programs[round12Booth - 1];
@@ -3329,13 +3289,13 @@
           <div class="teacher-flow-board">
             <div class="tf-top-bar">
               <div class="tf-title-group">
-                <span class="tf-class-pill">👩‍🏫 ${cls}반 담임선생님 핵심 인솔 동선 (한눈에 보기)</span>
-                <span class="tf-main-heading">운동장 도착 시 바로 부스로 가지 않고 [0회차] 전체집결 후 이동합니다!</span>
+                <span class="tf-class-pill">👩‍🏫 ${cls}반 핵심 동선 4단계</span>
+                <span class="tf-main-heading">[0회차] 08:45 2줄 정렬 후 안내에 따라 1회차 부스로 이동</span>
               </div>
               <div class="tf-dont-do-banner">
-                <span>🚫 도착 즉시 ${firstBooth}번 부스 직행 금지</span>
+                <span>🚫 ${firstBooth}번 부스 직행 금지</span>
                 <span>➔</span>
-                <span>✅ 꿈나무관 바라보고 좌측 ${lineupOrder}번째 2줄 정렬 먼저!</span>
+                <span>✅ 꿈나무관 좌측 ${lineupOrder}번째 2줄 정렬 먼저!</span>
               </div>
             </div>
 
@@ -3344,83 +3304,79 @@
               <div class="tf-step-card step-gather">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 1 · 0회차 전체집결</span>
-                    <span class="tf-step-time">⏰ 08:45까지 (5분 전)</span>
+                    <span class="tf-step-num">STEP 1 · 0회차 집결</span>
+                    <span class="tf-step-time">⏰ 08:45 (5분 전)</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🚩 운동장 도착 & 2줄 정렬</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🚩 운동장 2줄 정렬</div>
                   <div class="tf-key-box" style="margin-top:6px;">
-                    <span class="tf-highlight-val" style="color:#0369a1;">꿈나무관 바라보고 좌측 ${lineupOrder}번째</span>
-                    • <strong>좌측 1-1반 ~ 우측 끝 3-4반</strong> 순서 중 <strong>${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬</strong><br/>
-                    • 전체 진행 안내사항 청취 대기
+                    <span class="tf-highlight-val" style="color:#0369a1;">꿈나무관 좌측 ${lineupOrder}번째 (2줄)</span>
+                    좌측 1-1~우측 3-4 중 <strong>${lineupOrder}번째(${leftNeighbor}~${rightNeighbor} 사이)</strong> 대기
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip amber">🎒 개인 가방(결과물 4종 보관용) 지참</span>
+                    <span class="tf-chip amber">🎒 에코백 지참</span>
                     <span class="tf-chip red">🚫 부스 직행 X</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" data-step-round="0" onclick="jumpToMyRound(0)">📍 아래 시간표·지도에서 0회차(집결) 위치 보기</button>
+                <button type="button" class="tf-action-btn" data-step-round="0" onclick="jumpToMyRound(0)">📍 0회차(집결) 위치 보기</button>
               </div>
 
               <!-- STEP 2 -->
               <div class="tf-step-card step-booth">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 2 · 1~12회차 부스</span>
+                    <span class="tf-step-num">STEP 2 · 1~12회차</span>
                     <span class="tf-step-time">⏰ 08:50 ~ 10:50</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🔬 첫 부스 이동 & 12부스 완주</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🔬 12부스 연속 체험</div>
                   <div class="tf-key-box" style="margin-top:6px;">
                     <span class="tf-highlight-val" style="color:#065f46;">1회차: [${firstBooth}번] ${firstProg.name}</span>
-                    • 안내 종료 후 <strong>${firstBooth}번 부스로 이동</strong>하여 08:50 시작<br/>
-                    • 방송 신호에 맞춰 10분씩 시계방향 회전 (<strong>${firstBooth}번 → … → ${round12Booth}번 ${round12Prog.name}</strong>까지 12개 부스)
+                    10분씩 시계방향 회전 (<strong>${firstBooth}번 → … → 12회차 ${round12Booth}번</strong>)
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip green">🎁 결과물 4종(3·6·9·12번) 수령</span>
-                    <span class="tf-chip blue">⚠️ 쉬는시간 없이 연속 진행</span>
+                    <span class="tf-chip green">🎁 결과물 4종(3·6·9·12번)</span>
+                    <span class="tf-chip blue">⚠️ 쉬는시간 없음</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" data-step-round="1" onclick="jumpToMyRound(1)">📍 1회차(${firstBooth}번 ${firstProg.name}) 위치 보기</button>
+                <button type="button" class="tf-action-btn" data-step-round="1" onclick="jumpToMyRound(1)">📍 1회차(${firstBooth}번) 위치 보기</button>
               </div>
 
               <!-- STEP 3 -->
               <div class="tf-step-card step-lunch">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 3 · 중식 및 강당 이동</span>
+                    <span class="tf-step-num">STEP 3 · 중식·이동</span>
                     <span class="tf-step-time">⏰ 11:20 ~ 12:10</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🍱 점심식사(단축) & 강당 착석</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🍱 점심(단축) & 강당 착석</div>
                   <div class="tf-key-box" style="margin-top:6px;">
-                    <span class="tf-highlight-val" style="color:#b45309;">🔔 12:05까지 강당 지정석 착석!</span>
-                    • 10:50 부스 종료 → 결과물 교실 보관·손 씻기·휴식(30분)<br/>
-                    • <strong>11:20~12:10 점심식사 후 12:05까지 강당(무대 좌측 ${audCol}열) 착석 완료</strong>
+                    <span class="tf-highlight-val" style="color:#b45309;">🔔 12:05 강당 지정석 착석!</span>
+                    10:50~11:20 교실 정리·휴식 → 점심 후 <strong>강당 좌측 ${audCol}열</strong> 착석
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip red">🚨 기존 점심(~12:20)보다 10분 단축!</span>
+                    <span class="tf-chip red">🚨 점심 종료 10분 단축</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" onclick="openMyClassAuditoriumSeat()">🎭 강당 ${cls}반 좌석(좌측 ${audCol}열) 배치도 보기</button>
+                <button type="button" class="tf-action-btn" onclick="openMyClassAuditoriumSeat()">🎭 강당 좌석(좌측 ${audCol}열) 보기</button>
               </div>
 
               <!-- STEP 4 -->
               <div class="tf-step-card step-show">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 4 · 공연 관람 & 5교시</span>
+                    <span class="tf-step-num">STEP 4 · 공연·5교시</span>
                     <span class="tf-step-time">⏰ 12:10 ~ 13:50</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🎭 과학공연 2차 & 5교시 수업</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🎭 2차 공연 & 5교시</div>
                   <div class="tf-key-box" style="margin-top:6px;">
-                    <span class="tf-highlight-val" style="color:#5b21b6;">12:10 ~ 13:00 강당 과학공연 (50분)</span>
-                    • "서프라이즈 과학대탐험" 공연 관람<br/>
-                    • 13:00 공연 종료 후 교실 이동 → <strong>13:10~13:50 5교시 정상 수업 후 하교</strong>
+                    <span class="tf-highlight-val" style="color:#5b21b6;">12:10 ~ 13:00 강당 과학공연</span>
+                    공연 관람(50분) → <strong>13:10~13:50 5교시 수업 후 하교</strong>
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip red">🚨 기존 4교시(12:20)보다 10분 조기 시작</span>
-                    <span class="tf-chip blue">✓ 5교시 시각 동일</span>
+                    <span class="tf-chip red">🚨 4교시 10분 조기 시작</span>
+                    <span class="tf-chip blue">✓ 13:50 하교</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" onclick="printClassSheet()">🖨️ ${cls}반 동선 요약본 A4 1장 인쇄</button>
+                <button type="button" class="tf-action-btn" onclick="printClassSheet()">🖨️ ${cls}반 A4 1장 인쇄</button>
               </div>
             </div>
             <div class="tf-live-preview-bar" id="tfLivePreviewBar"></div>
@@ -3430,19 +3386,19 @@
         const round6Booth = getBoothForClassAtRound(cls, 6);
         const round6Prog = programs[round6Booth - 1];
         const afterFestivalNote = currentGrade === 4
-          ? "13:50 부스 종료 후 <strong>4학년 정상 하교!</strong>"
-          : "13:50 부스 종료 후 교실 이동 → <strong>14:00~14:40 6교시 정상 수업!</strong>";
+          ? "<strong>13:50 4학년 하교</strong>"
+          : "<strong>14:00~14:40 6교시 수업</strong>";
         alertEl.innerHTML = `
           <div class="teacher-flow-board is-high">
             <div class="tf-top-bar">
               <div class="tf-title-group">
-                <span class="tf-class-pill">👩‍🏫 ${cls}반 담임선생님 핵심 인솔 동선 (한눈에 보기)</span>
-                <span class="tf-main-heading">11:05 [0회차] 운동장 전체집결(2줄 정렬) 및 점심 후 12:45 [7회차 부스] 재집결 주의!</span>
+                <span class="tf-class-pill">👩‍🏫 ${cls}반 핵심 동선 4단계</span>
+                <span class="tf-main-heading">11:05 [0회차] 2줄 정렬 및 점심 후 12:45 [7회차 부스] 재집결</span>
               </div>
               <div class="tf-dont-do-banner">
-                <span>🚫 11:05 도착 시 부스 직행 금지</span>
+                <span>🚫 11:05 부스 직행 금지</span>
                 <span>➔</span>
-                <span>✅ 꿈나무관 바라보고 좌측 ${lineupOrder}번째 2줄 정렬 먼저!</span>
+                <span>✅ 꿈나무관 좌측 ${lineupOrder}번째 2줄 정렬 먼저!</span>
               </div>
             </div>
 
@@ -3451,82 +3407,78 @@
               <div class="tf-step-card step-show">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 1 · 1차 공연 & 2·3교시</span>
+                    <span class="tf-step-num">STEP 1 · 공연·수업</span>
                     <span class="tf-step-time">⏰ 08:50 ~ 11:05</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🎭 강당 과학공연 & 교실 수업</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🎭 1차 공연 & 2·3교시</div>
                   <div class="tf-key-box" style="margin-top:6px;">
-                    <span class="tf-highlight-val" style="color:#5b21b6;">08:50 강당 착석 · 09:00~09:50 공연</span>
-                    • 강당 <strong>무대 좌측 ${audCol}열(${cls}반)</strong> 착석 관람<br/>
-                    • 09:50 종료 직후 교실 이동 → <strong>2교시(09:50~10:30)·3교시(10:40~11:05, 15분 단축) 수업</strong>
+                    <span class="tf-highlight-val" style="color:#5b21b6;">08:50 착석 · 09:00~09:50 공연</span>
+                    강당 좌측 ${audCol}열 관람 → <strong>2교시(09:50~10:30)·3교시(10:40~11:05)</strong>
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip red">🚨 1교시 10분 연장 · 3교시 11:05 조기 종료</span>
+                    <span class="tf-chip red">🚨 1교시 10분 연장 · 3교시 15분 단축</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" onclick="openMyClassAuditoriumSeat()">🎭 강당 ${cls}반 좌석(좌측 ${audCol}열) 배치도 보기</button>
+                <button type="button" class="tf-action-btn" onclick="openMyClassAuditoriumSeat()">🎭 강당 좌석(좌측 ${audCol}열) 보기</button>
               </div>
 
               <!-- STEP 2 -->
               <div class="tf-step-card step-gather">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 2 · 0회차 전체집결</span>
-                    <span class="tf-step-time">⏰ 11:05까지 (5분 전)</span>
+                    <span class="tf-step-num">STEP 2 · 0회차 집결</span>
+                    <span class="tf-step-time">⏰ 11:05 (5분 전)</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🚩 운동장 도착 & 2줄 정렬</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🚩 운동장 2줄 정렬</div>
                   <div class="tf-key-box" style="margin-top:6px;">
-                    <span class="tf-highlight-val" style="color:#0369a1;">꿈나무관 바라보고 좌측 ${lineupOrder}번째</span>
-                    • 3교시(11:05) 직후 개인 가방 지참하여 운동장 이동<br/>
-                    • <strong>좌측 4-1반 ~ 우측 끝 6-4반</strong> 중 <strong>${cls}반은 좌측에서 ${lineupOrder}번째에 2줄 정렬</strong> 후 안내 청취
+                    <span class="tf-highlight-val" style="color:#0369a1;">꿈나무관 좌측 ${lineupOrder}번째 (2줄)</span>
+                    좌측 4-1~우측 6-4 중 <strong>${lineupOrder}번째(${leftNeighbor}~${rightNeighbor} 사이)</strong> 대기
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip amber">🎒 개인 가방(결과물 4종 보관용) 지참</span>
+                    <span class="tf-chip amber">🎒 에코백 지참</span>
                     <span class="tf-chip red">🚫 부스 직행 X</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" data-step-round="0" onclick="jumpToMyRound(0)">📍 아래 시간표·지도에서 0회차(집결) 위치 보기</button>
+                <button type="button" class="tf-action-btn" data-step-round="0" onclick="jumpToMyRound(0)">📍 0회차(집결) 위치 보기</button>
               </div>
 
               <!-- STEP 3 -->
               <div class="tf-step-card step-booth">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 3 · 1차 부스 (1~6회차)</span>
+                    <span class="tf-step-num">STEP 3 · 1차 (1~6회차)</span>
                     <span class="tf-step-time">⏰ 11:10 ~ 12:10</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🔬 첫 부스 이동 & 오전 6부스</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🔬 오전 6개 부스 체험</div>
                   <div class="tf-key-box" style="margin-top:6px;">
                     <span class="tf-highlight-val" style="color:#065f46;">1회차: [${firstBooth}번] ${firstProg.name}</span>
-                    • 전체 안내 후 <strong>${firstBooth}번 부스로 이동</strong>하여 11:10 시작<br/>
-                    • 10분씩 시계방향 6개 부스 체험 (<strong>${firstBooth}번 → … → 6회차 ${round6Booth}번 ${round6Prog.name}</strong>)
+                    10분씩 시계방향 6부스 (<strong>${firstBooth}번 → … → 6회차 ${round6Booth}번</strong>)
                   </div>
                   <div class="tf-sub-chips">
-                    <span class="tf-chip green">✓ 12:10 정각 종료 후 점심식사</span>
+                    <span class="tf-chip green">✓ 12:10 종료 후 급식실 이동</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" data-step-round="1" onclick="jumpToMyRound(1)">📍 1회차(${firstBooth}번 ${firstProg.name}) 위치 보기</button>
+                <button type="button" class="tf-action-btn" data-step-round="1" onclick="jumpToMyRound(1)">📍 1회차(${firstBooth}번) 위치 보기</button>
               </div>
 
               <!-- STEP 4 -->
               <div class="tf-step-card step-lunch">
                 <div>
                   <div class="tf-step-top">
-                    <span class="tf-step-num">STEP 4 · 중식 & 2차 (7~12회차)</span>
+                    <span class="tf-step-num">STEP 4 · 중식·2차</span>
                     <span class="tf-step-time">⏰ 12:10 ~ 13:50</span>
                   </div>
-                  <div class="tf-step-title" style="margin-top:6px;">🍱 점심(4학년 우선 배려) & 12:45 재집결</div>
+                  <div class="tf-step-title" style="margin-top:6px;">🍱 점심 & 12:45 7회차 재집결</div>
                   <div class="tf-key-box" style="margin-top:6px;">
                     <span class="tf-highlight-val" style="color:#dc2626;">🔔 12:45 재집결: [${round7Booth}번] ${round7Prog.name}</span>
-                    • <strong>12:10~12:50 점심(40분 · 🍽️ 4학년부터 우선 식사할 수 있도록 배려 협조)</strong> 후 <strong>7회차 [${round7Booth}번 부스] 앞 재집결!</strong><br/>
-                    • 12:50~13:50 오후 6개 부스(${round7Booth}번→${round12Booth}번) 완주 · ${afterFestivalNote}
+                    점심(12:10~12:50) → <strong>7~12회차(${round7Booth}번→${round12Booth}번)</strong> → ${afterFestivalNote}
                   </div>
                   <div class="tf-sub-chips">
                     <span class="tf-chip amber">🍽️ 4학년 우선 식사 배려</span>
-                    <span class="tf-chip red">🚨 점심 20분 단축 · ${currentGrade === 4 ? '13:50 4학년 하교' : '14:00 6교시 정상 수업'}</span>
+                    <span class="tf-chip red">🚨 점심 40분 단축</span>
                   </div>
                 </div>
-                <button type="button" class="tf-action-btn" data-step-round="7" onclick="jumpToMyRound(7)">📍 점심 후 7회차(${round7Booth}번 ${round7Prog.name}) 위치 보기</button>
+                <button type="button" class="tf-action-btn" data-step-round="7" onclick="jumpToMyRound(7)">📍 7회차(${round7Booth}번) 위치 보기</button>
               </div>
             </div>
             <div class="tf-live-preview-bar" id="tfLivePreviewBar"></div>
@@ -3534,252 +3486,189 @@
         `;
       }
 
-      // 2.2 Playground Initial Gathering & 2-Row Lineup Visual Guide (Round 0)
+      // 2.2 Playground Initial Gathering & 2-Row Lineup Visual Guide (Collapsible <details>)
       const lineupEl = document.getElementById("myClassLineupGuide");
       if (lineupEl) {
-        const gatherTimeStr = low ? "0회차: 08:45~08:50 (시작 5분 전)" : "0회차: 11:05~11:10 (1차 시작 5분 전)";
-        const rangeStr = low ? "꿈나무관을 바라보고 좌측 1-1반 ~ 우측 끝 3-4반" : "꿈나무관을 바라보고 좌측 4-1반 ~ 우측 끝 6-4반";
+        const gatherTimeStr = low ? "08:45~08:50" : "11:05~11:10";
         const colsHtml = groupClasses.map((cName, idx) => {
           const isMe = cName === cls;
           const bNum = getBoothForClassAtRound(cName, 1);
           return `
             <div class="lineup-col-card ${isMe ? 'my-lineup-col' : ''}" onclick="selectClassDirect('${cName}', 0, false)" title="${cName}반 0회차 선택 (전체 안내 후 ${bNum}번 부스 이동)">
-              <span class="lineup-pos-tag">${idx === 0 ? '⬅️ 꿈나무관 좌측끝' : (idx === 11 ? '우측 끝 ➡️' : `좌측 ${idx + 1}번째`)}</span>
+              <span class="lineup-pos-tag">${idx === 0 ? '⬅️ 좌측 1번째' : (idx === 11 ? '우측 12번째 ➡️' : `좌측 ${idx + 1}번째`)}</span>
               <div class="lineup-cls-title">${cName}반</div>
               <div class="lineup-two-lines">
                 <div class="lineup-line-bar">1줄</div>
                 <div class="lineup-line-bar">2줄</div>
               </div>
-              <div style="font-size:0.66rem; font-weight:800; color:#475569;">2줄 정렬</div>
               <div class="lineup-target-booth">1회차→${bNum}번</div>
             </div>
           `;
         }).join("");
 
         lineupEl.innerHTML = `
-          <div class="lineup-guide-box">
-            <div class="lineup-guide-header">
-              <div class="lineup-guide-title">
-                🚩 [0회차 · ${cls}반] 꿈나무관을 바라보고 좌측부터 학급별 2줄 정렬 위치 안내 (${gatherTimeStr})
+          <details class="pc-details" id="detailsLineupGuide">
+            <summary>
+              <span>🚩 <strong>[0회차 정렬 배치도]</strong> 꿈나무관을 바라보고 좌측부터 12학급 2줄 정렬 위치 보기 — <span style="color:#0284c7;">우리 반(${cls}반): 좌측 ${lineupOrder}번째 (${gatherTimeStr}) → 1회차 ${firstBooth}번 부스</span></span>
+            </summary>
+            <div class="pc-details-body" style="background:#f8fafc;">
+              <div style="background:#0f172a; color:#fff; text-align:center; padding:6px 12px; border-radius:8px; font-weight:900; font-size:0.8rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+                <span style="color:#fde68a;">⬅️ 꿈나무관 바라보고 좌측 (${low ? '1-1반' : '4-1반'})</span>
+                <span>🏛️ 정면 기준: 꿈나무관 (각 반 2줄 정렬)</span>
+                <span style="color:#fde68a;">꿈나무관 바라보고 우측 끝 (${low ? '3-4반' : '6-4반'}) ➡️</span>
               </div>
-              <div class="lineup-step-pills">
-                <span class="lineup-step-pill">① [${gatherTimeStr}] 꿈나무관 좌측부터 2줄 정렬</span>
-                <span>➔</span>
-                <span class="lineup-step-pill" style="background:#0369a1;">② 전체 안내사항 전달</span>
-                <span>➔</span>
-                <span class="lineup-step-pill step2">③ [1회차] ${firstBooth}번 부스(${firstProg.name}) 이동</span>
+              <div class="lineup-grid-12">
+                ${colsHtml}
               </div>
             </div>
-            <div style="font-size:0.88rem; color:#0f172a; line-height:1.5;">
-              • <strong>[0회차 전체집결]</strong> 운동장 도착 시 <strong>바로 첫 번째 부스(${firstBooth}번)로 이동하지 않고</strong>, 먼저 <strong>${rangeStr} 순서대로 각 반 2줄씩 정렬</strong>합니다.<br/>
-              • <strong>우리 반(${cls}반) 0회차 정렬 위치</strong>: <strong style="color:#0369a1; background:#e0f2fe; padding:1px 7px; border-radius:4px;">꿈나무관을 바라보고 좌측에서 ${lineupOrder}번째 (${leftNeighbor}과 ${rightNeighbor} 사이) · 2줄씩 정렬</strong> → 전체 안내사항 청취 후 <strong>1회차 ${firstBooth}번 부스(${firstProg.name})</strong>로 이동!
-            </div>
-            <div style="margin-top:10px; background:#0f172a; color:#fff; text-align:center; padding:7px 12px; border-radius:8px; font-weight:900; font-size:0.82rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
-              <span style="color:#fde68a;">⬅️ 꿈나무관을 바라보고 좌측 (${low ? '1-1반' : '4-1반'} 시작)</span>
-              <span>🏛️ 정면 기준: 꿈나무관 (꿈나무관을 바라보고 정렬)</span>
-              <span style="color:#fde68a;">꿈나무관을 바라보고 우측 끝 (${low ? '3-4반' : '6-4반'}) ➡️</span>
-            </div>
-            <div class="lineup-grid-12">
-              ${colsHtml}
-            </div>
-          </div>
+          </details>
         `;
       }
 
-      // 2.5 Regular vs Festival Timetable Diff Box for Selected Class
+      // 2.5 Regular vs Festival Timetable Diff Box for Selected Class (Collapsible <details>)
       const diffEl = document.getElementById("myClassScheduleDiff");
       if (low) {
         diffEl.innerHTML = `
-          <div class="diff-box-card">
-            <div class="diff-box-header">
-              <div class="diff-box-title">
-                🚨 [${cls}반 필독] 기존 저학년 수업 시간표와 다른 시간 확인!
+          <details class="pc-details" id="detailsScheduleDiff">
+            <summary>
+              <span>🚨 <strong>[${cls}반 시정 비교표]</strong> 기존 수업 시간표 vs 과학축제 당일 변경 시간 비교 (08:45 조기 집결 · 점심 10분 단축 · 12:05 강당 착석)</span>
+            </summary>
+            <div class="pc-details-body">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:90px;">구분</th>
+                      <th style="width:135px;">기존 시간표</th>
+                      <th style="width:145px;">과학축제 당일</th>
+                      <th>핵심 변경 사항</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="diff-row-highlight">
+                      <td><strong>1~3교시</strong></td>
+                      <td>09:00 ~ 11:20</td>
+                      <td><strong style="color:#1e40af;">08:50 ~ 10:50</strong> (12부스)<br/><span style="font-size:0.74rem; color:#0369a1;">※08:45 0회차 집결</span></td>
+                      <td style="text-align:left;"><strong>10분 조기 시작</strong> · 10분씩 12부스 연속 체험 후 10:50~11:20 교실 정리·손 씻기</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>점심시간</strong></td>
+                      <td><span class="strike-old">11:20 ~ 12:20</span></td>
+                      <td><strong style="color:#dc2626;">11:20 ~ 12:10</strong> (50분)</td>
+                      <td style="text-align:left;"><strong>종료 10분 단축</strong> → 식사 후 <strong>12:05까지 강당 지정석 착석</strong></td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>4교시</strong></td>
+                      <td><span class="strike-old">12:20 ~ 13:00</span></td>
+                      <td><strong style="color:#5b21b6;">12:10 ~ 13:00</strong> (공연)</td>
+                      <td style="text-align:left;"><strong>10분 조기 시작</strong> · 강당 과학공연 2차 관람 (50분)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>5교시</strong></td>
+                      <td>13:10 ~ 13:50</td>
+                      <td><strong>13:10 ~ 13:50</strong> (교실)</td>
+                      <td style="text-align:left;">기존과 동일 (5교시 정상 수업 후 13:50 하교)</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <span class="diff-badge">08:45 조기 집결 · 점심 종료 10분 단축 주의</span>
             </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:90px;">교시 구분</th>
-                    <th style="width:140px;">기존 수업 시간표</th>
-                    <th style="width:155px;">과학축제 당일 (${cls}반)</th>
-                    <th>기존 시간표 대비 핵심 차이점 (강조)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="diff-row-highlight">
-                    <td><strong>1~3교시</strong></td>
-                    <td>1교시 09:00~09:40<br/>2교시 09:50~10:30<br/>3교시 10:40~11:20</td>
-                    <td><strong style="color:#1e40af; font-size:0.95rem;">08:50 ~ 10:50</strong><br/>(운동장 12부스 연속)<br/><span style="font-size:0.78rem; color:#0369a1; font-weight:800;">※08:45 0회차 집결</span></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 1교시(09:00)보다 10분 일찍 시작 · 3교시보다 30분 조기 종료</span><br/>
-                      <strong>08:45 [0회차] 전체집결 후 08:50부터 10분씩 12개 부스 연속 회전</strong>하며, <strong>10:50~11:20(30분) 동안 교실 정리·손 씻기·휴식</strong>을 갖습니다.
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>점심시간</strong></td>
-                    <td><span class="strike-old">11:20 ~ 12:20</span> (60분)</td>
-                    <td><strong style="color:#dc2626; font-size:0.95rem;">11:20 ~ 12:10</strong><br/><strong>(50분 · 종료만 10분 단축!)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 점심 시작(11:20)은 동일하나 종료가 10분 빠름!</span><br/>
-                      평소처럼 12:20까지 점심시간으로 생각하시면 늦습니다! <strong>반드시 12:05까지 강당 지정석 착석을 완료</strong>해 주세요.
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>4교시</strong></td>
-                    <td><span class="strike-old">12:20 ~ 13:00</span> (40분)</td>
-                    <td><strong style="color:#5b21b6; font-size:0.95rem;">12:10 ~ 13:00</strong><br/><strong>(50분 · 강당 과학공연)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 4교시(12:20)보다 10분 일찍 시작!</span><br/>
-                      12:10 정각에 강당 과학공연(50분)이 시작됩니다.
-                    </td>
-                  </tr>
-                  <tr>
-                    <td><strong>5교시</strong></td>
-                    <td>13:10 ~ 13:50 (40분)</td>
-                    <td><strong>13:10 ~ 13:50</strong> (교실)</td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge same">✓ 기존 시간표와 동일</span> — 13:00 공연 종료 후 교실로 이동하여 5교시 정상 운영 후 하교
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          </details>
         `;
       } else {
         diffEl.innerHTML = `
-          <div class="diff-box-card">
-            <div class="diff-box-header">
-              <div class="diff-box-title">
-                🚨 [${cls}반 필독] 기존 고학년 수업 시간표와 다른 시간 확인!
+          <details class="pc-details" id="detailsScheduleDiff">
+            <summary>
+              <span>🚨 <strong>[${cls}반 시정 비교표]</strong> 기존 수업 시간표 vs 과학축제 당일 변경 시간 비교 (3교시 11:05 종료 · 점심 20분 단축 & 4학년 우선 식사 · 12:45 7회차 집결)</span>
+            </summary>
+            <div class="pc-details-body">
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th style="width:90px;">구분</th>
+                      <th style="width:135px;">기존 시간표</th>
+                      <th style="width:145px;">과학축제 당일</th>
+                      <th>핵심 변경 사항</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="diff-row-highlight">
+                      <td><strong>1교시</strong></td>
+                      <td><span class="strike-old">09:00 ~ 09:40</span></td>
+                      <td><strong style="color:#5b21b6;">09:00 ~ 09:50</strong> (공연)</td>
+                      <td style="text-align:left;"><strong>10분 연장</strong> · 09:50 종료 즉시 쉬는시간 없이 2교시 이동</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>2~3교시</strong></td>
+                      <td>09:50 ~ 11:20</td>
+                      <td><strong>09:50 ~ 11:05</strong><br/><span style="font-size:0.74rem; color:#dc2626;">(11:05 0회차 집결)</span></td>
+                      <td style="text-align:left;"><strong>3교시 15분 단축(10:40~11:05)</strong> 후 11:05 [0회차] 운동장 좌측 ${lineupOrder}번째 2줄 정렬</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>1차 부스</strong></td>
+                      <td><span class="strike-old">4교시 11:30~12:10</span></td>
+                      <td><strong style="color:#1e40af;">11:10 ~ 12:10</strong> (1~6회차)</td>
+                      <td style="text-align:left;"><strong>20분 조기 시작</strong> · 오전 6개 부스 체험 후 12:10 점심 이동</td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>점심시간</strong></td>
+                      <td><span class="strike-old">12:10 ~ 13:10</span></td>
+                      <td><strong style="color:#dc2626;">12:10 ~ 12:50</strong> (40분)</td>
+                      <td style="text-align:left;"><strong>종료 20분 단축 · 🍽️ 4학년 우선 식사 배려</strong> · <strong>12:45 7회차(${round7Booth}번) 재집결</strong></td>
+                    </tr>
+                    <tr class="diff-row-highlight">
+                      <td><strong>2차 & 6교시</strong></td>
+                      <td><span class="strike-old">5교시 13:10~13:50</span><br/>6교시 14:00~14:40</td>
+                      <td><strong style="color:#1e40af;">12:50 ~ 13:50</strong> (7~12회차)<br/><span style="font-size:0.74rem; color:#047857;">${currentGrade === 4 ? '★13:50 4학년 하교' : '14:00~14:40 6교시'}</span></td>
+                      <td style="text-align:left;">오후 6개 부스 완주 → <strong>${currentGrade === 4 ? '13:50 4학년 정상 하교' : '5·6학년 14:00~14:40 6교시 정상 수업'}</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <span class="diff-badge">3교시 15분 단축(11:05 집결) · 점심 20분 단축(12:45 7회차 재집결) 주의!</span>
             </div>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th style="width:90px;">교시 구분</th>
-                    <th style="width:140px;">기존 수업 시간표</th>
-                    <th style="width:155px;">과학축제 당일 (${cls}반)</th>
-                    <th>기존 시간표 대비 핵심 차이점 (강조)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="diff-row-highlight">
-                    <td><strong>1교시</strong></td>
-                    <td><span class="strike-old">09:00 ~ 09:40</span> (40분)</td>
-                    <td><strong style="color:#5b21b6; font-size:0.95rem;">09:00 ~ 09:50</strong><br/><strong>(50분 · 강당 과학공연)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 1교시(09:40 종료)보다 10분 연장 · 쉬는시간 없음!</span><br/>
-                      기존 1교시(09:40 종료)보다 10분 연장되어 <strong>09:50까지 공연 관람 후 곧바로 2교시(09:50~) 수업으로 이어집니다.</strong> (2교시 전담 수업 시 사전 공유 필수)
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>2~3교시</strong></td>
-                    <td>2교시 09:50~10:30<br/><span class="strike-old">3교시 10:40~11:20</span></td>
-                    <td><strong>2교시 09:50~10:30</strong><br/><strong>3교시 10:40~11:05</strong><br/><strong style="color:#dc2626;">(11:05 0회차 전체집결)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 3교시 15분 단축(11:05 종료) 후 즉시 [0회차] 운동장 전체집결!</span><br/>
-                      2교시는 정상 수업하되, <strong>3교시는 10:40~11:05(25분)만 수업 후 11:05까지 [0회차] 운동장 전체 집결(꿈나무관을 바라보고 좌측에서 ${lineupOrder}번째 2줄 정렬 → 안내 후 11:10 ${firstBooth}번 부스 이동)</strong>합니다.
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>4교시</strong></td>
-                    <td><span class="strike-old">11:30 ~ 12:10</span> (40분)</td>
-                    <td><strong style="color:#1e40af; font-size:0.95rem;">11:10 ~ 12:10</strong><br/><strong>(60분 · 1~6회차 부스)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 기존 4교시(11:30)보다 20분 일찍 시작하여 6개 부스 체험!</span><br/>
-                      <strong>11:10~12:10(60분) 동안 10분씩 6개 부스(1~6회차)</strong>를 체험하고 12:10 정각에 점심식사로 이동합니다.
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>점심시간</strong></td>
-                    <td><span class="strike-old">12:10 ~ 13:10</span> (60분)</td>
-                    <td><strong style="color:#dc2626; font-size:0.95rem;">12:10 ~ 12:50</strong><br/><strong>(40분 · 종료 20분 단축!)</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 점심 시작(12:10) 동일 · 🍽️ 4학년 우선 식사 배려 협조!</span><br/>
-                      40분 단축 급식이므로 <strong>4학년부터 우선 식사할 수 있도록 5·6학년 학급의 배려와 질서 협조</strong>를 부탁드립니다. 식사 후 <strong>반드시 12:45까지 운동장 7회차 [${round7Booth}번 부스] 앞으로 재집결</strong>해 주세요!
-                    </td>
-                  </tr>
-                  <tr class="diff-row-highlight">
-                    <td><strong>5~6교시</strong></td>
-                    <td><span class="strike-old">5교시 13:10~13:50</span><br/>6교시 14:00~14:40</td>
-                    <td><strong style="color:#1e40af; font-size:0.95rem;">12:50 ~ 13:50 (7~12회차)</strong><br/><strong style="color:#047857;">${currentGrade === 4 ? '★13:50 4학년 정상 하교!' : '14:00~14:40 6교시 정상 수업'}</strong></td>
-                    <td style="text-align:left;">
-                      <span class="diff-badge">🚨 12:50 2차 부스 재개 → 13:50 전 부스 완료!</span><br/>
-                      <strong>12:50~13:50(60분) 동안 오후 6개 부스(7~12회차)를 완주</strong>합니다. 종료 후 <strong>4학년은 13:50 정상 하교</strong>하며, <strong>5·6학년은 교실로 이동하여 14:00~14:40 6교시 정상 수업</strong>을 진행합니다.
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          </details>
         `;
       }
 
-      // 3. Timeline
+      // 3. Timeline (Concise 1-line summary per time block)
       const tlEl = document.getElementById("myClassTimeline");
       if (low) {
         tlEl.innerHTML = `
           <div class="timeline-item type-prep" style="border:2px solid #0284c7;">
-            <div class="tl-time">[0회차] 08:45~08:50<br/><span style="font-size:0.74rem; color:#0369a1;">(08:45 집결 완료)</span></div>
+            <div class="tl-time">[0회차] 08:45~08:50</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🚩 [0회차] 꿈나무관을 바라보고 좌측부터 2줄 정렬 → 안내 후 <span style="color:#1e40af;">1회차 ${firstBooth}번 부스 (${firstProg.name})</span> 이동
-              </div>
-              <div class="tl-desc">
-                <strong>바로 부스로 가지 않고</strong> <strong>꿈나무관을 바라보고 좌측(1-1반)~우측 끝(3-4반) 순서로 각 반 2줄 정렬(${cls}반: 좌측에서 ${lineupOrder}번째)</strong> → 전체 안내사항 전달 후 08:50 ${firstBooth}번 부스로 이동
-              </div>
+              <div class="tl-title">🚩 꿈나무관 좌측 ${lineupOrder}번째 2줄 정렬 → 08:50 <span style="color:#1e40af;">1회차 ${firstBooth}번(${firstProg.name})</span> 이동</div>
             </div>
           </div>
           <div class="timeline-item type-booth">
             <div class="tl-time">08:50 ~ 10:50</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🔬 운동장 과학축제 부스 체험 (1~12회차 전 부스 완주)
-                <span class="diff-badge warn">⚠️ 쉬는시간 없이 120분 연속 진행 (회차당 10분 동일)</span>
-              </div>
-              <div class="tl-desc">${firstBooth}번 부스에서 시작하여 시계방향으로 10분씩 총 12개 부스 이동</div>
+              <div class="tl-title">🔬 운동장 1~12회차 연속 체험 (${firstBooth}번 시작 · 시계방향 10분씩)</div>
             </div>
           </div>
           <div class="timeline-item type-prep">
             <div class="tl-time">10:50 ~ 11:20</div>
             <div class="tl-content">
-              <div class="tl-title">체험 마무리 · 결과물 4종 교실 보관 · 손 씻기 및 휴식 (30분)</div>
-              <div class="tl-desc">크리스탈방향제, 자외선야광팔찌, 관성라바, 테라리움 분실 여부 확인 후 11:20 급식실 이동</div>
+              <div class="tl-title">🧹 교실 이동 · 결과물 4종 보관 · 손 씻기 및 휴식 (30분)</div>
             </div>
           </div>
           <div class="timeline-item type-lunch" style="border:2px solid #f59e0b;">
-            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 11:20~12:20</span>11:20 ~ 12:10</div>
+            <div class="tl-time">11:20 ~ 12:10</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🍱 저학년 점심시간 및 강당 이동
-                <span class="diff-badge">🚨 점심 시작(11:20) 동일 · 종료만 10분 단축!</span>
-              </div>
-              <div class="tl-desc" style="color:#b91c1c; font-weight:700;">평소보다 점심시간이 10분 일찍 끝납니다! 식사 후 <strong>12:05까지 강당 지정 좌석</strong> 착석 완료</div>
+              <div class="tl-title">🍱 저학년 점심(10분 단축) → <span style="color:#b91c1c;">12:05 강당 좌측 ${audCol}열 착석</span></div>
             </div>
           </div>
           <div class="timeline-item type-show" style="border:2px solid #8b5cf6;">
-            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 4교시 12:20~</span>12:10 ~ 13:00</div>
+            <div class="tl-time">12:10 ~ 13:00</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🎭 강당 과학공연 2차 관람 ("서프라이즈 과학대탐험")
-                <span class="diff-badge">🚨 기존 4교시(12:20)보다 10분 일찍 시작!</span>
-              </div>
-              <div class="tl-desc">1~3학년 전체 관람 (50분) · 공연 종료 후 교실로 이동</div>
+              <div class="tl-title">🎭 강당 과학공연 2차 관람 (50분 · 기존 4교시보다 10분 조기 시작)</div>
             </div>
           </div>
           <div class="timeline-item type-class">
             <div class="tl-time">13:10 ~ 13:50</div>
             <div class="tl-content">
-              <div class="tl-title">
-                📚 5교시 학급별 정상 수업 및 하교
-                <span class="diff-badge same">✓ 기존 5교시 시간표와 동일</span>
-              </div>
-              <div class="tl-desc">과학축제 일정 완료 후 기존 시정표대로 5교시 운영 후 13:50 하교</div>
+              <div class="tl-title">📚 5교시 정상 수업 후 13:50 하교</div>
             </div>
           </div>
         `;
@@ -3787,63 +3676,40 @@
         const round6Booth = getBoothForClassAtRound(cls, 6);
         const round12Booth = getBoothForClassAtRound(cls, 12);
         tlEl.innerHTML = `
-          <div class="timeline-item type-prep">
-            <div class="tl-time">08:50 ~ 09:00</div>
-            <div class="tl-content">
-              <div class="tl-title">강당 이동 및 ${cls} 지정 좌석 착석 완료</div>
-              <div class="tl-desc">무대 바라보는 기준 좌측(1열: 4-1)부터 우측(12열: 6-4)까지 1행 12열 착석</div>
-            </div>
-          </div>
           <div class="timeline-item type-show" style="border:2px solid #8b5cf6;">
-            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 1교시 ~09:40</span>09:00 ~ 09:50</div>
+            <div class="tl-time">08:50 ~ 09:50</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🎭 강당 과학공연 1차 관람 ("서프라이즈 과학대탐험")
-                <span class="diff-badge">🚨 기존 1교시(09:40)보다 10분 연장 · 쉬는시간 없음!</span>
-              </div>
-              <div class="tl-desc">4~6학년 전체 관람 (50분) · 09:50 종료 직후 쉬는시간 없이 교실(2교시 수업)로 이동</div>
+              <div class="tl-title">🎭 08:50 강당 착석(좌측 ${audCol}열) · 09:00~09:50 과학공연 1차 (종료 즉시 2교시 이동)</div>
             </div>
           </div>
-          <div class="timeline-item type-class" style="border:2px solid #0284c7;">
-            <div class="tl-time">09:50 ~ 11:05<br/><span style="font-size:0.76rem; color:#dc2626;">([0회차] 11:05 집결)</span></div>
+          <div class="timeline-item type-class">
+            <div class="tl-time">09:50 ~ 11:05</div>
             <div class="tl-content">
-              <div class="tl-title">
-                📚 2교시(09:50~10:30) · 3교시(10:40~11:05, 15분 단축) 교실 수업 후 [0회차] 운동장 전체 집결
-                <span class="diff-badge warn">⚠️ 11:05(5분 전) 꿈나무관 기준 좌측부터 2줄 정렬</span>
-              </div>
-              <div class="tl-desc">
-                <strong>바로 부스로 가지 않고</strong> 11:05까지 <strong>꿈나무관을 바라보고 좌측(4-1반)~우측 끝(6-4반) 순서로 각 반 2줄 정렬(${cls}반: 좌측에서 ${lineupOrder}번째)</strong> → 전체 안내사항 청취 후 <strong>1회차 ${firstBooth}번 부스</strong>로 이동
-              </div>
+              <div class="tl-title">📚 2교시(09:50~10:30) · 3교시(10:40~11:05, 15분 단축) 교실 수업</div>
+            </div>
+          </div>
+          <div class="timeline-item type-prep" style="border:2px solid #0284c7;">
+            <div class="tl-time">[0회차] 11:05~11:10</div>
+            <div class="tl-content">
+              <div class="tl-title">🚩 꿈나무관 좌측 ${lineupOrder}번째 2줄 정렬 → 11:10 <span style="color:#1e40af;">1회차 ${firstBooth}번(${firstProg.name})</span> 이동</div>
             </div>
           </div>
           <div class="timeline-item type-booth">
             <div class="tl-time">11:10 ~ 12:10</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🔬 운동장 과학축제 1차 부스 체험 (1~6회차, 6개 부스)
-                <span class="diff-badge warn">⚠️ 기존 4교시(11:30)보다 20분 조기 시작 · 12:10 정각 종료</span>
-              </div>
-              <div class="tl-desc"><strong>${firstBooth}번 부스(${firstProg.name})</strong> 시작 → ${round6Booth}번 부스까지 10분씩 6회 로테이션</div>
+              <div class="tl-title">🔬 1차 부스 체험 (1~6회차: ${firstBooth}번 → ${round6Booth}번 부스, 60분)</div>
             </div>
           </div>
           <div class="timeline-item type-lunch" style="border:2px solid #f59e0b;">
-            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 12:10~13:10</span>12:10 ~ 12:50</div>
+            <div class="tl-time">12:10 ~ 12:50</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🍱 고학년 점심시간 (🍽️ 4학년부터 우선 식사 배려 협조)
-                <span class="diff-badge">🚨 점심 시작(12:10) 동일 · 종료 20분 단축!</span>
-              </div>
-              <div class="tl-desc" style="color:#dc2626; font-weight:700;">40분 단축 급식이므로 <strong>4학년부터 우선 식사할 수 있도록 5·6학년 배려 협조!</strong> 식사 후 12:45까지 운동장 7회차 [${round7Booth}번 부스: ${round7Prog.name}] 앞으로 재집결!</div>
+              <div class="tl-title">🍱 점심(🍽️ 4학년 우선 식사 배려) → <span style="color:#dc2626;">12:45 7회차 [${round7Booth}번 ${round7Prog.name}] 재집결</span></div>
             </div>
           </div>
           <div class="timeline-item type-booth" style="border:2px solid #1e40af;">
-            <div class="tl-time"><span class="strike-old" style="display:block; font-size:0.75rem;">기존 5교시 13:10~13:50</span>12:50 ~ 13:50</div>
+            <div class="tl-time">12:50 ~ 13:50</div>
             <div class="tl-content">
-              <div class="tl-title">
-                🔬 운동장 과학축제 2차 부스 체험 (7~12회차, 나머지 6개 부스)
-                <span class="diff-badge">🚨 12:50 시작 ~ 13:50 종료 (${currentGrade === 4 ? '4학년 정상 하교' : '5·6학년 6교시 이동'})</span>
-              </div>
-              <div class="tl-desc"><strong>${round7Booth}번 부스(${round7Prog.name})</strong>에서 12:50 정각 재개 → ${round12Booth}번 부스까지 체험 후 13:50 종료 (${currentGrade === 4 ? '<strong>★4학년 13:50 정상 하교!</strong>' : '<strong>5·6학년 14:00~14:40 6교시 정상 수업 후 하교</strong>'})</div>
+              <div class="tl-title">🔬 2차 부스 체험 (7~12회차: ${round7Booth}번 → ${round12Booth}번) · <span style="color:#047857;">${currentGrade === 4 ? '★13:50 4학년 하교' : '14:00~14:40 6교시 수업'}</span></div>
             </div>
           </div>
         `;
@@ -3858,11 +3724,10 @@
         const key = `craft_${cls}_${c.booth}`;
         const checkedAttr = savedChecks[key] ? "checked" : "";
         return `
-          <label class="check-item" style="background:#fffbeb; border-color:#fcd34d;">
+          <label class="check-item" style="background:#fffbeb; border-color:#fcd34d; padding:8px 12px;">
             <input type="checkbox" data-check-key="${key}" ${checkedAttr} onchange="toggleSavedCheck('${key}', this.checked)" />
             <div>
-              <strong>[결과물] ${c.booth}번 부스 — ${c.name}</strong>
-              <p style="font-size:0.82rem; color:#92400e;">${c.principle} · 체험 후 개인 가방(에코백) 보관 확인</p>
+              <strong>🎁 ${c.booth}번 — ${c.name}</strong> <span style="font-size:0.78rem; color:#92400e;">(${c.principle} · 가방 보관)</span>
             </div>
           </label>
         `;
@@ -3872,11 +3737,10 @@
       const moveChecked = savedChecks[moveKey] ? "checked" : "";
       document.getElementById("myClassQuickChecks").innerHTML = `
         ${craftItemsHtml}
-        <label class="check-item">
+        <label class="check-item" style="padding:8px 12px;">
           <input type="checkbox" data-check-key="${moveKey}" ${moveChecked} onchange="toggleSavedCheck('${moveKey}', this.checked)" />
           <div>
-            <strong>12번 부스(테라리움) → 1번 부스(극저온의 세계) 이동 구간 숙지</strong>
-            <p style="font-size:0.82rem; color:#475569;">우측 하단 12번 부스 체험 후에는 운동장 하단을 가로질러 좌측 하단 1번 부스로 이동합니다.</p>
+            <strong>🔄 12번(테라리움) → 1번(극저온) 이동 구간 확인</strong> <span style="font-size:0.78rem; color:#475569;">(우측 하단 → 좌측 하단 이동)</span>
           </div>
         </label>
       `;
@@ -3899,12 +3763,12 @@
       const tbody = document.getElementById("myClassBoothTbody");
       let rowsHtml = `
         <tr style="${isRound0Selected ? 'background:#dbeafe; font-weight:800;' : 'background:#f0f9ff; cursor:pointer;'}" onclick="setMyRound(0)">
-          <td><strong style="color:#0369a1;">0회차</strong><span style="color:#0284c7;font-size:0.72rem;display:block;font-weight:800;">(전체집결)</span></td>
-          <td><strong>${round0Time}</strong><span style="display:block;font-size:0.7rem;color:#0369a1;">(시작 5분전)</span></td>
-          <td><span style="display:inline-block; background:#0284c7; color:#fff; font-weight:800; padding:2px 6px; border-radius:6px; font-size:0.76rem;">좌측 ${lineupOrd}번째</span></td>
-          <td style="text-align:left; padding-left:12px;">
-            <strong style="color:#0369a1;">운동장 0회차 전체집결 (꿈나무관을 바라보고 좌측부터 ${low ? '1-1반' : '4-1반'} 순 2줄 정렬)</strong>
-            <span style="display:block; font-size:0.76rem; color:#0f172a; font-weight:700;">우리 반(${cls}반): 꿈나무관 바라보고 좌측에서 ${lineupOrd}번째 2줄 정렬 → 전체 안내 후 ${firstBooth}번 부스(${firstProg.name}) 이동</span>
+          <td><strong style="color:#0369a1;">0회차</strong><span style="color:#0284c7;font-size:0.7rem;display:block;font-weight:800;">(집결)</span></td>
+          <td><strong>${round0Time}</strong></td>
+          <td><span style="display:inline-block; background:#0284c7; color:#fff; font-weight:800; padding:2px 6px; border-radius:6px; font-size:0.74rem;">좌측 ${lineupOrd}번째</span></td>
+          <td style="text-align:left; padding-left:10px;">
+            <strong style="color:#0369a1;">꿈나무관 좌측 ${lineupOrd}번째 (2줄 정렬)</strong>
+            <span style="display:block; font-size:0.74rem; color:#475569;">전체 안내 후 1회차 ${firstBooth}번(${firstProg.name}) 이동</span>
           </td>
           <td><span class="badge" style="background:#e0f2fe; color:#0369a1; border:1px solid #38bdf8;">🚩 2줄정렬</span></td>
           <td><strong>→ ${firstBooth}번</strong></td>
@@ -3914,7 +3778,7 @@
         if (!low && r === 7) {
           rowsHtml += `
             <tr class="lunch-divider-row">
-              <td colspan="6">🍱 12:10 ~ 12:50 점심시간 (🍽️ 4학년부터 우선 식사할 수 있도록 배려 협조! 식사 후 12:45까지 아래 7회차 배정 부스 [${round7Booth}번 ${round7Prog.name}] 앞으로 집결!)</td>
+              <td colspan="6">🍱 12:10~12:50 점심 (🍽️ 4학년 우선 식사 배려) → <strong>12:45 7회차 [${round7Booth}번 ${round7Prog.name}] 재집결!</strong></td>
             </tr>
           `;
         }
@@ -3924,19 +3788,18 @@
         const isSelected = r === mySelectedRound;
         const badgeHtml = prog.type === "결과물"
           ? `<span class="badge badge-craft">🎁 결과물</span>`
-          : `<span class="badge badge-exp">🧪 체험활동</span>`;
+          : `<span class="badge badge-exp">🧪 체험</span>`;
 
         rowsHtml += `
           <tr style="${isSelected ? 'background:#dbeafe; font-weight:800;' : 'cursor:pointer;'}" onclick="setMyRound(${r})">
-            <td><strong>${r}회차</strong> ${(!low && r === 1) ? '<span style="color:#1d4ed8;font-size:0.72rem;display:block;">(1차시작)</span>' : ''}${(!low && r === 7) ? '<span style="color:#dc2626;font-size:0.72rem;display:block;">(점심후집결)</span>' : ''}${(!low && r === 12) ? '<span style="color:#475569;font-size:0.7rem;display:block;">(마지막부스)</span>' : ''}</td>
+            <td><strong>${r}회차</strong> ${(!low && r === 1) ? '<span style="color:#1d4ed8;font-size:0.7rem;display:block;">(1차시작)</span>' : ''}${(!low && r === 7) ? '<span style="color:#dc2626;font-size:0.7rem;display:block;">(점심후)</span>' : ''}</td>
             <td>${times[r - 1]}</td>
             <td><span style="display:inline-block; background:#0f172a; color:#fff; font-weight:800; padding:2px 8px; border-radius:6px;">${bNum}번</span></td>
-            <td style="text-align:left; padding-left:12px;">
-              <strong>${prog.name}</strong>
-              <span style="display:block; font-size:0.76rem; color:#475569;">${prog.principle} · ${prog.lv}</span>
+            <td style="text-align:left; padding-left:10px;">
+              <strong>${prog.name}</strong> <span style="font-size:0.74rem; color:#64748b;">(${prog.lv})</span>
             </td>
             <td>${badgeHtml}</td>
-            <td>${r < 12 ? `→ ${nextBNum}번` : '체험완료'}</td>
+            <td>${r < 12 ? `→ ${nextBNum}번` : '완료'}</td>
           </tr>
         `;
       }
@@ -3949,16 +3812,16 @@
         btn.classList.toggle("active-step-btn", isAct);
         if (btnRound === 0) {
           btn.innerHTML = isAct
-            ? `✓ [현재 선택됨] 0회차(집결) 위치 표시 중 (클릭 시 이동)`
-            : `📍 아래 시간표·지도에서 0회차(집결) 위치 보기`;
+            ? `✓ [선택됨] 0회차(집결) 표시 중`
+            : `📍 0회차(집결) 위치 보기`;
         } else if (btnRound === 1) {
           btn.innerHTML = isAct
-            ? `✓ [현재 선택됨] 1회차(${firstBooth}번 ${firstProg.name}) 표시 중`
-            : `📍 1회차(${firstBooth}번 ${firstProg.name}) 위치 보기`;
+            ? `✓ [선택됨] 1회차(${firstBooth}번) 표시 중`
+            : `📍 1회차(${firstBooth}번) 위치 보기`;
         } else if (btnRound === 7) {
           btn.innerHTML = isAct
-            ? `✓ [현재 선택됨] 7회차(${round7Booth}번 ${round7Prog.name}) 표시 중`
-            : `📍 점심 후 7회차(${round7Booth}번 ${round7Prog.name}) 위치 보기`;
+            ? `✓ [선택됨] 7회차(${round7Booth}번) 표시 중`
+            : `📍 7회차(${round7Booth}번) 위치 보기`;
         }
       });
 
@@ -3967,12 +3830,12 @@
         if (isRound0Selected) {
           previewBarEl.innerHTML = `
             <div>
-              <span style="background:#0284c7; color:#fff; font-weight:900; font-size:0.76rem; padding:3px 9px; border-radius:99px; margin-right:6px;">현재 선택: 0회차 (${round0Time})</span>
-              <strong>🚩 [${cls}반 0회차 집결 위치]</strong> 꿈나무관을 바라보고 <strong>좌측에서 ${lineupOrd}번째 (2줄 정렬)</strong> 대기 ➔ 전체 안내 청취 후 <strong>1회차 [${firstBooth}번 부스: ${firstProg.name}]</strong>로 이동합니다.
+              <span style="background:#0284c7; color:#fff; font-weight:900; font-size:0.75rem; padding:3px 9px; border-radius:99px; margin-right:6px;">0회차 (${round0Time})</span>
+              <strong>🚩 꿈나무관 좌측 ${lineupOrd}번째 (2줄 정렬)</strong> ➔ 안내 후 <strong>1회차 [${firstBooth}번 ${firstProg.name}]</strong> 이동
             </div>
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button type="button" class="btn" style="padding:5px 10px; font-size:0.76rem; background:#0284c7; color:#fff;" onclick="scrollToElementWithPulse('myClassLineupGuide')">🚩 0회차 2줄 정렬 대열 보기 ↓</button>
-              <button type="button" class="btn" style="padding:5px 10px; font-size:0.76rem; background:#0f172a; color:#fff;" onclick="scrollToElementWithPulse('myClassMapAndTableSection')">🧭 운동장 배치도·시간표 보기 ↓</button>
+              <button type="button" class="btn" style="padding:5px 10px; font-size:0.75rem; background:#0284c7; color:#fff;" onclick="scrollToElementWithPulse('detailsLineupGuide')">🚩 12학급 정렬도 펼치기</button>
+              <button type="button" class="btn" style="padding:5px 10px; font-size:0.75rem; background:#0f172a; color:#fff;" onclick="scrollToElementWithPulse('myClassMapAndTableSection')">🧭 배치도·시간표 ↓</button>
             </div>
           `;
         } else {
@@ -3982,11 +3845,11 @@
           const nxtProg = nxtBooth ? programs[nxtBooth - 1] : null;
           previewBarEl.innerHTML = `
             <div>
-              <span style="background:#1d4ed8; color:#fff; font-weight:900; font-size:0.76rem; padding:3px 9px; border-radius:99px; margin-right:6px;">현재 선택: ${mySelectedRound}회차 (${times[mySelectedRound - 1]})</span>
-              <strong>🔬 [${cls}반 ${mySelectedRound}회차 부스 위치]</strong> 운동장 <strong>[${selBooth}번 부스: ${selProg.name}]</strong> (${selProg.type}) 체험 ${nxtBooth ? `➔ 다음 ${mySelectedRound + 1}회차: <strong>[${nxtBooth}번 ${nxtProg.name}]</strong> 이동` : '➔ <strong>12개 부스 전체 체험 완료!</strong>'}
+              <span style="background:#1d4ed8; color:#fff; font-weight:900; font-size:0.75rem; padding:3px 9px; border-radius:99px; margin-right:6px;">${mySelectedRound}회차 (${times[mySelectedRound - 1]})</span>
+              <strong>🔬 [${selBooth}번 ${selProg.name}]</strong> (${selProg.type}) ${nxtBooth ? `➔ 다음: <strong>${nxtBooth}번 ${nxtProg.name}</strong>` : '➔ <strong>전 부스 완료!</strong>'}
             </div>
             <div style="display:flex; gap:6px; flex-wrap:wrap;">
-              <button type="button" class="btn" style="padding:5px 10px; font-size:0.76rem; background:#1d4ed8; color:#fff;" onclick="scrollToElementWithPulse('myClassMapAndTableSection')">🧭 아래 운동장 배치도·시간표에서 확인 ↓</button>
+              <button type="button" class="btn" style="padding:5px 10px; font-size:0.75rem; background:#1d4ed8; color:#fff;" onclick="scrollToElementWithPulse('myClassMapAndTableSection')">🧭 배치도·시간표 ↓</button>
             </div>
           `;
         }
@@ -3997,8 +3860,16 @@
 
     function scrollToElementWithPulse(targetId, secondaryId) {
       const el = document.getElementById(targetId);
-      if (el && typeof el.scrollIntoView === "function") {
-        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (el) {
+        if (el.tagName === "DETAILS") {
+          el.open = true;
+        } else {
+          const parentDetails = el.closest && el.closest("details");
+          if (parentDetails) parentDetails.open = true;
+        }
+        if (typeof el.scrollIntoView === "function") {
+          el.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
       [targetId, secondaryId].forEach(id => {
         if (!id) return;
@@ -4053,15 +3924,15 @@
 
       if (isRound0) {
         document.getElementById("mapRoundInfo").innerHTML = `
-          [${cls}] <strong>0회차 (${round0Time})</strong> 위치:
-          <span style="background:#0284c7; color:#fff; padding:2px 8px; border-radius:6px;">🚩 꿈나무관을 바라보고 좌측에서 ${lineupOrd}번째 (2줄 정렬)</span>
-          → 안내 후 1회차 이동: <strong>${firstBooth}번 (${firstProg.name})</strong>
+          [${cls}] <strong>0회차 (${round0Time})</strong>:
+          <span style="background:#0284c7; color:#fff; padding:2px 8px; border-radius:6px;">🚩 꿈나무관 좌측 ${lineupOrd}번째 (2줄)</span>
+          → 1회차: <strong>${firstBooth}번 (${firstProg.name})</strong>
         `;
       } else {
         document.getElementById("mapRoundInfo").innerHTML = `
-          [${cls}] <strong>${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> 위치:
+          [${cls}] <strong>${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong>:
           <span style="background:#1e40af; color:#fff; padding:2px 8px; border-radius:6px;">${curBooth}번 ${curProg.name}</span>
-          ${nextBooth ? ` → 다음 이동: <strong>${nextBooth}번</strong>` : ' (마지막 회차)'}
+          ${nextBooth ? ` → 다음: <strong>${nextBooth}번</strong>` : ' (완료)'}
         `;
       }
 
@@ -4076,17 +3947,15 @@
       const gridEl = document.getElementById("myPlaygroundGrid");
       const centerStatusHtml = isRound0
         ? `
-          <div style="background:#fef08a; border:2px solid #0284c7; border-radius:10px; padding:8px 12px; margin-top:4px; color:#0f172a; font-weight:800; box-shadow:0 2px 8px rgba(2,132,199,0.18);">
-            🚩 <strong style="color:#0369a1;">[0회차 전체집결 대열 (${round0Time})]</strong><br/>
-            꿈나무관을 바라보고 <strong>좌측에서 ${lineupOrd}번째 (${cls}반 2줄 정렬)</strong> 대기<br/>
-            <span style="color:#dc2626;">➔ 전체 안내사항 청취 후 <strong>1회차 [${firstBooth}번 부스: ${firstProg.name}]</strong>로 이동!</span>
+          <div style="background:#fef08a; border:2px solid #0284c7; border-radius:10px; padding:7px 10px; margin-top:4px; color:#0f172a; font-weight:800;">
+            🚩 <strong style="color:#0369a1;">[0회차 (${round0Time})]</strong> 꿈나무관 좌측 <strong>${lineupOrd}번째 (${cls}반 2줄)</strong>
+            <span style="color:#dc2626; display:block; margin-top:2px;">➔ 안내 후 <strong>1회차 [${firstBooth}번 ${firstProg.name}]</strong> 이동</span>
           </div>
         `
         : `
-          <div style="background:#dbeafe; border:2px solid #1d4ed8; border-radius:10px; padding:8px 12px; margin-top:4px; color:#0f172a; font-weight:800;">
-            🔬 현재 선택: <strong>${cls} · ${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong><br/>
-            <strong style="color:#1e40af; font-size:0.95rem;">[${curBooth}번 부스: ${curProg.name}]</strong> 체험 중
-            ${nextBooth ? `<span style="color:#dc2626; display:block; margin-top:2px;">➔ 종료 후 다음 이동: <strong>${nextBooth}번 부스(${programs[nextBooth - 1].name})</strong></span>` : '<span style="color:#059669; display:block; margin-top:2px;">🎉 12개 부스 전체 완주!</span>'}
+          <div style="background:#dbeafe; border:2px solid #1d4ed8; border-radius:10px; padding:7px 10px; margin-top:4px; color:#0f172a; font-weight:800;">
+            🔬 <strong>${cls} · ${mySelectedRound}회차 (${times[mySelectedRound - 1]})</strong> — <strong style="color:#1e40af;">[${curBooth}번 ${curProg.name}]</strong>
+            ${nextBooth ? `<span style="color:#dc2626; display:block; margin-top:2px;">➔ 다음: <strong>${nextBooth}번 (${programs[nextBooth - 1].name})</strong></span>` : '<span style="color:#059669; display:block; margin-top:2px;">🎉 12개 부스 완주!</span>'}
           </div>
         `;
 
@@ -4095,11 +3964,8 @@
           🏛️ 꿈나무관<br/><span style="font-size:0.72rem; font-weight:600;">(진행 본부)</span>
         </div>
         <div class="center-field-guide">
-          <div class="clockwise-arrow-banner">↻ 진행 방향: 꿈나무관 중심 시계 방향 (0회차: 꿈나무관 바라보고 좌측 ${low ? '1-1' : '4-1'}부터 2줄 정렬 → 1번→12번→1번)</div>
+          <div class="clockwise-arrow-banner">↻ 시계 방향 이동 (0회차: 꿈나무관 좌측 ${low ? '1-1' : '4-1'}부터 2줄 정렬 → 1번→12번→1번)</div>
           ${centerStatusHtml}
-          <div style="font-size:0.76rem; color:#64748b; margin-top:4px;">
-            (부스 카드를 클릭하거나 상단 0회~12회 버튼을 눌러 회차별 위치를 확인하세요)
-          </div>
         </div>
       `;
 
@@ -4163,12 +4029,12 @@
 
       if (isSim0) {
         document.getElementById("simRoundLabel").innerHTML = `
-          <strong>${groupTitle} · 0회차 (${round0Time})</strong> 운동장 전체집결 (꿈나무관을 바라보고 좌측부터 ${startCls}~${endCls} 2줄 정렬 후 1회차 부스 이동)
+          <strong>${groupTitle} · 0회차 (${round0Time})</strong> 전체집결 (꿈나무관 좌측 ${startCls}~${endCls} 2줄 정렬)
         `;
       } else {
         document.getElementById("simRoundLabel").innerHTML = `
-          <strong>${groupTitle} · ${simRound}회차 (${times[simRound - 1]})</strong> 부스별 배정 학급 현황
-          ${(simGroup === 'high' && simRound === 7) ? '<span style="color:#dc2626; margin-left:8px;">(※ 점심식사 직후 12:45 재집결 · 12:50 시작 위치)</span>' : ''}
+          <strong>${groupTitle} · ${simRound}회차 (${times[simRound - 1]})</strong> 부스별 배정 학급
+          ${(simGroup === 'high' && simRound === 7) ? '<span style="color:#dc2626; margin-left:6px;">(※ 12:45 점심 후 재집결 위치)</span>' : ''}
         `;
       }
 
@@ -4181,20 +4047,17 @@
       const selectedCls = getSelectedClassName();
       const effRound = isSim0 ? 1 : simRound;
       const simCenterText = isSim0
-        ? `<strong>${groupTitle} 0회차 (${round0Time})</strong> — 꿈나무관을 바라보고 좌측(${startCls})부터 우측 끝(${endCls})까지 2줄 정렬 후 아래 1회차 부스로 이동합니다.`
-        : `<strong>${groupTitle} ${simRound}회차 (${times[simRound - 1]})</strong> — 각 부스에 위치한 학급이 표시되어 있습니다.`;
+        ? `<strong>${groupTitle} 0회차 (${round0Time})</strong> — 꿈나무관 좌측(${startCls})~우측(${endCls}) 2줄 정렬 후 1회차 부스 이동`
+        : `<strong>${groupTitle} ${simRound}회차 (${times[simRound - 1]})</strong> — 부스 클릭 시 해당 학급 동선으로 이동`;
 
       let html = `
         <div class="guryeongdae">
           🏛️ 꿈나무관<br/><span style="font-size:0.72rem; font-weight:600;">(진행 본부)</span>
         </div>
         <div class="center-field-guide">
-          <div class="clockwise-arrow-banner">↻ 시계 방향 동시 이동 (0회차: 꿈나무관 바라보고 좌측 ${startCls}부터 2줄 정렬 → 1번→12번→1번)</div>
-          <div style="font-size:0.88rem; color:#1e293b; margin-top:4px;">
+          <div class="clockwise-arrow-banner">↻ 시계 방향 동시 이동 (0회차: 꿈나무관 좌측 ${startCls}부터 2줄 정렬 → 1번→12번→1번)</div>
+          <div style="font-size:0.86rem; color:#1e293b; margin-top:4px;">
             ${simCenterText}
-          </div>
-          <div style="font-size:0.78rem; color:#64748b;">
-            (부스를 클릭하면 해당 학급의 맞춤 동선 화면으로 바로 이동합니다)
           </div>
         </div>
       `;

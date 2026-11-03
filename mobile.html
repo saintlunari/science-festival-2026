@@ -643,14 +643,54 @@
       background: #ffffff;
       border: 2px solid #cbd5e1;
       border-radius: 12px;
-      padding: 10px 12px;
-      margin-bottom: 12px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
       box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
     }
 
     .m-sync-card.active-sync {
       border-color: #2563eb;
       background: linear-gradient(135deg, #eff6ff 0%, #ffffff 70%);
+    }
+
+    details.m-details {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+
+    details.m-details summary {
+      font-size: 0.86rem;
+      font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    details.m-details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.m-details summary::after {
+      content: "▼ 펼치기";
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #64748b;
+      background: #f1f5f9;
+      padding: 2px 7px;
+      border-radius: 99px;
+    }
+
+    details.m-details[open] summary::after {
+      content: "▲ 접기";
+      color: #1d4ed8;
+      background: #eff6ff;
     }
   </style>
 </head>
@@ -664,7 +704,7 @@
           <div class="m-sub">2026. 11. 12.(목) 공주교대부설초 <span class="m-dday-badge" id="mDdayBadge">D-Day</span></div>
           <div class="m-title">찾아가는 과학축제 모바일 가이드</div>
         </div>
-        <a href="index.html" class="pc-link-btn">💻 PC/인쇄 화면</a>
+        <a href="index.html" class="pc-link-btn">💻 PC/인쇄</a>
       </div>
 
       <!-- Grade Selector -->
@@ -694,33 +734,19 @@
 
       <!-- PANEL 1: 우리 반 동선 (HOME) -->
       <section id="mp-home" class="m-panel active">
-        <!-- Live Stepper Card -->
+        <!-- 1. Live Stepper Card -->
         <div class="now-card" id="mNowCard"></div>
 
-        <!-- Gathering Points Summary -->
-        <div class="gather-grid" id="mGatherGrid"></div>
-
-        <!-- Playground Initial Gathering & 2-Row Lineup Card (Round 0) -->
+        <!-- 2. Compact 4-Step Daily Summary & 0-Round Lineup -->
         <div class="m-card" id="mLineupCard"
-          style="background:linear-gradient(135deg,#eff6ff 0%,#f0fdf4 100%); border:2px solid #0284c7;"></div>
+          style="background:linear-gradient(135deg,#eff6ff 0%,#f0fdf4 100%); border:1.5px solid #0284c7;"></div>
 
-        <!-- Regular vs Festival Timetable Diff Alert Card -->
-        <div class="m-card" id="mDiffAlertCard" style="background:#fff1f2; border:2px solid #f43f5e;"></div>
-
-        <!-- Daily Timeline Summary -->
+        <!-- 3. 0~12 Rounds List -->
         <div class="m-card">
           <div class="m-card-title">
-            <span id="mTimelineHeader">🕒 우리 반 시간대별 일과 (기존 시정 비교)</span>
-          </div>
-          <div id="mTimelineList" style="display:flex; flex-direction:column; gap:8px; font-size:0.82rem;"></div>
-        </div>
-
-        <!-- 0~12 Rounds List -->
-        <div class="m-card">
-          <div class="m-card-title">
-            <span>📋 0회차(집결) 및 1~12회차 부스 이동 순서</span>
+            <span>📋 0~12회차 이동 순서</span>
             <span
-              style="font-size:0.74rem; color:#92400e; background:#fef3c7; padding:2px 7px; border-radius:99px;">🎁=결과물(4종)</span>
+              style="font-size:0.72rem; color:#92400e; background:#fef3c7; padding:2px 7px; border-radius:99px;">🎁=결과물(4종)</span>
           </div>
           <div id="mRoundList"></div>
         </div>
@@ -731,11 +757,8 @@
         <div class="m-card">
           <div class="m-card-title">
             <span>🧭 운동장 ㄷ자 부스 배치도</span>
-            <span style="font-size:0.75rem; color:#1d4ed8;">시계방향(1→12번)</span>
+            <span style="font-size:0.72rem; color:#1d4ed8;">시계방향 (12번→1번 이동)</span>
           </div>
-          <p style="font-size:0.78rem; color:#475569; margin-bottom:10px;">
-            꿈나무관을 중심으로 시계방향 회전합니다. <strong>12번(우측 하단) 종료 후에는 1번(좌측 하단)으로 이동</strong>합니다.
-          </p>
 
           <div style="display:flex; gap:6px; margin-bottom:10px; overflow-x:auto; padding-bottom:4px;"
             id="mMapRoundPills"></div>
@@ -743,130 +766,17 @@
           <div class="m-map-visual" id="mMapVisual"></div>
         </div>
 
-        <div class="m-card">
-          <div class="m-card-title">📍 선택한 회차의 전체 학급 배치</div>
-          <div id="mMapAllClassesList" style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.78rem;">
+        <details class="m-details">
+          <summary>📍 선택한 회차의 전체 학급 배치</summary>
+          <div id="mMapAllClassesList" style="display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:0.76rem; margin-top:10px;">
           </div>
-        </div>
+        </details>
       </section>
 
       <!-- PANEL 3: 전체 일정 및 조편성표 -->
       <section id="mp-all" class="m-panel">
-        <div class="m-card" style="background:#fff1f2; border:2px solid #f43f5e;">
-          <div class="m-card-title" style="color:#9f1239;">
-            <span>🚨 기존 수업 시간표 vs 당일 변경 시정</span>
-            <span
-              style="font-size:0.68rem; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:99px; border:1px solid #f87171;">시정·점심
-              주의</span>
-          </div>
-          <div style="font-size:0.76rem; color:#881337; margin-bottom:8px; font-weight:700;">
-            평소 정규 시정표 및 점심 종료 시각과 다른 구간을 꼭 확인하세요! (점심 시작 시각은 기존과 동일)
-          </div>
-
-          <div style="font-weight:900; font-size:0.8rem; color:#1e40af; margin-bottom:4px;">👦 저학년 (1~3학년) 변경 시간</div>
-          <table style="margin-bottom:10px;">
-            <thead>
-              <tr>
-                <th>구분</th>
-                <th>기존 시간표</th>
-                <th>과학축제 당일</th>
-                <th>핵심 차이점</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="background:#fff1f2;">
-                <td><strong>1~3교시</strong></td>
-                <td style="color:#64748b; font-size:0.7rem;">1교시 09:00~09:40<br />2교시 09:50~10:30<br />3교시 10:40~11:20
-                </td>
-                <td><strong style="color:#1e40af;">08:50~10:50</strong><br />(운동장 12부스)<br /><span style="font-size:0.68rem; color:#0369a1; font-weight:800;">※08:45 집결</span></td>
-                <td style="color:#b91c1c; font-weight:800; font-size:0.7rem;">08:45 조기 집결<br />10:50~11:20 정리·휴식</td>
-              </tr>
-              <tr style="background:#fff1f2;">
-                <td><strong>점심</strong></td>
-                <td><del style="color:#94a3b8;">11:20~12:20</del></td>
-                <td><strong style="color:#dc2626;">11:20~12:10</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 종료 10분 단축!<br />(12:05 강당착석)</td>
-              </tr>
-              <tr style="background:#fff1f2;">
-                <td><strong>4교시</strong></td>
-                <td><del style="color:#94a3b8;">12:20~13:00</del></td>
-                <td><strong style="color:#5b21b6;">12:10~13:00</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 10분 조기시작<br />(강당 공연 50분)</td>
-              </tr>
-              <tr>
-                <td><strong>5교시</strong></td>
-                <td>13:10~13:50</td>
-                <td><strong>13:10~13:50</strong></td>
-                <td style="color:#475569; font-size:0.7rem;">기존과 동일 (후 하교)</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div style="font-weight:900; font-size:0.8rem; color:#5b21b6; margin-bottom:4px;">🧑 고학년 (4~6학년) 변경 시간</div>
-          <table>
-            <thead>
-              <tr>
-                <th>구분</th>
-                <th>기존 시간표</th>
-                <th>과학축제 당일</th>
-                <th>핵심 차이점</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr style="background:#fff1f2;">
-                <td><strong>1교시</strong></td>
-                <td><del style="color:#94a3b8;">09:00~09:40</del></td>
-                <td><strong style="color:#5b21b6;">09:00~09:50</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 10분 연장!<br />쉬는시간 없음</td>
-              </tr>
-              <tr style="background:#fff1f2;">
-                <td><strong>2~3교시</strong></td>
-                <td>2교시 09:50~10:30<br /><del style="color:#94a3b8;">3교시 10:40~11:20</del></td>
-                <td><strong>09:50~11:05</strong><br /><strong style="color:#dc2626;">(11:05 0회차 집결)</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 3교시 15분 단축!<br />11:05 운동장 2줄정렬</td>
-              </tr>
-              <tr style="background:#fff1f2;">
-                <td><strong>4교시</strong></td>
-                <td><del style="color:#94a3b8;">11:30~12:10</del></td>
-                <td><strong style="color:#1e40af;">11:10~12:10</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 20분 조기시작<br />(운동장 1~6회차)</td>
-              </tr>
-              <tr style="background:#fff1f2;">
-                <td><strong>점심</strong></td>
-                <td><del style="color:#94a3b8;">12:10~13:10</del></td>
-                <td><strong style="color:#dc2626;">12:10~12:50</strong><br /><span style="font-size:0.68rem; color:#b45309; font-weight:900;">🍽️ 4학년 우선 식사</span></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 종료 20분 단축!<br />4학년 우선 배려 · 12:45 7회차집결</td>
-              </tr>
-              <tr style="background:#fff1f2;">
-                <td><strong>5~6교시</strong></td>
-                <td style="color:#94a3b8; font-size:0.7rem;"><del>5교시 13:10~13:50</del><br />6교시 14:00~14:40
-                </td>
-                <td><strong style="color:#1e40af;">12:50~13:50 (7~12회)</strong><br /><strong style="color:#047857;">4학년 13:50 하교</strong></td>
-                <td style="color:#dc2626; font-weight:900; font-size:0.7rem;">🚨 13:50 부스 완료<br />5·6학년 6교시 정상수업</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="m-card" style="background:#f0f9ff; border:2px solid #0284c7;">
-          <div class="m-card-title" style="color:#0369a1;">
-            <span>📢 운동장 0회차 집결 및 꿈나무관 기준 2줄 정렬</span>
-            <span
-              style="font-size:0.68rem; background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:99px; border:1px solid #38bdf8;">0회차
-              필독</span>
-          </div>
-          <div style="font-size:0.76rem; color:#0f172a; line-height:1.45;">
-            • 운동장 도착 시 <strong style="color:#dc2626;">바로 첫 번째 부스로 이동하지 않고</strong>, 먼저 <strong>[0회차] 운동장에 전체 집결하여 안내사항을 전달받은
-              후</strong> 각 부스로 이동합니다.<br />
-            • <strong>시작 5분 전 미리 도착</strong>: 저학년 0회차 <strong>08:45~08:50</strong> / 고학년 0회차 <strong>11:05~11:10</strong><br />
-            • <strong>저학년 0회차 정렬</strong>: <strong>꿈나무관을 바라보고 좌측 1-1반 ~ 우측 끝 3-4반</strong> 순서로 <strong>각 반별 2줄씩
-              정렬</strong><br />
-            • <strong>고학년 0회차 정렬</strong>: <strong>꿈나무관을 바라보고 좌측 4-1반 ~ 우측 끝 6-4반</strong> 순서로 <strong>각 반별 2줄씩 정렬</strong>
-          </div>
-        </div>
-
         <div class="m-card">
-          <div class="m-card-title">⏰ 전교생 통합 행사 일정 요약</div>
+          <div class="m-card-title">⏰ 전교생 통합 일정 요약</div>
           <table>
             <thead>
               <tr>
@@ -877,37 +787,117 @@
             </thead>
             <tbody>
               <tr>
-                <td><strong>08:45(0회차)</strong><br /><strong>08:50~09:50</strong></td>
-                <td rowspan="2" style="background:#eff6ff; font-weight:700;"><strong>[0회차] 08:45 꿈나무관 좌측부터 2줄</strong><br />안내 후
-                  운동장 부스<br />(08:50~10:50 완주)</td>
-                <td style="background:#f5f3ff; font-weight:700;">08:50 착석<br />강당 공연 1차<br />(09:00~09:50)</td>
+                <td><strong>08:45(0회)</strong><br /><strong>08:50~09:50</strong></td>
+                <td rowspan="2" style="background:#eff6ff; font-weight:700;"><strong>[0회] 08:45 2줄집결</strong><br />운동장 1~12회 완주<br />(08:50~10:50)</td>
+                <td style="background:#f5f3ff; font-weight:700;">08:50 강당착석<br />공연 1차(09:00~09:50)</td>
               </tr>
               <tr>
                 <td><strong>09:50~10:50</strong></td>
-                <td rowspan="2">교실 수업(09:50~11:05)<br /><strong>[0회차] 11:05 꿈나무관 좌측부터 2줄</strong><br />안내 후 1차 부스 이동</td>
+                <td rowspan="2">2·3교시(09:50~11:05)<br /><strong>[0회] 11:05 2줄집결</strong></td>
               </tr>
               <tr>
                 <td><strong>10:50~11:10</strong></td>
-                <td style="background:#f8fafc;">결과물 교실 보관<br />손 씻기·휴식(~11:20)</td>
+                <td style="background:#f8fafc;">결과물 정리·휴식</td>
               </tr>
               <tr>
                 <td><strong>11:10~12:10</strong></td>
-                <td style="background:#fffbeb; font-weight:700;">저학년 중식(11:20~12:10)<br />(12:05 강당착석)</td>
+                <td style="background:#fffbeb; font-weight:700;">중식(11:20~12:10)<br /><span style="color:#dc2626;">🚨12:05 강당착석</span></td>
                 <td style="background:#eff6ff; font-weight:700;">운동장 1차<br />(1~6회차 부스)</td>
               </tr>
               <tr>
                 <td><strong>12:10~12:50</strong></td>
-                <td style="background:#f5f3ff; font-weight:700;">강당 공연 2차<br />(12:10~13:00)</td>
-                <td style="background:#fffbeb; font-weight:700; color:#dc2626;">고학년 중식(40분)<br /><span style="color:#b45309;">🍽️ 4학년 우선 식사 배려</span><br />(12:45 7회차 집결)</td>
+                <td style="background:#f5f3ff; font-weight:700;">공연 2차<br />(12:10~13:00)</td>
+                <td style="background:#fffbeb; font-weight:700; color:#dc2626;">중식(🍽️4학년 우선)<br />🚨12:45 7회차집결</td>
               </tr>
               <tr>
                 <td><strong>12:50~13:50</strong></td>
-                <td>5교시(13:10~13:50)<br />정상 수업 후 하교</td>
-                <td style="background:#eff6ff; font-weight:700;">운동장 2차(7~12회)<br /><strong style="color:#047857;">4학년 13:50 하교</strong><br />5·6학년 6교시(14:00~)</td>
+                <td>5교시(13:10~13:50)<br />수업 후 하교</td>
+                <td style="background:#eff6ff; font-weight:700;">운동장 2차(7~12회)<br /><span style="color:#047857;">4학년 하교</span> / 5·6학년 6교시</td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <details class="m-details" style="border-color:#fda4af; background:#fff1f2;">
+          <summary style="color:#9f1239;">🚨 기존 정규 시정표 대비 변경 시간 비교</summary>
+          <div style="margin-top:10px;">
+            <div style="font-weight:900; font-size:0.78rem; color:#1e40af; margin-bottom:4px;">👦 저학년 (1~3학년)</div>
+            <table style="margin-bottom:8px;">
+              <thead>
+                <tr>
+                  <th>구분</th>
+                  <th>기존</th>
+                  <th>당일</th>
+                  <th>차이점</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>1~3교시</strong></td>
+                  <td>09:00~11:20</td>
+                  <td><strong style="color:#1e40af;">08:50~10:50</strong></td>
+                  <td style="color:#b91c1c; font-weight:800;">08:45 집결·연속진행</td>
+                </tr>
+                <tr style="background:#fff1f2;">
+                  <td><strong>점심</strong></td>
+                  <td><del>11:20~12:20</del></td>
+                  <td><strong style="color:#dc2626;">11:20~12:10</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">🚨10분 단축(12:05착석)</td>
+                </tr>
+                <tr style="background:#fff1f2;">
+                  <td><strong>4교시</strong></td>
+                  <td><del>12:20~13:00</del></td>
+                  <td><strong style="color:#5b21b6;">12:10~13:00</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">🚨10분 조기(공연)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div style="font-weight:900; font-size:0.78rem; color:#5b21b6; margin-bottom:4px;">🧑 고학년 (4~6학년)</div>
+            <table>
+              <thead>
+                <tr>
+                  <th>구분</th>
+                  <th>기존</th>
+                  <th>당일</th>
+                  <th>차이점</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="background:#fff1f2;">
+                  <td><strong>1교시</strong></td>
+                  <td><del>09:00~09:40</del></td>
+                  <td><strong style="color:#5b21b6;">09:00~09:50</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">🚨10분 연장(공연)</td>
+                </tr>
+                <tr style="background:#fff1f2;">
+                  <td><strong>2~3교시</strong></td>
+                  <td>09:50~11:20</td>
+                  <td><strong>09:50~11:05</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">🚨11:05 0회차집결</td>
+                </tr>
+                <tr style="background:#fff1f2;">
+                  <td><strong>4교시</strong></td>
+                  <td><del>11:30~12:10</del></td>
+                  <td><strong style="color:#1e40af;">11:10~12:10</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">🚨20분 조기(1~6회)</td>
+                </tr>
+                <tr style="background:#fff1f2;">
+                  <td><strong>점심</strong></td>
+                  <td><del>12:10~13:10</del></td>
+                  <td><strong style="color:#dc2626;">12:10~12:50</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">🚨4학년우선·12:45집결</td>
+                </tr>
+                <tr style="background:#fff1f2;">
+                  <td><strong>5~6교시</strong></td>
+                  <td>13:10~14:40</td>
+                  <td><strong style="color:#1e40af;">12:50~13:50</strong></td>
+                  <td style="color:#dc2626; font-weight:900;">4학년하교/5·6학년6교시</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
 
         <div class="m-card">
           <div class="m-card-title">
@@ -976,18 +966,18 @@
         </div>
 
         <div class="m-card">
-          <div class="m-card-title">👩‍🏫 교원 인솔 핵심 유의사항</div>
+          <div class="m-card-title">👩‍🏫 교원 인솔 핵심 요약</div>
           <ul
-            style="padding-left:18px; font-size:0.82rem; color:#334155; display:flex; flex-direction:column; gap:6px;">
-            <li><strong>[필독] 운동장 0회차 집결(5분 전) 및 꿈나무관 기준 2줄 정렬:</strong> 운동장 도착 시 바로 첫 부스로 가지 않고, <strong>먼저 [0회차] 운동장에 전체 집결(꿈나무관을 바라보고 저학년 08:45 좌측 1-1~우측 3-4 / 고학년 11:05 좌측 4-1~우측 6-4 순서로 각 반 2줄씩 정렬)</strong>하여 전체 안내사항을 전달받은 후 각 부스로 이동합니다.</li>
-            <li><strong>개인 가방 지참:</strong> 결과물 4종(3·6·9·12번 부스) 보관을 위한 에코백/비닐백(이름 표기) 지참</li>
-            <li><strong>동시 로테이션:</strong> 진행자 방송 안내에 따라 꿈나무관 기준 시계방향(1→12번) 이동</li>
-            <li><strong>고학년 중식 배려 및 12:45 재집결:</strong> 중식(12:10~12:50) 시 <strong>🍽️ 4학년부터 우선 식사할 수 있도록 5·6학년이 배려</strong>해 주시고, 식사 후 오전 첫 부스가 아닌 <strong>7회차 배정 부스</strong> 앞에서 시작 (13:50 종료 후 4학년 정상 하교 / 5·6학년 6교시 정상 수업)</li>
+            style="padding-left:16px; font-size:0.8rem; color:#334155; display:flex; flex-direction:column; gap:5px;">
+            <li><strong>0회차 2줄 집결:</strong> 부스 직행 금지! 꿈나무관 기준 좌측부터 반별 2줄 정렬 (저 08:45 / 고 11:05)</li>
+            <li><strong>개인 가방 지참:</strong> 결과물 4종(3·6·9·12번) 보관용 가방(이름 표기)</li>
+            <li><strong>시계방향 이동:</strong> 방송 신호에 맞춰 1→12번 동시 회전</li>
+            <li><strong>고학년 중식·오후:</strong> 12:10~12:50 (🍽️4학년 우선 식사) → <strong>12:45 7회차 부스 집결</strong> (13:50 종료 후 4학년 하교 / 5·6학년 6교시)</li>
           </ul>
         </div>
 
         <div class="m-card">
-          <div class="m-card-title">🔬 우리 학년군 1~12번 부스 실험 요약</div>
+          <div class="m-card-title">🔬 1~12번 부스 실험 및 과학 원리</div>
           <div id="mProgSummaryList" style="display:flex; flex-direction:column; gap:8px; font-size:0.8rem;"></div>
         </div>
       </section>
@@ -1147,8 +1137,8 @@
       const b1 = getBooth(clsName, 1);
       const ord = (low ? LOW_CLASSES : HIGH_CLASSES).indexOf(clsName) + 1;
       if (low) {
-        if (totalMins < 520) return { round: 0, badge: "0회차 준비", text: `[0회차] 08:45까지 운동장 전체 집결(꿈나무관 바라보고 좌측 ${ord}번째·2줄 정렬) → 안내 후 08:50 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동 예정` };
-        if (totalMins < 530) return { round: 0, badge: "🚩 0회차 집결(2줄)", text: `[0회차] 08:45까지 꿈나무관을 바라보고 좌측에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 08:50 1회차(${b1}번 ${LOW_PROGRAMS[b1 - 1].name}) 이동` };
+        if (totalMins < 520) return { round: 0, badge: "0회차 준비", text: `08:45 꿈나무관 좌측 ${ord}번째(2줄) 집결 예정 → 08:50 ${b1}번 이동` };
+        if (totalMins < 530) return { round: 0, badge: "🚩 0회차 집결", text: `지금 꿈나무관 좌측 ${ord}번째(2줄) 집결! → 08:50 ${b1}번(${LOW_PROGRAMS[b1 - 1].name}) 이동` };
         if (totalMins >= 530 && totalMins < 650) {
           let r = 1;
           for (let i = 0; i < 12; i++) {
@@ -1156,21 +1146,21 @@
           }
           const b = getBooth(clsName, r);
           const rem = LOW_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, badge: `🔬 ${r}회차 진행 중`, text: `현재 [${r}회차] ${b}번 ${LOW_PROGRAMS[b - 1].name} 체험 중 (약 ${rem}분 남음)` };
+          return { round: r, badge: `🔬 ${r}회차`, text: `${r}회차 · ${b}번 ${LOW_PROGRAMS[b - 1].name} (잔여 ${rem}분)` };
         }
-        if (totalMins < 680) return { round: 12, badge: "결과물 정리", text: `부스 체험 완료(10:50) · 결과물 4종 교실 보관·휴식 후 11:20 점심 이동` };
-        if (totalMins < 725) return { round: 12, badge: "🍱 점심(단축)", text: `저학년 점심식사 중 · 12:05까지 강당 지정석 착석!` };
-        if (totalMins < 730) return { round: 12, badge: "🎭 강당 착석", text: `12:05 강당 착석 완료 · 12:10 2차 공연 시작` };
-        if (totalMins < 780) return { round: 12, badge: "🎭 2차 공연 중", text: `강당 과학공연 2차 관람 중 (12:10~13:00)` };
-        if (totalMins < 830) return { round: 12, badge: "📚 5교시 수업", text: `과학축제 완료 · 13:10~13:50 5교시 정상 수업 후 하교` };
-        return { round: 0, badge: "✅ 일과 종료", text: `금일 저학년 과학축제 및 정규 일과가 종료되었습니다.` };
+        if (totalMins < 680) return { round: 12, badge: "정리·휴식", text: `부스 완료(10:50) · 결과물 보관 후 11:20 중식` };
+        if (totalMins < 725) return { round: 12, badge: "🍱 중식(단축)", text: `11:20~12:10 중식 · 12:05까지 강당 지정석 착석!` };
+        if (totalMins < 730) return { round: 12, badge: "🎭 강당 착석", text: `12:05 강당 착석 · 12:10 2차 공연 시작` };
+        if (totalMins < 780) return { round: 12, badge: "🎭 2차 공연", text: `강당 과학공연 관람 중 (12:10~13:00)` };
+        if (totalMins < 830) return { round: 12, badge: "📚 5교시", text: `13:10~13:50 5교시 수업 후 하교` };
+        return { round: 0, badge: "✅ 종료", text: `금일 과학축제 일정 완료` };
       } else {
         const b7 = getBooth(clsName, 7);
-        if (totalMins < 530) return { round: 0, badge: "강당 이동 준비", text: `08:50까지 강당 지정 좌석 착석 예정 (09:00 1차 공연)` };
-        if (totalMins < 540) return { round: 0, badge: "🎭 강당 착석", text: `08:50까지 강당 지정석 착석을 완료해 주세요!` };
-        if (totalMins < 590) return { round: 0, badge: "🎭 1차 공연 중", text: `강당 과학공연 1차 관람 중 (09:50 종료 후 즉시 2교시)` };
-        if (totalMins < 665) return { round: 0, badge: "📚 2·3교시 수업", text: `교실 수업 중 · 11:05까지 [0회차] 운동장 전체 집결(꿈나무관 바라보고 좌측 ${ord}번째·2줄 정렬)` };
-        if (totalMins < 670) return { round: 0, badge: "🚩 0회차 집결(2줄)!", text: `[0회차] 11:05까지 꿈나무관을 바라보고 좌측에서 ${ord}번째(${clsName}반)에 2줄 정렬! 안내 후 11:10 [${b1}번 ${HIGH_PROGRAMS[b1 - 1].name}] 이동` };
+        if (totalMins < 530) return { round: 0, badge: "강당 준비", text: `08:50 강당 지정석 착석 예정 (09:00 1차 공연)` };
+        if (totalMins < 540) return { round: 0, badge: "🎭 강당 착석", text: `08:50 강당 지정석 착석 완료!` };
+        if (totalMins < 590) return { round: 0, badge: "🎭 1차 공연", text: `09:00~09:50 강당 공연 (종료 후 즉시 2교시)` };
+        if (totalMins < 665) return { round: 0, badge: "📚 2·3교시", text: `교실 수업 중 · 11:05 운동장 0회차(좌측 ${ord}번째 2줄) 집결` };
+        if (totalMins < 670) return { round: 0, badge: "🚩 0회차 집결!", text: `11:05 꿈나무관 좌측 ${ord}번째(2줄) 집결! → 11:10 ${b1}번(${HIGH_PROGRAMS[b1 - 1].name})` };
         if (totalMins >= 670 && totalMins < 730) {
           let r = 1;
           for (let i = 0; i < 6; i++) {
@@ -1178,10 +1168,10 @@
           }
           const b = getBooth(clsName, r);
           const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, badge: `🔬 1차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (약 ${rem}분 남음)` };
+          return { round: r, badge: `🔬 1차 ${r}회차`, text: `${r}회차 · ${b}번 ${HIGH_PROGRAMS[b - 1].name} (잔여 ${rem}분)` };
         }
-        if (totalMins < 765) return { round: 7, badge: "🍱 점심·7회차 전환", text: `점심식사(12:10~12:50 · 🍽️4학년 우선 식사 배려 협조!) 중 · 12:45까지 오후 시작 부스인 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 재집결!` };
-        if (totalMins < 770) return { round: 7, badge: "🔔 2차 재집결!", text: `지금 오후 2차 시작 부스 [7회차: ${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 집결! (12:50 시작)` };
+        if (totalMins < 765) return { round: 7, badge: "🍱 중식·7회차", text: `12:10~12:50 중식(🍽️4학년 우선) → 12:45 7회차(${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}) 집결!` };
+        if (totalMins < 770) return { round: 7, badge: "🔔 7회차 집결!", text: `지금 7회차 [${b7}번 ${HIGH_PROGRAMS[b7 - 1].name}] 앞 집결! (12:50 시작)` };
         if (totalMins >= 770 && totalMins < 830) {
           let r = 7;
           for (let i = 6; i < 12; i++) {
@@ -1189,11 +1179,11 @@
           }
           const b = getBooth(clsName, r);
           const rem = HIGH_ROUND_RANGES[r - 1][1] - totalMins;
-          return { round: r, badge: `🔬 2차 ${r}회차 중`, text: `현재 [${r}회차] ${b}번 ${HIGH_PROGRAMS[b - 1].name} 체험 중 (약 ${rem}분 남음)` };
+          return { round: r, badge: `🔬 2차 ${r}회차`, text: `${r}회차 · ${b}번 ${HIGH_PROGRAMS[b - 1].name} (잔여 ${rem}분)` };
         }
-        if (grade === 4) return { round: 0, badge: "🎒 13:50 하교", text: `금일 4학년 과학축제 전 일정(13:50)이 완료되어 정상 하교합니다.` };
-        if (totalMins < 880) return { round: 12, badge: "📚 6교시 수업", text: `13:50 부스 완료 · 5·6학년은 14:00~14:40 6교시 정상 수업 후 하교합니다.` };
-        return { round: 0, badge: "✅ 일과 종료", text: `금일 고학년 과학축제 및 정규 수업 일과가 완료되었습니다.` };
+        if (grade === 4) return { round: 0, badge: "🎒 13:50 하교", text: `13:50 4학년 과학축제 완료 및 하교` };
+        if (totalMins < 880) return { round: 12, badge: "📚 6교시", text: `13:50 부스 완료 · 14:00~14:40 6교시 수업` };
+        return { round: 0, badge: "✅ 종료", text: `금일 과학축제 일정 완료` };
       }
     }
 
@@ -1473,69 +1463,44 @@
 
       let specialMoveNotice = "";
       if (isRound0) {
-        specialMoveNotice = `<div style="background:#fef08a; color:#0f172a; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🚩 [0회차] 바로 부스로 가지 않고 꿈나무관을 바라보고 좌측부터 ${low ? '1-1반' : '4-1반'} 순으로 각 반 2줄 정렬! 안내 후 [${b1}번 ${progs[b1 - 1].name}] 부스로 이동합니다.</div>`;
+        specialMoveNotice = `<div style="background:#fef08a; color:#0f172a; padding:7px 10px; border-radius:8px; font-size:0.76rem; font-weight:800; margin-bottom:8px;">🚩 부스 직행 금지! 꿈나무관 기준 좌측 ${lineupOrd}번째(2줄 정렬) 집결 → 안내 후 ${b1}번 이동</div>`;
       } else if (!low && mRound === 6) {
-        specialMoveNotice = `<div style="background:#fef3c7; color:#92400e; padding:8px 10px; border-radius:8px; font-size:0.78rem; font-weight:800; margin-bottom:10px;">🍱 6회차 종료 후 점심식사(12:10~12:50) 시간입니다! 🍽️ 4학년부터 우선 식사할 수 있도록 배려해 주시고, 식사 후 12:45까지 7회차 [${b7}번 ${progs[b7 - 1].name}] 앞으로 집결하세요.</div>`;
+        specialMoveNotice = `<div style="background:#fef3c7; color:#92400e; padding:7px 10px; border-radius:8px; font-size:0.76rem; font-weight:800; margin-bottom:8px;">🍱 6회차 후 중식(12:10~12:50 · 🍽️4학년 우선 식사) → 12:45 7회차(${b7}번) 집결!</div>`;
       } else if (curBooth === 12 && mRound < 12) {
-        specialMoveNotice = `<div style="background:#fee2e2; color:#991b1b; padding:7px 10px; border-radius:8px; font-size:0.76rem; font-weight:800; margin-bottom:10px;">⚠️ 12번 부스(우측 하단) 종료 후에는 운동장 반대편 1번 부스(좌측 하단)로 이동합니다!</div>`;
+        specialMoveNotice = `<div style="background:#fee2e2; color:#991b1b; padding:7px 10px; border-radius:8px; font-size:0.76rem; font-weight:800; margin-bottom:8px;">⚠️ 12번(우측 하단) 종료 후 → 반대편 1번(좌측 하단)으로 이동!</div>`;
       }
 
       const mainNowBoxHtml = isRound0 ? `
         <div class="now-main-booth">
-          <div class="now-booth-num">현재 우리 반 위치 (🚩 0회차 운동장 전체집결 · 2줄 정렬)</div>
-          <div class="now-booth-name">꿈나무관 바라보고 좌측 ${lineupOrd}번째 (${cls}반)</div>
-          <div class="now-booth-desc">꿈나무관을 바라보고 좌측(${low ? '1-1반' : '4-1반'})부터 순서대로 2줄 정렬 후 전체 안내 청취</div>
+          <div class="now-booth-num">현재 위치 · 🚩 0회차 전체집결 (2줄 정렬)</div>
+          <div class="now-booth-name">꿈나무관 좌측 ${lineupOrd}번째 (${cls}반)</div>
+          <div class="now-booth-desc">좌측(${low ? '1-1반' : '4-1반'})부터 반별 2줄 정렬 후 안내 청취</div>
         </div>
       ` : `
         <div class="now-main-booth">
-          <div class="now-booth-num">현재 우리 반 위치 (${curProg.type === '결과물' ? '🎁 결과물 보관 필요' : '🧪 체험활동'})</div>
+          <div class="now-booth-num">현재 위치 (${curProg.type === '결과물' ? '🎁 결과물 보관' : '🧪 체험활동'})</div>
           <div class="now-booth-name">${curBooth}번 — ${curProg.name}</div>
-          <div class="now-booth-desc">과학 원리: ${curProg.principle}</div>
+          <div class="now-booth-desc">원리: ${curProg.principle}</div>
         </div>
       `;
 
       document.getElementById("mNowCard").innerHTML = `
         <div class="now-top">
-          <span class="now-badge">${mGrade}학년 ${mCls}반 · ${isRound0 ? '0회차(전체집결)' : `${mRound}회차`}</span>
+          <span class="now-badge">${mGrade}학년 ${mCls}반 · ${isRound0 ? '0회차(집결)' : `${mRound}회차`}</span>
           <span class="now-time">🕒 ${isRound0 ? round0Time : times[mRound - 1]}</span>
         </div>
         ${mainNowBoxHtml}
         ${specialMoveNotice}
         <div class="now-next-bar">
-          <span>${isRound0 ? '안내 후 1회차 이동 부스:' : '다음 이동 부스:'}</span>
-          <strong>${nextBooth ? `→ ${nextBooth}번 (${nextProg.name})` : '🎉 12개 부스 전체 완주!'}</strong>
+          <span>${isRound0 ? '1회차 이동:' : '다음 부스:'}</span>
+          <strong>${nextBooth ? `→ ${nextBooth}번 (${nextProg.name})` : '🎉 12개 부스 완주!'}</strong>
         </div>
         <div class="stepper-controls">
-          <button type="button" class="step-nav-btn" onclick="changeRound(-1)">◀ 이전 회차</button>
+          <button type="button" class="step-nav-btn" onclick="changeRound(-1)">◀ 이전</button>
           <select class="step-select" onchange="setRoundDirect(this.value)">${optionsHtml}</select>
-          <button type="button" class="step-nav-btn" onclick="changeRound(1)">다음 회차 ▶</button>
+          <button type="button" class="step-nav-btn" onclick="changeRound(1)">다음 ▶</button>
         </div>
       `;
-
-      // 2. Gathering Points & 2-Line Lineup Card (Round 0)
-      if (low) {
-        document.getElementById("mGatherGrid").innerHTML = `
-          <div class="gather-box warn">
-            <div class="gather-label">① [0회차] 08:45 꿈나무관 기준</div>
-            <div class="gather-val">좌측 ${lineupOrd}번째(2줄) → ${b1}번</div>
-          </div>
-          <div class="gather-box">
-            <div class="gather-label">🎭 12:05 강당 공연 착석</div>
-            <div class="gather-val">12:10~13:00 관람</div>
-          </div>
-        `;
-      } else {
-        document.getElementById("mGatherGrid").innerHTML = `
-          <div class="gather-box">
-            <div class="gather-label">① [0회차] 11:05 꿈나무관 기준</div>
-            <div class="gather-val">좌측 ${lineupOrd}번째(2줄) → ${b1}번</div>
-          </div>
-          <div class="gather-box warn">
-            <div class="gather-label">🔔 12:45 점심 후 7회차 재집결</div>
-            <div class="gather-val">${b7}번 ${progs[b7 - 1].name}</div>
-          </div>
-        `;
-      }
 
       const b6 = getBooth(cls, 6);
       const b12 = getBooth(cls, 12);
@@ -1544,167 +1509,95 @@
       const lineupStripHtml = grpClasses.map((cName, idx) => {
         const isMe = cName === cls;
         return `
-          <div onclick="selectMClassFromTable('${cName}', 0)" style="cursor:pointer; min-width:54px; padding:6px 3px; border-radius:8px; text-align:center; border:${isMe ? '2px solid #0284c7' : '1px solid #cbd5e1'}; background:${isMe ? '#fef08a' : '#fff'}; flex-shrink:0;">
-            <div style="font-size:0.6rem; font-weight:800; color:${isMe ? '#0369a1' : '#64748b'};">${idx === 0 ? '⬅️좌측끝' : (idx === 11 ? '우측끝➡️' : `좌${idx + 1}`)}</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">${cName}반</div>
-            <div style="font-size:0.62rem; font-weight:800; color:#1d4ed8;">|| 2줄</div>
+          <div onclick="selectMClassFromTable('${cName}', 0)" style="cursor:pointer; min-width:52px; padding:5px 3px; border-radius:8px; text-align:center; border:${isMe ? '2px solid #0284c7' : '1px solid #cbd5e1'}; background:${isMe ? '#fef08a' : '#fff'}; flex-shrink:0;">
+            <div style="font-size:0.58rem; font-weight:800; color:${isMe ? '#0369a1' : '#64748b'};">${idx === 0 ? '⬅️좌1' : (idx === 11 ? '우12➡️' : `좌${idx + 1}`)}</div>
+            <div style="font-size:0.76rem; font-weight:900; color:#0f172a; margin:1px 0;">${cName}</div>
+            <div style="font-size:0.6rem; font-weight:800; color:#1d4ed8;">2줄</div>
           </div>
         `;
       }).join("");
 
       const mStepCardsHtml = low ? `
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
-          <div onclick="jumpMRound(0)" style="cursor:pointer; background:${mRound === 0 ? '#fef08a' : '#fff'}; border:${mRound === 0 ? '2px solid #0284c7' : '1.5px solid #0284c7'}; box-shadow:${mRound === 0 ? '0 0 0 2px rgba(2,132,199,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#0284c7;">STEP 1 · 08:45 (0회차) ${mRound === 0 ? '✓선택됨' : '👆'}</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🚩 꿈나무관 좌측 ${lineupOrd}번째</div>
-            <div style="font-size:0.68rem; color:#475569;">개인 가방 지참 · <strong>2줄 정렬</strong> (부스 직행 금지!)</div>
+        <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px;">
+          <div onclick="jumpMRound(0)" style="cursor:pointer; background:${mRound === 0 ? '#fef08a' : '#fff'}; border:1.5px solid #0284c7; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.65rem; font-weight:900; color:#0284c7;">① 08:45 (0회차)</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a;">🚩 좌측 ${lineupOrd}번째 2줄</div>
+            <div style="font-size:0.66rem; color:#475569;">가방 지참 · 부스 직행 금지</div>
           </div>
-          <div onclick="jumpMRound(1)" style="cursor:pointer; background:${mRound === 1 ? '#fef08a' : '#fff'}; border:${mRound === 1 ? '2px solid #059669' : '1.5px solid #059669'}; box-shadow:${mRound === 1 ? '0 0 0 2px rgba(5,150,105,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#059669;">STEP 2 · 08:50~10:50 ${mRound === 1 ? '✓선택됨' : '👆'}</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🔬 [${b1}번] ${progs[b1 - 1].name}</div>
-            <div style="font-size:0.68rem; color:#475569;">안내 후 첫 부스 이동 → ${b12}번까지 12부스 완주</div>
+          <div onclick="jumpMRound(1)" style="cursor:pointer; background:${mRound === 1 ? '#fef08a' : '#fff'}; border:1.5px solid #059669; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.65rem; font-weight:900; color:#059669;">② 08:50~10:50</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a;">🔬 ${b1}번 → ${b12}번 완주</div>
+            <div style="font-size:0.66rem; color:#475569;">10분씩 12부스 연속</div>
           </div>
           <div onclick="switchMPanel('mp-aud')" style="cursor:pointer; background:#fff; border:1.5px solid #d97706; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 3 · 11:20~12:10 👆</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#dc2626; margin:2px 0;">🍱 점심 종료 10분 단축!</div>
-            <div style="font-size:0.68rem; color:#475569;">식사 후 <strong>12:05까지 강당(좌측 ${audCol}열) 착석</strong></div>
+            <div style="font-size:0.65rem; font-weight:900; color:#d97706;">③ 11:20~12:10 (🚨단축)</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#dc2626;">🍱 중식 · 12:05 착석</div>
+            <div style="font-size:0.66rem; color:#475569;">강당 좌측 ${audCol}열 착석</div>
           </div>
           <div onclick="switchMPanel('mp-aud')" style="cursor:pointer; background:#fff; border:1.5px solid #7c3aed; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#7c3aed;">STEP 4 · 12:10~13:50 👆</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🎭 과학공연 & 5교시</div>
-            <div style="font-size:0.68rem; color:#475569;">12:10~13:00 공연 관람 → 13:10 5교시 수업</div>
+            <div style="font-size:0.65rem; font-weight:900; color:#7c3aed;">④ 12:10~13:50</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a;">🎭 공연 & 5교시</div>
+            <div style="font-size:0.66rem; color:#475569;">12:10 공연 · 13:10 5교시</div>
           </div>
         </div>
       ` : `
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:8px;">
+        <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px;">
           <div onclick="switchMPanel('mp-aud')" style="cursor:pointer; background:#fff; border:1.5px solid #7c3aed; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#7c3aed;">STEP 1 · 08:50~11:05 👆</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🎭 1차 공연 & 2·3교시</div>
-            <div style="font-size:0.68rem; color:#475569;">08:50 강당(좌${audCol}열) → 09:50~11:05 교실수업</div>
+            <div style="font-size:0.65rem; font-weight:900; color:#7c3aed;">① 08:50~11:05</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a;">🎭 공연 & 2·3교시</div>
+            <div style="font-size:0.66rem; color:#475569;">강당 좌${audCol}열 → 11:05 종료</div>
           </div>
-          <div onclick="jumpMRound(0)" style="cursor:pointer; background:${mRound === 0 ? '#fef08a' : '#fff'}; border:${mRound === 0 ? '2px solid #0284c7' : '1.5px solid #0284c7'}; box-shadow:${mRound === 0 ? '0 0 0 2px rgba(2,132,199,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#0284c7;">STEP 2 · 11:05 (0회차) ${mRound === 0 ? '✓선택됨' : '👆'}</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🚩 꿈나무관 좌측 ${lineupOrd}번째</div>
-            <div style="font-size:0.68rem; color:#475569;">개인 가방 지참 · <strong>2줄 정렬</strong> (부스 직행 금지!)</div>
+          <div onclick="jumpMRound(0)" style="cursor:pointer; background:${mRound === 0 ? '#fef08a' : '#fff'}; border:1.5px solid #0284c7; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.65rem; font-weight:900; color:#0284c7;">② 11:05 (0회차)</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a;">🚩 좌측 ${lineupOrd}번째 2줄</div>
+            <div style="font-size:0.66rem; color:#475569;">가방 지참 · 부스 직행 금지</div>
           </div>
-          <div onclick="jumpMRound(1)" style="cursor:pointer; background:${mRound === 1 ? '#fef08a' : '#fff'}; border:${mRound === 1 ? '2px solid #059669' : '1.5px solid #059669'}; box-shadow:${mRound === 1 ? '0 0 0 2px rgba(5,150,105,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#059669;">STEP 3 · 11:10~12:10 ${mRound === 1 ? '✓선택됨' : '👆'}</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#0f172a; margin:2px 0;">🔬 [${b1}번] ${progs[b1 - 1].name}</div>
-            <div style="font-size:0.68rem; color:#475569;">안내 후 첫 부스 이동 → ${b6}번까지 오전 6부스</div>
+          <div onclick="jumpMRound(1)" style="cursor:pointer; background:${mRound === 1 ? '#fef08a' : '#fff'}; border:1.5px solid #059669; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.65rem; font-weight:900; color:#059669;">③ 11:10~12:10 (1차)</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#0f172a;">🔬 ${b1}번 → ${b6}번 (6부스)</div>
+            <div style="font-size:0.66rem; color:#475569;">12:10 중식 (🍽️4학년 우선)</div>
           </div>
-          <div onclick="jumpMRound(7)" style="cursor:pointer; background:${mRound === 7 ? '#fef08a' : '#fff'}; border:${mRound === 7 ? '2px solid #d97706' : '1.5px solid #d97706'}; box-shadow:${mRound === 7 ? '0 0 0 2px rgba(217,119,6,0.25)' : 'none'}; border-radius:9px; padding:7px 8px;">
-            <div style="font-size:0.66rem; font-weight:900; color:#d97706;">STEP 4 · 12:10~13:50 ${mRound === 7 ? '✓선택됨' : '👆'}</div>
-            <div style="font-size:0.78rem; font-weight:900; color:#dc2626; margin:2px 0;">🔔 12:45 [${b7}번] 재집결</div>
-            <div style="font-size:0.68rem; color:#475569;">점심(<strong>🍽️4학년 우선 식사 배려</strong>) 후 ${b7}번~${b12}번 완주</div>
+          <div onclick="jumpMRound(7)" style="cursor:pointer; background:${mRound === 7 ? '#fef08a' : '#fff'}; border:1.5px solid #d97706; border-radius:9px; padding:7px 8px;">
+            <div style="font-size:0.65rem; font-weight:900; color:#d97706;">④ 12:45 재집결 (2차)</div>
+            <div style="font-size:0.78rem; font-weight:900; color:#dc2626;">🔔 7회차 [${b7}번] 집결</div>
+            <div style="font-size:0.66rem; color:#475569;">13:50 종료 (${mGrade === 4 ? '4학년 하교' : '6교시 수업'})</div>
           </div>
         </div>
       `;
 
       document.getElementById("mLineupCard").innerHTML = `
-        <div style="font-weight:900; font-size:0.86rem; color:#0369a1; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
-          <span>👩‍🏫 [${cls}반] 담임선생님 핵심 인솔 4단계 & 0회차 정렬</span>
-          <span style="font-size:0.68rem; background:#dc2626; color:#fff; padding:2px 7px; border-radius:99px;">🚫 도착 즉시 부스 직행 금지!</span>
+        <div style="font-weight:900; font-size:0.84rem; color:#0369a1; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:4px;">
+          <span>🗓️ [${cls}반] 당일 핵심 일과 (4단계 요약)</span>
+          <span style="font-size:0.66rem; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:99px; font-weight:800;">터치 시 이동</span>
         </div>
         ${mStepCardsHtml}
-        <div style="background:#0f172a; color:#fde68a; font-size:0.7rem; font-weight:800; text-align:center; padding:5px 8px; border-radius:6px; margin-bottom:6px;">
-          🏛️ 정면 기준: 꿈나무관 (⬅️ 꿈나무관을 바라보고 좌측 ${low ? '1-1반' : '4-1반'}부터 2줄 정렬 ➡️)
-        </div>
-        <div style="display:flex; gap:5px; overflow-x:auto; padding-bottom:4px; -webkit-overflow-scrolling:touch;">
-          ${lineupStripHtml}
-        </div>
+        <details style="margin-top:8px; background:#fff; border:1px solid #bae6fd; border-radius:8px; padding:6px 8px;">
+          <summary style="font-size:0.74rem; font-weight:800; color:#0369a1; cursor:pointer;">🚩 0회차 꿈나무관 기준 12학급 2줄 정렬 순서 보기</summary>
+          <div style="display:flex; gap:5px; overflow-x:auto; padding:6px 0 2px; -webkit-overflow-scrolling:touch;">
+            ${lineupStripHtml}
+          </div>
+        </details>
       `;
 
-      // 2.5 Regular vs Festival Diff Alert Card
-      if (low) {
-        document.getElementById("mDiffAlertCard").innerHTML = `
-          <div style="font-weight:900; font-size:0.88rem; color:#9f1239; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
-            <span>🚨 [${cls}반] 기존 수업 시간표와 다른 시간!</span>
-            <span style="font-size:0.68rem; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:99px; border:1px solid #f87171;">필독</span>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:5px; font-size:0.78rem; color:#0f172a;">
-            <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1px solid #fda4af;">
-              • <strong>1~3교시 부스(08:50~10:50)</strong>: 08:45 집결 후 10분씩 12부스 연속 진행 · <strong>10:50~11:20 교실 정리·휴식!</strong>
-            </div>
-            <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1.5px solid #dc2626;">
-              • <strong style="color:#dc2626;">점심 종료 10분 단축</strong>: <del style="color:#94a3b8;">기존 11:20~12:20</del> → <strong>당일 11:20~12:10 (12:05 강당 착석 완료!)</strong>
-            </div>
-            <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1.5px solid #7c3aed;">
-              • <strong style="color:#5b21b6;">4교시 10분 조기 시작</strong>: <del style="color:#94a3b8;">기존 12:20~13:00</del> → <strong>당일 12:10~13:00 (강당 공연 50분)</strong>
-            </div>
-          </div>
-        `;
-      } else {
-        document.getElementById("mDiffAlertCard").innerHTML = `
-          <div style="font-weight:900; font-size:0.88rem; color:#9f1239; margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
-            <span>🚨 [${cls}반] 기존 수업 시간표와 다른 시간!</span>
-            <span style="font-size:0.68rem; background:#fee2e2; color:#b91c1c; padding:2px 6px; border-radius:99px; border:1px solid #f87171;">필독</span>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:5px; font-size:0.78rem; color:#0f172a;">
-            <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1.5px solid #7c3aed;">
-              • <strong style="color:#5b21b6;">1교시 10분 연장 · 3교시 15분 단축(11:05 종료)</strong>: 09:00~09:50 공연 후 2·3교시 수업 → <strong>11:05 운동장 0회차 2줄 정렬!</strong>
-            </div>
-            <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1.5px solid #dc2626;">
-              • <strong style="color:#dc2626;">점심 종료 20분 단축 & 🍽️ 4학년 우선 식사 배려</strong>: <del style="color:#94a3b8;">기존 12:10~13:10</del> → <strong>당일 12:10~12:50 (4학년부터 우선 식사할 수 있도록 배려 협조 · 12:45까지 7회차 ${b7}번 부스 재집결!)</strong>
-            </div>
-            <div style="background:#fff; padding:6px 8px; border-radius:8px; border:1px solid #fda4af;">
-              • <strong style="color:#1e40af;">2차 부스 12:50~13:50 완주</strong>: <strong>${mGrade === 4 ? '13:50 부스 종료 후 4학년 정상 하교!' : '13:50 종료 후 14:00~14:40 6교시 정상 수업!'}</strong>
-            </div>
-          </div>
-        `;
-      }
-
-      // 3. Timeline
-      if (low) {
-        document.getElementById("mTimelineList").innerHTML = `
-          <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
-            • <strong>[0회차] 08:45~08:50 집결</strong> : 🚩 <strong>운동장 전체 집결(꿈나무관을 바라보고 좌측 1-1반~우측 3-4반, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내사항 전달 후 <strong>1회차 ${b1}번 부스</strong>로 이동!
-          </div>
-          <div>• <strong>08:50~10:50</strong> : 운동장 1~12회차 부스 <span style="color:#b45309; font-weight:800;">(10분씩 연속 진행 · 10:50~11:20 교실 정리·휴식)</span></div>
-          <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
-            • <strong>11:20~12:10</strong> : 🍱 <strong>저학년 점심식사</strong> <span style="color:#dc2626; font-weight:900;">[🚨기존 ~12:20 대비 종료 10분 단축! 12:05 강당 착석]</span>
-          </div>
-          <div style="background:#f5f3ff; padding:5px 7px; border-radius:6px; border-left:3px solid #7c3aed;">
-            • <strong>12:10~13:00</strong> : 🎭 <strong>강당 과학공연 2차</strong> <span style="color:#5b21b6; font-weight:900;">[🚨기존 4교시 12:20보다 10분 조기 시작!]</span>
-          </div>
-          <div>• <strong>13:10~13:50</strong> : 📚 <strong>5교시 정상 수업 후 하교</strong> (기존 시간표와 동일)</div>
-        `;
-      } else {
-        document.getElementById("mTimelineList").innerHTML = `
-          <div style="background:#f5f3ff; padding:5px 7px; border-radius:6px; border-left:3px solid #7c3aed;">
-            • <strong>09:00~09:50</strong> : 🎭 <strong>강당 과학공연 1차</strong> <span style="color:#5b21b6; font-weight:900;">[🚨기존 1교시 ~09:40보다 10분 연장·쉬는시간 없음]</span>
-          </div>
-          <div style="background:#f0f9ff; padding:5px 7px; border-radius:6px; border-left:3px solid #0284c7;">
-            • <strong>09:50~11:05 수업 후 [0회차] 11:05 집결</strong> : 🚩 <strong>운동장 전체 집결(꿈나무관을 바라보고 좌측 4-1반~우측 6-4반, ${cls}반은 좌측 ${lineupOrd}번째 2줄 정렬)</strong> → 전체 안내 후 <strong>1회차 ${b1}번 부스</strong>로 이동!
-          </div>
-          <div>• <strong>11:10~12:10</strong> : 🔬 <strong>운동장 1차 체험</strong> (1~6회차, ${b1}번~${b6}번 부스 10분씩 6개)</div>
-          <div style="background:#fff1f2; padding:5px 7px; border-radius:6px; border-left:3px solid #dc2626;">
-            • <strong>12:10~12:50</strong> : 🍱 <strong>고학년 점심식사 (🍽️ 4학년 우선 식사 배려 협조!)</strong> <span style="color:#dc2626; font-weight:900;">[🚨종료 20분 단축! 12:45 7회차 ${b7}번 부스 재집결]</span>
-          </div>
-          <div style="background:#eff6ff; padding:5px 7px; border-radius:6px; border-left:3px solid #1d4ed8;">
-            • <strong>12:50~13:50</strong> : 🔬 <strong>운동장 2차 체험 (7~12회차)</strong> <span style="color:#1e40af; font-weight:900;">[${mGrade === 4 ? '★13:50 종료 후 4학년 정상 하교!' : '13:50 종료 → 14:00~14:40 6교시 정상 수업'}]</span>
-          </div>
-        `;
-      }
-
-      // 4. 0~12 Rounds List
+      // 3. 0~12 Rounds List (Compact 1-line without principle text)
       let rListHtml = `
         <div class="m-round-item ${isRound0 ? 'active-row' : ''}" style="background:${isRound0 ? '#eff6ff' : '#f0f9ff'}; border-color:${isRound0 ? '#1d4ed8' : '#7dd3fc'};" onclick="setRoundDirect(0)">
           <div class="m-round-left">
             <span class="m-r-num" style="color:#0369a1;">0회차</span>
             <span class="m-b-badge" style="background:#0284c7;">집결</span>
             <div class="m-prog-info">
-              <div class="p-name">운동장 전체집결 · 2줄 정렬 🚩</div>
-              <div class="p-time">${round0Time} · 꿈나무관을 바라보고 좌측 ${lineupOrd}번째(${cls}반) 2줄 정렬 후 안내 청취</div>
+              <div class="p-name">운동장 2줄 정렬 (좌측 ${lineupOrd}번째) 🚩</div>
+              <div class="p-time">${round0Time}</div>
             </div>
           </div>
-          <div style="font-size:0.75rem; font-weight:800; color:#0369a1;">
+          <div style="font-size:0.74rem; font-weight:800; color:#0369a1; flex-shrink:0;">
             → ${b1}번
           </div>
         </div>
       `;
       for (let r = 1; r <= 12; r++) {
         if (!low && r === 7) {
-          rListHtml += `<div class="lunch-banner-mobile">🍱 12:10~12:50 점심시간 (🍽️ 4학년부터 우선 식사할 수 있도록 배려 협조!) — 식사 후 12:45까지 아래 7회차 [${b7}번 ${progs[b7 - 1].name}] 앞으로 재집결!</div>`;
+          rListHtml += `<div class="lunch-banner-mobile">🍱 12:10~12:50 중식 (🍽️4학년 우선) · 12:45 [${b7}번 ${progs[b7 - 1].name}] 집결!</div>`;
         }
         const b = getBooth(cls, r);
         const p = progs[b - 1];
@@ -1715,10 +1608,10 @@
               <span class="m-b-badge">${b}번</span>
               <div class="m-prog-info">
                 <div class="p-name">${p.name} ${p.type === '결과물' ? '🎁' : ''}</div>
-                <div class="p-time">${times[r - 1]} · ${p.principle}</div>
+                <div class="p-time">${times[r - 1]}</div>
               </div>
             </div>
-            <div style="font-size:0.75rem; font-weight:800; color:#475569;">
+            <div style="font-size:0.74rem; font-weight:800; color:#475569; flex-shrink:0;">
               ${r < 12 ? `→ ${(b % 12) + 1}번` : '완료'}
             </div>
           </div>
